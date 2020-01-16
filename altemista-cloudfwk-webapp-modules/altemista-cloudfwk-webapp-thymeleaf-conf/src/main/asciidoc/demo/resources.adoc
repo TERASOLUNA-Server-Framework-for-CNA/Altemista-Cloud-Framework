@@ -1,0 +1,4 @@
+
+:fragment:
+
+You can see the demonstration code of a boot or web aplication project here: link:resources/altemista-cloudfwk-documentation/acf-thymeleaf-demo.zip[ThymeleafExample^]. 

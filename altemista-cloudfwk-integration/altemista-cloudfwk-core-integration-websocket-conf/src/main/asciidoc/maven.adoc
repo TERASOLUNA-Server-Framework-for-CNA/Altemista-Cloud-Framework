@@ -1,0 +1,37 @@
+
+:fragment:
+
+To manually install the {framework} Integration Websocket feature, add the following dependencies to the pom.xml file of a core project of your application:
+
+[source,xml,options="nowrap"]
+./my-application-module-core/pom.xml
+----
+<dependency>
+    <groupId>org.altemista.cloudfwk.integration</groupId>
+    <artifactId>altemista-cloudfwk-core-integration-websocket-conf</artifactId> <!--1-->
+</dependency>
+----
+<1> {framework} Integration Websocket feature dependencies.
+
+[source,xml,options="nowrap"]
+./my-application-module-core/src/main/resources/spring/my-application-module-core-integration-websocket.xml
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:websocket="http://www.springframework.org/schema/integration/websocket"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/websocket
+			http://www.springframework.org/schema/integration/websocket/spring-integration-websocket.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="com.mycompany.application.module.websocket.config"/> <!--1-->
+
+</beans>
+----
+<1> *OPTIONAL*: Component scan configuration classes package if needed.

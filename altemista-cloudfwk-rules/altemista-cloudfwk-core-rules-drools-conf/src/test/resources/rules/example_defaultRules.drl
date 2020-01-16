@@ -1,0 +1,24 @@
+/*
+ * This rules are not explicitly referenced, but loaded by the defaultKieBase due the empty META-INF/kmodule.xml
+ */
+
+// Please note this package declaration only acts as a namespace for the rule names;
+// the packages property of the <kbase> element in kmodule.xml files points to the location of the DRLs
+package defaultRules;
+
+import org.altemista.cloudfwk.test.rules.model.DummyBean;
+
+
+rule "always"
+	when
+		$i : DummyBean( true );
+	then
+		$i.addMessage("default rules");
+end
+
+rule "when flag is true"
+	when
+		$i : DummyBean( flag == true );
+	then
+		$i.addMessage("flag was true");
+end

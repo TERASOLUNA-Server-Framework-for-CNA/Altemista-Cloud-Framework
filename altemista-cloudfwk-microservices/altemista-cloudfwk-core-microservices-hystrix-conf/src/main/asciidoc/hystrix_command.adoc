@@ -1,0 +1,51 @@
+
+:fragment:
+
+To implement a callback strategy with Hystrix you have to add the `@HystrixCommand` annotation in the method where you want to protect the calls.
+
+[source,java]
+.MicroserviceExample.java
+----
+@FeignClient("MicroServicesDemoUsers")
+public interface MicroserviceExample {
+	
+	@RequestMapping(value = "/getAllUsers", method = RequestMethod.GET, produces = "application/json")
+	@HystrixCommand(fallbackMethod = "fallbackGetAllUsers")
+	public AllUsersResponse getAllUsers();
+	
+	AllUsersResponse fallbackGetAllUsers();
+
+}
+----
+
+Controller implementation 
+
+[source,java]
+.MicroserviceExampleController.java
+----
+@RestController(value="example")
+public class MicroserviceExampleController implements MicroserviceExample {
+
+	@Autowired 
+	private UserRepository userRepository;
+
+	@Override
+	@RequestMapping(value = "/getAllUsers", method = RequestMethod.GET, produces = "application/json")
+	public AllUsersResponse getAllUsers() {
+		AllUsersResponse response = new AllUsersResponse();
+		List<User> userList = userRepository.findAll();
+		response.setUsers(userList);
+		return response;
+	}
+	
+	@Override
+	public AllUsersResponse fallbackGetAllUsers() {
+		AllUsersResponse response = new AllUsersResponse();
+		response.setUsers(null);
+		return response;
+	}
+	
+}
+----
+
+IMPORTANT: `Hystrix.stream` will only show data if there are actually call's being executed that are annotated with `@HystrixCommand`. If you annotate a method it will publish data to the stream when its being used.

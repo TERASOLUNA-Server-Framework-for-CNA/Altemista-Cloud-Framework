@@ -1,0 +1,26 @@
+
+:fragment:
+
+The {framework} main web module denotes a web boundary defined as MVC controllers, REST API, web services, etc.
+
+Please note that a project with web nature does not constitute a deployable web application. It is reponsability of an aggregator project to combine all the application modules into a deployable web application (or any other technology such as Spring Boot), and provide support for the Spring MVC controller programming model. This is an intentional decision to allow modularity also at the web tier. Multiple web projects can be part of the same application, using different technologies (such as SOAP server), and being decoupled from the deployment platform.
+
+== Web tier implementation
+
+As in the case of the _core_ projects, the default package structure of a _web_ project hints the developer where the elements that compose the web boundary of the business module should be placed.
+
+The initial Spring configuration of a web tier business module simply scan the controller package for Spring beans (usually, Spring MVC controllers) declared via `@Controller`, `@RestController`, and similar annotations:
+
+[source,xml]
+.spring/module-web.xml
+----
+<context:component-scan base-package="com.mycompany.application.module.controller" />
+----
+
+Therefore, a web tier business module simply has to declare the Spring MVC controllers in the `controller` subpackage of the business module with the proper annotations:
+
+[source]
+.com.mycompany.application.module.controller.ExampleController.java
+----
+include::{basedir}/altemista-cloudfwk-web-conf/src/test/java/com/example/controllers/ExampleController.java[tags=example]
+----

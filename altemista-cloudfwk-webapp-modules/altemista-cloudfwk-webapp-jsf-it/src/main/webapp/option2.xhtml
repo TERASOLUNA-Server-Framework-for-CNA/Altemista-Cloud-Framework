@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/faces/bootstrap-page.xhtml">
+	<ui:define name="title">#{submenu2}</ui:define>
+	
+	<ui:define name="nav">
+		<ui:include src="/WEB-INF/faces/nav.xhtml"></ui:include>
+	</ui:define>
+
+	<ui:define name="section">
+		<h2>#{msg.option2Message}</h2>
+		<h2>#{msg.option2.message}</h2>
+
+		<!-- PrimeFaces component example: -->
+		<p:calendar id="inline" mode="inline" />
+		
+	</ui:define>
+	
+	<ui:define name="footer">#{msg.footerMessage}</ui:define>
+</ui:composition>
+
+</html>

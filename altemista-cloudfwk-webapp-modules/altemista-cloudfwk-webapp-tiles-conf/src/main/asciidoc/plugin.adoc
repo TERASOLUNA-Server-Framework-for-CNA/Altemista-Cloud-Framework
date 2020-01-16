@@ -1,0 +1,6 @@
+
+:fragment:
+
+The _Presentation layer: Apache Tiles_ feature can only be installed in module projects with the _webapp_ nature.
+
+NOTE: This feature is not compatible with the _Presentation layer: JavaServer Faces (JSF)_ feature.

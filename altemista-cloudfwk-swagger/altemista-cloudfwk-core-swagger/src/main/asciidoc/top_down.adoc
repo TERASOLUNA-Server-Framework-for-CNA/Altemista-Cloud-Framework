@@ -1,0 +1,75 @@
+
+:fragment:
+
+This means you're using Swagger to design your API before you've written any actual code. From a yaml file, we can build our code for the API. See below the example.yaml file:
+[source,yaml]
+.new-application-boot/src/main/resources/example.yaml
+----
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'	<!--1-->
+info:
+  title: My API
+  description: Here your first example
+  version: "1.0.0"
+# the domain of the service
+host: api.uber.com
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:	<!--2-->
+  /example:
+    get:
+      summary: Example Summary
+      description: |
+        This is a example of description
+      parameters:
+        - name: field1
+          description: Field number one.
+          required: true
+          type: number
+          format: double
+      tags:
+        - Example
+      responses:
+        200:
+          description: An array 
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Example'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:	<!--3-->
+  Example:
+    type: object
+    properties:
+      example_id:
+        type: string
+        description: Unique identifier.
+      description:
+        type: string
+        description: Description.
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
+----
+<1> Basic Information about our API
+<2> Definitions of methods
+<3> Definitions of objects
+
+
+If you want to get some help for validating this, you can go to https://editor.swagger.io/[Swagger Editor^] which is an open source editor fully dedicated to OpenAPI-based APIs or you can use a plugin for your IDE like "Kaizen openApi Editor" if you prefer.

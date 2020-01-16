@@ -1,0 +1,6 @@
+
+:fragment:
+
+The _SOAP web service consumer (SOAP client)_ feature can be installed in _core_ nature projects.
+
+Also, a project defining the SOAP web service interface is required. Please refer to the <<altemista-cloudfwk-common-soap-conf>> feature documentation.

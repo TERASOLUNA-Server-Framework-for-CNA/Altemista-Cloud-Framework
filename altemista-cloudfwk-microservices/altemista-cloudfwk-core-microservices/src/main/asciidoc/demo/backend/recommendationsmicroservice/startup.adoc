@@ -1,0 +1,13 @@
+
+:fragment:
+
+At this point we can start the microservice `AltemistaMoviesRecommendations` and test the endpoints published by the Controller implementation with a testing tool like Postman or SoapUI.
+
+[IMPORTANT]
+====
+By default, the *{framework} Microservice application nature* archetype configure a service to use Eureka and Config Server. You have to start the infrastructure services first of all to test the microservice. You can see in the following link the <<startup_order>>.
+
+.Spring Boot Status
+image::altemista-cloudfwk-documentation/microservices/demo/07.SpringBootStatus03.png[align="center"]
+
+====

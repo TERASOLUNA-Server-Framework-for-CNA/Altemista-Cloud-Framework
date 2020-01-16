@@ -1,0 +1,39 @@
+
+:fragment:
+
+Once the server is started the URL http://localhost:8765 is the endpoint to connect the microservices over the gateway
+
+*Microservice request*
+
+[source,url]
+----
+http://localhost:8765/microserviceone/exampleMethod
+----
+* `microserviceone` is the microservice name registered in Eureka Server
+* `exampleMethod` is the method where the request is send.
+
+TIP: You can test request to this endpoint with a REST testing tool like SoapUI or Postman or you can send the request with curl command, for example.
+
+*Postman REST testing tool*
+
+image::altemista-cloudfwk-documentation/microservices/postman_example.png[align="center"]
+
+*CURL command*
+
+[source,cmd]
+----
+C:\>curl -H "Content-Type: application/json" -X POST -d "{\"param\": \"Hello World!!!\"}" http://localhost:8765/microserviceone/exampleMethod
+{"result":"Response from exampleMethod: Response from exampleMethod: Hello World!!!"}
+C:\>
+----
+
+{framework} plugin sets by default the gateway server port to 8765. This default port can be changed in the _aplication-gateway-env.properties_ file
+
+[source,properties]
+./aplication-env/src/main/resources/config/properties/aplication-gateway-env.properties
+----
+# Gateway properties
+*.server.port=${PORT:8765}
+----
+
+IMPORTANT: The PORT environment variable can be used to set the application port without change the default port.

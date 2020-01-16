@@ -1,0 +1,25 @@
+
+:fragment:
+
+You can create a new OpenShift Enterprise application from a local or external image by using either the OpenShift CLI . For example, to create an application from the DockerHub repository:
+
+[source,sh,subs="verbatim,attributes"]
+----
+oc new-app <your repository/your-image>
+----
+
+To create an application using an image in a private registry, specify the full Docker image specification:
+
+[source,sh,subs="verbatim,attributes"]
+----
+oc new-app myregistry:5000/example/myimage
+----
+
+If you want more information you can go to this https://docs.openshift.com/enterprise/3.1/dev_guide/new_app.html#specifying-an-image[site^]
+
+
+IMPORTANT: it will be needed to add a storage for the path where we write the log by logback feature if you use a ACF project, it should be needed to add the path where it is configured in the logback.xml, by default "/log".
+
+image::altemista-cloudfwk-documentation/altemista/volume.png[align="center"]
+
+There are some commands which can help in order to https://docs.openshift.com/enterprise/3.0/cli_reference/basic_cli_operations.html[troubleshoot^]

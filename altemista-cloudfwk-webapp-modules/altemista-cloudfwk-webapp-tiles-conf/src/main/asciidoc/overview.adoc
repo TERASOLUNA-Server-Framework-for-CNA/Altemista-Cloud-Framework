@@ -1,0 +1,117 @@
+
+:fragment:
+
+https://tiles.apache.org/[Apache Tiles] is a template composition framework built to simplify the development of web application user interfaces by defining page fragments which can be assembled into complete pages.
+
+This feature allows using templates to simplify the development of views.
+
+Currently, the installation of this feature provides two ready-to-use templates:
+
+* an empty template, to serve as a basis for the applications to start defining its own templates, and
+
+* a template with https://jquery.com/[jQuery] and http://getbootstrap.com/[Bootstrap] set up out-of-the-box.
+
+The welcome page of an empty web application when the Apache Tiles feature is installed is configured to use the Bootstrap-based template, as shown in the example:
+
+////
+As example, we provide with the module an example page with all the webapp modules. You can check the difference when you add this module:
+
+.Welcome page of an empty web application
+image::altemista-cloudfwk-webapp-tiles-conf/defaultPage.png[align="center"]
+////
+
+.Welcome page of an empty web application with Apache Tiles feature installed
+image::altemista-cloudfwk-webapp-tiles-conf/defaultPageTiles.png[align="center"]
+
+== Templates and views definition
+
+The feature will look for tiles definition files in the location `WEB-INF/tiles/{asterisk}{asterisk}/{asterisk}.xml` and `classpath:tiles/{asterisk}{asterisk}/{asterisk}.xml` rather than the default `/WEB-INF/tiles.xml`. This favors the modularization of the tiles definition without requiring explicit imports from the main `tiles.xml` file.
+
+With the default configuration included by the plug-in or the partial archetype when installing the feature, a generic view definition is declared for views with logical name `{group}/{name}` to  render `WEB-INF/views/{group}/{name}.jsp` and use the i18n key `title.{group}.{name}` as the title of the page. For example, the view `{tasks}/{list}` will render `WEB-INF/views/tasks/list.jsp` file.
+
+IMPORTANT: Other view patterns, such as `{name}` or `{group}/{subgroup}/{name}`, are *not* loaded with the default configuration. Please edit the `WEB-INF/tiles/views.xml` file of the application in order to support these patterns.
+
+Additionally, applications can declare ad-hoc templates and views in the `WEB-INF/tiles/views.xml` file as follows:
+
+[source,xml]
+.WEB-INF/tiles/views.xml
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	
+	<definition name="custom.page" template="/WEB-INF/views/template/custom-page.jsp"> <!--1-->
+		<put-attribute name="title" value="No title" /> <!--2-->
+		<put-attribute name="content" value="" /> <!--2-->
+	</definition>
+
+	<definition name="example" extends="default.page"> <!--3-->
+		<put-attribute name="title" value="A example page" /> <!--4-->
+		<put-attribute name="content" value="/WEB-INF/views/example.jsp" /> <!--4-->
+	</definition>
+
+</tiles-definitions>
+----
+<1> Custom template definition.
+<2> It is not necessary to declare all the attributes used in the actual JSP page in templates, but it is recommended to declare them with default values.
+<3> Example view definition. The logical name of the view is `example` and the template used is `default.page` (the empty HTML5 template provided by the framework).
+<4> Override the values declared in the template to compose the actual page.
+
+The template definition file of this example is as follows:
+
+[source,xml]
+.WEB-INF/views/template/custom-page.jsp
+----
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title><tiles:getAsString name="title" /></title> <!--1-->
+	</head>
+	<body>
+		<tiles:insertAttribute name="header" /> <!--2-->
+	</body>
+</html>
+----
+<1> `<tiles:getAsString>` puts the value of the attribute as-is when rendering the page.
+<2> `<tiles:insertAttribute>` acts as a dynamic `<jsp:include>` tag.
+
+The example page is as follows:
+
+[source,xml]
+.WEB-INF/views/example.jsp
+----
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<h1>Hello, World!</h1><!--1-->
+----
+<1> No `<!DOCTYPE>`, `<html>` nor `<body>` tags as this JSP file is just a fragment.
+
+== Internationalization in templates
+
+The common problem with internationalization in templates is that the views will define the key to be used in the template rather than the actual internationationalizated value.
+
+However, there is a workaround for this using page-scoped variables, as shown in the next fragment of an actual template of the framework:
+
+[source,xml]
+.WEB-INF/views/template/bootstrap-page.jsp
+----
+<c:set var="title"><tiles:getAsString name="title" /></c:set><!--1-->
+<title><spring:message code="${title}"></spring:message></title><!--2-->
+----
+<1> `<tiles:getAsString>` sets the page-scoped variable `title` the value of the attribute as declared in the view definition.
+<2> The `<spring:message code="${title}" />` tag will render the proper internationalized value.
+
+////
+== Error pages
+
+By default, include a controller to render custom error pages:
+
+* /error/resourceNotFoundError
+* /error/businessError
+* /error/transactionTokenError
+* /error/dataAccessError
+* /error/systemError
+////

@@ -1,0 +1,6 @@
+
+:fragment:
+
+{framework} Integration File Feature support extends the Spring Integration Core with a dedicated vocabulary to deal with reading, writing, and transforming files.
+
+{framework} Integration File Feature is based on https://docs.spring.io/spring-integration/docs/5.0.0.RELEASE/reference/html/files.html[Spring Integration File Support^]

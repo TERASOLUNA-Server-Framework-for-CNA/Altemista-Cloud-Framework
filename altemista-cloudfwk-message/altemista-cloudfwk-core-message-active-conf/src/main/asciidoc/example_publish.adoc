@@ -1,0 +1,124 @@
+
+:fragment:
+
+
+In the following paragraphs you can see the extra configuration you would need to add to your infrastructure configuration file.
+
+[source,xml,options="nowrap"]
+./my-application-module-core/src/main/resources/spring/my-application-module-core-active.xml
+----
+
+	<!-- Destination Topic -->
+	<bean id="destinationTopic" class="org.apache.activemq.command.ActiveMQTopic">	<!--1-->
+		<constructor-arg index="0" value="${jms.topic.name}" />
+	</bean>
+
+	<!-- JmsTemplate Definition For Publish/Subscribe -->
+	<bean id="jmsTemplateProducer" class="org.springframework.jms.core.JmsTemplate">	<!--2-->
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestination" ref="destinationTopic" />
+		<property name="pubSubDomain" value="true" />
+	</bean>
+	
+----
+<1> *ActiveMQ Topic*: The topic name where you can send the messages
+
+<2> *JMS Template*: Helper class that simplifies synchronous JMS access (sending and receiving messages).
+
+And now, you can configure the topic name in the properties
+
+[source,properties,options="nowrap"]
+./my-application-env/src/main/resources/config/properties/my-application-active-env.properties
+----
+# Set the topic name.
+*.jms.topic.name=testTopic
+----
+
+On the next code example you can see how can implement a service to publish a message with the JMS template.
+
+[source,java,options="nowrap"]
+.com.mycompany.application.module.service.ActiveMQService
+----
+package com.mycompany.application.module.service;
+
+public interface ActiveMQService {
+
+	public void publishMessage(String message);
+	
+}
+----
+//
+[source,java,options="nowrap"]
+.com.mycompany.application.module.service.impl.ActiveMQServiceImpl
+----
+package com.mycompany.application.module.service.impl;
+
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.stereotype.Service;
+import com.mycompany.application.module.service.ActiveMQService;
+import javax.annotation.Resource;
+
+@Service
+public class ActiveMQServiceImpl implements ActiveMQService {
+
+  @Resource(name="jmsTemplateProducer")
+  JmsTemplate jmsTemplateProducer;
+
+  @Override
+  public void publishMessage(String message) {
+    jmsTemplateProducer.convertAndSend(message);
+  }
+
+}
+----
+
+And in order to implement the subscribers, we can create as many listeners as we want by the following way:
+
+[source,xml,options="nowrap"]
+./my-application-module-core/src/main/resources/spring/my-application-module-core-active.xml
+----
+
+	<!-- Message Subscriber1 -->
+	<bean id="messageSubscriber1" class="com.mycompany.application.module.service.impl.MessageSubscriber1" />
+
+	<!-- Message Subscriber1 Container -->
+	<bean
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destinationName" value="${jms.topic.name}" />
+		<property name="messageListener" ref="messageSubscriber1" />
+		<property name="pubSubDomain" value="true" />
+	</bean>
+	
+	..............
+	
+----
+
+[source,java,options="nowrap"]
+.com.mycompany.application.module.service.impl.MessageSubscriber1
+----
+package com.mycompany.application.module.service.impl;
+
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.TextMessage;
+
+public class MessageSubscriber1 implements MessageListener {
+
+  @Override
+  public void onMessage(Message message) {
+    if (message instanceof TextMessage) {
+      try {
+        String msg = ((TextMessage) message).getText();
+        System.out.println("Message consumed by MessageSubscriber1 : " + msg);
+      } catch (JMSException ex) {
+        throw new RuntimeException(ex);
+      }
+    } else {
+      throw new IllegalArgumentException("Message must be of type TextMessage");
+    }
+  }
+
+}
+----

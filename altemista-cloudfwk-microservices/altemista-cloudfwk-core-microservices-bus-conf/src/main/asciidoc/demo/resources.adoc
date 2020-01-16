@@ -1,0 +1,4 @@
+
+:fragment:
+
+You can download the demonstration code of spring boot project here: link:resources/altemista-cloudfwk-documentation/acf-cloud-bus-demo.zip[SpringCloudBusExample].

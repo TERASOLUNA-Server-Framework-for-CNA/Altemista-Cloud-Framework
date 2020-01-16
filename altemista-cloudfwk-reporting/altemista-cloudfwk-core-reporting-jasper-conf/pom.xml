@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.altemista.cloudfwk.framework</groupId>
+		<artifactId>altemista-cloudfwk-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+	<groupId>org.altemista.cloudfwk.reporting</groupId>
+	<artifactId>altemista-cloudfwk-core-reporting-jasper-conf</artifactId>
+	<name>altemista-cloudfwk reporting: JasperReports CONF</name>
+
+	<dependencies>
+
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.altemista.cloudfwk.reporting</groupId>
+			<artifactId>altemista-cloudfwk-core-reporting-jasper</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.altemista.cloudfwk.reporting</groupId>
+			<artifactId>altemista-cloudfwk-core-reporting-conf</artifactId>
+		</dependency>
+		<!-- == End ACF framework == -->
+
+		<!-- == Begin other dependencies == -->
+		<dependency>
+			<!-- exporting to "Microsoft Excel" and "Microsoft Office - OOXML - Spreadsheet" -->
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+		</dependency>
+		<dependency>
+			<!-- org.altemista.cloudfwk.reporting.jasper.filler.impl.DataSourceJasperFillerImpl -->
+			<groupId>commons-dbutils</groupId>
+			<artifactId>commons-dbutils</artifactId>
+		</dependency>
+		<dependency>
+			<!-- org.altemista.cloudfwk.reporting.jasper.filler.impl.JpaJasperFillerImpl -->
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<!-- org.altemista.cloudfwk.reporting.jasper.filler.impl.PdfJasperFillerImpl -->
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version><!--$NO-MVN-MAN-VER$-->
+		</dependency>
+		<dependency>
+			<!-- org.altemista.cloudfwk.reporting.jasper.filler.impl.HibernateJasperFillerImpl -->
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+		</dependency>
+		<!-- == End other dependencies == -->
+
+
+		<!-- == Begin test dependencies == -->
+		<dependency>
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- == End test dependencies == -->
+
+	</dependencies>
+
+</project>

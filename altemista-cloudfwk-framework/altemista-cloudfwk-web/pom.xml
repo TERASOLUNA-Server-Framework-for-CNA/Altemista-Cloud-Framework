@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<artifactId>altemista-cloudfwk-parent</artifactId>
+		<groupId>org.altemista.cloudfwk.framework</groupId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	
+	<artifactId>altemista-cloudfwk-web</artifactId>
+	<name>altemista-cloudfwk web</name>
+	<description>
+		Core module of the web part of the ACF framework, including:
+		web applications, integration layers (web services, REST services...), etcetera
+	</description>
+
+	<dependencies>
+
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-common</artifactId>
+		</dependency>
+		<!-- == End ACF framework == -->
+		
+		<!-- == Begin Terasoluna Server Framework for Java == -->
+		<dependency>
+			<!-- Direct dependency to overwrite the exclusions in altemista-cloudfwk-common and -core -->
+			<groupId>org.terasoluna.gfw</groupId>
+			<artifactId>terasoluna-gfw-common</artifactId>
+			<!-- Exclusions to minimize dependencies in pure web projects -->
+			<exclusions>
+				<exclusion>
+					<groupId>org.lazyluke</groupId>
+					<artifactId>log4jdbc-remix</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-orm</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.terasoluna.gfw</groupId>
+			<artifactId>terasoluna-gfw-web</artifactId>
+		</dependency>
+		<!-- == End Terasoluna Server Framework for Java == -->
+
+		<!-- == Begin Spring Framework == -->
+		<dependency>
+			<!-- Support for Pageable arguments -->
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-commons</artifactId>
+		</dependency>
+		<!-- == End Spring Framework == -->
+		
+		<!-- == Begin Java standard extensions == -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- == End Java standard extensions == -->
+		
+		
+	</dependencies>
+
+</project>

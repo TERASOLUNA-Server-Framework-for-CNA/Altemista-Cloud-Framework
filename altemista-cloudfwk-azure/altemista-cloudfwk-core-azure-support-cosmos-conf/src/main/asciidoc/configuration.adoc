@@ -1,0 +1,55 @@
+
+:fragment:
+
+You can configure all the infrastructure properties in:
+
+[source,properties,options="nowrap"]
+./my-application-env/src/main/resources/config/properties/my-application-support-cosmos-env.properties
+----
+#
+# Azure support File Feature Properties
+#
+
+#CosmosDb Properties:
+# Specify the DNS URI of your Azure Cosmos DB.
+*.azure.documentdb.uri=your documentdb uri 
+
+# Specify the access key for your database.
+*.azure.documentdb.key=${documentdbkey} <!--1-->
+
+# Specify the name of your database.
+*.azure.documentdb.database=database 
+----
+<1> Add ${documentdbkey} as environment variable.
+
+
+[IMPORTANT]
+====
+These values are in the properties page for your database is displayed, click Access keys and copy your URI and access keys.
+====
+
+
+From {framework} give a basic configuration to run your application.
+
+[source,java,options="nowrap"]
+./my-application-module-core/src/main/java/yournameapplication/configuration/CosmosConfiguration.java
+----
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.microsoft.azure.spring.data.documentdb.repository.config.EnableDocumentDbRepositories;
+
+@Configuration
+@EnableDocumentDbRepositories(basePackages="com.mycompany.application.module.repository") <!--1-->
+public class CosmosConfiguration  {
+
+	@Bean(name = "cosmosdbObjectMapper") <!--2-->
+	   public ObjectMapper objectMapper() {
+	      return new ObjectMapper();  // Do configuration to the ObjectMapper if required
+	   }
+} 
+----
+<1> By default, @EnableDocumentDbRepositories will scan the current package for any interfaces that extend one of Spring Data's repository interfaces. Using it to annotate your Configuration class to scan a different root package by type if your project layout has multiple projects and it's not finding your repositories.
+<2> Configurable ObjectMapper bean with unique name cosmosdbObjectMapper, only configure customized ObjectMapper if you really need.
+
+ACF provides most of the necessary infrastructure required for Cosmos Db to create instances of the repository interfaces. 

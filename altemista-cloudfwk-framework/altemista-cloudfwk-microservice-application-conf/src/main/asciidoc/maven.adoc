@@ -1,0 +1,42 @@
+
+:fragment:
+
+The most representative parts of the `pom.xml` of an aggregator project with the _Microservices_ nature are:
+
+*Microservice Application*
+
+[source,xml]
+----
+<dependencies>
+
+  <!-- == Begin ACF framework == -->
+  <dependency>
+    <groupId>org.altemista.cloudfwk.framework</groupId>
+    <artifactId>altemista-cloudfwk-microservice-application-conf</artifactId> <!--1-->
+  </dependency>
+  <dependency>
+    <groupId>org.altemista.cloudfwk.microservices</groupId>
+    <artifactId>altemista-cloudfwk-core-microservices-service-conf</artifactId> <!--2-->
+  </dependency>
+  <!-- == End ACF framework == -->
+
+</dependencies>
+
+<build>
+  <plugins>
+
+    <!-- == Spring Boot Maven plugin == -->
+    <plugin>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-maven-plugin</artifactId> <!--3-->
+    </plugin>
+    <!-- == Spring Boot Maven plugin == -->
+
+  </plugins>
+</build>
+----
+<1> The maven dependency of the _Microservice application_ nature.
+<2> The maven dependency of the _Microservice application service_ feature.
+<3> The Spring Boot Maven Plugin, that allows packaging the application as an executable jar or war and run it in-place, inherits a default configuration from the ACF recommended plugins. The application is only required to declare it.
+
+Additionally, it should contain a dependency to the shared configuration project and to all the business module projects. Usually, business module interfaces will have `compile` (default) scope, while business module implementations will have `runtime` scope.

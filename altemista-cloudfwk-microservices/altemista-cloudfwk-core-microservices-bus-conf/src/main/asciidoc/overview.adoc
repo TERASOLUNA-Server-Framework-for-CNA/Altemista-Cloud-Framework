@@ -1,0 +1,36 @@
+
+:fragment:
+
+This module allows to refresh the properties of the microservices without refreshing them.
+
+In the previous chapters, we explained how to build micoreservices and his infrastructure.
+The problem you can have is to reload the config changes in Config Client applications, we probably need to trigger /refresh endpoint manually. This is not practical and viable if you have large number of applications.
+
+== Solution
+
+Spring Cloud Bus module can be used to link multiple applications with a message broker and we can broadcast configuration changes.
+
+IN ACF we are using RabbitMQ as message broker and connect multiple applications to receive the configuration change events and refresh the bounded property values. By adding this:
+
+[source,xml]
+.pom.xml
+----
+<dependency>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+</dependency>
+----
+
+Now, the client will have another endpoint ‘/actuator/bus-refresh’. Calling this endpoint will cause:
+
+	- get the latest configuration from the config server and update its configuration annotated by @RefreshScope
+	- send a message to AMQP exchange informing about refresh event
+	- all subscribed nodes will update their configuration as well
+This way, we don’t need to go to individual nodes and trigger configuration update.
+
+We can explain this by the following picture:
+
+image::altemista-cloudfwk-documentation/bus/flow.png[align="center"]
+
+
+If you want to know more, please go to this https://cloud.spring.io/spring-cloud-static/spring-cloud-bus/1.2.1.RELEASE/[site^]

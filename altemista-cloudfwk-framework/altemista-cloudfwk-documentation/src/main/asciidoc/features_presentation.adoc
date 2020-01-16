@@ -1,0 +1,48 @@
+
+:fragment:
+
+////
+	Note: this fragment uses the _ifndef_ conditional preprocessor directive
+	to exclude advanced topics if _getting-started_ is defined
+////
+
+By default, {framework} web applications and Spring Boot-based applications ship without any specific presentation layer technology beyond static resources and WebJars support.
+
+NOTE: Actually, and without any {framework} presentation layer feature installed, {framework} web applications have the default Servlet of the Servlet container available, though we discourage its usage in favor of relying on Spring MVC always and using the proper view resolver.
+
+For the presentation layer of the application, {framework} provides native integration with different technologies:
+
+* The *JavaServer Pages (JSP)* feature sets up JSP as the view technology (i.e.: as the view resolver of Spring MVC instead of being rendered by the default Servlet of the Servlet container).
+
+ifndef::getting-started[]
+* The *Spring Web Flow (SWF)* feature allows implementing the _flows_ of a web application. A flow encapsulates a sequence of steps that guide a user through the execution of some business task.
+endif::getting-started[]
+
+* The *Apache Tiles* feature allows to define page fragments which can be assembled into a complete pages.
+
+* The *JavaServer Faces (JSF)* feature allows building component-based user interfaces for web applications using http://www.primefaces.org/[PrimeFaces].
+
+* The *thymelaf* feature is a Java template engine for processing and creating HTML, XML, JavaScript, CSS, and text.
+
+ifndef::getting-started[]
+*  In addition, alternative presentation layer technology,  https://www.zkoss.org/[ZK], can be used with {framework} as described in the <<presentation-layer-other-technologies,other technologies for the presentation layer>> chapter.
+
+The following table shows the MVC framework and the view technology used dependending on the features installed:
+
+.MVC frameworks and view technologies
+|===
+|Features installed |MVC framework |View technology
+
+|(none) |Spring MVC |None
+|JavaServer Pages (JSP) |Spring MVC |JSP
+|Apache Tiles |Spring MVC |Apache Tiles
+|JavaServer Faces (JSF) |JSF (component-based) |Facelets
+|SWF |Spring Web Flow |None
+|SWF and JavaServer Pages (JSP) |Spring Web Flow |JSP
+|SWF and Apache Tiles |Spring Web Flow |Apache Tiles
+|SWF and JavaServer Faces (JSF) |Spring Web Flow |Facelets
+|Thymeleaf |Spring MVC |Thymleaf
+|===
+
+WARNING: Despite both Spring Web Flow and JavaServer Faces (JSF) features can be installed together, mixing different MVC strategies is discouraged.
+endif::getting-started[]

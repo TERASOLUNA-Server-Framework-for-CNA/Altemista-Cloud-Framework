@@ -1,0 +1,8 @@
+
+:fragment:
+
+The _SOAP web service publisher (SOAP server)_ feature requires the `web` nature to be installed.
+
+At the moment there is only one implementation available: Apache CXF.
+
+IMPORTANT: A project defining the SOAP web service interface is required. Please refer to the <<altemista-cloudfwk-common-soap-conf>> section.

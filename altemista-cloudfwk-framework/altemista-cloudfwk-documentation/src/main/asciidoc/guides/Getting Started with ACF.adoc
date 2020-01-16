@@ -1,0 +1,137 @@
+:doctype: book
+:sectnums:
+:nofooter:
+:title: Getting Started with {framework}
+= {title}
+:author: {author} <{email}>
+:revnumber: {project-version}
+
+////
+//	Asciidoctor i18n and configuration
+////
+
+:toc-title: Table of Contents
+
+:tabsize: 2
+
+:getting-started: true
+
+////
+//	Main body
+////
+
+This short guide provides a gentle learning curve for discovering {framework}, and walks Java architects and developers through their first steps using {framework}.
+
+////
+At the end of this guide you will have written, built and deployed your first {framework} application, and will be ready to explore the full _{framework} Reference Documentation_ for additional features not covered in this guide, advanced configurations and usage.
+////
+
+[[introduction]]
+= Introduction to {framework}
+:chapter-introduction:
+:!chapter-number:
+include::{basedir}/altemista-cloudfwk-documentation/chapter_01_introduction.adoc[]
+
+[[applications]]
+= {framework} applications
+:chapter-applications:
+:!chapter-number:
+include::{basedir}/altemista-cloudfwk-documentation/chapter_02_applications.adoc[]
+
+[[ide]]
+= {framework} development environment
+:chapter-ide:
+:!chapter-number:
+include::{basedir}/altemista-cloudfwk-documentation/chapter_03_environment.adoc[]
+
+[[natures]]
+= {framework} natures overview
+:chapter-natures:
+:!chapter-number:
+
+== _common_ projects
+include::{basedir}/altemista-cloudfwk-common/overview.adoc[leveloffset=+1]
+
+== _core_ projects
+include::{basedir}/altemista-cloudfwk-core/overview.adoc[leveloffset=+1]
+
+== _web_ projects
+include::{basedir}/altemista-cloudfwk-web-conf/overview.adoc[leveloffset=+1]
+
+== _web application_ projects
+include::{basedir}/altemista-cloudfwk-webapp-conf/overview.adoc[leveloffset=+1]
+
+
+[[features]]
+= {framework} features overview
+:chapter-features:
+:!chapter-number:
+
+[[natures-common-exceptions]]
+== Exception hierarchy
+include::{basedir}/altemista-cloudfwk-common/exceptions.adoc[leveloffset=+1]
+
+== Logging
+include::{basedir}/altemista-cloudfwk-core/logging_overview.adoc[leveloffset=+1]
+
+=== Configuration
+include::{basedir}/altemista-cloudfwk-core/logging_configuration.adoc[leveloffset=+2]
+
+== Configuration management
+include::{basedir}/altemista-cloudfwk-core/properties_overview.adoc[leveloffset=+1]
+
+== Configuration CORS support
+include::{basedir}/altemista-cloudfwk-core/cors_overview.adoc[leveloffset=+1]
+
+[[presentation-layer]]
+== Presentation layer
+include::{basedir}/altemista-cloudfwk-documentation/features_presentation.adoc[leveloffset=+1]
+
+=== Common functionality
+include::{basedir}/altemista-cloudfwk-webapp-common-conf/overview.adoc[leveloffset=+2]
+
+=== JavaServer Pages (JSP)
+include::{basedir}/altemista-cloudfwk-webapp-jsp-conf/overview.adoc[leveloffset=+2]
+
+=== Apache Tiles
+include::{basedir}/altemista-cloudfwk-webapp-tiles-conf/overview.adoc[leveloffset=+2]
+
+=== JavaServer Faces (JSF)
+include::{basedir}/altemista-cloudfwk-webapp-jsf-conf/overview.adoc[leveloffset=+2]
+
+== Persistence: MyBatis
+include::{basedir}/altemista-cloudfwk-core-persistence-mybatis-conf/overview.adoc[leveloffset=+1]
+
+=== Configuration
+include::{basedir}/altemista-cloudfwk-core-persistence-mybatis-conf/configuration.adoc[leveloffset=+2]
+
+== Persistence: Spring Data JPA
+include::{basedir}/altemista-cloudfwk-core-persistence-jpa-hibernate-conf/overview.adoc[leveloffset=+1]
+
+=== Configuration
+include::{basedir}/altemista-cloudfwk-core-persistence-jpa-hibernate-conf/configuration.adoc[leveloffset=+2]
+
+== Performance
+include::{basedir}/altemista-cloudfwk-app-performance-conf/overview.adoc[leveloffset=+1]
+
+== Security
+include::{basedir}/altemista-cloudfwk-app-security-conf/overview.adoc[leveloffset=+1]
+
+include::{basedir}/altemista-cloudfwk-core-security-conf/overview.adoc[leveloffset=+1]
+
+=== Configuration
+include::{basedir}/altemista-cloudfwk-app-security-conf/configuration.adoc[leveloffset=+2]
+
+include::{basedir}/altemista-cloudfwk-core-security-conf/configuration.adoc[leveloffset=+2]
+
+
+[[next-steps]]
+= Next steps
+:chapter-nextsteps:
+:!chapter-number:
+
+include::{basedir}/altemista-cloudfwk-documentation/next_steps.adoc[leveloffset=+1]
+
+
+
+include::{basedir}/altemista-cloudfwk-documentation/footer.adoc[]

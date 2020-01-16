@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    stream:
+      rabbit:
+      bindings:
+        greetings-out:
+          destination: greetings
+          contentType: application/json

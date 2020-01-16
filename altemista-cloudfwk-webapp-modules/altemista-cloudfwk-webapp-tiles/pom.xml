@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<artifactId>altemista-cloudfwk-parent</artifactId>
+		<groupId>org.altemista.cloudfwk.framework</groupId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	<groupId>org.altemista.cloudfwk.webapp.modules</groupId>
+	<artifactId>altemista-cloudfwk-webapp-tiles</artifactId>
+	<name>altemista-cloudfwk presentation layer: Apache Tiles support</name>
+
+	<dependencies>
+
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-web</artifactId>
+		</dependency>
+		<!-- == End ACF framework == -->
+
+		<!-- == Begin Apache Tiles == -->
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-jsp</artifactId>
+		</dependency>
+		<!-- == End Apache Tiles == -->
+
+		<!-- == Begin JavaEE APIs == -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- == End JavaEE APIs == -->
+
+	</dependencies>
+
+</project>

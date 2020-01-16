@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Scan for Spring beans declared via annotations. -->
+	<context:component-scan base-package="org.altemista.cloudfwk.remindersjsf.module.soap" />
+
+	<!-- Automatically exports the JAX-WS services using Apache CXF. -->
+	<bean class="org.altemista.cloudfwk.web.soap.SimpleCxfJaxWsServiceExporter">
+		<property name="basePackage" value="org.altemista.cloudfwk.remindersjsf.module.soap" />
+	</bean>
+
+</beans>

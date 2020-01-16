@@ -1,0 +1,20 @@
+
+:fragment:
+
+Application internationalization avoids a re-engineering process every time a new language is to be included into an application (i.e.: avoids creating a replica of all the pages and messages for each different language). Instead, provides mechanisms to create language-independent applications whose page and messages will get translated automatically to the proper language.
+
+With the default configuration, all the internationalization property files in the `config.i18n` will be automatically read:
+
+[source,properties]
+.config/i18n/my-application-messages.properties
+----
+module.message.example=Example business module i18n message
+----
+
+I18n is usually done in the presentation layer. However, to retrieve an actual message in Java (e.g.: to set the subject of an email) use the following structure:
+
+[source]
+----
+include::{basedir}/altemista-cloudfwk-core/src/test/java/org/altemista/cloudfwk/core/i18n/CustomResourceBundleMessageSourceTest.java[tags=example]
+----
+<1> Instead of Spring `MessageSource`, {framework} uses `DefaultLocaleMessageSource` to allow resolving messages without any `Locale` argument.

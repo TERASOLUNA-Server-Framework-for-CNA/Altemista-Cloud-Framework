@@ -1,0 +1,18 @@
+
+:fragment:
+
+The JasperReports-based implementation of the reporting feature includes the following configuration:
+
+[source,xml,options="nowrap"]
+.org/altemista/cloudfwk/config/reporting/altemista-cloudfwk-reporting-jasper.xml
+----
+include::{basedir}/altemista-cloudfwk-core-reporting-jasper-conf/src/main/resources/org/altemista/cloudfwk/config/reporting/altemista-cloudfwk-reporting-jasper.xml[tags=internals]
+----
+
+The framework also includes `jasperreports.properties` in order to minimize memory leaks described in http://community.jaspersoft.com/jasperreports-library/issues/4403-0[this JasperReports issue]:
+
+[source,properties,options="nowrap"]
+.jasperreports.properties
+----
+include::{basedir}/altemista-cloudfwk-core-reporting-jasper-conf/src/main/resources/jasperreports.properties[]
+----

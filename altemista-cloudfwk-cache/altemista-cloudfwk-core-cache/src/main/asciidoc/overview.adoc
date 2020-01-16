@@ -1,0 +1,54 @@
+
+:fragment:
+
+This {framework} feature allows applying caching to Java methods, reducing thus the number of executions based on the information available in the cache. That is, each time a targeted method is invoked, if the method has been already executed for the given arguments, the cached result is returned without having to execute the actual method; if it has not, then method is executed, the result cached and returned to the user so that, the next time the method is invoked, the cached result is returned.
+
+This way, expensive methods (whether CPU or IO bound) can be executed only once for a given set of parameters and the result reused without having to actually execute the method again. The caching logic is applied transparently without any interference to the invoker.
+
+[[altemista-cloudfwk-cache-overview-population]]
+== Cache population
+
+Simply annotate your service, repository, or applications method with the {framework} cache annotations to include them in the cache:
+
+[source]
+----
+@CacheableServiceMethod //<1>
+public Elements get(String elementId) {
+	// ...
+}
+
+@CacheableServiceMethod //<1>
+public List<Elements> find(Date from, Date to) {
+	// ...
+}
+----
+<1> Use this annotation for service methods. Alternatively, `@CacheableRepositoryMethod`, `@CacheableApplicationMethod` and `@CacheableDefaultMethod` are available for caching repository methods, application-wide methods (e.g.: utility beans), and more general methods that do not fit in the previous categories.
+
+This annotations provide a convenient way of automatically setting the cache names to a set of predefined names, and to generate the key based on the arguments of the invocation. The predefined cache names are:
+
+[options="header"]
+|===
+|{framework} annotation |Cache names |Equivalent Spring annotation
+|`@CacheableServiceMethod` |`service` |`@Cacheable(cacheNames = "service", key = "#root.methodName.concat(#root.args)")`
+|`@CacheableRepositoryMethod` |`repository` |`@Cacheable(cacheNames = "repository", key = "#root.methodName.concat(#root.args)")`
+|`@CacheableApplicationMethod` |`application` |`@Cacheable(cacheNames = "application", key="#root.methodName.concat(#root.args)")`
+|`@CacheableDefaultMethod` |`default` |`@Cacheable(cacheNames = "default", key = "#root.methodName.concat(#root.args)")`
+|===
+.Predefined {framework} cache names
+
+TIP: If no {framework} cache annotation fits your needs, you can use Spring `@Cacheable` annotation directly. Please refer to the https://docs.spring.io/spring/docs/current/spring-framework-reference/html/cache.html[Cache Abstraction] chapter of the https://docs.spring.io/spring/docs/current/spring-framework-reference/html/index.html[Spring Framework Reference Documentation].
+
+== Cache eviction
+
+The cache design should not cover just population of a cache store but also eviction. Eviction is the process of removing stale or unused data from the cache.
+
+Declar cache eviction using Spring `@CacheEvict`:
+
+[source]
+----
+@CacheEvict(cacheNames = "service", key = "#elementId") //<1>
+public void update(String elementId, Element element) {
+	// ...
+}
+----
+<1> Contrary to cache population, {framework} does not provide convenience annotations for cache eviction. Use the cache name that matches your cache population annotations, as described in the previous section.

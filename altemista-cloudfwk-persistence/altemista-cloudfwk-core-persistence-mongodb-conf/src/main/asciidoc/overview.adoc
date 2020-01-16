@@ -1,0 +1,87 @@
+
+:fragment:
+
+This feature offers out-of-the-box support for non-relational https://www.mongodb.com/[MondoDB] document-oriented databases using http://projects.spring.io/spring-data-mongodb/[Spring Data MongoDB].
+
+It is recommended to get familiar with the next concepts:
+
+* *https://en.wikipedia.org/wiki/Document-oriented_database[Document-oriented databases]*: designed for storing, retrieving and managing document-oriented information, or semi-structured data.
+
+* *http://projects.spring.io/spring-data/[Spring Data]*: Spring-based programming model for data access. Spring Data MongoDB provides integration with the MongoDB document database.
+
+== Documents and repositories
+
+Being MongoDB a document-oriented database, the _entity_ concept has been replaced by _document_. Document classes are user defined classes whose instances can be stores in a collection. By example:
+
+[source]
+.com/mycompany/application/module/model/RecipeExample.java
+----
+include::{basedir}/altemista-cloudfwk-core-persistence-mongodb-conf/src/test/java/com/mycompany/application/module/model/RecipeExample.java[tags=example]
+}
+----
+<1> The `@Document` annotation specifies this class is a document. Also specifies which collection will store instances of this documents.
+<2> Regular properties and fields requires no mapping nor annotation.
+<3> The `@Id` annotation marks the field as the identifier of the document inside the collection.
+<4> `@DBRef` indicates the annotated field is to be stored using MongoDB references.
+
+For a complete reference on available annotations, please refer to the http://docs.spring.io/spring-data/data-mongo/docs/1.10.0.RELEASE/reference/html/#mapping-chapter[mapping] chapter of the http://docs.spring.io/spring-data/data-mongo/docs/1.10.0.RELEASE/reference/html/[Spring Data MongoDB Reference Documentation].
+
+Example repository definition:
+
+[source]
+.com/mycompany/application/module/repository/RecipeRepositoryExample.java
+----
+include::{basedir}/altemista-cloudfwk-core-persistence-mongodb-conf/src/test/java/com/mycompany/application/module/repository/RecipeRepositoryExample.java[tags=example]
+----
+<1> By extending `MongoRepository`, this class will be considered a MongoDB repository. `MongoRepository` actually includes the `Repository` marker interface and CRUD, paging, and sorting operations.
+<2> Optionally, extend `QueryDslPredicateExecutor` to augment the `MongoRepository` to include dynamic querying operations using http://www.querydsl.com/[Querydsl].
+<3> Spring Data allows to declare non-generic operations with defined queries, or by deriving store-specific queries from the method names, as shown in the example.
+
+TIP: For more information about querys in Spring Data, please check the http://docs.spring.io/spring-data/data-mongo/docs/1.10.0.RELEASE/reference/html/#repositories.query-methods.details[Official Documentation].
+
+{framework} provides most of the necessary infrastructure required by Spring Data to create instances of the MongoDB repository interfaces. The required configuration in the application side is also provided by the {framework} plug-in (or Maven archetype). So, in order to access MongoDB, simply autowire the repository where necessary:
+
+[source]
+.com/mycompany/application/module/service/RecipeServiceExampleImpl.java
+----
+include::{basedir}/altemista-cloudfwk-core-persistence-mongodb-conf/src/test/java/com/mycompany/application/module/service/RecipeServiceExampleImpl.java[tags=example]
+----
+<1> Autowired repository instance.
+<2> Generic CRUD operations provided by `CrudRepository` interface.
+<3> Non-generic operations are derived by Spring Data.
+
+[[altemista-cloudfwk-core-persistence-mongodb-conf-dynamic-quering]]
+== Dynamic querying
+
+The infrastructure provided by the {framework} also includes dynamic querying using http://www.querydsl.com/[Querydsl]. To include dynamic querying operations in a repository, extend both `MongoRepository` and `QueryDslPredicateExecutor` as shown in the previous example.
+
+Dynamic querying is achieved as follows: construct the `Predicate` arguments for the methods of `QueryDslPredicateExecutor` such as `findAll(Predicate)` or `count(Predicate)`, and then use the Querydsl generated classes as shown in this example:
+
+[source]
+.com/mycompany/application/module/service/RecipeServiceExampleImpl.java
+----
+include::{basedir}/altemista-cloudfwk-core-persistence-mongodb-conf/src/test/java/com/mycompany/application/module/service/RecipeServiceExampleImpl.java[tags=queryDSL]
+----
+<1> Construct the required `Predicate` arguments for the `QueryDslPredicateExecutor` methods from the Querydsl generated classes (`QRecipeExample` in the example).
+<2> This part of the predicate will be always included.
+<3> This clause will be included in the predicate depending on the values of the flag.
+
+[TIP]
+====
+By using an utility class, complex predicates can be encapsulated in methods to favor reusability, readability and, hence, maintainability:
+
+* Use descriptive names for the methods that built the criteria.
+* Hide the implementation details of each specific criteria.
+====
+
+IMPORTANT: The <<altemista-cloudfwk-core-persistence-mongodb-conf-configuration-dynamic,Querydsl generator Maven plug-in>> must be configured to use this feature.
+
+== Spring Data REST support
+
+http://projects.spring.io/spring-data-rest/[Spring Data REST] can be used on top of Spring Data MongoDB repositories to expose them as hypermedia-driven REST web services.
+
+Simply annotate the repositories to be exposed with the `@RepositoryRestResource` annotation.
+
+TIP: For further details on usage and configuration of Spring Data REST, please refer to the http://docs.spring.io/spring-data/rest/docs/2.6.0.RELEASE/reference/html/[Spring Data REST - Reference Documentation].
+
+IMPORTANT: The {framework} application must provide Spring Data REST support to use this feature. See the <<altemista-cloudfwk-core-persistence-mongodb-conf-maven,maven considerations>> section.

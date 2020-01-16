@@ -1,0 +1,888 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.altemista.cloudfwk.framework</groupId>
+	<artifactId>altemista-cloudfwk-bom</artifactId>
+	<version>3.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>altemista-cloudfwk framework: bill of materials</name>
+	<description>Bill of materials of the ACF framework</description>
+
+	<properties>
+		<!-- == ACF version == -->
+		<altemista-cloudfwk.version>3.0.0-SNAPSHOT</altemista-cloudfwk.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- == ACF framework: 3rd parties bill of materials == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.framework</groupId>
+				<artifactId>altemista-cloudfwk-bom-3rdparty</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+
+			<!-- == Begin framework == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.framework</groupId>
+				<artifactId>altemista-cloudfwk-common</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.framework</groupId>
+				<artifactId>altemista-cloudfwk-boot-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.framework</groupId>
+				<artifactId>altemista-cloudfwk-core</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.framework</groupId>
+				<artifactId>altemista-cloudfwk-web</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.framework</groupId>
+				<artifactId>altemista-cloudfwk-web-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.framework</groupId>
+				<artifactId>altemista-cloudfwk-webapp-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.framework</groupId>
+				<artifactId>altemista-cloudfwk-microservice</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.framework</groupId>
+				<artifactId>altemista-cloudfwk-microservice-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.framework</groupId>
+				<artifactId>altemista-cloudfwk-microservice-infrastructure-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.framework</groupId>
+				<artifactId>altemista-cloudfwk-microservice-application-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End framework == -->
+
+			<!-- == Begin test scope (framework) == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.framework</groupId>
+				<artifactId>altemista-cloudfwk-test</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End test scope (framework) == -->
+
+
+			<!-- == Begin asynchronous and scheduled executions == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.async</groupId>
+				<artifactId>altemista-cloudfwk-core-async</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.async</groupId>
+				<artifactId>altemista-cloudfwk-core-async-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End asynchronous and scheduled executions == -->
+
+
+			<!-- == Begin batch processing == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.batch</groupId>
+				<artifactId>altemista-cloudfwk-core-batch</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.batch</groupId>
+				<artifactId>altemista-cloudfwk-core-batch-spring</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.batch</groupId>
+				<artifactId>altemista-cloudfwk-core-batch-spring-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End batch processing == -->
+
+
+			<!-- == Begin Business Process Management (BPM) == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.workflow</groupId>
+				<artifactId>altemista-cloudfwk-core-workflow</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.workflow</groupId>
+				<artifactId>altemista-cloudfwk-core-workflow-activiti</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.workflow</groupId>
+				<artifactId>altemista-cloudfwk-core-workflow-activiti-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End Business Process Management (BPM) == -->
+
+
+			<!-- == Begin Business Rules Management (BRM) == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.rules</groupId>
+				<artifactId>altemista-cloudfwk-core-rules</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.rules</groupId>
+				<artifactId>altemista-cloudfwk-core-rules-drools</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.rules</groupId>
+				<artifactId>altemista-cloudfwk-core-rules-drools-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End Business Rules Management (BRM) == -->
+
+
+			<!-- == Begin cache == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.cache</groupId>
+				<artifactId>altemista-cloudfwk-core-cache</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.cache</groupId>
+				<artifactId>altemista-cloudfwk-core-cache-ehcache-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.cache</groupId>
+				<artifactId>altemista-cloudfwk-core-cache-spring-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End cache == -->
+
+
+			<!-- == Begin connectivity utilities == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.connection</groupId>
+				<artifactId>altemista-cloudfwk-common-connection</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End connectivity utilities == -->
+
+			
+			<!-- == Begin cryptography utilities == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.cryptography</groupId>
+				<artifactId>altemista-cloudfwk-common-cryptography</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End cryptography utilities == -->
+			
+
+			<!-- == Begin mail server == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.mail</groupId>
+				<artifactId>altemista-cloudfwk-core-mail</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.mail</groupId>
+				<artifactId>altemista-cloudfwk-core-mail-javamail</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.mail</groupId>
+				<artifactId>altemista-cloudfwk-core-mail-javamail-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End mail server == -->
+
+
+			<!-- == Begin monitoring == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.monitoring</groupId>
+				<artifactId>altemista-cloudfwk-common-monitoring</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.monitoring</groupId>
+				<artifactId>altemista-cloudfwk-core-monitoring</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.monitoring</groupId>
+				<artifactId>altemista-cloudfwk-web-monitoring</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End monitoring == -->
+
+
+			<!-- == Begin performance == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.performance</groupId>
+				<artifactId>altemista-cloudfwk-common-performance</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.performance</groupId>
+				<artifactId>altemista-cloudfwk-app-performance</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.performance</groupId>
+				<artifactId>altemista-cloudfwk-app-performance-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.performance</groupId>
+				<artifactId>altemista-cloudfwk-app-performance-jdbc</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.performance</groupId>
+				<artifactId>altemista-cloudfwk-app-performance-jdbc-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.performance</groupId>
+				<artifactId>altemista-cloudfwk-app-performance-web</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.performance</groupId>
+				<artifactId>altemista-cloudfwk-app-performance-web-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End performance == -->
+
+
+			<!-- == Begin persistence == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.persistence</groupId>
+				<artifactId>altemista-cloudfwk-core-persistence</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.persistence</groupId>
+				<artifactId>altemista-cloudfwk-core-persistence-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.persistence</groupId>
+				<artifactId>altemista-cloudfwk-core-persistence</artifactId>
+				<type>test-jar</type>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.persistence</groupId>
+				<artifactId>altemista-cloudfwk-core-persistence-jpa-hibernate-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.persistence</groupId>
+				<artifactId>altemista-cloudfwk-core-persistence-mongodb-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.persistence</groupId>
+				<artifactId>altemista-cloudfwk-core-persistence-mybatis-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End persistence == -->
+
+
+			<!-- == Begin reporting == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.reporting</groupId>
+				<artifactId>altemista-cloudfwk-core-reporting</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.reporting</groupId>
+				<artifactId>altemista-cloudfwk-core-reporting-jasper</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.reporting</groupId>
+				<artifactId>altemista-cloudfwk-core-reporting-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.reporting</groupId>
+				<artifactId>altemista-cloudfwk-core-reporting-jasper-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.reporting</groupId>
+				<artifactId>altemista-cloudfwk-web-reporting</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End reporting == -->
+
+
+			<!-- == Begin REST client/server == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.rest</groupId>
+				<artifactId>altemista-cloudfwk-common-rest</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End REST client/server == -->
+
+
+			<!-- == Begin security == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.security</groupId>
+				<artifactId>altemista-cloudfwk-core-security-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.security</groupId>
+				<artifactId>altemista-cloudfwk-web-security</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.security</groupId>
+				<artifactId>altemista-cloudfwk-web-security-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.security</groupId>
+				<artifactId>altemista-cloudfwk-app-security-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End security == -->
+
+
+			<!-- == Begin security: OAuth 2.0 == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.oauth2</groupId>
+				<artifactId>altemista-cloudfwk-core-oauth2-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.oauth2</groupId>
+				<artifactId>altemista-cloudfwk-app-oauth2-authzsrv-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.oauth2</groupId>
+				<artifactId>altemista-cloudfwk-app-oauth2-ressrv-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.oauth2</groupId>
+				<artifactId>altemista-cloudfwk-app-oauth2-client-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End security: OAuth 2.0 == -->
+
+			<!-- == Begin security: Jwt over OAuth 2.0 == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.jwt</groupId>
+				<artifactId>altemista-cloudfwk-core-jwt-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.jwt</groupId>
+				<artifactId>altemista-cloudfwk-app-jwt-authzsrv-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.jwt</groupId>
+				<artifactId>altemista-cloudfwk-app-jwt-ressrv-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.jwt</groupId>
+				<artifactId>altemista-cloudfwk-app-jwt-client-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End security: OAuth 2.0 == -->
+			
+
+			<!-- == Begin SOAP client/server == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.soap</groupId>
+				<artifactId>altemista-cloudfwk-common-soap-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.soap</groupId>
+				<artifactId>altemista-cloudfwk-core-soap</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.soap</groupId>
+				<artifactId>altemista-cloudfwk-core-soap-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.soap</groupId>
+				<artifactId>altemista-cloudfwk-core-soap-wss</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.soap</groupId>
+				<artifactId>altemista-cloudfwk-core-soap-wss-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.soap</groupId>
+				<artifactId>altemista-cloudfwk-web-soap</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.soap</groupId>
+				<artifactId>altemista-cloudfwk-web-soap-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.soap</groupId>
+				<artifactId>altemista-cloudfwk-web-soap-wss</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.soap</groupId>
+				<artifactId>altemista-cloudfwk-web-soap-wss-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End SOAP client/server == -->
+
+
+			<!-- == Begin presentation layer: default/common == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.webapp.modules</groupId>
+				<artifactId>altemista-cloudfwk-webapp-common-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End presentation layer: default/common == -->
+
+
+			<!-- == Begin presentation layer: Java Server Faces (JSF) == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.webapp.modules</groupId>
+				<artifactId>altemista-cloudfwk-webapp-jsf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.webapp.modules</groupId>
+				<artifactId>altemista-cloudfwk-webapp-jsf-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End presentation layer: Java Server Faces (JSF) == -->
+
+
+			<!-- == Begin presentation layer: JSP == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.webapp.modules</groupId>
+				<artifactId>altemista-cloudfwk-webapp-jsp-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End presentation layer: JSP == -->
+
+
+			<!-- == Begin presentation layer: Apache Tiles == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.webapp.modules</groupId>
+				<artifactId>altemista-cloudfwk-webapp-tiles</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.webapp.modules</groupId>
+				<artifactId>altemista-cloudfwk-webapp-tiles-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End presentation layer: Apache Tiles == -->
+
+
+			<!-- == Begin presentation layer: Spring Web Flow (SWF) == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.webapp.modules</groupId>
+				<artifactId>altemista-cloudfwk-webapp-webflow-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End presentation layer: Spring Web Flow (SWF) == -->
+			
+			<!-- == Begin Microservices == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.microservices</groupId>
+				<artifactId>altemista-cloudfwk-core-microservices</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.microservices</groupId>
+				<artifactId>altemista-cloudfwk-core-microservices-bus-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.microservices</groupId>
+				<artifactId>altemista-cloudfwk-core-microservices-registry-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.microservices</groupId>
+				<artifactId>altemista-cloudfwk-core-microservices-gateway-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.microservices</groupId>
+				<artifactId>altemista-cloudfwk-core-microservices-config-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.microservices</groupId>
+				<artifactId>altemista-cloudfwk-core-microservices-monitoring-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.microservices</groupId>
+				<artifactId>altemista-cloudfwk-core-microservices-service-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.microservices</groupId>
+				<artifactId>altemista-cloudfwk-core-microservices-hystrix-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.microservices</groupId>
+				<artifactId>altemista-cloudfwk-core-microservices-zipkin-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.microservices</groupId>
+				<artifactId>altemista-cloudfwk-core-microservices-sleuth-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End Microservices == -->			
+			<!-- == Begin Integration == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.integration</groupId>
+				<artifactId>altemista-cloudfwk-core-integration</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.integration</groupId>
+				<artifactId>altemista-cloudfwk-core-integration-amqp-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.integration</groupId>
+				<artifactId>altemista-cloudfwk-core-integration-file-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.integration</groupId>
+				<artifactId>altemista-cloudfwk-core-integration-ftp-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.integration</groupId>
+				<artifactId>altemista-cloudfwk-core-integration-http-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.integration</groupId>
+				<artifactId>altemista-cloudfwk-core-integration-jms-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.integration</groupId>
+				<artifactId>altemista-cloudfwk-core-integration-jmx-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.integration</groupId>
+				<artifactId>altemista-cloudfwk-core-integration-jpa-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.integration</groupId>
+				<artifactId>altemista-cloudfwk-core-integration-jpa-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.integration</groupId>
+				<artifactId>altemista-cloudfwk-core-integration-mail-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.integration</groupId>
+				<artifactId>altemista-cloudfwk-core-integration-mqtt-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.integration</groupId>
+				<artifactId>altemista-cloudfwk-core-integration-resource-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.integration</groupId>
+				<artifactId>altemista-cloudfwk-core-integration-rmi-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.integration</groupId>
+				<artifactId>altemista-cloudfwk-core-integration-sftp-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.integration</groupId>
+				<artifactId>altemista-cloudfwk-core-integration-ip-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.integration</groupId>
+				<artifactId>altemista-cloudfwk-core-integration-ws-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.integration</groupId>
+				<artifactId>altemista-cloudfwk-core-integration-websocket-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End Integration == -->
+			<!-- == Begin Swagger == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.swagger</groupId>
+				<artifactId>altemista-cloudfwk-core-swagger</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.swagger</groupId>
+				<artifactId>altemista-cloudfwk-core-swagger-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.swagger</groupId>
+				<artifactId>altemista-cloudfwk-webapp-swagger-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.swagger</groupId>
+				<artifactId>altemista-cloudfwk-core-swagger-web-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End Swagger == -->
+			<!-- == Begin Message broker == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.message</groupId>
+				<artifactId>altemista-cloudfwk-core-message</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.message</groupId>
+				<artifactId>altemista-cloudfwk-core-message-active</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.message</groupId>
+				<artifactId>altemista-cloudfwk-core-message-rabbit</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.message</groupId>
+				<artifactId>altemista-cloudfwk-core-message-active-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.message</groupId>
+				<artifactId>altemista-cloudfwk-core-message-rabbit-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End Message Broker == -->
+			<!-- == Begin Docker == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.docker</groupId>
+				<artifactId>altemista-cloudfwk-core-docker</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.docker</groupId>
+				<artifactId>altemista-cloudfwk-core-docker-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.docker</groupId>
+				<artifactId>altemista-cloudfwk-webapp-docker-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End Docker == -->
+			<!-- == Begin Stream == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.stream</groupId>
+				<artifactId>altemista-cloudfwk-core-stream</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.stream</groupId>
+				<artifactId>altemista-cloudfwk-core-stream-kafka</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.stream</groupId>
+				<artifactId>altemista-cloudfwk-core-stream-kafka-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.stream</groupId>
+				<artifactId>altemista-cloudfwk-core-stream-rabbit</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.stream</groupId>
+				<artifactId>altemista-cloudfwk-core-stream-rabbit-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End Stream == -->
+			<!-- == Begin Altemista == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.altemista</groupId>
+				<artifactId>altemista-cloudfwk-core-altemista</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.altemista</groupId>
+				<artifactId>altemista-cloudfwk-core-altemista-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End Altemista == -->
+			<!-- == Begin Amazon == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.amazon</groupId>
+				<artifactId>altemista-cloudfwk-core-amazon</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.amazon</groupId>
+				<artifactId>altemista-cloudfwk-core-amazon-s3</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.amazon</groupId>
+				<artifactId>altemista-cloudfwk-core-amazon-s3-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.amazon</groupId>
+				<artifactId>altemista-cloudfwk-core-amazon-ses</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.amazon</groupId>
+				<artifactId>altemista-cloudfwk-core-amazon-ses-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.amazon</groupId>
+				<artifactId>altemista-cloudfwk-core-amazon-rds</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.amazon</groupId>
+				<artifactId>altemista-cloudfwk-core-amazon-rds-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.amazon</groupId>
+				<artifactId>altemista-cloudfwk-core-amazon-sqs</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.amazon</groupId>
+				<artifactId>altemista-cloudfwk-core-amazon-sqs-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End Amazon == -->
+			<!-- == Begin Azure libraries == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.azure</groupId>
+				<artifactId>altemista-cloudfwk-core-azure</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.azure</groupId>
+				<artifactId>altemista-cloudfwk-core-azure-active-directory</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.azure</groupId>
+				<artifactId>altemista-cloudfwk-core-azure-active-directory-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.azure</groupId>
+				<artifactId>altemista-cloudfwk-core-azure-key-vault</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.azure</groupId>
+				<artifactId>altemista-cloudfwk-core-azure-key-vault-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.azure</groupId>
+				<artifactId>altemista-cloudfwk-core-azure-storage</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.azure</groupId>
+				<artifactId>altemista-cloudfwk-core-azure-storage-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.azure</groupId>
+				<artifactId>altemista-cloudfwk-core-azure-support-bus</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.azure</groupId>
+				<artifactId>altemista-cloudfwk-core-azure-support-bus-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.azure</groupId>
+				<artifactId>altemista-cloudfwk-core-azure-support-cosmos</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.azure</groupId>
+				<artifactId>altemista-cloudfwk-core-azure-support-cosmos-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End Azure libraries == -->
+			<!-- == Begin Thymeleaf == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.webapp.modules</groupId>
+				<artifactId>altemista-cloudfwk-webapp-thymeleaf-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.altemista.cloudfwk.thymeleaf</groupId>
+				<artifactId>altemista-cloudfwk-core-thymeleaf-conf</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+			</dependency>
+			<!-- == End Altemista == -->
+		</dependencies>
+	</dependencyManagement>
+
+</project>

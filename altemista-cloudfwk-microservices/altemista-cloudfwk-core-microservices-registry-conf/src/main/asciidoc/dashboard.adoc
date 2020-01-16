@@ -1,0 +1,19 @@
+
+:fragment:
+
+Once the server is started you can access the URL http://localhost:8761 in a web browser to view the Eureka Dashboard.
+
+image::altemista-cloudfwk-documentation/microservices/registry_server_dashboard.png[align="center"]
+
+In the Eureka Dashboard you can see the list of registered microservices.
+
+{framework} plugin sets by default the registry server port to 8761. This default port can be changed in the _aplication-registry-env.properties_ file
+
+[source,properties]
+./aplication-env/src/main/resources/config/properties/aplication-registry-env.properties
+----
+# Eureka properties
+*.server.port=${PORT:8761}
+----
+
+IMPORTANT: The PORT environment variable can be used to set the application port without change the default port.

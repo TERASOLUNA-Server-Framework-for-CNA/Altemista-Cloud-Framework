@@ -1,0 +1,93 @@
+
+:fragment:
+
+The framework sets up most of the required infrastructure of an OAuth 2.0 Resource Server. Namely, the application is required to give the resource server and ID, and secure the actual resources.
+
+The default configuration of the framework queries a remote OAuth 2.0 Authentication Server to load the credentials for the access tokens. The binding with the authentication server can be configured as follows:
+
+.config/properties/new-application-webapp-oauth2-ressrv.properties
+[source,properties]
+----
+# Identifier of this application as an OAuth 2.0 Resource Server
+*.oauth2.resourceServer.resourceId=new-application-resource # <1>
+
+# Configuration for the remote OAuth 2.0 Authentication Server
+*.oauth2.resourceServer.checkTokenEndpointUrl=http://authorizationserver:8090/oauth/check_token # <2>
+*.oauth2.resourceServer.clientId=example # <3>
+*.oauth2.resourceServer.clientSecret=123456 # <3>
+----
+<1> Unique identifier of the resource server. The resource ID is checked by the resource server to prevent access with access tokens issued for a different resource server.
+<2> The URL of the `/oauth/check_token` endpoint of the OAuth 2.0 Authorization Server.
+<3> Client identifier and secret to access the check token endpoint, which is restricted to authenticated users.
+
+[TIP]
+====
+If both OAuth 2.0 Authorization Server and OAuth 2.0 Resource Server features are installed in the same application, it is possible for the resource server to user the authorization server token services bean as the resource server token services to avoid a remote call:
+
+.spring/new-application-oauth2-ressrv.xml
+[source]
+----
+<alias alias="oauth2ResourceServerTokenServices" name="oauth2AuthorizationServerTokenServices" />
+----
+====
+
+== HTTP security
+
+The security configuration of the actual OAuth 2.0 resources is done in the application as follows:
+
+.spring/new-application-webapp-security-http-oauth2-ressrv.xml
+[source,xml]
+----
+<!-- Security settings of the actual resources -->
+<security:http pattern="/api/**"
+		create-session="stateless"
+		entry-point-ref="oauth2AuthenticationEntryPoint"
+		authentication-manager-ref="oauth2ResourceServerAuthenticationManager"> <!--1-->
+	
+	<security:access-denied-handler ref="oauth2AccessDeniedHandler"/> <!--2-->
+	<security:csrf disabled="true" /> <!--2-->
+	<security:custom-filter ref="oauth2AuthenticationFilter" before="PRE_AUTH_FILTER" /> <!--2-->
+	<security:expression-handler ref="oauth2ExpressionHandler"/> <!--2--><!--3-->
+	
+	<security:intercept-url pattern="/**" access="authenticated"/> <!--4-->
+</security:http>
+----
+<1> Use a separate `<security:http>`, as shown, when all the resources are under the same mapping (e.g. `/api`). Otherwise, special configuration of other <<altemista-cloudfwk-app-security-conf-configuration-http>> elements will be required.
+<2> All the required beans (such as `oauth2AccessDeniedHandler` or `oauth2AuthenticationFilter`) are already provided by the framework. Please use these values for the HTTP security element of the OAuth 2.0 Resource Server.
+<3> An OAuth2-aware expression handler is registered, allowing expressions such as `#oauth2.clientHasRole`, `#oauth2.hasScope`, etc. Please refer to `OAuth2SecurityExpressionMethods` class Javadoc for a comprehensive list.
+<4> In this example all the resources are secured to authenticated users, but fine-grained authorization can be configured as well.
+
+[WARNING]
+====
+Spring Boot auto-registers the `OAuth2AuthenticationProcessingFilter` to `/*` when using XML-based configuration (as {framework} does). This set-up is valid if the application is only publishing OAuth 2.0 resources, but will cause troubles if the application publishes additional resources (such as static resources, controllers, SOAP web services, or even if the application is also an OAuth 2.0 Authorization Server).
+The OAuth2 Authorization server will show a _"InsufficientAuthenticationException, There is no client authentication. Try adding an appropriate authentication filter."_ error.
+
+To solve this issue, please manually register the `OAuth2AuthenticationProcessingFilter` to the proper mapping to avoid Spring Boot auto-registering it as follows:
+
+.spring/new-application-boot-security-http-oauth2-ressrv.xml
+[source,xml]
+----
+<bean class="org.springframework.boot.web.servlet.FilterRegistrationBean">
+	<property name="filter" ref="oauth2AuthenticationFilter" />
+	<property name="urlPatterns" value="/api/**" /> <!--1-->
+</bean>
+----
+<1> Apply the filter to the pattern of the actual resources; i.e. the pattern used in the `<security:http>` element of the actual resources.
+====
+
+[TIP]
+====
+The archetype includes a spring boot configuration class with the above configuration. This class is disabled by default. 
+
+.myaplication.boot.OAuth2AuthenticationFilterPatchConfiguration
+[source,java]
+----
+//@Configuration //<1>
+public class OAuth2AuthenticationFilterPatchConfiguration {
+	
+	//Change this if needed
+	private static final String MAPPING="/api/**";
+----
+<1> Uncomment "@Configuration" to enable the filter configuration.
+
+====

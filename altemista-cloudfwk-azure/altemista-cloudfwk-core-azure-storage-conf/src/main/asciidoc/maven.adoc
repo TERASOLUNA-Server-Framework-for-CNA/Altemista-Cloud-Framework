@@ -1,0 +1,15 @@
+
+:fragment:
+
+When we choose to install Azure Storage feature, {framework} will add the following dependencies to the pom.xml file of a boot project of your application:
+
+[source,xml,options="nowrap"]
+./my-application-boot/pom.xml
+----
+<dependency>
+    <groupId>org.altemista.cloudfwk.message</groupId>
+    <artifactId>altemista-cloudfwk-core-azure-storage-conf</artifactId> <!--1-->
+</dependency>
+----
+<1> {framework} Storage feature dependencies.
+

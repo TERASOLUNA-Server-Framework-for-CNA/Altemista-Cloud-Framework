@@ -1,0 +1,14 @@
+
+:fragment:
+
+The JavaMail-based implementation of the mail server module of the framework provides all the necessary infrastructure to send emails.
+
+The only required configuration is the address of the SMTP host. Optionally, you can set some debug addresses; these addresses will be used instead of the to, cc and bcc fields.
+
+[source, properties]
+.config/properties/my-application-mail-env.properties
+----
+include::{basedir}/altemista-cloudfwk-core-mail-javamail-conf/src/test/resources/config/properties/test-mail-env.example[]
+----
+
+TIP: If changing this configuration values is not enough, refer to the <<altemista-cloudfwk-core-mail-javamail-conf-internals,internals>> of this module.

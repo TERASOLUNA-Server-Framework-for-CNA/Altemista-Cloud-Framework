@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Setting Exception Handling. -->
+	
+	<!-- Exception Resolver. -->
+	<bean class="org.terasoluna.gfw.web.exception.SystemExceptionResolver">
+	    <property name="exceptionCodeResolver" ref="exceptionCodeResolver" />
+	    <!-- Setting and Customization by project. -->
+	    <property name="order" value="3" />
+	    <property name="exceptionMappings">
+	        <map>
+	            <entry key="ResourceNotFoundException" value="error/resourceNotFoundError" />
+	            <entry key="BusinessException" value="error/businessError" />
+	            <entry key="InvalidTransactionTokenException" value="error/transactionTokenError" />
+	            <entry key=".DataAccessException" value="error/dataAccessError" />
+	            <entry key="CommonException" value="error/businessError" />
+	            <entry key="CoreException" value="error/businessError" />
+	            <entry key="InvalidTransactionTokenException" value="error/businessError" />
+	        </map>
+	    </property>
+	    <property name="statusCodes">
+	        <map>
+	            <entry key="error/resourceNotFoundError" value="404" />
+	            <entry key="error/businessError" value="409" />
+	            <entry key="error/transactionTokenError" value="409" />
+	            <entry key="error/dataAccessError" value="500" />
+	        </map>
+	    </property>
+	    <property name="resultMessagesAttribute" value="resultMessagesForExceptionResolver" />
+	    <property name="exceptionCodeAttribute" value="exceptionCodeForExceptionResolver" />
+	    <property name="defaultErrorView" value="error/systemError" />
+	    <property name="defaultStatusCode" value="500" />
+	</bean>
+ 
+	<!-- Exception Code Resolver. -->
+	<bean id="exceptionCodeResolver" class="org.terasoluna.gfw.common.exception.SimpleMappingExceptionCodeResolver">
+	    <property name="exceptionMappings">
+	        <map>
+	            <entry key="ResourceNotFoundException" value="e.org.altemista.cloudfwk.common.exception.resource_not_found" />
+ 	        </map>
+	    </property>            
+	    <property name="defaultExceptionCode" value="e.org.altemista.cloudfwk.common.exception.default_exception_code" /> 
+	</bean>
+ 
+</beans>

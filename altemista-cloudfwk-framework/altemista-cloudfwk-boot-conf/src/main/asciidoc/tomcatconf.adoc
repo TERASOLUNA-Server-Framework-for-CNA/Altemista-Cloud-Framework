@@ -1,0 +1,50 @@
+
+:fragment:
+
+We will show you how to create a Spring Boot traditional WAR file and deploy to a Tomcat servlet container.
+
+Update the Main class to extend AltemistaCloudfwkApplicationServletInitializer, and follow next steps.
+
+For WAR deployment.
+[source]
+.com.mycompany.application.Main.java
+----
+public class Main extends AltemistaCloudfwkApplicationServletInitializer {
+
+	public static void main(String[] args) {
+	  new AltemistaCloudfwkApplicationBuilder().run(args);
+	}
+	
+	//private Main() {
+	//	 super();
+	//}
+}
+----
+
+Marked the embedded servlet container as provided using the following configuration:
+
+[source]
+application-boot.pom.xml
+----
+	....
+<!-- marked the embedded servlet container as provided -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-tomcat</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	....
+----
+
+Update packaging to war.
+
+[source]
+----
+  <packaging>war</packaging>
+----
+
+
+Done, build the project and copy the WAR file for deployment.
+
+
+

@@ -1,0 +1,73 @@
+
+:fragment:
+
+We are going to deploy an docker image created by Docker feature and pushed in the Altemista registry in order to use MYSQL template from Altemista.
+
+=== MySQL Template
+
+We select MySQL template from "Browse Catalog":
+
+image::altemista-cloudfwk-documentation/altemista/mysql_template.png[align="center"]
+
+We can configure different things like "user", "password"..... If you do not fill them, Altemista will let you know this information at the end of the creation:
+
+image::altemista-cloudfwk-documentation/altemista/mysql_configuration.png[align="center"]
+
+After few minutes, you will be able to see your MySQL running correctly.
+
+image::altemista-cloudfwk-documentation/altemista/mysql_crunning.png[align="center"]
+
+In the OC console you can open a SQL console in order to execute SQL commands. By this command "oc rsh <your pod>"
+
+
+=== Modifications In Our Application
+
+In order to set up the database in our application, we will use environment variables which will create later in Altemista.
+
+This is an example of configuration:
+
+[source,xml]
+./new-application-core.xml
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+             http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+             http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+             id="applicationDataSource">
+             <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+             <property name="url" value="${url}/${name}" />
+             <property name="username" value="${user}" />
+             <property name="password" value="${pass}" />
+       </bean>
+</beans>
+----
+
+We need to add mySQL driver by this dependency:
+
+[source,xml]
+./pom.xml
+----
+ <dependency>
+       <groupId>mysql</groupId>
+       <artifactId>mysql-connector-java</artifactId>
+ </dependency>
+----
+
+=== Environment Variables:
+
+Now, it is time to create the environment variables in Altemista for our deployment. We use the MySQL variables and the IP of the pod as url to link in our application.
+
+image::altemista-cloudfwk-documentation/altemista/ipod.png[align="center"]
+
+Finally, we need to go to our deployment and add variables by "Add Value from Config Map or Secret" like the following screenshot:
+
+image::altemista-cloudfwk-documentation/altemista/variables.png[align="center"]
+
+
+You can download the demonstration code of spring boot project here: link:resources/altemista-cloudfwk-documentation/acf-altemista-mysql.zip[Altemista MySQL].
+

@@ -1,0 +1,27 @@
+
+:fragment:
+
+There is also a "native" profile in the Config Server that doesn’t use Git, but just loads the config files from the local classpath or file system (any static URL you want to point to with _"spring.cloud.config.server.native.search-Locations"_). 
+
+To use the native profile just launch the Config Server with `"spring.profiles.active=native"`.
+
+TIP: Remember to use the `file:` prefix for file resources (the default without a prefix is usually the classpath). Just as with any Spring Boot configuration you can embed ${}-style environment placeholders, but remember that absolute paths in Windows require an extra "/", e.g. `file:///${user.home}/config-repo`
+
+TIP: The default value of the search-Locations is identical to a local Spring Boot application (so [classpath:/, classpath:/config, file:./, file:./config]). This does not expose the application.properties from the server to all clients because any property sources present in the server are removed before being sent to the client.
+
+TIP: A filesystem backend is great for getting started quickly and for testing. To use it in production you need to be sure that the file system is reliable, and shared across all instances of the Config Server.
+
+The search locations can contain placeholders for `{application}`, `{profile}` and `{label}`. In this way you can segregate the directories in the path, and choose a strategy that makes sense for you (e.g. sub-directory per application, or sub-directory per profile).
+
+If you don’t use placeholders in the search locations, this repository also appends the `{label}` parameter of the HTTP resource to a suffix on the search path, so properties files are loaded from each search location and a subdirectory with the same name as the label (the labelled properties take precedence in the Spring Environment). 
+
+To configure the {framework} Config Server on a file system path you must add the following properties on the configuration properties file:
+
+[source,properties]
+.aplicacion-env/src/main/resources/config/properties/aplicacion-config-env.properties
+----
+*.spring.profiles.active=native
+*.spring.cloud.config.server.native.search-Locations=classpath:/config/localconfig
+----
+
+IMPORTANT: Do not use <<altemista-cloudfwk-core-microservices-config-git,GIT repository>> configuration with filesystem configuration.

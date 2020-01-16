@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Scans for application-wide Spring beans declared via annotations, such 
+		as application-wide @Controllers -->
+	<context:component-scan base-package="com.mycompany.altemistamoviesui.webapp" />
+
+	<!-- Thymeleaf view resolver -->
+	<bean id="viewResolver" class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
+		<property name="templateEngine" ref="templateEngine" />
+	</bean>
+
+	<!-- Thymeleaf template engine that automatically applies SpringStandardDialect 
+		and enables Spring's own MessageSource message resolution mechanisms. -->
+	<bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver" />
+	</bean>
+
+	<!-- Thymeleaf template resolver using Spring resource resolution -->
+	<bean id="templateResolver"
+		class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+		<property name="prefix" value="classpath:/META-INF/templates/" />
+		<property name="suffix" value=".html" />
+	</bean>
+
+</beans>

@@ -1,0 +1,80 @@
+<configuration debug="true" scan="false">
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+		<encoder>
+			<pattern><![CDATA[date:%d{yyyy-MM-dd HH:mm:ss}\tthread:%thread\tUSER:%X{USER}\tX-Track:%X{X-Track}\ttraceId:%X{X-B3-TraceId:-}\tspanId:%X{X-B3-SpanId:-}\tspanExport:%X{X-Span-Export:-}\tlevel:%-5level\tlogger:%-48logger{48}\tmessage:%msg%n%rEx{full,
+				com.sun.proxy,
+				java.lang.reflect,
+				java.net,
+				java.util.concurrent,
+				org.apache.catalina,
+				org.springframework.aop,
+				org.springframework.cglib,
+				org.springframework.security,
+				org.springframework.transaction,
+				org.springframework.web,
+				sun.net,
+				sun.reflect,
+				BySpringCGLIB
+			}]]></pattern>
+		</encoder>
+	</appender>
+
+	<appender name="APPLICATION_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${app.log.dir:-log}/new-application-gateway-env-application.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${app.log.dir:-log}/new-application-gateway-env-application-%d{yyyyMMddHH}.log
+			</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern><![CDATA[date:%d{yyyy-MM-dd HH:mm:ss}\tthread:%thread\tUSER:%X{USER}\tX-Track:%X{X-Track}\ttraceId:%X{X-B3-TraceId:-}\tspanId:%X{X-B3-SpanId:-}\tspanExport:%X{X-Span-Export:-}\tlevel:%-5level\tlogger:%-48logger{48}\tmessage:%msg%n]]></pattern>
+		</encoder>
+	</appender>
+
+	<appender name="MONITORING_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${app.log.dir:-log}/new-application-gateway-env-monitoring.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${app.log.dir:-log}/new-application-gateway-env-monitoring-%d{yyyyMMdd}.log
+			</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern><![CDATA[date:%d{yyyy-MM-dd HH:mm:ss}\tUSER:%X{USER}\tX-Track:%X{X-Track}\ttraceId:%X{X-B3-TraceId:-}\tspanId:%X{X-B3-SpanId:-}\tspanExport:%X{X-Span-Export:-}\tlevel:%-5level\tmessage:%msg%n]]></pattern>
+		</encoder>
+	</appender>
+
+
+	<logger name="org.terasoluna.gfw.common.exception.ExceptionLogger">
+		<level value="info" />
+	</logger>
+	
+	<logger name="org.terasoluna.gfw.common.exception.ExceptionLogger.Monitoring" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="MONITORING_LOG_FILE" />
+	</logger>
+
+	<!-- log at the time of HTTP session creation/destruction/attribute -->
+	<logger name="org.terasoluna.gfw.web.logging.HttpSessionEventLoggingListener">
+		<level value="debug" />
+		<appender-ref ref="APPLICATION_LOG_FILE" />
+	</logger>
+
+	<!-- start and termination of Controller process to the log -->
+	<logger name="org.terasoluna.gfw.web.logging.TraceLoggingInterceptor">
+		<level value="trace" />
+		<appender-ref ref="APPLICATION_LOG_FILE" />
+	</logger>
+
+
+	<root level="debug">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="APPLICATION_LOG_FILE" />
+	</root>
+
+</configuration>

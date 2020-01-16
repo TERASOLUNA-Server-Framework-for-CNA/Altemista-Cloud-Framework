@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition template="/WEB-INF/faces/template.xhtml">
+
+<ui:define name="section">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">#{msg.application.title}</h3>
+		</div>
+	
+		<div class="panel-body">
+			<ul class="list-group">
+				<c:set var="exampleList" value="#{jsfExampleMBean.exampleList}" scope="request" />
+				<ui:repeat value="#{exampleList}" var="exampleItem">
+					<li class="list-group-item text-right clearfix">
+						<span class="pull-left">#{exampleItem}</span>
+					</li>
+				</ui:repeat>
+			</ul>
+		</div>
+	</div>
+</ui:define>
+
+</ui:composition>
+</html>

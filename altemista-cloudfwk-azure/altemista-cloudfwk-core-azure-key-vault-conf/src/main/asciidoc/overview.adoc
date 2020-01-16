@@ -1,0 +1,120 @@
+:fragment:
+
+{framework} Azure Key Vault lets your project incorporate *Key Vault* easily.
+
+Azure Key Vault helps solve the Secrets Management ,Key Management solution,
+Certificate Management and Store secrets backed by Hardware Security Modules. 
+
+From {framework} give some basic configurations in order to start using quickly.
+
+IMPORTANT: To use the Azure Storage feature, the Azure Cli software has to be installed in your environment.
+
+Open a command prompt and sign into your Azure account by using the Azure CLI:
+[source,Shell]
+-----------------
+az login
+-----------------
+
+List your subscriptions:
+[source,Shell]
+-----------------
+az account list
+-----------------
+Azure will return a list of your subscriptions, and you will need to copy the GUID for the subscription that you want to use. 
+For example:
+[source,xml]
+-----------------
+[
+  {
+    "cloudName": "AzureCloud",
+    "id": "11111111-1111-1111-1111-111111111111",
+    "isDefault": true,
+    "name": "example",
+    "state": "Enabled",
+    "tenantId": "22222222-2222-2222-2222-222222222222",
+    "user": {
+      "name": "example@example.com",
+      "type": "user"
+    }
+  }
+]
+-----------------
+
+Specify the GUID for the subscription you want to use with Azure; for example:
+[source,Shell]
+-----------------
+az account set -s 11111111-1111-1111-1111-111111111111
+-----------------
+
+Create a new Azure Key Vault
+
+Create a resource group for the Azure resources you will use for your key vault. 
+If you already have a group of resources created, you can skip this step.
+[source,Shell]
+-----------------
+az group create --name --exampleresources --location westeurope
+-----------------
+
+Create an Azure service principal from your application registration; for example:
+[source,Shell]
+-----------------
+az ad sp create-for-rbac --name "exampleuser"
+-----------------
+
+The Azure CLI will return a JSON status message that contains the appId and password, which you will use later as the client id and client password; for example:
+
+image::altemista-cloudfwk-documentation/azure/ResultUser.png[align="center"]
+For example:
+[source,xml]
+-----------------
+{
+  "appId": "iiiiiiii-iiii-iiii-iiii-iiiiiiiiiiii",
+  "displayName": "acfsuser",
+  "name": "http://acfuser",
+  "password": "pppppppp-pppp-pppp-pppp-pppppppppppp",
+  "tenant": "tttttttt-tttt-tttt-tttt-tttttttttttt"
+}
+-----------------
+
+Create a new key vault in the resource group; for example:
+[source,Shell]
+-----------------
+az keyvault create --name examplekeyvault --resource-group exampleresources --location westeurope --enabled-for-deployment true --enabled-for-disk-encryption true --enabled-for-template-deployment true --sku standard --query properties.vaultUri
+-----------------
+
+.Description
+[options="header,footer"]
+|=======================
+|Parameter    					 |Description
+|name        					 |Specifies a unique name for your key vault.
+|location                        |Specifies the Azure region where your resource group will be hosted.
+|enabled-for-deployment   		 |Specifies the key vault deployment option.
+|enabled-for-disk-encryption 	 |Specifies the key vault encryption option.
+|enabled-for-template-deployment |To access the secrets inside this Key Vault from Resource Manager deployment.
+|sku                             |Specifies the key vault SKU option.
+|query	 						 |Specifies a value to retrieve from the response
+|=======================
+
+Set the access policy for the Azure service principal you created earlier; for example:	
+[source,Shell]
+-----------------
+az keyvault set-policy --name examplekeyvault --secret-permission set get list delete --spn "iiiiiiii-iiii-iiii-iiii-iiiiiiiiiiii"
+-----------------
+
+Store a secret in your new key vault; 
+
+image::altemista-cloudfwk-documentation/azure/KeySecretPortal.png[align="center"]
+
+image::altemista-cloudfwk-documentation/azure/how.png[align="center"]
+
+Once you have completed these steps, you will have an example of Key Vault running in your azure portal.
+
+= Error handling
+
+For the control of errors and exceptions you can consult the official documentation of Azure here: 
+
+* https://docs.microsoft.com/en-us/dotnet/api/microsoft.azure.keyvault.models.keyvaulterrorexception?view=azure-dotnet[KeyVaultErrorException]
+
+* https://docs.microsoft.com/en-us/dotnet/api/microsoft.azure.keyvault.models.keyvaulterror?view=azure-dotnet[KeyVaultError]
+
+Error handling examples are in .net but are similar to java

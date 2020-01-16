@@ -1,0 +1,78 @@
+
+:fragment:
+
+For ActiveMQ to work on our computer, we will have to install ActiveMQ. You can see how to install it in this http://activemq.apache.org/getting-started.html[link^].
+
+
+[IMPORTANT]
+====
+To start ActiveMQ you must open at your terminal with the command _activemq start_. If you can not boot because it gives an error, you will need to change https://stackoverflow.com/questions/11700233/activemq-cant-run-due-to-address-already-in-use-error[this^].
+====
+
+[source,java,options="nowrap"]
+C:\apache-activemq-5.15.5\conf/activemq.xml
+
+----
+<transportConnectors>
+		<transportConnector name="openwire" 		uri="tcp://0.0.0.0:61616?maximumConnections=1000&wireFormat.maxFrameSize=104857600"/>
+		
+		<transportConnector name="amqp" 		uri="amqp://0.0.0.0:55672?maximumConnections=1000&wireFormat.maxFrameSize=104857600"/>
+		
+		<transportConnector name="stomp" 		uri="stomp://0.0.0.0:61613?maximumConnections=1000&wireFormat.maxFrameSize=104857600"/>
+		
+		<transportConnector name="mqtt" 		uri="mqtt://0.0.0.0:1883?maximumConnections=1000&wireFormat.maxFrameSize=104857600"/>
+		
+		<transportConnector name="ws" 		uri="ws://0.0.0.0:61614?maximumConnections=1000&wireFormat.maxFrameSize=104857600"/>
+</transportConnectors>
+----
+
+=== ActiveMQ One To One Implementation Example
+
+On the next https://terasoluna.everis.com/dev/TSFplus%20Reference%20Documentation.html#_activemq_one_to_one_implementation_example[example^] you can see how it can implement a service to send a message by ActiveMQ.
+
+To complete this example add the controller.
+[source,java,options="nowrap"]
+./my-application-active-module-web/src/main/java/.com.mycompany.application.module.controller.HomeController
+----
+package com.mycompany.application.module.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import com.mycompany.application.module.service.ActiveMQService;
+
+@RestController
+public class HomeController {
+	
+	@Autowired
+	ActiveMQService jmsTemplate;
+	
+	// one to one example
+	@RequestMapping(value="/send")
+	public String send(@RequestParam("msg")String msg){
+		
+		jmsTemplate.sendMessage(msg);
+		
+		return "Sent";
+	}
+	@RequestMapping(value="/recieve")
+	public String recieve(){
+		
+		jmsTemplate.receiveMessage();
+		
+		return "Recieved";
+	}
+	
+	// Publish/subscribe example
+	@RequestMapping(value="/publish")
+	public String publish(@RequestParam("msg")String msg){
+		
+		jmsTemplate.publishMessage(msg);
+		
+		return "Sent";
+	}
+	
+}
+----
+

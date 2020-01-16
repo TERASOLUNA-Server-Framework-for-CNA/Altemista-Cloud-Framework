@@ -1,0 +1,74 @@
+
+:fragment:
+
+== Configuration
+
+From {framework} give some basic configurations in order to start using quickly.
+
+You need to have an registered app in your Azure AD tenant and create a security key. 
+Put Application ID and Key in clientId and clientSecret respectively e.g. `azure.activedirectory.clientId=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` `azure.activedirectory.clientSecret=ABCDEFGHIJKLMNOOPQRSTUVWXYZABCDEFGHIJKLMNOPQ`
+List all the AAD groups ActiveDirectoryGroups that you want to have a Spring Security role object mapping to it. 
+The role objects can then be used to manage access to resources that is behind Spring Security. `e.g. azure.activedirectory.ActiveDirectoryGroups=group1,group2`
+You can use `@PreAuthorize` annotation or UserPrincipal to manage access to web API based on user's group membership. 
+You will need to change `ROLE_group1` to groups you want to allow to access the API or you will get "Access is denied". 
+
+
+In the following paragraphs you can see the configuration we provide from {framework} using azure Active Directory configuration. You can change it if you need it..
+
+[source,properties,options="nowrap"]
+./my-application-env/src/main/resources/config/properties/my-application-azure-active-directory-env.properties
+----
+
+#Contains a list of Active Directory groups to use for authorization.
+*.azure.activedirectory.active-directory-groups=Azure ECS,demoboot
+
+# Specifies your Active Directory ID:
+azure.activedirectory.tenant-id=${yourtenantid}
+
+# Specifies your App Registration's Application ID:
+spring.security.oauth2.client.registration.azure.client-id=${yourclientid} <!--1-->
+
+# Specifies your App Registration's secret key:
+spring.security.oauth2.client.registration.azure.client-secret=${yourclientsecret} <!--2-->
+
+----
+
+<1> Add ${yourclientid} as environment variable.
+<1> Add ${yourclientsecret} as environment variable. 
+
+[source,java,options="nowrap"]
+./my-application-module-core/src/main/java/yournameapplication/boot/SecurityWebConfig.java
+----
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private OAuth2UserService<OidcUserRequest, OidcUser> oidcUserService;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests()
+            .anyRequest().authenticated()
+            .and()
+            .oauth2Login()
+            .userInfoEndpoint()
+            .oidcUserService(oidcUserService);
+    }
+}
+    
+
+----
+
+
+

@@ -1,0 +1,10 @@
+package rules2;
+
+import org.altemista.cloudfwk.test.rules.model.DummyBean;
+
+rule "always"
+	when
+		$i : DummyBean( true );
+	then
+		$i.addMessage("rules2 rules");
+end

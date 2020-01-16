@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:stream="http://www.springframework.org/schema/integration/stream"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/file
+			http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+			http://www.springframework.org/schema/integration/stream
+			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+			
+	<file:inbound-channel-adapter id="filesIn"
+		directory="file:${test.integration.file.inbound.path}"
+		prevent-duplicates="false">
+		<integration:poller id="poller" fixed-delay="5000" />
+	</file:inbound-channel-adapter>
+
+	<integration:service-activator
+		input-channel="filesIn" output-channel="filesOut" method="handleFile"
+		ref="integrationFileHandler" />
+
+	<file:outbound-channel-adapter id="filesOut"
+		directory="file:${test.integration.file.outbound.path}"
+		delete-source-files="true" />
+
+	<bean id="integrationFileHandler"
+		class="org.altemista.cloudfwk.test.integration.file.IntegrationFileHandler" />
+
+</beans>

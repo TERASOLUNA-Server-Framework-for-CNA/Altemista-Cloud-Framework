@@ -1,0 +1,59 @@
+:fragment:
+
+{framework} Azure Storage lets your project incorporate *Storage* easily. Azure Storage is a Microsoft-managed service providing cloud storage that is highly available, secure, durable, scalable, and redundant. Azure Storage includes Azure Blobs (objects), Azure Data Lake Storage Gen2, Azure Files, Azure Queues, and Azure Tables. 
+
+Azure Storage is designed to be massively scalable to meet the data storage and performance needs of today's applications.
+From {framework} give some basic configurations in order to start using quickly.
+
+
+= Create an Azure Storage.
+
+To create an Azure Storage you need an Azure subscription; if you don't already have an Azure subscription, you can sign up for a free https://azure.microsoft.com/es-es/free/[ Azure account].
+
+Also you need the https://docs.microsoft.com/es-es/cli/azure/index?view=azure-cli-latest[Azure Command-Line Interface (CLI)].
+
+= Azure Console
+
+We need to create our storage. Browse to the Azure https://portal.azure.com/[portal] and sign in.
+
+Click *+Create a resource*, then Storage, and then click *Storage Account*.
+
+image::altemista-cloudfwk-documentation/azure/StorageStep1.png[align="center"]
+
+
+On the Create Namespace page, enter the following information:
+
+* Enter a unique Name, which will become part of the URI for your storage account. For example: if you entered "examplestorage" as *Name*, the URI would be "examplestorage.core.windows.net" .
+* Choose *Blob storage* for the *Account* type.
+* Specify the *Location* for your storage account.
+* Choose the *Subscription* you want to use for your storage account.
+* Specify whether to create a new *Resource Group* for your storage account, or choose an existing one.
+
+image::altemista-cloudfwk-documentation/azure/StorageStep2.png[align="center"]
+
+
+When you have specified the options listed above, click *Create* to create your storage account.
+
+When the Azure portal has been created for your storage account, click on *Blobs*, then click *+Container*.
+
+image::altemista-cloudfwk-documentation/azure/StorageStep3.png[align="center"]
+
+
+Enter a name for your blob container, and then click OK.
+
+image::altemista-cloudfwk-documentation/azure/StorageStep4.png[align="center"]
+
+
+The Azure portal will list your blob container.
+
+IMPORTANT: Disabled Secure transfer required.
+
+image::altemista-cloudfwk-documentation/azure/StorageStep5.png[align="center"]
+
+= Error handling
+
+For the control of errors and exceptions you can consult the official documentation of Azure here: 
+
+* https://docs.microsoft.com/en-us/java/api/com.microsoft.azure.storage.blob.models.storageerror?view=azure-java-stable[StorageError] 
+* https://docs.microsoft.com/en-us/java/api/com.microsoft.azure.storage.blob.models.storageerrorcode?view=azure-java-stable[StorageErrorCode]
+* https://docs.microsoft.com/en-us/java/api/com.microsoft.azure.storage.blob.models.storageerrorexception?view=azure-java-stable[StorageErrorException]

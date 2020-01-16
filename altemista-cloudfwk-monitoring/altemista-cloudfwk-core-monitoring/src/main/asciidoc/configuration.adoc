@@ -1,0 +1,58 @@
+
+:fragment:
+
+No `MonitoringService` bean is included in the framework configuration; it is up to the applications to declare its own monitoring services.
+
+The default configuration included by the plug-in when the feature is installed in a business module is as follows:
+
+[source,xml]
+.spring/my-application-module-core.xml
+----
+<bean id="moduleMonitoringService"
+    class="org.altemista.cloudfwk.core.monitoring.impl.MonitoringServiceImpl"> <!--1-->
+
+  <property name="storage" ref="moduleMonitoringStorage" /> <!--2-->
+
+  <property name="indicators">
+    <array>
+      <ref bean="moduleAliveIndicator" /> <!--3-->
+    </array>
+  </property>
+</bean>
+
+<bean id="moduleMonitoringStorage"
+    class="org.altemista.cloudfwk.core.monitoring.impl.storage.MonitoringStorageImpl" /> <!--2-->
+
+<bean id="moduleAliveIndicator"
+    class="org.altemista.cloudfwk.core.monitoring.impl.indicator.AliveIndicator"> <!--3-->
+  <property name="id" value="moduleAlive" /> <!--4-->
+</bean>
+----
+<1> Default `MonitoringService` implementation provided by the framework. Can be used by applications.
+<2> The default `MonitoringStorage` implementation provided by the framework stores, in-memory, the last execution of each indicator.
+<3> Sample `Indicator` that always returns the status OK.
+<4> Indicator identifiers must be unique; otherwise, unexpected behaviour can occur.
+
+== Storage wrappers
+
+Both of the storage wrappers provided by {framework} can be used as a drop-in replacement of the storage policy:
+
+[source,xml,options="nowrap"]
+.spring/my-application-module-core.xml
+----
+<bean id="moduleMonitoringService"
+		class="org.altemista.cloudfwk.core.monitoring.impl.MonitoringServiceImpl">
+	
+	<!-- (indicators) -->
+
+	<property name="storage">
+		<bean class="org.altemista.cloudfwk.core.monitoring.impl.storage.wrapper.LoggerMonitoringStorageWrapperImpl"> <!--1-->
+			<property name="target"> <!--2-->
+				<bean class="org.altemista.cloudfwk.core.monitoring.impl.storage.MonitoringStorageImpl" />
+			</property>
+		</bean>
+	</property>
+</bean>
+----
+<1> Alternatively, `MailMonitoringStorageWrapperImpl`. Please note that the _email-on-error_ storage policy wrapper requieres additional configuration (such as the sender and receiver addresses).
+<2> For both wrappers, the target storage policy is optional (i.e.: the wrapper action will be done without actually storing the execution information).

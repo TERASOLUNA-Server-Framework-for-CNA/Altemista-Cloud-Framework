@@ -1,0 +1,8 @@
+
+:fragment:
+
+The _Presentation layer: JavaServer Faces (JSF)_ feature can only be installed in module projects with the _webapp_ nature.
+
+Currently, only a PrimeFaces-based implementation is available.
+
+NOTE: This feature is not compatible with neither the _Presentation layer: Apache Tiles_ nor the _Presentation Layer: JavaServer Pages (JSP)_ features.

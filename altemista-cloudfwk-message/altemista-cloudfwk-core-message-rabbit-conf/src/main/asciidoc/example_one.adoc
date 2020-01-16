@@ -1,0 +1,100 @@
+
+:fragment:
+
+[IMPORTANT]
+====
+You must have configure the <<rabbit-mq-configuration,RabbitMQ Configuration>> before to continue with the next steps.
+====
+
+On the next code example you can see how it can implement a service to send a message by RabbitMQ. We will add more extra code in the class where we set up the infrastructure early
+
+[source,java,options="nowrap"]
+./my-application-module-common/src/main/java/.com.mycompany.application.module.service.RabbitMQClient
+----
+package com.mycompany.application.module.service;
+
+public interface RabbitMQClient {
+
+	public void sendMessage(String message);
+	
+	public void receiveMessage();
+	
+}
+----
+//
+[source,java,options="nowrap"]
+./my-application-module-core/src/main/java/.com.mycompany.application.module.service.RabbitMQClientImpl
+----
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import com.mycompany.application.module.service.RabbitMQClient;
+import com.rabbitmq.client.AMQP;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.Consumer;
+import com.rabbitmq.client.DefaultConsumer;
+import com.rabbitmq.client.Envelope;
+
+@Service
+public class RabbitMQClientImpl implements RabbitMQClient {
+
+	@Value("${rabbitmq.queue.name}")
+	String queueName;
+	@Value("${rabbitmq.host}")
+	String host;
+	@Value("${rabbitmq.port}")
+	Integer port;
+	@Value("${rabbitmq.user}")
+	String user;
+	@Value("${rabbitmq.pass}")
+	String pass;
+
+	@Override
+	public void sendMessage(String msg) {
+		Connection connection = this.createConnection();
+		Channel channel = null;
+		try {
+			channel = connection.createChannel();
+			channel.queueDeclare(queueName, false, false, false, null);
+			channel.basicPublish("", queueName, null, msg.getBytes("UTF-8"));
+			channel.close();
+			connection.close();
+		} catch (IOException | TimeoutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public void receiveMessage() {
+		Connection connection = this.createConnection();
+		Channel channel = null;
+		try {
+			channel = connection.createChannel();
+
+			channel.queueDeclare(queueName, false, false, false, null);
+
+			Consumer consumer = new DefaultConsumer(channel) {
+				@Override
+				public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties,
+						byte[] body) throws IOException {
+					String message = new String(body, "UTF-8");
+					System.out.println("Message received : " + message);
+				}
+			};
+			channel.basicConsume(queueName, true, consumer);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+----
+<1> Implementation to send the message
+<2> Implementation to receive the message with a listener

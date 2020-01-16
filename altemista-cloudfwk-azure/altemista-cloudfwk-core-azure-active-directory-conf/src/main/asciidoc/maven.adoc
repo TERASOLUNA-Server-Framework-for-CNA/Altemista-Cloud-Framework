@@ -1,0 +1,15 @@
+
+:fragment:
+
+When we choose to install Azure Active Directory feature, {framework} will add the following dependencies to the pom.xml file of a core project of your application:
+
+[source,xml,options="nowrap"]
+./my-application-env/pom.xml
+----
+<dependency>
+    <groupId>org.altemista.cloudfwk.azure</groupId>
+    <artifactId>altemista-cloudfwk-core-azure-active-directory-conf</artifactId> <!--1-->
+</dependency>
+----
+<1> {framework} Azure Active Directory feature dependencies.
+

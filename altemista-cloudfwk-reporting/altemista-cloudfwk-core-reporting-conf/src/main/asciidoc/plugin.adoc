@@ -1,0 +1,10 @@
+
+:fragment:
+
+The _reporting_ feature can be installed in module projects with the _core_ or _web_ nature:
+
+* In a _core_ project, the feature will include the <<altemista-cloudfwk-core-reporting-conf-overview-generating,report generation capability>>.
+
+* In a _web_ project, the feature will provide a simple way of <<altemista-cloudfwk-core-reporting-conf-overview-serving,serving reports>> through HTTP, either inline or as a download. In this case, the feature does not include any reporting implmentation; it is intended to be used as a complement of an already existing _core_ reporting feature.
+
+Currently, there is only one implementation available, based on JasperReports.

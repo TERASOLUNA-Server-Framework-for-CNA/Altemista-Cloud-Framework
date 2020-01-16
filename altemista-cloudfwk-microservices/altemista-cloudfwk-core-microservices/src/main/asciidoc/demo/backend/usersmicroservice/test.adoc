@@ -1,0 +1,39 @@
+
+:fragment:
+
+NOTE: You can see the endpoint table at the following <<usermicroservice-endpoints,link>>.
+
+===== _listAllUsers method Postman Test Over Gateway Server (port 8765)_
+
+Testing AltemistaMoviesUsers listAllUsers method in Postman testing tool.
+
+.AltemistaMoviesUsers listAllUsers method Postman Test over Gateway Server (port 8765)
+image::altemista-cloudfwk-documentation/microservices/demo/PostmanTestUserListAllUsers.png[align="center"]
+
+===== _getUser method Postman Test Over Gateway Server (port 8765)_
+
+Testing AltemistaMoviesUsers getUser method in Postman testing tool.
+
+.AltemistaMoviesUsers getUser method Postman Test over Gateway Server (port 8765)
+image::altemista-cloudfwk-documentation/microservices/demo/PostmanTestUserGetUser.png[align="center"]
+
+===== _createUser method Postman Test Over Gateway Server (port 8765)_
+
+Testing AltemistaMoviesUsers createUser method in Postman testing tool.
+
+.AltemistaMoviesUsers createUser method Postman Test over Gateway Server (port 8765)
+image::altemista-cloudfwk-documentation/microservices/demo/PostmanTestUserCreateUser.png[align="center"]
+
+===== _updateUser method Postman Test Over Gateway Server (port 8765)_
+
+Testing AltemistaMoviesUsers updateUser method in Postman testing tool.
+
+.AltemistaMoviesUsers updateUser method Postman Test over Gateway Server (port 8765)
+image::altemista-cloudfwk-documentation/microservices/demo/PostmanTestUserUpdateUser.png[align="center"]
+
+===== _deleteUser method Postman Test Over Gateway Server (port 8765)_
+
+Testing AltemistaMoviesUsers deleteUser method in Postman testing tool.
+
+.AltemistaMoviesUsers deleteUser method Postman Test over Gateway Server (port 8765)
+image::altemista-cloudfwk-documentation/microservices/demo/PostmanTestUserDeleteUser.png[align="center"]

@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<artifactId>altemista-cloudfwk-parent</artifactId>
+		<groupId>org.altemista.cloudfwk.framework</groupId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+
+	<artifactId>altemista-cloudfwk-webapp-conf</artifactId>
+	<name>altemista-cloudfwk web application CONF</name>
+	<description>Core module for web applications</description>
+
+	<dependencies>
+
+		<!-- == Begin Altemista cloud framework == -->		
+		<dependency>
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-common</artifactId>
+		</dependency>
+		<!-- == End Altemista cloud framework == -->
+		
+		<!-- == Begin Terasoluna Server Framework for Java == -->
+		<dependency>
+			<groupId>org.terasoluna.gfw</groupId>
+			<artifactId>terasoluna-gfw-web</artifactId>
+		</dependency>
+		<!-- == End Terasoluna Server Framework for Java == -->
+
+		<!-- == Begin Spring Framework == -->
+		<dependency>
+			<!-- PageableHandlerMethodArgumentResolver as a mvc:argument-resolvers (i.e.: support for Pageable arguments) -->
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-commons</artifactId>
+		</dependency>
+		<!-- == End Spring Framework == -->
+		
+		<!-- == Begin Jackson 2 == -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+	      <groupId>com.fasterxml.jackson.datatype</groupId>
+	      <artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
+		<!-- == End Jackson 2 == -->
+
+		<!-- == Begin Java standard extensions == -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- == End Java standard extensions == -->
+		
+	</dependencies>
+
+</project>

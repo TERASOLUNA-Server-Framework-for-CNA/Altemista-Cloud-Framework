@@ -1,0 +1,16 @@
+
+:fragment:
+
+{framework} Swagger feature has to be added in a [application]-boot module in a Spring Boot application nature and web module project.
+
+See below in the spring boot project
+
+image::altemista-cloudfwk-documentation/swagger/swagger_plugin.png[align="center"]
+
+
+And in the web module:
+
+image::altemista-cloudfwk-documentation/swagger/swagger_plugin_web.png[align="center"]
+
+
+

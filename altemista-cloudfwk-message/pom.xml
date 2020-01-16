@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.altemista.cloudfwk.build</groupId>
+		<artifactId>altemista-cloudfwk-build</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	
+	<artifactId>altemista-cloudfwk-message</artifactId>
+	<packaging>pom</packaging>
+
+	<name>altemista-cloudfwk * Message Broker build script</name>
+	<description>Convenience pom.xml for building the ACF Message broker modules</description>
+
+	<profiles>
+
+		<!-- == Builds ACF framework == -->
+		<profile>
+			<id>framework</id>
+			<modules>
+				<module>altemista-cloudfwk-core-message</module>
+				<module>altemista-cloudfwk-core-message-active</module>
+				<module>altemista-cloudfwk-core-message-active-conf</module>
+				<module>altemista-cloudfwk-core-message-active-archetype</module>
+				<module>altemista-cloudfwk-core-message-rabbit</module>
+				<module>altemista-cloudfwk-core-message-rabbit-conf</module>
+				<module>altemista-cloudfwk-core-message-rabbit-archetype</module>
+			</modules>
+		</profile>
+		
+	</profiles>
+	
+</project>

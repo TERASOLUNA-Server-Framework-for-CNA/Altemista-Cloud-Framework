@@ -1,0 +1,12 @@
+
+:fragment:
+
+The JavaMail-based implementation of the mail server module of the framework uses the `JavaMailSender` implementation that relies on JavaMail API:
+
+[source,xml,options="nowrap"]
+.org/altemista/cloudfwk/config/core/altemista-cloudfwk-core-mail-javamail.xml
+----
+include::{basedir}/altemista-cloudfwk-core-mail-javamail-conf/src/main/resources/org/altemista/cloudfwk/config/core/altemista-cloudfwk-core-mail-javamail.xml[tags=internals]
+----
+
+An application can manually override these beans to use a different configuration if the properties are not enough.

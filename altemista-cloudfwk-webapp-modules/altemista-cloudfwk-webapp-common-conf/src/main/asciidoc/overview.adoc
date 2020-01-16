@@ -1,0 +1,37 @@
+
+:fragment:
+
+////
+	Note: this fragment uses the _ifdef_ and _ifndef_ conditional preprocessor directives
+	to exclude advanced topics if _getting-started_ is defined
+////
+
+{framework} provides some features, such as internationalization support, common to any server-side presentation layer technology, and shared for both web applications and Spring Boot-based applications.
+
+ifdef::getting-started[]
+These features are automatically embedded in the different presentation layer features provided by the {framework}.
+endif::getting-started[]
+
+ifndef::getting-started[]
+These features are automatically embedded in the different presentation layer features provided by the {framework}. However, this feature can be used as a stand-alone feature when setting up alternative presentation layer technologies, as described in the <<presentation-layer-other-technologies,other technologies for the presentation layer>> chapter.
+endif::getting-started[]
+
+[[altemista-cloudfwk-webapp-common-conf-i18n]]
+== Internationalization (I18n)
+
+By default, a {framework} application with server-side presentation layer starts with the default locale, as seen in the <<altemista-cloudfwk-core-i18n-configuration,internationalization>> section of the _core_ nature. Switching that locale has to be manually done by the user (e.g.: by sending the new locale as a request parameter).
+
+The web application nature sets up out-of-the-box both Spring MVC `LocaleChangeInterceptor` and a `SessionLocaleResolver`. Therefore, any request with the request parameter `locale` (e.g.: `/example?locale=en_GB`) will propagate the selected locale to both the user session, and Spring `LocaleContextHolder`.
+
+[[altemista-cloudfwk-webapp-common-conf-interceptors]]
+== Interceptors
+
+{framework} augments the <<altemista-cloudfwk-webapp-conf-filters,filters and interceptors>> already set up for any {framework} web application with some additional interceptors intended for implementing server-side presentation layer:
+
+* `LocaleChangeInterceptor`, as previously described in the <<altemista-cloudfwk-webapp-common-conf-i18n,internationalization (i18n)>> section.
+
+* `CodeListInterceptor` to automatically put in request scope any `CodeList` beans, so they can be easily accessed to in JavaServer Pages (JSP). See http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/ArchitectureInDetail/WebApplicationDetail/Codelist.html[Codelist] section.
+
+* `TransactionTokenInterceptor` to perform double submit protection as describen in the http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/ArchitectureInDetail/WebApplicationDetail/DoubleSubmitProtection.html?highlight=transactiontokeninterceptor[Double Submit Protection] section.
+
+* `TraceLoggingInterceptor` to output start and termination of Controller process to the log (for performance measurement). See http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/ArchitectureInDetail/GeneralFuncDetail/Logging.html#tracelogginginterceptor[TraceLoggingInterceptor] section.

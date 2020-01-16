@@ -1,0 +1,69 @@
+
+:fragment:
+
+[IMPORTANT]
+====
+You must have configure the <<active-mq-configuration,ActiveMQ Configuration>> before to continue with the next steps.
+====
+
+On the next code example you can see how it can implement a service to send a message with the JMS template.
+
+[source,java,options="nowrap"]
+.com.mycompany.application.module.service.ActiveMQService
+----
+package com.mycompany.application.module.service;
+
+public interface ActiveMQService {
+
+	public void sendMessage(String message);
+	
+	public void receiveMessage();
+	
+}
+----
+//
+[source,java,options="nowrap"]
+.com.mycompany.application.module.service.impl.ActiveMQServiceImpl
+----
+package com.mycompany.application.module.service.impl;
+
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.stereotype.Service;
+import com.mycompany.application.module.service.ActiveMQService;
+import org.springframework.beans.factory.annotation.Value;
+import javax.jms.Message;
+import javax.jms.TextMessage;
+import javax.annotation.Resource;
+import javax.jms.JMSException;
+
+@Service
+public class ActiveMQServiceImpl implements ActiveMQService {
+	
+	@Resource(name="jmsTemplate")
+	JmsTemplate jmsTemplate;
+	
+	@Value("${jms.queue.name}")
+	String queueName;
+	
+
+	@Override
+	public void sendMessage(String message) {	<!--1-->
+		jmsTemplate.convertAndSend(message);
+	}
+	
+	@Override
+	public void receiveMessage() {	<!--2-->
+		Message message = jmsTemplate.receive(queueName);
+		TextMessage textMessage = (TextMessage) message;
+		try {
+			 System.out.println("Message received : " + textMessage.getText()); 
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+}
+----
+<1> Implementation to send the message
+<2> Implementation to receive the message

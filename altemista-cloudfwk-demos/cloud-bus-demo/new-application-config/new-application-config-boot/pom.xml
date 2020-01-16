@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.mycompany</groupId>
+		<artifactId>new-application-config</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+	</parent>
+	
+	<artifactId>new-application-config-boot</artifactId>
+	<name>new-application-config Microservice aggregator project</name>
+	
+	<dependencies>
+
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-microservice-infrastructure-conf</artifactId>
+		</dependency>
+		<!-- == End ACF framework == -->
+
+		<!-- == Begin new-application-config application == -->
+		<dependency>
+			<groupId>com.mycompany</groupId>
+			<artifactId>new-application-config-env</artifactId>
+		</dependency>
+		<dependency>
+      <groupId>org.altemista.cloudfwk.microservices</groupId>
+      <artifactId>altemista-cloudfwk-core-microservices-config-conf</artifactId>
+    </dependency>
+		<!-- == End new-application-config application == -->
+
+	</dependencies>
+	
+	<build>
+		<plugins>
+		
+			<!-- == Spring Boot Maven plugin == -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- == Spring Boot Maven plugin == -->
+			
+		</plugins>
+	</build>
+	
+	<properties />
+
+</project>

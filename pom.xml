@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>org.altemista.cloudfwk.build</groupId>
+	<artifactId>altemista-cloudfwk-build</artifactId>
+	<version>3.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>altemista-cloudfwk * build script</name>
+	<description>Convenience pom.xml for building the framework, the archetypes, running the integration tests, etc.</description>
+
+	<modules>
+		<module>altemista-cloudfwk-framework</module>
+		<module>altemista-cloudfwk-azure</module>
+		<module>altemista-cloudfwk-altemista</module>
+		<module>altemista-cloudfwk-amazon</module>
+		<module>altemista-cloudfwk-batch</module>
+		<module>altemista-cloudfwk-cache</module>
+		<module>altemista-cloudfwk-common-modules</module>
+		<module>altemista-cloudfwk-core-modules</module>
+		<module>altemista-cloudfwk-docker</module>
+		<module>altemista-cloudfwk-integration</module>
+		<module>altemista-cloudfwk-it</module>
+		<module>altemista-cloudfwk-mail</module>
+		<module>altemista-cloudfwk-message</module>
+		<module>altemista-cloudfwk-microservices</module>
+		<module>altemista-cloudfwk-monitoring</module>
+		<module>altemista-cloudfwk-oauth2</module>
+		<module>altemista-cloudfwk-jwt</module>
+		<module>altemista-cloudfwk-performance</module>
+		<module>altemista-cloudfwk-persistence</module>
+		<module>altemista-cloudfwk-reporting</module>
+		<module>altemista-cloudfwk-rules</module>
+		<module>altemista-cloudfwk-security</module>
+		<module>altemista-cloudfwk-soap</module>
+		<module>altemista-cloudfwk-stream</module>
+		<module>altemista-cloudfwk-swagger</module>
+		<module>altemista-cloudfwk-thymeleaf</module>
+		<module>altemista-cloudfwk-webapp-modules</module>
+		<module>altemista-cloudfwk-workflow</module>
+	</modules>
+			
+	<properties>
+		<!-- == Plugins versions == -->
+		<maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
+		<!-- <maven-site-plugin.version>3.6</maven-site-plugin.version> -->
+		<jacoco-maven-plugin.version>0.7.7.201606060606</jacoco-maven-plugin.version>
+		<sonar-maven-plugin.version>2.6</sonar-maven-plugin.version>
+		
+		<!-- == SonarQube configuration == -->
+		<sonar.language>java</sonar.language>
+		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+		<sonar.jacoco.reportPath>target/jacoco-unit.exec</sonar.jacoco.reportPath>
+		<sonar.jacoco.itReportPath>target/jacoco-it.exec</sonar.jacoco.itReportPath>
+		<!-- <sonar.jacoco.reportMissing.force.zero>true</sonar.jacoco.reportMissing.force.zero> -->
+		<sonar.exclusions>
+				**/org/altemista/cloudfwk/**/it/**/*,
+				**/org/altemista/cloudfwk/**/test/**/*,
+				**/example/**/*
+		</sonar.exclusions>
+	</properties>
+	
+	<build>
+		<defaultGoal>clean install</defaultGoal>
+		
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>${maven-deploy-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven-javadoc-plugin.version}</version>
+				</plugin>
+				<!-- <plugin> -->
+					<!-- <artifactId>maven-site-plugin</artifactId> -->
+					<!-- <version>${maven-site-plugin.version}</version> -->
+				<!-- </plugin> -->
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>${jacoco-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>${sonar-maven-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		
+		<plugins>
+		
+			<!-- == Avoids the publication of the convenience pom.xml / build scripts == -->
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			
+			<!-- == Javadoc == -->
+			<!-- <plugin> -->
+				<!-- <artifactId>maven-site-plugin</artifactId> -->
+				<!-- <configuration> -->
+					<!-- <reportPlugins> -->
+						<!-- <plugin> -->
+							<!-- <artifactId>maven-javadoc-plugin</artifactId> -->
+							<!-- <reportSets> -->
+								<!-- <reportSet> -->
+									<!-- <id>aggregate</id> -->
+									<!-- <reports> -->
+										<!-- <report>aggregate</report> -->
+									<!-- </reports> -->
+								<!-- </reportSet> -->
+							<!-- </reportSets> -->
+						<!-- </plugin> -->
+					<!-- </reportPlugins> -->
+				<!-- </configuration> -->
+			<!-- </plugin> -->
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>aggregate</id>
+						<goals>
+							<goal>aggregate</goal>
+						</goals>
+						<phase>site</phase>
+					</execution>
+				</executions>
+			</plugin>
+			
+		</plugins>
+	</build>
+	
+	<profiles>
+	
+		<!-- == Builds and run ACF integration tests == -->
+		<profile>
+			<!-- mvn -Pframework,xxx-environment (e.g.: tomcat-environment) -->
+			<id>run-it</id>
+			
+			<build>
+				<defaultGoal>clean verify</defaultGoal>
+			</build>
+		</profile>
+		
+		<!-- == Gathers cross-module code coverage  == -->
+		<profile>
+			<!-- mvn -Pcoverage -N -->
+			<id>coverage</id>
+			
+			<build>
+				<defaultGoal>clean generate-resources</defaultGoal>
+				
+				<plugins>
+				
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<executions>
+						
+							<!-- Gathers cross-module code coverage -->
+							<execution>
+								<id>jacoco-merge-unit</id>
+								<phase>generate-resources</phase>
+								<goals>
+									<goal>merge</goal>
+								</goals>
+								<configuration>
+									<destFile>${sonar.jacoco.reportPath}</destFile>
+									<fileSets>
+										<fileSet>
+											<directory>${session.executionRootDirectory}</directory>
+											<includes>
+												<include>**/jacoco-unit.exec</include>
+											</includes>
+										</fileSet>
+									</fileSets>
+								</configuration>
+							</execution>
+							
+							<!-- Gathers cross-module code coverage (integration tests) -->
+							<execution>
+								<id>jacoco-merge-it</id>
+								<phase>generate-resources</phase>
+								<goals>
+									<goal>merge</goal>
+								</goals>
+								<configuration>
+									<destFile>${sonar.jacoco.itReportPath}</destFile>
+									<fileSets>
+										<fileSet>
+											<directory>${session.executionRootDirectory}</directory>
+											<includes>
+												<include>**/jacoco-it.exec</include>
+											</includes>
+										</fileSet>
+									</fileSets>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				
+				</plugins>
+			</build>
+		</profile>
+		
+	</profiles> 
+
+</project>

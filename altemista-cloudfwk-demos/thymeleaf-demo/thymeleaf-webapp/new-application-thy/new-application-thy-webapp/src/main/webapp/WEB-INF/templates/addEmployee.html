@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8" />
+      <title>Add Employee</title>
+      <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+      <script th:inline="javascript">
+      function myFunction(field1, field2)
+      {
+    	  var fieldActive1 = document.getElementById(field1);
+    	  var fieldActive2 = document.getElementById(field2);
+    	  if(fieldActive1.checked == true){
+    	  	fieldActive2.disabled = true;
+    	  }else{
+    		  fieldActive2.disabled = false;
+    	  }
+    	  if(fieldActive2.checked == true){
+      	  	fieldActive1.disabled = true;
+      	  }else{
+      		  fieldActive1.disabled = false;
+      	  }
+    	  
+      }
+</script>
+   </head>
+   <body>
+      <h1>Create an Employee:</h1>
+       
+      <!--  
+         In Thymeleaf the equivalent of
+         JSP's ${pageContext.request.contextPath}/edit.html
+         would be @{/edit.html}         
+         -->
+          
+      <form th:action="@{/addEmployee}"
+         th:object="${employeeForm}" method="POST">
+         First Name:
+         <input type="text" th:field="*{name}" />    
+         <br/><br/>
+         Last Name:
+         <input type="text" th:field="*{surname}" />     
+         <br/><br/>
+         Gender:
+         <select th:field="*{gender}">
+    		<option th:value="'M'" th:text="Male"></option>
+    		<option th:value="'F'" th:text="Female"></option>
+		 </select>
+         <br/><br/>
+         Proyect Manager
+         <input type="checkbox" th:field="*{position}" th:name="P" th:value="1" th:onclick="'myFunction(\'position2\',\'position1\');'"/>
+         Developer
+         <input type="checkbox" th:field="*{position}" th:name="D" th:value="2" th:onclick="'myFunction(\'position1\',\'position2\');'"/>
+         <br/><br/>
+         <input type="submit" value="Create" />
+      </form>
+       
+      <br/>
+       
+      <!-- Check if errorMessage is not null and not empty -->
+       
+      <div th:if="${errorMessage}" th:utext="${errorMessage}"
+         style="color:red;font-style:italic;">
+         ...
+      </div>
+       
+   </body>
+</html>

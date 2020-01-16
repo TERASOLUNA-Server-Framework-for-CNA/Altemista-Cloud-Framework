@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<!-- Scan all the beans of all the asynchronous modules in the classpath -->
+	<context:component-scan base-package="org.altemista.cloudfwk.core.async" />
+
+	<!--tag::internals[]-->
+	<!-- Enables support for @Async and @Scheduled annotations by declaring an executor and a scheduler -->
+	<task:annotation-driven
+			executor="asyncThreadPool"
+			scheduler="schedulerThreadPool"
+		/>
+
+	<!-- Creates a default executor as a ThreadPoolTaskExecutor instance -->	
+	<task:executor id="asyncThreadPool"
+			pool-size="${async.threadPool.poolSize:3-9}"
+			queue-capacity="${async.threadPool.queueCapacity:50}"
+		/>
+
+	<!-- Creates a default scheduler as a ThreadPoolTaskScheduler instance -->	
+	<task:scheduler id="schedulerThreadPool"
+			pool-size="${scheduler.threadPool.poolSize:3}"
+		/>
+	<!--end::internals[]-->
+
+	<!-- Imports the framework configuration files of additional ACF asynchronous modules -->
+	<import resource="classpath*:org/altemista/cloudfwk/config/async/altemista-cloudfwk-async-*.xml" />
+
+</beans>

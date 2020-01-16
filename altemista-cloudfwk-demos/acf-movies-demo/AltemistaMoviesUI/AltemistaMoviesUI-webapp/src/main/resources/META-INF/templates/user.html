@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragment :: headfragment"></head>
+<body>
+	
+	<div id="divtitle">USER</div>
+ 	<form class="main_form" id="formulario" method="post" action="#" th:object="${user}">  
+        <div>
+        	<div th:if="${recommendations == null}">
+	            <ul>
+	                <li>  
+	                    <label for="firstName">First Name:</label>
+	                    <input type="text" name ="firstName" placeholder="John" th:field="*{firstName}" />
+	                </li>
+	                <li>
+	                	<label for="lastName">Last Name:</label>
+	                	<input type="text" name ="lastName" placeholder="Doe" th:field="*{lastName}" />
+	                </li>
+	                <li>  
+	                    <label for="phone">Phone:</label>  
+	                    <input type="text" name="phone" placeholder="+34" th:field="*{phone}" />  
+	                </li>    
+	                <li>  
+	                    <label for="email">Email:</label>  
+	                    <input type="email" name="email" placeholder="info@tsfplus.com" th:field="*{email}" />  
+	                    <span class="form_hint">Correct format: "info@tsfplus.com"</span>  
+	                </li>  
+	            </ul>
+            </div>
+            <div th:if="${recommendations != null}">
+            	<ul>
+	                <li>  
+	                    <label>First Name:</label>
+	                    <span th:text="*{firstName}" ></span>
+	                    <span th:text="*{firstName}" ></span>
+	                </li>
+	                <li>
+	                	<label>Last Name:</label>
+	                    <span th:text="*{lastName}" ></span>
+	                </li>
+	                <li>  
+	                    <label>Phone:</label>  
+	                    <span th:text="*{phone}" ></span>
+	                </li>    
+	                <li>  
+	                    <label>Email:</label>  
+	                    <span th:text="*{email}" ></span>
+	                </li>  
+	            </ul>
+            </div>
+            
+            <div th:if="${recommendations != null}">
+            	<div>&nbsp;</div>
+            	<div id="divtitle">USER RECOMMENDATIONS</div>
+            	<table id="main_table">
+					<thead>
+						<tr>
+							<th scope="col">MOVIE ID</th>
+							<th scope="col">MOVIE TITLE</th>
+							<th scope="col">COMMENT</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="recommendation : ${recommendations}">
+							<td th:text="${recommendation.movieId}">movieId</td>
+							<td th:text="${recommendation.movieTitle}">movieTitle</td>
+							<td th:text="${recommendation.comment}">comment</td>
+						</tr>
+					</tbody>
+				</table>
+            </div>
+            
+           	<div>&nbsp;</div>
+            <div>
+            	<span th:if="${recommendations == null}">
+	            	<span th:if="${user.id != null}">
+	   					<button class="submit" type="button" th:onclick="'actionForm(this.form.id, \''+@{/users/update}+'/'+${user.id}+'\'); return false;'"><i class="far fa-save"></i>&nbsp;Update</button>
+	            	</span>
+					<span th:if="${user.id == null}">
+	                	<button class="submit" type="button" th:onclick="'actionForm(this.form.id, \''+@{/users/save}+'\'); return false;'"><i class="far fa-save"></i>&nbsp;Save</button>
+					</span>
+				</span>
+				<span>
+                	<button class="submit" type="button" th:onclick="'actionForm(this.form.id, \''+@{/users/recommendations/new}+'/'+${user.id}+'\'); return false;'"><i class="fas fa-comments"></i>&nbsp;Add Recommendation</button>
+                </span>
+                <span>
+                	<button class="submit" type="button" th:onclick="'actionForm(this.form.id, \''+@{/users/cancel}+'\'); return false;'"><i class="far fa-times-circle"></i>&nbsp;Cancel</button>
+                </span>
+            </div>
+        </div>  
+    </form>
+</body>
+</html>

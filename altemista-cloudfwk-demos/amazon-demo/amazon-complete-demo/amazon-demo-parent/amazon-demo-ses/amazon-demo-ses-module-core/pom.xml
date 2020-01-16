@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.mycompany</groupId>
+		<artifactId>amazon-demo-ses</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	<artifactId>amazon-demo-ses-module-core</artifactId>
+	<name>amazon-demo-ses module core project</name>
+	<dependencies>
+		<dependency>
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mycompany</groupId>
+			<artifactId>amazon-demo-ses-module-common</artifactId>
+			<version>3.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.altemista.cloudfwk.amazon</groupId>
+			<artifactId>altemista-cloudfwk-core-amazon-ses-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.altemista.cloudfwk.amazon</groupId>
+			<artifactId>altemista-cloudfwk-core-amazon</artifactId>
+		</dependency>
+	</dependencies>
+</project>

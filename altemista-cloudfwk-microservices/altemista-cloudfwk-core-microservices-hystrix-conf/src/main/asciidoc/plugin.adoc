@@ -1,0 +1,4 @@
+
+:fragment:
+
+{framework} Circuit Breaker feature can be added in a [application]-boot module or in a [application]-client module in a <<microservice-application-nature,Microservice Application Nature project>>.

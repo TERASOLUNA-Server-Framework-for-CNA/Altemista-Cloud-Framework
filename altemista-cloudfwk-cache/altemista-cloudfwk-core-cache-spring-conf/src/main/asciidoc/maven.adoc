@@ -1,0 +1,20 @@
+
+:fragment:
+
+To manually install the Spring-based implementation of this feature, add the following dependencies to the `pom.xml` file of a business tier implementation project:
+
+[source,xml]
+.new-application-module-core/pom.xml
+----
+<dependency>
+	<groupId>org.altemista.cloudfwk.cache</groupId>
+	<artifactId>altemista-cloudfwk-core-cache</artifactId> <!--1-->
+</dependency>
+<dependency>
+	<groupId>org.altemista.cloudfwk.cache</groupId>
+	<artifactId>altemista-cloudfwk-core-cache-spring-conf</artifactId> <!--2-->
+	<scope>runtime</scope>
+</dependency>
+----
+<1> Feature interface.
+<2> Auto-discoverable implementation and configuration of the Spring-based implementation.

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<!-- Parameterizable message resolver that does not require an specific Locale (uses a default) -->
+	<bean id="messageSource"
+			class="org.altemista.cloudfwk.core.i18n.impl.DefaultLocaleMessageSourceImpl">
+			
+		<property name="basenames">
+			<list>
+				<value>org.altemista.cloudfwk.i18n.</value><!-- (framework i18n) -->
+				<value>config.i18n.</value><!-- (application i18n) -->
+			</list>
+		</property>
+		<property name="useCodeAsDefaultMessage" value="${i18n.useCodeAsDefaultMessage:true}" />
+		<property name="defaultLocale" value="${i18n.defaultLocale:en}" />
+		<property name="fallbackToSystemLocale" value="false" />
+	</bean>
+
+	<!-- Alias for simpler access -->
+	<alias name="messageSource" alias="msg" />
+
+</beans>

@@ -1,0 +1,37 @@
+
+:fragment:
+
+A core project will have, out-of-the-box, an already set up extensible Spring context over the principle of https://en.wikipedia.org/wiki/Convention_over_configuration[convention over configuration]. A core project can start using some usual features, such as logging or environment-aware property management, out-of-the-box. In essence, a core project only has to care about adding its own beans.
+
+The most common usage of a _core_ project is to build the business module implementations. However, it can be used to build shared Spring-aware utility projects (i.e.: projects that declare utility beans, common aspects, etc.).
+
+The extensible Spring context will automatically load any installed feature (including the features of the _core_ projects described in this chapter).
+
+== Business module implementation
+
+As previously stated, _core_ projects will contain the business module implementation.
+
+The initial Spring configuration of a business module implementation simply scan the services package of the business module for Spring beans declared via `@Service` and other annotations:
+
+[source,xml]
+.spring/module-core.xml
+----
+<context:component-scan base-package="com.mycompany.application.module.service" />
+----
+
+With this configuration automatically loaded, creating a new service implementation requires no additional tasks beyond creating the class:
+
+[source]
+.com.mycompany.application.module.service.impl.ExampleServiceImpl.java
+----
+@Service
+public class ExampleServiceImpl implements ExampleService {
+
+  @Override
+  public void exampleMethod() {
+    // ...
+  }
+}
+----
+
+TIP: The business module implementation can contain service interfaces too. In this case, the services can be used internally by the business module but will not be exposed to other business modules.

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+		
+	<!--
+		(this file mimicks altemista-cloudfwk-webapp-security-archetype archetype)
+	 -->
+
+	<!-- Creates the necessary authentication-manager -->
+	<security:authentication-manager id="appAuthenticationManager">
+		<security:authentication-provider>
+			<security:user-service id="appUserDetailsService">
+				<security:user name="user" password="password" authorities="ROLE_USER" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<!-- authentication-manager and user-service for inbound web services (SOAP server) -->
+	<alias alias="inboundwssAuthenticationManager" name="appAuthenticationManager" />
+	<alias alias="inboundwssUserDetailsService" name="appUserDetailsService" />
+	
+	<!-- user-service for retrieving the passwords for outgoing web services (SOAP client) -->
+	<alias alias="outgoingwssUserDetailsService" name="appUserDetailsService" />
+
+</beans>

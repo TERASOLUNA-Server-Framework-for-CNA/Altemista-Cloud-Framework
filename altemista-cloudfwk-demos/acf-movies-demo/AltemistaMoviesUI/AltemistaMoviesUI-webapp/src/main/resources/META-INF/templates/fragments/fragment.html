@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headfragment">
+<title>Microservices Demo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="/AltemistaMoviesUI-webapp/styles.css" />
+<link rel="stylesheet"
+	href="/AltemistaMoviesUI-webapp/static/fontawesome/fontawesome-all.css" />
+<script type="text/javascript" src="/AltemistaMoviesUI-webapp/demo.js"></script>
+</head>
+<body>
+	<div th:fragment="gohome">
+		<span>
+			<button class="submit" type="button"
+				th:onclick="'actionForm(this.form.id, \''+@{/}+'\'); return false;'">
+				<i class="fas fa-home"></i>&nbsp;Go Home
+			</button>
+		</span>
+		<span>
+			<button class="submit" type="button"
+				th:onclick="'actionForm(this.form.id, \''+@{/users}+'\'); return false;'">
+				<i class="fas fa-users"></i>&nbsp;Users
+			</button>
+		</span>
+		<span>
+			<button class="submit" type="button"
+				th:onclick="'actionForm(this.form.id, \''+@{/movies}+'\'); return false;'">
+				<i class="fas fa-film"></i>&nbsp;Movies
+			</button>
+		</span>
+		<span>
+			<button class="submit" type="button"
+				th:onclick="'actionForm(this.form.id, \''+@{/recommendations}+'\'); return false;'">
+				<i class="fas fa-comments"></i>&nbsp;Recommendations
+			</button>
+		</span>
+		<div>&nbsp;</div>
+	</div>
+
+	<div th:fragment="messages">
+		<div th:if="${messageSuccess != null}">
+			<div class="success">
+				<h4>Message</h4>
+				<p th:text="${messageSuccess}" />
+			</div>
+		</div>
+		<div th:if="${messageWarning != null}">
+			<div class="warning">
+				<h4>Warning</h4>
+				<p th:text="${messageWarning}" />
+			</div>
+		</div>
+		<div th:if="${messageError != null}">
+			<div class="error">
+				<h4>Error</h4>
+				<p th:text="${messageError}" />
+			</div>
+		</div>
+	</div>
+</body>
+</html>

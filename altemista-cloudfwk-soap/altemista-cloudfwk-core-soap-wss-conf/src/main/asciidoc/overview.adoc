@@ -1,0 +1,40 @@
+
+:fragment:
+
+The _WS-Security for SOAP client_ feature augments the SOAP web service consumer feature to support outgoing WS-Security.
+
+This feature defines some classes to simplify the implementation of outgoing WS-Security, and integrates some http://cxf.apache.org/[Apache CXF] features with Spring Remoting (namely, web service features related with WS-Security) and Spring Security.
+
+== Accessing SOAP web services with WS-Security
+
+This feature declares, out-of-the-box, a web service feature named `outgoingWssFeature` that performs outgoing WS-Security in a configurable manner and automatically integrates with Spring Security (if present). That feature can be used selectively in the SOAP clients that require it:
+
+[source,xml]
+.spring/soap-client.xml
+----
+<bean class="org.altemista.cloudfwk.core.soap.SimpleJaxWsPortProxyFactoryBean">
+  <property name="serviceInterface" value="..." />
+  <property name="endpointAddress" value="..." />
+
+  <property name="serviceFeatures" ref="outgoingWssFeature" /> <!--1-->
+</bean>
+----
+<1> This specific client will have outgoing WS-Security.
+
+== Creating custom WSS4J interceptors
+
+For special cases, it is possible to declare you own WSS4J interceptors and/or callback handlers benefiting from the base classes provided by the framework:
+
+`Wss4jInterceptorFeature`::
+
+Base adapter of CXF-specific `WSS4JInInterceptor` or `WSS4JOutInterceptor` as a standard `WebServiceFeature` (e.g.: to be used in Spring `AbstractJaxWsServiceExporter`).
+
+`Wss4jOutInterceptorFeature`::
+
+Adapter of CXF-specific `WSS4JOutInterceptor` as a standard `WebServiceFeature`.
+
+`AbstractPasswordCallbackHandler`::
+
+Conveniece base class for ``CallbackHandler``s that only handle the `WSPasswordCallback`.
+
+Please refer to the Javadoc of these classes for further information.

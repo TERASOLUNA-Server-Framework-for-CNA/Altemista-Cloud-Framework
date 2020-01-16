@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aws-context="http://www.springframework.org/schema/cloud/aws/context"
+	xmlns:jdbc="http://www.springframework.org/schema/cloud/aws/jdbc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+				http://www.springframework.org/schema/cloud/aws/context
+		http://www.springframework.org/schema/cloud/aws/context/spring-cloud-aws-context-1.0.xsd
+		http://www.springframework.org/schema/cloud/aws/jdbc
+	   http://www.springframework.org/schema/cloud/aws/jdbc/spring-cloud-aws-jdbc.xsd">
+
+	<context:component-scan base-package="com.mycompany.application.module.amazon" />
+
+
+	<jdbc:data-source db-instance-identifier="mydbinstance"
+		password="mypassword" database-name="test">
+	</jdbc:data-source>
+
+</beans>

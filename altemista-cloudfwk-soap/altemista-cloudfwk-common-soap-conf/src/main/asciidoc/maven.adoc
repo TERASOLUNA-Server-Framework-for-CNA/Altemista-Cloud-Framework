@@ -1,0 +1,42 @@
+
+:fragment:
+
+To manually install the _SOAP web service interface_ feature in a Maven project, add the following dependencies and plugins to the `pom.xml` file:
+
+[source,xml]
+.pom.xml
+----
+<dependency>
+  <groupId>org.altemista.cloudfwk.soap</groupId>
+  <artifactId>altemista-cloudfwk-common-soap-conf</artifactId><!--1-->
+</dependency>
+
+<build>
+  <plugins>
+    <plugin><!--2-->
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-codegen-plugin</artifactId>
+      <version>3.1.9</version><!--3-->
+      <executions>
+        <execution>
+          <id>generate-wsdl2java-sources</id>
+          <phase>generate-sources</phase>
+          <goals>
+            <goal>wsdl2java</goal>
+          </goals>
+          <configuration>
+            <wsdlRoot>${basedir}/src/main/resources/wsdl/</wsdlRoot><!--4-->
+            <includes>
+              <include>*.wsdl</include>
+            </includes>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+----
+<1> This dependency includes the required classes to define web service interfaces: `@WebService`, `@WebMethod`, etc.
+<2> If the development is done _contract first_, configure this Maven plugin to generate the necessary Java code from the WSDL files.
+<3> Apache CXF version for the Maven plugin.
+<4> In this example configuration, the WSDL files will be placed at the `wsdl` package in the resources folder. Please refer to the http://cxf.apache.org/docs/maven-cxf-codegen-plugin-wsdl-to-java.html[Maven cxf-codegen-plugin (WSDL to Java)] documentation for further examples and customization options.

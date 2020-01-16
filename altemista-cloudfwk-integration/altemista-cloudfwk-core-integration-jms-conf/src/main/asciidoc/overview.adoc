@@ -1,0 +1,6 @@
+
+:fragment:
+
+{framework} Integration JMS Feature provides Channel Adapters for receiving and sending JMS messages.
+
+{framework} Integration JMS Feature is based on https://docs.spring.io/spring-integration/docs/5.0.0.RELEASE/reference/html/jms.html[Spring Integration JMS Support^]

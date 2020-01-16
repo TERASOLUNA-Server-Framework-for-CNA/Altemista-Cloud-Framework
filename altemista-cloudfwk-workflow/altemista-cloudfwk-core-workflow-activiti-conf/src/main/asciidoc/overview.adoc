@@ -1,0 +1,59 @@
+
+:fragment:
+
+As previously stated, the module interfaces were designed, as the rest of the framework, to be as provider independent as possible. However, as different providers can have a different set of functionality, each implementation may have unsupported functionality.
+
+For the Activiti BPM Platform implementation, these limitations are:
+
+* In `WorkflowHumanTaskService`, the methods `startTask`, `stopTask`, `suspendTask` and `resumeTask` are "no operation" methods as Activiti does not have the concept of "working on" a task. Invoking them will have no effect over the task or the process instance. As the purpose of these methods is mainly informative, they will not throw any exception.
+Consequently, `WorkflowTask.getCreatorId()` will always return `null`. 
+
+* Also in `WorkflowHumanTaskService`, the method `skipTask`, whose purpose is to skip the task and let the process instance continue, will throw a `WorkflowException` because Actitivi does not support skipping tasks.
+Consequently, `WorkflowTask.isSkippable()` will always return `false`.
+
+== Authentication awareness
+
+In the Activiti implementation, only a few methods actually support authentication. Namely:
+
+* `WorkflowExecutionService.start()`, allowing some Activiti-specific properties (such as `<startEvent id="..." activiti:initiator="..." />`) to work.
+
+* `WorkflowHumanTaskService.completeTask()`
+
+* `WorkflowHumanTaskService.claimTask()` which, as expected, cannot be invoked anonymously
+
+* `WorkflowHumanTaskService.addComment()`
+
+Other methods will silently ignore the provided authentication information.
+
+== Using Activiti Designer
+
+https://github.com/Activiti/Activiti-Designer[Activiti Designer] is an Eclipse plug-in that provides a visual interface to create and modify workflow definitions.
+
+[IMPORTANT]
+====
+The visual editor validations are less strict than Activiti itself. Activiti can fail to parse (and, hence, deploy) workflows that show no errors in Activiti Designer.
+
+Namely, Activiti allows events and tasks inside subprocesses being referenced from outside that subprocess, while Activiti does not.
+====
+
+[TIP]
+====
+Subprocesses can still be used in the process definition, but they must include the start and end events and the external references should be linked to the subprocess itself instead of the inner elements, as shown in the next example:
+
+.Workflow subprocesses in Activiti Designer
+image::altemista-cloudfwk-core-workflow-activiti-conf/visual_workflow.jpg[align="center"]
+====
+
+== Existing Activiti installations
+
+The most common scenario when installing the {framework} Business Process Management (BPM) feature is to embed the workflow engine into the application. This means that the workflow engine will be used programatically only from inside the application (i.e.: like databases are typically used). Activiti internally uses a relational database for its internal persistence. It is possible to use the main database of the application or a separate database:
+
+.Embedding Activiti BPM Platform
+image::altemista-cloudfwk-core-workflow-activiti-conf/workflow_embedded.png[align="center"]
+
+However, if a previous installation of Activiti BPM Platform exists, it is possible to point the embedded workflow engine to the existing database. This allows workflow administrators to retain direct access through the console.
+
+Please note that it is an analogous scenario to databases: both the application and a database management toolset (such as MySql workbench) access the actual database, but only the later is used for administrations purposes.
+
+.Using an existing Activiti BPM Platform installation
+image::altemista-cloudfwk-core-workflow-activiti-conf/workflow_existing_installation.png[align="center"]

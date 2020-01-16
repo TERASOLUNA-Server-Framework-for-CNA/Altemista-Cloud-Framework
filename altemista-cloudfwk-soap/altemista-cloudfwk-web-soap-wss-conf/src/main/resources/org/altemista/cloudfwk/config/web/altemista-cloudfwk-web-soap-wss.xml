@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:cxf="http://cxf.apache.org/core"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
+	
+	<!--tag::internals1[]-->
+	<!-- Overwrites the Apache CXF bus configuration
+		to add inbound WS-Security (using WSS4J and Spring Security) -->
+	<cxf:bus>
+		<cxf:features>
+			<cxf:logging />
+			<ref bean="inboundWssFeature" />
+		</cxf:features>
+		
+		<cxf:properties>
+			<entry key="ws-security.ut.validator"
+					value-ref="springSecurityUsernameTokenValidator"
+				/>
+		</cxf:properties>
+	</cxf:bus>
+	<!--end::internals1[]-->
+
+	<!--tag::internals2[]-->
+	<!-- Default inbound WS-Security feature
+		(configurable via properties) -->
+	<bean id="inboundWssFeature"
+			class="org.altemista.cloudfwk.web.soap.wss.springsecurity.SpringSecurityAwareWss4jInInterceptorFeature">
+		<property name="enabled"		value="${soap.wss.inbound.enabled:false}" />
+		<property name="action"			value="${soap.wss.inbound.action:}" />
+		<property name="passwordType"	value="${soap.wss.inbound.passwordType:}" />
+		<property name="ignoreActions"	value="${soap.wss.inbound.ignoreActions:false}" />
+		<property name="authenticate"	value="${soap.wss.inbound.authenticate:true}" />
+	</bean>
+
+	<!-- This WSS4J validator validates a processed UsernameToken
+		using a Spring Security AuthenticationManager -->
+	<bean id="springSecurityUsernameTokenValidator"
+			class="org.altemista.cloudfwk.web.soap.wss.springsecurity.SpringSecurityUsernameTokenValidator">
+		<property name="enabled"
+				value="${soap.wss.springSecurityValidator.enabled:false}" />
+	</bean>
+	<!--end::internals2[]-->
+
+</beans>

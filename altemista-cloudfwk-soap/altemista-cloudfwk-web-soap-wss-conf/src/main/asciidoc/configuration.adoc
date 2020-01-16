@@ -1,0 +1,50 @@
+
+:fragment:
+
+The default configuration of this feature overrides the Apache CXF bus definition to use a web service feature named `inboundWssFeature` and an `UsernameTokenValidator`. Both perform inbound WS-Security in a configurable manner and automatically integrate with Spring Security and their configuration can be entirely done through a properties file. Usually, only one of them will be enabled at the same time; read this section carefully to choose the one that better fulfil the requirements of your application.
+
+
+To configure the default inbound WS-Security feature:
+
+[source,properties]
+.config/properties/application-soap-in-wss-env.properties
+----
+*.soap.wss.inbound.enabled=false #<1>
+*.soap.wss.inbound.action= #<2>
+*.soap.wss.inbound.passwordType= #<3>
+*.soap.wss.inbound.authenticate=false #<4>
+----
+<1> Enables or disables the feature (e.g.: to disable this feature in development environments without further configuration changes)
+<2> Inbound WS-Security action parameter (e.g.: `UsernameToken`).
+<3> Inbound WS-Security password type. One of: `PasswordDigest`, `PasswordText` or `PasswordNone`.
+<4> Flag to perform authentication in the Spring Security context. If this flag is disabled, the feature will validate the authentication information but will not perform authentication in the Spring Security context.
+
+This default inbound WS-Security feature is valid for any password type (e.g.: `PasswordDigest`) but requires an `UserDetailsService` bean named `inboundwssUserDetailsService`. The default configuration of the security feature of the framework already provides it by aliasing the main `UserDetailsService` of the application:
+
+[source,xml]
+.spring/new-application-security-env.xml
+----
+<alias alias="inboundwssUserDetailsService" name="appUserDetailsService" />
+----
+
+It is possible to declare a separate `UserDetailsService` for the inbound WS-Security feature.
+
+
+To configure the default `UsernameToken` validator:
+
+[source,properties]
+.config/properties/new-application-soap-in-wss-env.properties
+----
+*.soap.wss.springSecurityValidator.enabled=false #<1>
+----
+<1> Enables or disables the validator (e.g.: to disable this validator in development environments without further configuration changes)
+
+This default `UsernameToken` validator alows any configuration of Spring Security authentication manager (i.e.: it is no longer required to be based on a `UserDetailsService`), but only supports the password type `PasswordText`. The authentication manager named `inboundwssAuthenticationManager` will be used (the same as in the basic authentication). The default configuration simply aliases the main Spring Security `AuthenticationManager` of the application for the SOAP server to use it:
+
+[source,xml]
+.spring/new-application-security-env.xml
+----
+<alias alias="inboundwssAuthenticationManager" name="appAuthenticationManager" />
+----
+
+It is possible to declare a separate `AuthenticationManager` for the `UsernameToken` validator.

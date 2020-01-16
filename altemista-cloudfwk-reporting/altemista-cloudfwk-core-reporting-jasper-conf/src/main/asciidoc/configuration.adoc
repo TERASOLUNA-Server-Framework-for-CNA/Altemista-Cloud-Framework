@@ -1,0 +1,50 @@
+
+:fragment:
+
+The JasperReports-based implementation of the reporting feature sets up a `PrefixSuffixTemplateResolver` that will look for the actual templates at the `classpath:reports/templates/<logical name>.jasper` location. It is possible to change this location by setting the value of the two configuration properties in the application:
+
+[source,properties]
+.config/properties/application-reporting-jasper-env.properties
+----
+*.reporting.jasper.templateResolver.prefix=classpath:custom/reports/templates/path/
+*.reporting.jasper.templateResolver.suffix=-template.Jasper
+----
+
+In addition to the `TemplateResolver`, `JasperReportBuilderImpl`, the JasperReports-based report builder, uses a `JasperFiller` (responsible of filling a JasperReports-specific template with the report data) and a `JasperExporter` (responsible of creating JasperReports Exporter objects for an specific format). This beans are not directly injected in the `JasperReportBuilderImpl` bean but are provided by `JasperFillerPolicy` and `JasperExporterPolicy` beans respectively.
+
+.`JasperReportBuilderImpl` and related classes
+image::altemista-cloudfwk-core-reporting-jasper-conf/jasperReportBuilderImpl.png[align="center"]
+
+== `JasperFillerPolicy` and `JasperFillerPolicy`
+
+Currently, there are two `JasperFillerPolicy` implementations included in the module:
+
+* `SimpleJasperFillerPolicyImpl`, returning always the same `JasperFiller`.
+
+* `TemplateBasedFillerPolicyImpl`, that maps logical template names to `JasperFiller` implementations.
+
+The next implementations of `JasperFiller` are available:
+
+* `DataSourceJasperFillerImpl`: will use a connection provided by the injected data source.
+
+* `HibernateJasperFillerImpl`: will use an Hibernate session. Requires the Hibernate session factory object to be injected.
+
+* `JpaJasperFillerImpl`: depends on the JPA entity manager.
+
+* `JRDataSourceJasperFillerImpl`: this `JasperFiller` does not access any database but rather uses the `JRDataSource` set in the report bean.
+
+For the Jasper filler policy, the default configuration sets up a `SimpleJasperFillerPolicyImpl` that always returns a `JRDataSourceJasperFillerImpl`. To use a different policy, override the `jasperFillerPolicy` bean.
+
+TIP: Applications are likely to override the default filler policy bean to remove the tight coupling with the JasperReports-based implementation of the reporting feature and with JasperReports itself. For example, using `DataSourceJasperFillerImpl`.
+
+== `JasperExporter` and `JasperExporterPolicy`
+
+Two `JasperExporterPolicy` implementations are provided as well:
+
+* `DefaultJasperExporterPolicyImpl`, that maps content types to default `JasperExporter` implementations.
+
+* `CustomJasperExporterPolicyImpl` for implementing custom policies to return `JasperExporter` implementations with an optional fallback policy. The main purpose of this class is to serve as a base class for implementing specific policies (e.g.: to customize one specific report) while allowing to reuse other policies, such as the default one, for the rest of the cases.
+
+For the exporter policy, the default configuration sets up a `DefaultJasperExporterPolicyImpl`. To change this policy, the bean `jasperExporterPolicy` should be overriden.
+
+TIP: Applications are unlikely to need to override the default exporter policy bean.

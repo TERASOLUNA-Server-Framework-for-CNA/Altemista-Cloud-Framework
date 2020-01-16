@@ -1,0 +1,4 @@
+
+:fragment:
+
+{framework} Integration Resource feature only can be added in a core module.

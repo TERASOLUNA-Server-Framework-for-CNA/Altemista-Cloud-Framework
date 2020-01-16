@@ -1,0 +1,497 @@
+
+:fragment:
+
+As the user interface we have received a Altemista cloud WebApp application wiht Thymyleaf as presentation layer. The connection was made with RestTemplate, on this example is extended in order to configure the template.
+
+[discrete]
+=== MSDRestTemplate
+
+.AltemistaMoviesUI-webapp/src/main/java/.../webapp/controller/MSDRestTemplate.java
+[source,java,linenums]
+----
+@Component
+public class MSDRestTemplate extends RestTemplate {
+	
+	public MSDRestTemplate(){
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		mapper.registerModule(new Jackson2HalModule());
+		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+		converter.setSupportedMediaTypes(Arrays.asList(MediaTypes.HAL_JSON));
+		converter.setObjectMapper(mapper);
+		this.setMessageConverters(Collections.<HttpMessageConverter<?>>singletonList(converter));
+	}
+
+}
+----
+
+This Rest template is inject to an Base Typed Controller.
+
+[discrete]
+=== GatewayConfiguration
+
+.AltemistaMoviesUI-webapp/src/main/java/.../webapp/controller/GatewayConfiguration.java
+[source,java,linenums]
+----
+@Component
+public class GatewayConfiguration {
+
+	@Value("${spring.cloud.gateway.protocol}")
+	private String protocol;
+	
+	@Value("${spring.cloud.gateway.host}")
+	private String host;
+	
+	@Value("${spring.cloud.gateway.port}")
+	private Integer port;
+
+	public String getProtocol() {
+		return protocol;
+	}
+
+	public String getHost() {
+		return host;
+	}
+
+	public Integer getPort() {
+		return port;
+	}
+
+}
+----
+
+[discrete]
+=== AbstractController
+
+./AltemistaMoviesUI-webapp/src/main/java/.../AbstractController.java
+[source,java,linenums]
+----
+package com.mycompany.altemistamoviesui.webapp.utils;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.HttpClientErrorException;
+
+import com.mycompany.altemistamoviesui.webapp.controller.GatewayConfiguration;
+import com.mycompany.altemistamoviesui.webapp.controller.MSDRestTemplate;
+
+public abstract class AbstractController<T extends Object> {
+	
+	protected static final String ID_TEXT = "id";
+	protected static final String PAGE_0_SIZE_10 = "page=0&size=10";
+	protected static final String ENDPOINT = "endpoint";
+	
+	protected static final String SLASH  = "/";
+	protected static final String CANCEL = "/cancel";
+	protected static final String UPDATE = "/update/{id}";
+	protected static final String EDIT   = "/edit/{id}";
+	protected static final String SAVE   = "/save";
+	protected static final String NEW    = "/new";
+	protected static final String DELETE = "/delete/{id}";
+	
+	protected static final String SUCCESS_MESSAGE = "messageSuccess";
+	protected static final String WARNING_MESSAGE = "messageWarning";
+	protected static final String ERROR_MESSAGE = "messageError";
+	
+	private static final String DELETED_MESSAGE = "Deleted!!!";
+	private static final String UPDATED_MESSAGE = " updated!!!";
+	private static final String CREATED_MESSAGE = " created!!!";
+	private static final String EXISTS_MESSAGE = " exists!!!";
+	
+	protected final String microserviceName;
+	protected final String entityWebEndpoint;
+	protected final String entityName;
+	
+	@Autowired
+	protected MSDRestTemplate template; // <2>
+	
+	@Autowired
+	private GatewayConfiguration gatewayConfiguration; // <1>
+	
+	protected final ParameterizedTypeReference<List<T>> responseListPTR;
+	protected final ParameterizedTypeReference<T> responseEntityPTR;
+	
+	public AbstractController(String microserviceName, String entityWebEndpoint, String entityName,
+			ParameterizedTypeReference<List<T>> responseListPTR, ParameterizedTypeReference<T> responseEntityPTR) 
+					throws NoSuchMethodException, SecurityException {
+		super();
+		this.microserviceName = microserviceName;
+		this.entityWebEndpoint = entityWebEndpoint;
+		this.entityName = entityName;
+		this.responseListPTR = responseListPTR;
+		this.responseEntityPTR = responseEntityPTR;
+	}
+
+	@RequestMapping
+	public String getIndex(Model model) { // <3>
+		ResponseEntity<List<T>> entitysResponse = template.exchange(composeURI(null), 
+				HttpMethod.GET, null, responseListPTR);
+		List<T> listT = (List<T>) entitysResponse.getBody();
+		model.addAttribute(entityWebEndpoint, listT);
+		afterGetAll(model);
+		return entityWebEndpoint;
+	}
+
+	protected void afterGetAll(Model model) {}
+
+	@RequestMapping(CANCEL)
+	public String cancel(Model model) {
+		return getIndex(model);
+	}
+	
+	@RequestMapping(NEW)
+	public String getEntityForm(Model model) {
+		model.addAttribute(entityName, newEntityInstance());
+		afterNew(model);
+		return entityName;
+	}
+
+	protected void afterNew(Model model) {}
+
+	@RequestMapping(SAVE) // <3>
+	public String saveEntity(@ModelAttribute T entity, Model model) {
+		try {
+			ResponseEntity<T> newEntityResponseEntity = template.postForEntity(composeURI(null), entity, getEntityClass());
+			model.addAttribute(this.entityName, newEntityResponseEntity.getBody());
+			model.addAttribute(SUCCESS_MESSAGE, StringUtils.capitalize(this.entityName) + CREATED_MESSAGE);
+		} catch (HttpClientErrorException e) {
+			if (e.getStatusCode()==HttpStatus.CONFLICT) {
+				model.addAttribute(ERROR_MESSAGE, StringUtils.capitalize(this.entityName) + EXISTS_MESSAGE);
+			}
+		}
+		return getIndex(model);
+	}
+	
+	@RequestMapping(value=EDIT, method=RequestMethod.POST)
+	public String editEntity(Model model, @PathVariable(ID_TEXT) Long id) {
+		ResponseEntity<T> entityDTOResponseEntity = template.getForEntity(composeURI(id.toString()), getEntityClass());
+		T entityDTO = entityDTOResponseEntity.getBody();
+		model.addAttribute(this.entityName, entityDTO);
+		afterEdit(model);
+		return this.entityName;
+	}
+	
+	protected void afterEdit(Model model){}
+	
+	@RequestMapping(value=UPDATE, method=RequestMethod.POST) // <3>
+	public String updateEntity(@ModelAttribute T entity, @PathVariable(ID_TEXT) String id, Model model) {
+		template.put(composeURI(id), entity);
+		model.addAttribute(this.entityName, entity);
+		model.addAttribute(SUCCESS_MESSAGE, StringUtils.capitalize(this.entityName) + UPDATED_MESSAGE);
+		return getIndex(model);
+	}
+	
+	@RequestMapping(DELETE) // <3>
+	public String delete(Model model, @PathVariable(ID_TEXT) Long id){
+		URI composeURI = composeURI(id.toString());
+		template.delete(composeURI);
+		model.addAttribute(WARNING_MESSAGE, DELETED_MESSAGE);
+		return getIndex(model);
+	}
+	
+	public abstract Class<T> getEntityClass();
+	
+	public T newEntityInstance() {
+		T newInstance = null;
+		try {
+			newInstance = getEntityClass().newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return newInstance;
+	}
+	
+	protected URI composeURI(String endpoint) {
+		return composeURI(endpoint, getMicroserviceName());
+	}
+	
+	protected URI composeURI(String endpoint, String microserviceName) {
+		URI uri = null;
+		try {
+			if (endpoint==null) endpoint = "";
+			uri = new URI(gatewayConfiguration.getProtocol(), null, gatewayConfiguration.getHost(), gatewayConfiguration.getPort(), 
+					SLASH + microserviceName + SLASH + endpoint, null, null);
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return uri;
+	}
+	
+	public String getMicroserviceName() {
+		return this.microserviceName;
+	}
+	
+}
+----
+<1> Configuration for the gateway, the UI is NOT an microservice thus only can see the gateway (the ui may be an mobile application, and the gateway will be public).
+<2> Rest Template and common objects for the repositories.
+<3> Common methods independents of the type (CRUD methods).
+
+Each concrete Controller will define the type and complete the specific methods for each type.
+
+[discrete]
+=== UserController
+
+[source,java,linenums]
+./AltemistaMoviesUI-webapp/src/main/java/.../UserController.java
+----
+package com.mycompany.altemistamoviesui.webapp.controller;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.altemista.cloudfwk.demo.altemistamoviesrecomend.microservice.domain.RecommendationDTO;
+import org.altemista.cloudfwk.demo.altemistamoviesusers.microservice.domain.UserDTO;
+
+import com.mycompany.altemistamoviesui.webapp.utils.AbstractController;
+
+@Controller
+@RequestMapping(UserController.ENTITY_MAPPING)
+public class UserController extends AbstractController<UserDTO> {
+	
+	private static final String RECOMMENDATIONS = "recommendations";
+	private static final String RECOMMENDATIONS_MAPPING = "/recommendations";
+
+	protected static final String ENTITY_MAPPING = "/users";
+
+	private static final String ENTITY_NAME = "user";
+	private static final String ENTITY_WEB_ENDPOINT = "users";
+	
+	protected final ParameterizedTypeReference<List<RecommendationDTO>> responseEntityRecommendationParameterizedTypeReference =
+			new ParameterizedTypeReference<List<RecommendationDTO>>() {};
+			
+	
+	@Autowired
+	private RecommendationsController recommendationsController;
+
+	@Inject
+	public UserController(@Value("${microservice.demo.users.name}") String microserviceDemoName) throws NoSuchMethodException, SecurityException {
+		super(microserviceDemoName, ENTITY_WEB_ENDPOINT, ENTITY_NAME, 
+				new ParameterizedTypeReference<List<UserDTO>>(){}, new ParameterizedTypeReference<UserDTO>(){});
+	}
+	
+	@RequestMapping(value=RECOMMENDATIONS_MAPPING + "/{userId}", method=RequestMethod.POST)
+	public String getRecommendations(Model model, @PathVariable("userId") Long userId) {
+		
+		URI composeURI = composeURI(userId.toString());
+		ResponseEntity<UserDTO> userDTOResponseEntity = template.getForEntity(composeURI, UserDTO.class);
+		UserDTO userDTO = userDTOResponseEntity.getBody();
+		
+		composeURI = composeURI("findByUserID/"+userDTO.getId(), recommendationsController.getMicroserviceName());
+		ResponseEntity<List<RecommendationDTO>> allRecommendationsByUserResponseEntity = 
+				template.exchange(composeURI, HttpMethod.GET, null, responseEntityRecommendationParameterizedTypeReference);
+		
+		List<RecommendationDTO> recommendations = allRecommendationsByUserResponseEntity.getBody();
+		
+		model.addAttribute(RECOMMENDATIONS, recommendations);
+		model.addAttribute(ENTITY_NAME, userDTO);
+		return ENTITY_NAME;
+		
+	}
+	
+	@RequestMapping(value=RECOMMENDATIONS + "/" + NEW + "/{userId}", method=RequestMethod.POST)
+	public String addUserRecommendation(Model model, @PathVariable("userId") Long userId) {
+		
+		URI composeURI = composeURI(userId.toString());
+		ResponseEntity<UserDTO> userDTOResponseEntity = template.getForEntity(composeURI, UserDTO.class);
+		UserDTO userDTO = userDTOResponseEntity.getBody();
+		
+		recommendationsController.addMoviesToModel(model);
+		
+		List<UserDTO> users = new ArrayList<UserDTO>();
+		users.add(userDTO);
+		
+		model.addAttribute("users", users);
+		model.addAttribute("recommendation", new RecommendationDTO());
+		model.addAttribute("userDTO", userDTO);
+		return RecommendationsController.ENTITY_NAME;
+		
+	}
+
+	@Override
+	public Class<UserDTO> getEntityClass() {
+		return UserDTO.class;
+	}
+
+}
+----
+//
+
+[discrete]
+=== MovieController
+
+[source,java,linenums]
+./AltemistaMoviesUI-webapp/src/main/java/.../MovieController.java
+----
+package com.mycompany.altemistamoviesui.webapp.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.altemista.cloudfwk.demo.altemistamoviesmovies.microservice.domain.MovieDTO;
+
+import com.mycompany.altemistamoviesui.webapp.utils.AbstractController;
+
+@Controller
+@RequestMapping(MovieController.ENTITY_MAPPING)
+public class MovieController extends AbstractController<MovieDTO> {
+	
+	protected static final String ENTITY_MAPPING = "/movies";
+	
+	private static final String ENTITY_WEB_ENDPOINT = "movies";
+	private static final String ENTITY_NAME = "movie";
+	
+	@Inject
+	public MovieController(@Value("${microservice.demo.movies.name}") String microserviceDemoName) throws NoSuchMethodException, SecurityException {
+		super(microserviceDemoName, ENTITY_WEB_ENDPOINT, ENTITY_NAME, 
+				new ParameterizedTypeReference<List<MovieDTO>>(){}, new ParameterizedTypeReference<MovieDTO>(){});
+	}
+
+	@Override
+	public Class<MovieDTO> getEntityClass() {
+		return MovieDTO.class;
+	}
+
+}
+----
+//
+
+[discrete]
+=== RecommendationController
+
+[source,java,linenums]
+./AltemistaMoviesUI-webapp/src/main/java/.../RecommendationsController.java
+----
+package com.mycompany.altemistamoviesui.webapp.controller;
+
+import java.net.URI;
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.altemista.cloudfwk.demo.altemistamoviesmovies.microservice.domain.MovieDTO;
+import org.altemista.cloudfwk.demo.altemistamoviesrecomend.microservice.domain.RecommendationDTO;
+import org.altemista.cloudfwk.demo.altemistamoviesusers.microservice.domain.UserDTO;
+
+import com.mycompany.altemistamoviesui.webapp.utils.AbstractController;
+
+@Controller
+@RequestMapping(RecommendationsController.ENTITY_MAPPING)
+public class RecommendationsController extends AbstractController<RecommendationDTO> {
+	
+	protected static final String ENTITY_MAPPING = "/recommendations";
+
+	public static final String ENTITY_NAME = "recommendation";
+	private static final String ENTITY_WEB_ENDPOINT = "recommendations";
+
+	protected final ParameterizedTypeReference<List<MovieDTO>> responseEntityMovieParameterizedTypeReference =
+			new ParameterizedTypeReference<List<MovieDTO>>() {};
+	protected final ParameterizedTypeReference<List<UserDTO>> responseEntityUserParameterizedTypeReference =
+			new ParameterizedTypeReference<List<UserDTO>>() {};
+			
+	@Autowired
+	private UserController userController;
+	
+	@Autowired
+	private MovieController movieController;
+
+	@Inject
+	public RecommendationsController(@Value("${microservice.demo.recommendations.name}") String microserviceDemoName) throws NoSuchMethodException, SecurityException {
+		super(microserviceDemoName, ENTITY_WEB_ENDPOINT, ENTITY_NAME, 
+				new ParameterizedTypeReference<List<RecommendationDTO>>(){}, new ParameterizedTypeReference<RecommendationDTO>(){});
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	protected void afterGetAll(Model model) {
+		super.afterGetAll(model);
+		Map<String, Object> modelAsMap = model.asMap();
+		List<RecommendationDTO> recommendations = (List<RecommendationDTO>) modelAsMap.get(entityWebEndpoint);
+		for (RecommendationDTO recommendation : recommendations) {
+			Long movieId = recommendation.getMovieId();
+			ResponseEntity<MovieDTO> movieDTO = 
+					template.getForEntity(composeURI(movieId.toString(), movieController.getMicroserviceName()), MovieDTO.class);
+			recommendation.setMovieTitle(movieDTO.getBody().getTitle());
+			Long userId = recommendation.getUserId();
+			ResponseEntity<UserDTO> userDTO = 
+					template.getForEntity(composeURI(userId.toString(), userController.getMicroserviceName()), UserDTO.class);
+			recommendation.setUserFirstName(userDTO.getBody().getFirstName());
+			recommendation.setUserLastName(userDTO.getBody().getLastName());
+		}
+	}
+	
+	@Override
+	protected void afterNew(Model model) {
+		super.afterNew(model);
+		addMoviesToModel(model);
+		addUsersToModel(model);
+	}
+	
+	@Override
+	protected void afterEdit(Model model) {
+		super.afterEdit(model);
+		addMoviesToModel(model);
+		addUsersToModel(model);
+	}
+
+	protected void addMoviesToModel(Model model) {
+		URI composeURI = composeURI(null, movieController.getMicroserviceName());
+		ResponseEntity<List<MovieDTO>> moviesResponse = template.exchange(composeURI, HttpMethod.GET, null, responseEntityMovieParameterizedTypeReference);
+		List<MovieDTO> movies = moviesResponse.getBody();
+		model.addAttribute("movies", movies);
+	}
+
+	protected void addUsersToModel(Model model) {
+		URI composeURI = composeURI(null, userController.getMicroserviceName());
+		ResponseEntity<List<UserDTO>> usersResponse = template.exchange(composeURI, HttpMethod.GET, null, responseEntityUserParameterizedTypeReference);
+		List<UserDTO> users = usersResponse.getBody();
+		model.addAttribute("users", users);
+	}
+
+	@Override
+	public Class<RecommendationDTO> getEntityClass() {
+		return RecommendationDTO.class;
+	}
+
+}
+----

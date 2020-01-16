@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.altemista.cloudfwk.framework</groupId>
+		<artifactId>altemista-cloudfwk-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	<groupId>org.altemista.cloudfwk.performance</groupId>
+	<artifactId>altemista-cloudfwk-app-performance</artifactId>
+	<name>altemista-cloudfwk performance: execution performance statistics</name>
+
+	<dependencies>
+
+		<!-- == Begin ACF framework == - ->
+		<dependency>
+			<groupId>org.altemista.cloudfwk.performance</groupId>
+			<artifactId>altemista-cloudfwk-common-performance</artifactId>
+		</dependency>
+		<!- - == End ACF framework == -->
+
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-common</artifactId>
+		</dependency>
+		<!-- == End ACF framework == -->
+
+		<!-- == Begin Spring Framework == -->
+		<dependency>
+			<!-- for PersistenceExceptionTranslation annotations -->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- == End Spring Framework == -->
+		
+		<!-- == Begin Jackson 2 == -->
+		<dependency>
+			<!-- For @JsonView -->
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+		<!-- == End Jackson 2 == -->
+
+		<!-- == Begin test dependencies == -->
+		<dependency>
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- == End test dependencies == -->
+
+	</dependencies>
+
+</project>

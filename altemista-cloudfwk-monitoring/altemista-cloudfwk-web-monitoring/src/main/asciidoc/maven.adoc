@@ -1,0 +1,14 @@
+
+:fragment:
+
+To manually install the <<altemista-cloudfwk-web-monitoring-overview,exposing indicator statuses through a REST API>> feature, add the following dependencies to the `pom.xml` file of a web tier implementation project:
+
+[source,xml]
+.new-application-module-web/pom.xml
+----
+<dependency>
+	<groupId>org.altemista.cloudfwk.monitoring</groupId>
+	<artifactId>altemista-cloudfwk-web-monitoring</artifactId> <!--1-->
+</dependency>
+----
+<1> Feature classes.

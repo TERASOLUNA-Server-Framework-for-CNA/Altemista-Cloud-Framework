@@ -1,0 +1,33 @@
+
+:fragment:
+
+The most representative parts of the `pom.xml` of an aggregator project with the _Spring Boot application_ nature are:
+
+[source,xml]
+----
+<dependencies>
+
+  <dependency>
+    <groupId>org.altemista.cloudfwk.framework</groupId>
+    <artifactId>altemista-cloudfwk-boot-conf</artifactId> <!--1-->
+  </dependency>
+  <!-- ... -->
+
+</dependencies>
+
+<build>
+  <plugins>
+  
+    <plugin>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-maven-plugin</artifactId> <!--2-->
+    </plugin>
+    <!-- ... -->
+    
+  </plugins>
+</build>
+----
+<1> The maven dependency of the Spring Boot application_ nature.
+<2> The Spring Boot Maven Plugin, that allows packaging the application as an executable jar or war and run it _in-place_, inherits a default configuration from the {framework} _recommended plugins_. The application is only required to declare it.
+
+Additionally, it should contain a dependency to the shared configuration project and to all the business module projects. Usually, business module interfaces will have `compile` (default) scope, while business module implementations will have `runtime` scope.

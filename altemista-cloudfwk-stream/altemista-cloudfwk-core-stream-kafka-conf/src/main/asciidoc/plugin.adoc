@@ -1,0 +1,12 @@
+
+:fragment:
+
+{framework} Kafka feature only can be added in a boot module, _boot_ natures is supported. See below how to add the feature in our project;
+
+image::altemista-cloudfwk-documentation/stream/feature_CloudStream.jpg[align="center"]
+
+Choose the "kafka implementation".
+
+image::altemista-cloudfwk-documentation/stream/feature_options_Cloud_stream.jpg[align="center"]
+
+IMPORTANT: To use the Kafka Spring Cloud Stream feature, you need the Kafka software installed in your environment.

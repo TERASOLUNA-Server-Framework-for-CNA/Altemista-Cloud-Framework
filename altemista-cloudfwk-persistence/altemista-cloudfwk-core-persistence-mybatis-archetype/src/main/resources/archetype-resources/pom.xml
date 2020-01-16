@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<properties>
+		<hsqldb.version>2.3.3</hsqldb.version>
+	</properties>
+	
+	<dependencies>
+
+		<!-- == Begin ACF Persistence MyBatis == -->
+		<dependency>
+			<groupId>org.altemista.cloudfwk.persistence</groupId>
+			<artifactId>altemista-cloudfwk-core-persistence-mybatis-conf</artifactId>
+		</dependency>
+		<!-- == Begin ACF Persistence MyBatis == -->
+
+		<!-- == Begin in-memory database -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+		</dependency>
+		<!-- == End in-memory database -->
+		
+	</dependencies>
+
+	<build>
+		<resources>
+			<!-- Default resources folder -->
+			<resource>
+				<directory>${project.basedir}/src/main/resources</directory>
+			</resource>
+			
+			<!-- Includes also the mappers created by the MyBatis Generator -->
+			<resource>
+				<directory>${project.basedir}/src/main/java</directory>
+				<includes>
+					<include>**/*Mapper.xml</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+	
+	<profiles>
+	
+		<!--
+			The MyBatis generator is not meant to be run in each compilation,
+			but to be manually triggered to create the initial version of the entities and mappers
+			that will probably be modified (and, hence, are to be included in source control)
+		-->
+		<profile>
+			<id>generate-mybatis-sources</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+				
+					<!-- == Begin MyBatis code generation == -->
+					<plugin>
+						<groupId>org.mybatis.generator</groupId>
+						<artifactId>mybatis-generator-maven-plugin</artifactId>
+						
+						<configuration>
+							<configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
+							<outputDirectory>${basedir}/src/main/java</outputDirectory>
+						</configuration>
+						
+						<executions>
+							<execution>
+								<id>generate-mybatis-sources</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- == End MyBatis code generation == -->
+			
+				</plugins>
+			</build>
+		</profile>
+		
+	</profiles>
+	
+</project>

@@ -1,0 +1,24 @@
+
+:fragment:
+
+{framework} Spring cloud stream feature enables the capacity of exchange streams between different systems. Spring Cloud Stream is a framework built on top of Spring Boot and Spring Integration that helps in creating event-driven or message-driven microservices.
+
+The message-driven pattern, in the microservices environment, introduces the concept of asynchronous communication between microservices directed by sending messages. A message is a data that is sent to a specific destination. 
+
+The event-driven pattern, based on the previous pattern and using the same communication channel, is oriented to the sending of events. An event is a signal emitted by a component when reaching a certain state. 
+
+On the basis of these principles, patterns such as CQRS and Sagas are built, which in a microservice environment help us to maintain, eventually, the information consistent, by generating domain events (DDD concepts).
+
+== Main Components And Annotations
+
+===  @EnableBinding
+It configures the application to bind the channels INPUT and OUTPUT defined within the interface Processor. Both channels are bindings that can be configured to use a concrete messaging-middleware or binder.
+
+=== Bindings
+A collection of interfaces that identify the input and output channels declaratively
+
+=== Channel 
+It represents the communication pipe between messaging-middleware and the application
+
+=== StreamListeners 
+Message-handling methods in beans that will be automatically invoked on a message from the channel after the MessageConverter does the serialization/deserialization between middleware-specific events and domain object types / POJOs

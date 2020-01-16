@@ -1,0 +1,14 @@
+
+:fragment:
+
+Now it is time to go to the web console to deploy an application from this image, you need to choose to the "Deploy Image" tab.
+
+image::altemista-cloudfwk-documentation/altemista/deploy.png[align="center"]
+
+And then check the "Image Stream Tag" option:
+
+image::altemista-cloudfwk-documentation/altemista/internal_registry.png[align="center"]
+
+IMPORTANT: it will be needed to add a storage for the path where we write the log by logback feature if you use a ACF project, it should be needed to add the path where it is configured in the logback.xml, by default "/log".
+
+image::altemista-cloudfwk-documentation/altemista/volume.png[align="center"]

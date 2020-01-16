@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.altemista.cloudfwk.demo</groupId>
+    <artifactId>AltemistaMoviesUsers</artifactId>
+    <version>3.0.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>AltemistaMoviesUsers-boot</artifactId>
+  <name>AltemistaMoviesUsers Microservice aggregator project</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.altemista.cloudfwk.framework</groupId>
+      <artifactId>altemista-cloudfwk-microservice-application-conf</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.altemista.cloudfwk.microservices</groupId>
+      <artifactId>altemista-cloudfwk-core-microservices-service-conf</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.altemista.cloudfwk.demo</groupId>
+      <artifactId>AltemistaMoviesUsers-env</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.altemista.cloudfwk.demo</groupId>
+      <artifactId>AltemistaMoviesUsers-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.altemista.cloudfwk.demo</groupId>
+      <artifactId>AltemistaMoviesUsers-data-core</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>

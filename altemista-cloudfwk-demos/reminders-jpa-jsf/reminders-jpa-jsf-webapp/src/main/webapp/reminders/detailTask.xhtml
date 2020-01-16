@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<f:metadata>
+	<f:viewParam name="id" value="#{detailTaskBean.id}" />
+	<f:event type="preRenderView" listener="#{detailTaskBean.loadTask}" />
+</f:metadata>
+
+<ui:composition template="/WEB-INF/faces/template.xhtml">
+
+	<ui:define name="section">
+
+
+		<div class="panel panel-default">
+
+			<div class="panel-heading">
+				<h1 class="panel-title text-center">#{detailTaskBean.headerMsg}</h1>
+			</div>
+
+			<div class="panel-body">
+
+				<h:form id="form" class="form-horizontal">
+					<div class="form-group">
+						<h:outputLabel for="name" class="control-label col-sm-2">#{msg.task.detail.description}:</h:outputLabel>
+						<p:inputText id="name" classStyle="form-control" maxlength="1024"
+							value="#{detailTaskBean.task.name}" required="true" />
+						<h:message for="name" style="color:red" />
+					</div>
+					<div class="form-group">
+						<h:outputLabel for="date" class="control-label col-sm-2">#{msg.task.detail.duedate}:</h:outputLabel>
+						<p:calendar value="#{detailTaskBean.task.date}"
+							pattern="yyyy-MM-dd" />
+						<h:message for="date" style="color:red" />
+					</div>
+
+					<div class="panel-footer">
+						<div class="btn-group pull-left">
+							<h:link outcome="home" styleClass="button btn btn-default">
+								<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;#{msg.generic.back}
+							</h:link>
+						</div>
+						<div class="btn-group pull-right">
+							<h:commandLink
+								action="#{detailTaskBean.deleteTask(detailTaskBean.id)}"
+								ajax="false" styleClass="btn btn-danger"
+								rendered="#{detailTaskBean.showDelete}">
+								<f:param name="${_csrf.parameterName}" value="${_csrf.token}" />
+								<span class="glyphicon glyphicon-trash"></span>&nbsp;#{msg.generic.delete}
+							</h:commandLink>
+							<h:commandLink action="#{detailTaskBean.submit}" ajax="false"
+								styleClass="btn btn-primary">
+								<f:param name="${_csrf.parameterName}" value="${_csrf.token}" />
+								<span class="glyphicon glyphicon-ok"></span>&nbsp;#{msg.generic.submit}
+							</h:commandLink>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+
+</ui:composition>
+
+</html>

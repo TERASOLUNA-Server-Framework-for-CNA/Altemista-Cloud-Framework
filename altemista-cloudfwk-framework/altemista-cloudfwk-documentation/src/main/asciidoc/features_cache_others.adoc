@@ -1,0 +1,65 @@
+
+:fragment:
+
+{framework} applications are not limited to the cache technologies natively offered by the {framework}. This section explains how to set up other cache technologies in a {framework} application.
+
+NOTE: Please note that these cache implementations are not integrated in the life cycle of the framework. Therefore, they have not been exhaustively tested. Additionally, as their dependencies are not managed by the {framework}, the plug-in can not detect them, and there may be unexpected behaviour if other cache implementations are installed on top of a manually set up cache implementation.
+
+== Redis
+
+https://redis.io/[Redis] is an in-memory data structure store, used as a database, cache and message broker.
+
+To set up Redis as a cache, add the following configuration to the shared configuration project:
+
+[source,xml]
+.spring/my-application-cache-redis-env.xml
+----
+	<cache:annotation-driven/>
+
+	<!-- Redis Cache Manager -->
+	<bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
+		<constructor-arg index="0" ref="redisTemplate" />
+		<property name="usePrefix" value="true" />
+	</bean>
+
+	<!-- The Redis data access helper class -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="jedisConnectionFactory"/>
+	</bean>
+
+	<!-- Redis Java client and Redis connection pool -->
+	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<property name="hostName" value="${redis.hostname:localhost}"/>
+		<property name="port"     value="${redis.port:6379}"/>
+		<property name="password" value="${redis.password:}"/>
+		<property name="timeout"  value="${redis.timeout:2000}"/>
+		<property name="poolConfig" ref="jedisPoolConfig"/>
+		<property name="usePool" value="true"/>
+	</bean>
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig" />
+----
+
+////
+	<!-- ???
+	<bean id="redisMessageListenerContainer"
+			class="org.springframework.data.redis.listener.RedisMessageListenerContainer" >
+		<property name="connectionFactory" ref="jedisConnectionFactory"/>
+		<property name="messageListeners">
+			<map>
+				<entry value-ref="notificationTopic" key-ref="messageListenerAdapter"/>
+			</map>
+		</property>
+	</bean>
+	-->
+////
+
+The details of the connection can be then set up in an environment-aware properties file as follows:
+
+[source,properties]
+.config/properties/my-application-cache-redis-env.properties
+----
+*.redis.hostname=localhost
+*.redis.port=6379
+*.redis.password=
+*.redis.timeout=2000
+----

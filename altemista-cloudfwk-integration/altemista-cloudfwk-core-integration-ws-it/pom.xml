@@ -1,0 +1,54 @@
+<project xmlns="ws://maven.apache.org/POM/4.0.0" xmlns:xsi="ws://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="ws://maven.apache.org/POM/4.0.0 ws://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.altemista.cloudfwk.it</groupId>
+		<artifactId>altemista-cloudfwk-it-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+
+	<groupId>org.altemista.cloudfwk.integration</groupId>
+	<artifactId>altemista-cloudfwk-core-integration-ws-it</artifactId>
+	<packaging>${packaging.type}</packaging>
+
+	<name>altemista-cloudfwk integration: WebServices Adapter integration
+		tests
+	</name>
+
+	<dependencies>
+		
+		<dependency>
+			<groupId>org.altemista.cloudfwk.rest</groupId>
+			<artifactId>altemista-cloudfwk-common-rest</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<!-- (avoid wrong transitive exclusion resolution in non-test scope) -->
+				<exclusion>
+					<groupId>org.altemista.cloudfwk.framework</groupId>
+					<artifactId>altemista-cloudfwk-common</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<!-- ACF SOAP server -->
+			<groupId>org.altemista.cloudfwk.soap</groupId>
+			<artifactId>altemista-cloudfwk-web-soap-conf</artifactId>
+		</dependency>
+		<dependency>
+			<!-- ACF SOAP client -->
+			<groupId>org.altemista.cloudfwk.soap</groupId>
+			<artifactId>altemista-cloudfwk-core-soap-conf</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- == Begin ACF modules to be tested (server part) == -->
+		<dependency>
+			<groupId>org.altemista.cloudfwk.integration</groupId>
+			<artifactId>altemista-cloudfwk-core-integration-ws-conf</artifactId>
+		</dependency>
+
+	</dependencies>
+
+</project>

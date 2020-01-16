@@ -1,0 +1,39 @@
+
+:fragment:
+
+Without Spring Boot, it is possible to add Swagger to our Spring MVC project. We can achieve it in a deployable Web Application Archive (WAR)
+
+* Swagger UI adds a set of resources which we configure as part of a class that extends WebMvcConfigurerAdapter. We need to override addResourceHandlers()
+
+[source,java]
+.altemista-cloudfwk-webapp-swagger-conf/src/main/java/org/altemista/cloudfwk/swagger/WebAppConfig.java
+----
+@Override
+public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("swagger-ui.html")
+      .addResourceLocations("classpath:/META-INF/resources/");
+ 
+    registry.addResourceHandler("/webjars/**")
+      .addResourceLocations("classpath:/META-INF/resources/webjars/");
+}
+----
+* we added this configuration
+ 
+[source,xml]
+.altemista-cloudfwk-webapp-swagger-conf/src/main/resources/org/altemista/cloudfwk/config/webapp/altemista-cloudfwk-webapp-swagger.xml
+----
+	<context:component-scan base-package="org.altemista.cloudfwk.swagger" /> 	<!--1-->
+	
+	<bean class="org.altemista.cloudfwk.swagger.SwaggerConfig" />	<!--2-->
+
+	<mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/" /> 	<!--3-->
+	<mvc:resources mapping="/webjars/**"
+		location="classpath:/META-INF/resources/webjars/" />
+----
+<1> To find the Swagger configuration.
+<2> To create a bean of SwaggerConfig class.
+<3> Additional configuration to map swagger-ui.html.
+
+In order to test it, you can visit the following URL in your browser:
+
+http://localhost:8080/[your-context-application]/v2/api-docs

@@ -1,0 +1,46 @@
+
+:fragment:
+
+As you can see, after adding Swagger feature in the web module, the below code is added to pom.xml
+[source,yaml]
+.new-application-boot/pom.xml
+----
+	<profiles>
+    <profile>
+      <id>generate-swagger</id>		<!--1-->
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-codegen-maven-plugin</artifactId>		<!--2-->
+            <version>2.2.3</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>generate</goal>
+                </goals>
+                <configuration>
+                  <inputSpec>src/main/resources/example.yaml</inputSpec>	<!--3-->
+                  <language>spring</language>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+----
+<1> We have to use this profile in order to create the source code.
+<2> Swagger codegen plugin.
+<3> The yaml file which is used to create everything.
+
+
+The swagger codegen project allows generation of API client libraries, server stubs and documentation automatically given an OpenAPI Spec( in our case, example.yaml). From our main project by using the commmand "mvn clean install -Pgenerate-swagger, we will create the following structure:
+
+image::altemista-cloudfwk-documentation/swagger/swagger_code_generated.png[align="center"]
+
+We will need to move these classes over our web module as you can see in the following screenshot
+
+image::altemista-cloudfwk-documentation/swagger/swagger_code_generated_copied.png[align="center"]
+

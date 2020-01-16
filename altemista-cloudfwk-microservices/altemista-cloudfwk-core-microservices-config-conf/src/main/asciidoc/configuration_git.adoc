@@ -1,0 +1,27 @@
+
+:fragment:
+
+{framework} Configuration Server can be configured to uses a Git backend. To change the location of the repository you can set the _"spring.cloud.config.server.git.uri"_ configuration property in the <<aplicacion-config-env-properties,*-config-env.properties>> file. If you set it with a _"file:"_ prefix it should work from a local repository so you can get started quickly and easily without a server, but in that case the server operates directly on the local repository without cloning it. 
+
+To scale the Config Server up and make it highly available, you would need to have all instances of the server pointing to the same repository, so only a shared file system would work.
+
+This repository implementation maps the `{label}` parameter of the HTTP resource to a git label (commit id, branch name or tag). 
+
+TIP: If the git branch or tag name contains a slash ("/") then the label in the HTTP URL should be specified with the special string "(\_)" instead (to avoid ambiguity with other URL paths). For example, if the label is foo/bar, replacing the slash would result in a label that looks like foo(\_)bar. The inclusion of the special string "(\_)" can also be applied to the `{application}` parameter. Be careful with the brackets in the URL if you are using a command line client like curl (e.g. escape them from the shell with quotes '').
+
+To configure the {framework} Config Server on a GIT Repository you must add the following properties on the configuration properties file:
+
+[[aplicacion-config-env-properties]]
+[source,properties]
+.aplicacion-env/src/main/resources/config/properties/aplicacion-config-env.properties
+----
+*.spring.cloud.config.server.git.uri=http://server.domain.com <!--1-->
+*.spring.cloud.config.server.git.username=username <!--2-->
+*.spring.cloud.config.server.git.password=password <!--3-->
+----
+
+<1> GIT Repository URL.
+<2> Repository user name.
+<3> Repository password.
+
+IMPORTANT: Do not use <<altemista-cloudfwk-core-microservices-config-filesystem,filesystem>> configuration with GIT Repository configuration.

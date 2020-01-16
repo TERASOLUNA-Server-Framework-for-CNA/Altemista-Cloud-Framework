@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>org.altemista.cloudfwk.build</groupId>
+		<artifactId>altemista-cloudfwk-build</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	
+	<artifactId>altemista-cloudfwk-webapp-modules</artifactId>
+	<packaging>pom</packaging>
+
+	<name>altemista-cloudfwk * webapp-modules build script</name>
+	<description>Convenience pom.xml for building the webapp-based modules</description>
+	
+	<profiles>
+	
+		<!-- == Builds ACF framework == -->
+		<profile>
+			<id>framework</id>
+			<modules>
+				<module>altemista-cloudfwk-webapp-common-conf</module>
+				<module>altemista-cloudfwk-webapp-docker-conf</module>
+				<module>altemista-cloudfwk-webapp-docker-archetype</module>
+				<module>altemista-cloudfwk-webapp-jsf</module>
+				<module>altemista-cloudfwk-webapp-jsf-conf</module>
+				<module>altemista-cloudfwk-webapp-jsf-archetype</module>				
+				<module>altemista-cloudfwk-webapp-jsp-conf</module>
+				<module>altemista-cloudfwk-webapp-jsp-archetype</module>
+				<module>altemista-cloudfwk-webapp-swagger-conf</module>
+				<module>altemista-cloudfwk-webapp-swagger-archetype</module>
+				<module>altemista-cloudfwk-webapp-thymeleaf-conf</module>
+				<module>altemista-cloudfwk-webapp-thymeleaf-archetype</module>
+				<module>altemista-cloudfwk-webapp-tiles</module>
+				<module>altemista-cloudfwk-webapp-tiles-conf</module>
+				<module>altemista-cloudfwk-webapp-tiles-archetype</module>
+				<module>altemista-cloudfwk-webapp-webflow-conf</module>
+				<module>altemista-cloudfwk-webapp-webflow-archetype</module>
+			</modules>
+		</profile>
+		
+		<!-- == Builds and run ACF integration tests == -->
+		<profile>
+			<id>run-it</id>
+			<modules>
+				<module>altemista-cloudfwk-webapp-common-it</module>
+				<module>altemista-cloudfwk-webapp-jsf-it</module>
+				<module>altemista-cloudfwk-webapp-jsp-it</module>
+				<module>altemista-cloudfwk-webapp-tiles-it</module>
+				<module>altemista-cloudfwk-webapp-webflow-jsf-it</module>
+				<module>altemista-cloudfwk-webapp-webflow-tiles-it</module>
+			</modules>
+		</profile>
+		
+	</profiles> 
+
+</project>

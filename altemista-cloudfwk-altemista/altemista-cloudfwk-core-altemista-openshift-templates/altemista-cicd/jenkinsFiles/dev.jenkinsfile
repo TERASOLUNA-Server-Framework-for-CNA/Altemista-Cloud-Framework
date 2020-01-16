@@ -1,0 +1,80 @@
+def version, mvnCmd = "mvn -s .settings/cicd-settings-nexus3.xml"
+def SERVICE = "${APP_AI}"
+def SERVICE_LC = SERVICE.toLowerCase()
+pipeline {
+  agent {
+    label 'maven'
+  }
+  stages {
+    stage('Build App') {
+      steps {
+        git branch: 'develop', url: 'http://gogs:3000/gogs/${APP_AI}.git'
+        script {
+          def pom = readMavenPom file: 'pom.xml'
+        }
+        sh "${mvnCmd} clean install -DskipTests=true"
+      }
+    }
+    stage('Analyze Code') {
+      steps {
+        echo "==== Analyze Code Stage ===="
+        script {
+          parallel(
+            'Test': {
+              sh "${mvnCmd} test"
+            },
+            'Static Analysis': {
+              sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube:9000 -DskipTests=true"
+            }
+          )
+        }
+      }
+    }
+    stage('Build Image') {
+      steps {
+        echo "==== Build Image Stage ===="
+        sh "rm -rf oc-build && mkdir oc-build"
+        sh "echo 'FROM altemista-java:8-jre\nADD ./app.jar /opt/\nLABEL io.openshift.expose-services 8080:app\n EXPOSE 8080' >> oc-build/Dockerfile"
+        sh "mv ./${SERVICE}-boot/target/${SERVICE}*.jar oc-build/app.jar"
+
+        script {
+          openshift.withCluster() {
+            openshift.withProject("${DEV_PROJECT}") {
+              if (!openshift.selector("bc", "dev-${SERVICE_LC}").exists()) {
+                openshift.newBuild("--name=dev-${SERVICE_LC}", "--image-stream=altemista-java:8-jre", "--binary=true", "--to=${SERVICE_LC}:latest")
+              }
+              openshift.selector("bc", "dev-${SERVICE_LC}").startBuild("--from-dir=oc-build", "--wait=true")
+            }
+          }
+        }
+      }
+
+    }
+    stage('Deploy to DEV') {
+      when {
+        expression {
+          openshift.withCluster() {
+            openshift.withProject("${DEV_PROJECT}") {
+              return !openshift.selector('dc', "${SERVICE_LC}").exists()
+            }
+          }
+        }
+      }
+      steps {
+        echo "==== Deploy to DEV Stage ===="
+        script {
+          openshift.withCluster() {
+            openshift.withProject("${DEV_PROJECT}") {
+              def app = openshift.newApp("${SERVICE_LC}:latest")
+              app.narrow("svc").expose();
+              def dc = openshift.selector("dc", "${SERVICE_LC}")
+              while (dc.object().spec.replicas != dc.object().status.availableReplicas) {
+                sleep 10
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>ACF security: OAuth2 resource and authentication servers for integration tests</title>
+	<link rel="stylesheet" href="./webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"></link>
+</head>
+<body>
+
+<div class="container">
+	<div class="page-header">
+		<h1>ACF security: OAuth2 authentication server for integration tests</h1>
+	</div>
+
+	<h2>Authorization code grant</h2>
+	<p>
+		<a id="authorization_code_link" href="./oauth/authorize?response_type=code&client_id=authclient&scope=AUTHSCOPE&redirect_uri={baseUrl}/callback_authorization_code.html" class="btn btn-primary">GET</a>
+		.../oauth/authorize?response_type=code&client_id=authclient&scope=AUTHSCOPE&redirect_uri=...
+	</p>
+
+	<h2>Implicit grant</h2>
+	<p>
+		<a id="implicit_link" href="./oauth/authorize?response_type=token&client_id=impclient&scope=IMPSCOPE&redirect_uri={baseUrl}/callback_access_token.html" class="btn btn-primary">GET</a>
+		.../oauth/authorize?response_type=token&client_id=impclient&scope=IMPSCOPE&redirect_uri=...
+	</p>
+	
+	<h2>Client credentials grant</h2>
+	<p>
+		<a id="client_credentials" href="#" class="btn btn-primary">POST</a>
+		.../oauth/token?grant_type=client_credentials&client_id=cliclient&client_secret=clisecret
+		<br>Authorization: <code>Basic <i>cliclient:clisecret</i></code>
+	</p>
+	
+	<h2>Resource owner password grant</h2>
+	<p>
+		<a id="password" href="#" class="btn btn-primary">POST</a>
+		.../oauth/token&grant_type=password&username=user&password=password
+		<br>Authorization: <code>Basic <i>pwdclient:pwdsecret</i></code>
+	</p>
+	
+	<hr>
+	
+	<h2>Invoke resource server</h2>
+	<p>
+		<a class="btn btn-primary invoke_api" href="./api/hello">GET</a> .../api/hello<br>
+		<a class="btn btn-primary invoke_api" href="./api/helloAuthorizationCode">GET</a> .../api/helloAuthorizationCode<br>
+		<a class="btn btn-primary invoke_api" href="./api/helloImplicit">GET</a> .../api/helloImplicit<br>
+		<a class="btn btn-primary invoke_api" href="./api/helloClientCredentials">GET</a> .../api/helloClientCredentials<br>
+		<a class="btn btn-primary invoke_api" href="./api/helloPassword">GET</a> .../api/helloPassword<br>
+		<div class="input-group">
+			<span class="input-group-addon"><input id="invoke_api_with_authorization" type="checkbox"></span>
+			<span class="input-group-addon">Authorization: <code>Bearer </code></span>
+			<input id="invoke_api_authorization_value" type="text" class="form-control" style="font-family:monospace;" size="100">
+		</div>
+	</p>
+	
+</div>
+	
+<script src="./webjars/jquery/3.1.1/jquery.min.js"></script>
+<script src="./webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	
+	const baseUrl = location.href.substring(0, location.href.indexOf("/index.html"));
+
+	function successCallback(data, textStatus, jqXHR) {
+		alert("Success!"
+				+ "\nStatus: " + textStatus
+				+ "\n\n" + JSON.stringify(data));
+	}
+
+	function failureCallback(jqXHR, textStatus, errorThrown) {
+		alert("Failure"
+				+ "\nStatus: " + textStatus
+				+ "\nError thrown: " + errorThrown
+				+ "\n\n" + JSON.stringify(jqXHR));
+	}
+
+
+	// Authorization code grant
+	authorization_code_link.href = authorization_code_link.href.replace("{baseUrl}", baseUrl);
+	
+	// Implicit grant
+	implicit_link.href = implicit_link.href.replace("{baseUrl}", baseUrl);
+	
+	// Client credentials grant
+	$("#client_credentials").on("click", function(event) {
+		event.preventDefault();
+		
+		$.post({
+			url: baseUrl + "/oauth/token?grant_type=client_credentials&client_id=cliclient&client_secret=clisecret",
+			headers: {
+				"Authorization" : "Basic " + btoa("cliclient:clisecret")
+			}
+		})
+		.done(successCallback)
+		.fail(failureCallback);
+		
+		return false;
+	});
+	
+	// Resource owner password grant
+	$("#password").on("click", function(event) {
+		event.preventDefault();
+		
+		$.post({
+			url: baseUrl + "/oauth/token?grant_type=password&username=user&password=password",
+			headers: {
+				"Authorization" : "Basic " + btoa("pwdclient:pwdsecret")
+			}
+		})
+		.done(successCallback)
+		.fail(failureCallback);
+		
+		return false;
+	});
+	
+	// Invoke resource server
+	$(".invoke_api").on("click", function(event) {
+		event.preventDefault();
+		
+		var headers = {};
+		if ($("#invoke_api_with_authorization").is(":checked")) {
+			headers["Authorization"] = "Bearer " + $("#invoke_api_authorization_value").val();
+		}
+		
+		$.get({
+			url: this.href,
+			headers: headers
+		})
+		.done(successCallback)
+		.fail(failureCallback);
+		
+		return false;
+	});
+});
+</script>
+
+</body>
+</html>

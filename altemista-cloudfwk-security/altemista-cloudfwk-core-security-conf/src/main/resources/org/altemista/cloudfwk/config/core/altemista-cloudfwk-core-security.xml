@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- Scan all the beans of all the security modules in the classpath -->
+	<context:component-scan base-package="org.altemista.cloudfwk.core.security" />
+	
+	<!--tag::internals[]-->
+	<!--
+		Enables annotation-driven security
+		with Spring Security's @Secured (with expression-based syntax)
+		and JSR-250 annotations
+	-->
+	<security:global-method-security
+			secured-annotations="enabled"
+			pre-post-annotations="enabled"
+			jsr250-annotations="enabled">
+		<security:expression-handler ref="methodSecurityExpressionHandler"/>
+	</security:global-method-security>
+	
+	<!-- (explicit named DefaultMethodSecurityExpressionHandler to allow applications to override this bean) -->
+	<bean id="methodSecurityExpressionHandler"
+			class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler"
+			primary="false">
+	</bean>
+	<!--end::internals[]-->
+
+	<!-- Imports the framework configuration files of every altemista-cloudfwk security module -->
+	<import resource="classpath*:org/altemista/cloudfwk/config/security/altemista-cloudfwk-security-*.xml" />
+	
+
+</beans>

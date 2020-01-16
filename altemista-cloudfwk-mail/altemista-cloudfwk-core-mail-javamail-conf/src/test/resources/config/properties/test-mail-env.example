@@ -1,0 +1,32 @@
+
+# The debug addresses. If this field is set, this addresses will be used.
+*.mail.debugAddresses=
+
+
+# Set the mail server host, typically an SMTP host.
+*.mail.host=smtp.gmail.com
+# for hotmail
+#*.mail.host=smtp.live.com
+
+# Set the mail server port. The default SMTP port is 25.
+*.mail.port=587
+
+# Set the user mail
+*.mail.user=nttdata@gmail.com
+# for hotmail
+#*.mail.user=nttdata@hotmail.com
+
+# Set the password mail
+*.mail.password=
+
+# Set the protocol
+*.mail.transport.protocol=smtp
+
+# Set id auth is needed
+*.mail.smtp.auth=true
+
+# Set the ttls
+*.mail.smtp.starttls.enable=true
+
+# Set the mail debug
+*.mail.debug=true

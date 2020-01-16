@@ -1,0 +1,11 @@
+
+:fragment:
+
+This module augments the <<altemista-cloudfwk-core-cache-spring-conf-internals,Spring cache configuration>> by overriding the simple cache manager and setting up a cache manager backed by Ehcache:
+
+[source,xml,options="nowrap"]
+.org/altemista/cloudfwk/config/cache/altemista-cloudfwk-cache-ehcache.xml
+----
+include::{basedir}/altemista-cloudfwk-core-cache-ehcache-conf/src/main/resources/org/altemista/cloudfwk/config/cache/altemista-cloudfwk-cache-ehcache.xml[tags=internals]
+----
+<1> Exposes Ehcache configured from the specified config location. This configuration file is not provided by the framework (see the previous <<altemista-cloudfwk-core-cache-ehcache-conf-configuration,configuration>> section).

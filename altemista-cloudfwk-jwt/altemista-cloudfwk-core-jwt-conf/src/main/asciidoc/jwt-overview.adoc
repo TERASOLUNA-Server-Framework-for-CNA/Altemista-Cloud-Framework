@@ -1,0 +1,48 @@
+
+:fragment:
+
+JSON Web Tokens are an open, industry standard https://tools.ietf.org/html/rfc7519[RFC 7519] method for representing claims securely between two parties.
+
+JSON Web Tokens consist of three parts separated by dots (.), which are:
+
+* Header
+* Payload
+* Signature
+Therefore, a JWT typically looks like the following.
+
+xxxxx.yyyyy.zzzzz
+
+Header and Payload a JSON in Base64Url encoded. Signature are the bytes in Base64.
+
+The *header* typically consists of two parts: the type of the token, which is JWT, and the hashing algorithm being used.
+[source,javascript]
+----
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+----
+
+The second part of the token is the *payload*, which contains the claims. Claims are statements about an entity (typically, the user) and additional metadata. There are three types of claims: reserved, public, and private claims.
+
+*Reserved claims*: These are a set of predefined claims which are not mandatory but recommended, to provide a set of useful, interoperable claims. Some of them are: iss (issuer), exp (expiration time), sub (subject), aud (audience), and others.
+[TIP]
+====
+Notice that the claim names are only three characters long as JWT is meant to be compact.
+====
+
+*Public claims*: These can be defined at will by those using JWTs. But to avoid collisions they should be defined in the IANA JSON Web Token Registry or be defined as a URI that contains a collision resistant namespace.
+
+*Private claims*: These are the custom claims created to share information between parties that agree on using them.
+
+An example of payload could be:
+[source,javascript]
+----
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "admin": true
+}
+----
+
+The last part, the *signature* is a secure cryptographic result of a sign made from the *header*, the *payload* and a _secret_ shared by the issuer (Authorization Server) and the verifier (Resource Server) 

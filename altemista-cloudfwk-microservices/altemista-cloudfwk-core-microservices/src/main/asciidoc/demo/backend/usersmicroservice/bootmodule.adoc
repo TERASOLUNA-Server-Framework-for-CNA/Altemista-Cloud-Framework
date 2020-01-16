@@ -1,0 +1,141 @@
+
+:fragment:
+
+[[users-controller]]
+===== Microservice Controller
+
+First of all you have to delete the `MicroserviceExampleController` class. 
+
+Next step is create new class with the client interface implementation. The name of this class could be `AltemistaMoviesUsersController` and implements `AltemistaMoviesUsers` interface. You have to annotate this class with `@RestController` annotation.
+
+[source,java,linenums]
+.AltemistaMoviesUsersController.java
+----
+package org.altemista.cloudfwk.demo.altemistamoviesusers.microservice.controller;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.altemista.cloudfwk.demo.altemistamoviesusers.datacore.entity.User;
+import org.altemista.cloudfwk.demo.altemistamoviesusers.datacore.repository.UserRepository;
+import org.altemista.cloudfwk.demo.altemistamoviesusers.microservice.domain.UserDTO;
+import org.altemista.cloudfwk.demo.altemistamoviesusers.microservice.service.AltemistaMoviesUsers;
+
+@RestController
+public class AltemistaMoviesUsersController implements AltemistaMoviesUsers {
+
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@Autowired
+	private UserRepository userRepository; // <1>
+
+	@Autowired
+	private ModelMapper modelMapper;
+
+	Type targetListType = new TypeToken<List<UserDTO>>() {}.getType();
+
+	@Override
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ResponseEntity<List<UserDTO>> listAllUsers() {
+		List<User> users = (List<User>) userRepository.findAll();
+		if(users.isEmpty()){
+			return new ResponseEntity<List<UserDTO>>(HttpStatus.NO_CONTENT);
+		}
+		List<UserDTO> usersDTO = modelMapper.map(users, targetListType);
+		return new ResponseEntity<List<UserDTO>>(usersDTO, HttpStatus.OK);
+	}
+
+	@Override
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<UserDTO> getUser(@PathVariable("id") long id) {
+		logger.info("Fetching User with id " + id);
+		User user = userRepository.findOne(id);
+		if (user == null) {
+			logger.info("User " + id + " not found");
+			return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<UserDTO>(modelMapper.map(user, 
+			UserDTO.class), HttpStatus.OK);
+	}
+
+	@Override
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+		logger.info("Creating User " + userDTO.getFirstName() + " " + 
+			userDTO.getLastName());
+
+		if (userDTO.getId()!=null) {
+			logger.info("The User ID must be null");
+			return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
+		}
+
+		List<User> findByFirstNameAndLastName = 
+			userRepository.findByFirstNameAndLastName(userDTO.getFirstName(),
+				userDTO.getLastName());
+		if (findByFirstNameAndLastName!=null && !findByFirstNameAndLastName.isEmpty()) {
+			logger.info("A User with name " + userDTO.getFirstName() + " " + 
+				userDTO.getLastName() + " already exist");
+			return new ResponseEntity<UserDTO>(HttpStatus.CONFLICT);
+		}
+
+		User savedUser = userRepository.save(modelMapper.map(userDTO, User.class));
+		UserDTO savedUserDTO = modelMapper.map(savedUser, UserDTO.class);
+
+		return new ResponseEntity<UserDTO>(savedUserDTO, HttpStatus.CREATED);
+	}
+
+	@Override
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<UserDTO> updateUser(@PathVariable("id") long id, 
+		@RequestBody UserDTO userDTO) {
+		logger.info("Updating User " + id);
+
+		if (userDTO.getId()==null || id!=userDTO.getId().longValue()){
+			logger.info("User id " + userDTO.getId() + " not equals id param "+id);
+			return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
+		}
+		if (userRepository.findOne(id)==null) {
+			logger.info("User with id " + id + " not found");
+			return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
+		}
+
+		userDTO.setId(id);
+		User savedUser = userRepository.save(modelMapper.map(userDTO, User.class));
+		userDTO = modelMapper.map(savedUser, UserDTO.class);
+		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
+	}
+
+	@Override
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<UserDTO> deleteUser(@PathVariable("id") long id) {
+		logger.info("Fetching & Deleting User with id " + id);
+
+		if (userRepository.findOne(id) == null) {
+			logger.info("Unable to delete. User with id " + id + " not found");
+			return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
+		}
+
+		userRepository.delete(id);
+		return new ResponseEntity<UserDTO>(HttpStatus.NO_CONTENT);
+	}
+
+}
+----
+<1> User Spring Data Repository
+
+===== OPTIONAL: Main class renaming 
+
+TIP: You can rename the main class of the project named `MicroserviceApplication` to `AltemistaMoviesUsersApplication`.

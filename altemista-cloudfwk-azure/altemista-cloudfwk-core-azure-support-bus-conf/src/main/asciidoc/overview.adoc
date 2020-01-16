@@ -1,0 +1,148 @@
+:fragment:
+
+{framework} Azure Support lets your project incorporate *Azure Service Bus* easily.  
+
+Azure Service Bus is a multi-tenant cloud messaging service you can use to send information between applications and services. The asynchronous operations give you flexible, brokered messaging, along with structured first-in, first-out (FIFO) messaging, and publish/subscribe capabilities..
+From {framework} give some basic configurations in order to start using quickly.
+
+To create an Azure Service Bus you need an Azure subscription; if you don't already have an Azure subscription, you can sign up for a free https://azure.microsoft.com/es-es/free/[ Azure account].
+
+= Azure Console
+
+We need to create our service. Browse to the Azure https://portal.azure.com/[portal] and sign in.
+
+A Service Bus messaging namespace provides a unique scoping container, referenced by its fully qualified domain name, in which you create one or more queues, topics, and subscriptions.
+
+. In the left navigation pane of the portal, click on *+ Create a resource*, then click *Enterprise Integration*, and then click on *Service Bus*.
+
+. In the *Create namespace dialog*, enter a namespace as name. The system immediately checks to see if the name is available.
+
+. After making sure the namespace name is available, choose the pricing tier (Standard or Premium).
+
+. In the *Subscription* field, choose an Azure subscription in which to create the namespace.
+
+. In the *Resource group* field, choose an existing resource group in which the namespace will live, or create a new one.
+
+. In *Location*, choose the country or region in which your namespace should be hosted.
+
+image::altemista-cloudfwk-documentation/azure/BusStep1.png[align="center"]
+
+Click on *Create*, the system now creates your namespace and enables it. You might have to wait several minutes as the system provisions resources for your account.
+
+= Obtain the management credentials
+
+Creating a new namespace automatically generates an initial *Shared Access Signature (SAS)* rule with an associated pair of primary and secondary keys that each grant full control over all aspects of the namespace. See Service Bus authentication and authorization for information about how to create further rules with more constrained rights for regular senders and receivers.
+
+. Click on *All resources*, then click on the newly created namespace name.
+
+. In the namespace window, click on *Shared* access policies.
+
+. In the *Shared* access policies screen, click *RootManageSharedAccessKey*.
+
+image::altemista-cloudfwk-documentation/azure/BusStep2.png[align="center"]
+
+
+In the Policy: *RootManageSharedAccessKey* window, click the copy button next to *Primary Connection* String, to copy the connection string to your clipboard for later use. 
+
+image::altemista-cloudfwk-documentation/azure/BusStep3.png[align="center"]
+
+
+= Create a Service Bus queue
+
+In the left navigation pane of the portal, click on *Service Bus* (if you don't see *Service Bus*, click on *All services*).
+Click on the namespace in which you would like to create the queue
+
+image::altemista-cloudfwk-documentation/azure/BusStep4.png[align="center"]
+
+
+In the namespace window, click on *Queues*, then in the *Queues* window, click on  *+ Queue*.
+
+image::altemista-cloudfwk-documentation/azure/BusStep5.png[align="center"]
+
+For more information about create a service bus queue click https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-quickstart-portal#create-a-queue[here] .
+
+= Create a Service Bus topic 
+
+To create a *Service Bus* topic, specify the namespace under which you want it created. The following example shows how to create a topic on the portal:
+
+. In the left navigation pane of the portal, click on *Service Bus* (if you don't see *Service Bus*, click on *All services*).
+. Click on the namespace in which you would like to create the topic.
+. In the namespace window, click on *Topics*, then in the *Topics window*, click on *+ Topics*.
+. Enter *BasicTopic* as topic name, and leave the other values with their defaults.
+. At the bottom of the window, click on *Create*.
+
+IMPORTANT: to create service bus topic you need create a subscription.
+
+To create a service bus subscription, 
+. In the portal resources pane, click on the namespace you created in step 1, then click on *Topics*, and then click on the name of the topic you created in step 2.
+At the top of the overview pane, click on *+ Subscription* to add a subscription to this topic.
+
+image::altemista-cloudfwk-documentation/azure/BusStep6.png[align="center"]
+
+= Service Bus messaging exceptions
+
+About how to handle application crashes and unreadable messages, Service Bus provides functionality to help you gracefully recover from errors in your application or difficulties processing a message. 
+If a receiver application is unable to process the message for some reason, then it can call the unlockMessage method on the received message (instead of the deleteMessage method).
+This causes Service Bus to unlock the message within the queue and make it available to be received again, either by the same consuming application or by another consuming application.
+
+There is also a timeout associated with a message locked within the queue, and if the application fails to process the message before the lock timeout expires (for example, if the application crashes), 
+then Service Bus unlocks the message automatically and makes it available to be received again.
+
+In the event that the application crashes after processing the message but before the deleteMessage request is issued,
+then the message is redelivered to the application when it restarts. This is often called At Least Once Processing; that is, each message is processed at least once but in certain situations the same message may be redelivered.
+ If the scenario cannot tolerate duplicate processing, then application developers should add additional logic to their application to handle duplicate message delivery. This is often achieved using the getMessageId method of the message, 
+ which remains constant across delivery attempts.
+
+For more information click https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-exceptions[here] .
+
+== More common exceptions
+
+.An example table
+[options="header,footer"]
+|=======================
+|Exception Type |Description/Cause/Examples     |Suggested Action
+|TimeoutException   |	The server did not respond to the requested operation within the specified time, which is controlled by OperationTimeout. The server may have completed the requested operation. This can happen due to network or other infrastructure delays.    |Check the system state for consistency and retry if necessary. 
+|InvalidOperationException  |	The requested user operation is not allowed within the server or service. See the exception message for details. For example, Complete() generates this exception if the message was received in ReceiveAndDelete mode.    |Check the code and the documentation. Make sure the requested operation is valid.
+|OperationCanceledException   |An attempt is made to invoke an operation on an object that has already been closed, aborted, or disposed. In rare cases, the ambient transaction is already disposed.     |Check the code and make sure it does not invoke operations on a disposed object.
+|UnauthorizedAccessException   |The TokenProvider object could not acquire a token, the token is invalid, or the token does not contain the claims required to perform the operation. | Make sure the token provider is created with the correct values. Check the configuration of the Access Control service.
+|ArgumentException
+ ArgumentNullException       
+ ArgumentOutOfRangeException  |One or more arguments supplied to the method are invalid.
+The URI supplied to NamespaceManager or Create contains path segment(s).
+The URI scheme supplied to NamespaceManager or Create is invalid. 
+The property value is larger than 32 KB. |Check the calling code and make sure the arguments are correct.
+|MessageNotFoundException   |Attempt to receive a message with a particular sequence number. This message is not found. |Make sure the message has not been received already. Check the deadletter queue to see if the message has been deadlettered.
+
+|=======================
+
+
+== Deadletter Queues 
+
+Deadletter queue use for setting aside messages that cannot be processed, and how to receive from the deadletter queue to inspect, repair, and resubmit such messages.
+
+All Service Bus Queues and Subscriptions have a secondary sub-queue, called the dead-letter queue (DLQ).
+
+This sub-queue does not need to be explicitly created and cannot be deleted or otherwise managed independent of the main entity. The purpose of the Dead-Letter Queue (DLQ) is accept and hold messages that cannot be delivered to any receiver or messages that could not be processed. Read more about Dead-Letter Queues in the product https://docs.microsoft.com/es-es/azure/service-bus-messaging/service-bus-dead-letter-queues[documentation] .
+
+
+== Time To Live
+
+The basic functionality of the TimeToLive option for messages as well as handling of the deadletter queue where messages can optionally be stored by the system as they expire.
+
+The payload inside of a message, or a command or inquiry that a message conveys to a receiver, is almost always subject to some form of application-level expiration deadline. After such a deadline, the content shall no longer be delivered, or the requested operation shall no longer be executed.
+
+The https://docs.microsoft.com/es-es/azure/service-bus-messaging/message-expiration[Time-to-Live] helps witzh this by dropping such expired messages inside the broker. The expiration for any individual message can be controlled by setting the TimeToLive system-defined property, which specifies a relative duration. The expiration becomes an absolute instant when the message is enqueued into the entity.
+
+== Duplicate detection
+
+If an application fails due to a fatal error immediately after it sends a message, and the restarted application instance erroneously believes that the prior message delivery did not occur, a subsequent send causes the same message to appear in the system twice.
+
+It is also possible for an error at the client or network level to occur a moment earlier, and for a sent message to be committed into the queue, with the acknowledgment not successfully returned to the client.
+This scenario leaves the client in doubt about the outcome of the send operation.
+
+
+
+
+
+
+

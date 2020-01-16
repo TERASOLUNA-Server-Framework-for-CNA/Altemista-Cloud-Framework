@@ -1,0 +1,137 @@
+
+:fragment:
+
+The MongoDB-based persistence feature sets up most of the necessary infrastructure to support Spring Data MongoDB, except for the repository scanner.
+
+It is responsibility of the {framework} applications to create instances for the repository interfaces defined:
+
+[source,xml]
+.spring/my-application-module-persistence-mongodb.xml
+----
+include::{basedir}/altemista-cloudfwk-core-persistence-mongodb-conf/src/test/resources/spring/altemista-cloudfwk-test-mongodb.xml[tags=repositories]
+----
+
+The <<altemista-cloudfwk-core-persistence-mongodb-conf-internals,infrastructure defined by the framework>> reads the connection configuration from the configuration files of the application:
+
+[source,properties]
+.config/properties/my-application-persistence-mongodb-env.properties
+----
+include::{basedir}/altemista-cloudfwk-core-persistence-mongodb-conf/src/test/resources/config/properties/altemista-cloudfwk-test-persistence-mongodb-env.example[]
+----
+
+////
+The default configuration does not use credentials to authenticate in the MongoDB. It is possible to declare credentials, in a per-database basis, overriding the provided `mongoCredentials` bean as follows:
+
+[source,xml]
+.spring/application-module-core-persistence-mongodb-env.xml
+----
+<bean id="mongoCredentials" class="java.util.ArrayList">
+	<constructor-arg>
+		<list>
+			<value>admin:administrator@reports</value> <!--1-->
+		</list>
+	</constructor-arg>
+</bean>
+----
+<1> 
+////
+
+== MongoDB database initialization
+
+While in JBDC it is possible to execute scripts to initialize the database using `<jdbc:script>` elements, there is no similar option for MongoDB databases.
+
+However, it is possible to execute initializationg scripts using `ScriptOperations` during the Spring context initialization as shown in the following example:
+
+[source]
+.MongoScriptExecutor.java
+----
+@Component
+public class MongoScriptExecutor {
+
+	@Autowired
+	private MongoTemplate template; //<1>
+
+	@EventListener(ContextRefreshedEvent.class) //<2>
+	public void execute() {
+
+		ScriptOperations scriptOps = this.template.scriptOps(); //<3>
+
+		final String mongoScript = IOUtils.toString(
+			ResourceUtil.getInputStream("classpath:/scripts/mongodb.js")); //<4>
+
+		ExecutableMongoScript script = new ExecutableMongoScript(mongoScript); //<5>
+		scriptOps.execute(script); //<5>
+	}
+}
+----
+<1> Autowired `MongoTemplate`, defined by the application, with the database connection details.
+<2> `@EventListener(ContextRefreshedEvent.class)` will actually trigger the execution of this method when the Spring Context is loaded.
+<3> The `scriptOps()` method returns a `ScriptOperations` object that allows script execution.
+<4> The actual contents of the script, written in JavaScript, can be inlined or retrieved from an external file (in the example, using `ResourceUtil.getInputStream()`).
+<5> To execute the script, the contents of the script must be wrapped in an `ExecutableMongoScript` instace.
+
+== MongoDB instance for testing purposes
+
+Again, there is no MongoDB alternative to `<jdbc:embedded-database>` to create an in-memory MongoDB instance.
+
+However, it is possible to create an embedded MongoDB instance with Maven, to be used in integration tests, as shown in the following example:
+
+[source,xml]
+.pom.xml
+----
+<properties>
+	<embedmongo-maven-plugin.version>0.3.4</embedmongo-maven-plugin.version> <!--1-->
+	<embedmongo-process.version>1.50.2</embedmongo-process.version>
+	<embedmongo-mongo.version>3.0.12</embedmongo-mongo.version> <!--2-->
+</properties>
+
+<plugin>
+	<groupId>com.github.joelittlejohn.embedmongo</groupId>
+	<artifactId>embedmongo-maven-plugin</artifactId>
+	<version>${embedmongo-maven-plugin.version}</version> <!--1-->
+	<dependencies>
+		<dependency>
+			<groupId>de.flapdoodle.embed</groupId>
+			<artifactId>de.flapdoodle.embed.process</artifactId>
+			<version>${embedmongo-process.version}</version> <!--1-->
+		</dependency>
+	</dependencies>
+
+	<executions>
+		<execution>
+			<id>embedded-mongo-start</id> <!--3-->
+			<goals>
+				<goal>start</goal>
+			</goals>
+			<configuration>
+				<version>${embedmongo-mongo.version}</version> <!--2-->
+				<bindIp>127.0.0.1</bindIp>
+				<port>27017</port>
+			</configuration>
+		</execution>
+
+		<execution>
+			<id>embedded-mongo-scripts</id> <!--4-->
+			<goals>
+				<goal>mongo-scripts</goal>
+			</goals>
+			<phase>pre-integration-test</phase>
+			<configuration>
+				<scriptsDirectory>${project.basedir}/src/test/resources/scripts</scriptsDirectory>
+				<databaseName>example</databaseName>
+			</configuration>
+		</execution>
+
+		<execution>
+			<id>stop</id> <!--3-->
+			<goals>
+				<goal>stop</goal>
+			</goals>
+		</execution>
+	</executions>
+</plugin>
+----
+<1> Embedded MongoDB Maven plug-in and embedded MongoDB versions.
+<2> MongoDB version. Any version (2.6.x, 3.0.x, 3.2.x) can be used as MongoDB in the application, but the Maven plug-in for embedded MongoDB seems to fail on Java 32 bit with 3.2.x versions. If you are using a 32 bit Java version, prefer the 3.0.x branch for the integration tests.
+<3> By default, the `start` goal is bound to `pre-integration-test` phase, and the `stop` goal is bound to `post-integration-test`.
+<4> It is possible to initialize a database with a series of scripts.

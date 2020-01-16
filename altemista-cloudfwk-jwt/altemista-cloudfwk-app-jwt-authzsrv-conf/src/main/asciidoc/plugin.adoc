@@ -1,0 +1,4 @@
+
+:fragment:
+
+The _JWT over OAuth 2.0 authorization server_ feature is enabled application-wide on the _OAuth 2.0 authorization server_ , so it can only be installed in aggregator projects. Both _webapp_ and _boot_ natures are supported.

@@ -1,0 +1,7 @@
+INSERT INTO USER VALUES(1,NULL,'kevin.ross58@example.com','Kevin','Ross','(421)-117-4934')
+INSERT INTO USER VALUES(2,NULL,'leonard.burke88@example.com','Leonard','Burke','(897)-609-6461')
+INSERT INTO USER VALUES(3,NULL,'sebastian.hawkins53@example.com','Sebastian','Hawkins','(268)-398-4330')
+INSERT INTO USER VALUES(4,NULL,'myrtle.west18@example.com','Myrtle','West','(471)-547-8646')
+INSERT INTO USER VALUES(5,NULL,'jenny.fletcher42@example.com','Jenny','Fletcher','(753)-342-1844')
+INSERT INTO USER VALUES(6,NULL,'willard.may54@example.com','Willard','May','(818)-817-8845')
+INSERT INTO USER VALUES(7,NULL,'marvin.mccoy68@example.com','Marvin','Mccoy','(384)-361-6281')

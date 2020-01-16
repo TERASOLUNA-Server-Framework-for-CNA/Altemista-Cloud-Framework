@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.mycompany</groupId>
+    <artifactId>integrationreceiver</artifactId>
+    <version>3.0.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>integrationreceiver-boot</artifactId>
+  <name>integrationreceiver Spring Boot aggregator project</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.altemista.cloudfwk.framework</groupId>
+      <artifactId>altemista-cloudfwk-boot-conf</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.mycompany</groupId>
+      <artifactId>integrationreceiver-env</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.mycompany</groupId>
+      <artifactId>integrationreceiver-module-core</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.mycompany</groupId>
+      <artifactId>integrationreceiver-module-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.mycompany</groupId>
+      <artifactId>integrationreceiver-module-common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>

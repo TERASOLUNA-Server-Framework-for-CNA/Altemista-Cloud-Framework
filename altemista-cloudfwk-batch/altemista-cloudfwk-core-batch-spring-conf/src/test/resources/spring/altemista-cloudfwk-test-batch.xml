@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+
+	<!-- Support example classes -->
+	<context:component-scan base-package="org.altemista.cloudfwk.example.batch" />
+
+
+	<!-- In-memory database for testing purposes -->
+	<jdbc:embedded-database id="testDataSource" />
+	<alias name="testDataSource" alias="batchDataSource" />
+	
+	<!-- Initializes the database schema -->
+	<jdbc:initialize-database data-source="testDataSource" ignore-failures="ALL">
+		<jdbc:script location="classpath:org/springframework/batch/core/schema-hsqldb.sql" />
+	</jdbc:initialize-database>
+
+</beans>

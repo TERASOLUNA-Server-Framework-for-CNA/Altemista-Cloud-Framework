@@ -1,0 +1,13 @@
+
+:fragment:
+
+To send a request over {framework} Gateway Server API endpoint you can use Spring RestTemplate, a client-side HTTP access class.
+
+[source,java]
+.ApplicationTestController.java
+----
+RestTemplate restTemplate = new RestTemplate();
+MicroserviceOneExampleRequest request = new MicroserviceOneExampleRequest();
+request.setParam(name);
+MicroserviceOneExampleResponse response = restTemplate.postForObject("http://localhost:8765/microserviceone/exampleMethod", request, MicroserviceOneExampleResponse.class);
+----

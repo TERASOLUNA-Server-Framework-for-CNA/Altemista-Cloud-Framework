@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+	PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+	"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<context id="exampleGeneratorContext" targetRuntime="MyBatis3">
+		<plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"></plugin>
+		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>
+		<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+		<plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
+		
+		<jdbcConnection driverClass="org.hsqldb.jdbcDriver"
+				connectionURL="jdbc:hsqldb:hsql://localhost:9001/MyBatisDB" userId="sa" password="">
+		</jdbcConnection> 
+		
+		<javaModelGenerator targetProject="MAVEN" targetPackage="com.mycompany.application.module.model">
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		
+		<!-- The targetPackage should match the mapperLocations property of the SqlSessionFactoryBean -->
+		<sqlMapGenerator targetProject="MAVEN" targetPackage="com.mycompany.application.module.repository">
+			<property name="enableSubPackages" value="true"/>
+		</sqlMapGenerator>
+		
+		<javaClientGenerator targetProject="MAVEN" targetPackage="com.mycompany.application.module.repository" type="XMLMAPPER">
+		</javaClientGenerator>
+		
+		<table tableName="DEMO\_%">
+			<generatedKey column="KEY" sqlStatement="JDBC" />
+		</table>
+	</context>
+	
+</generatorConfiguration>

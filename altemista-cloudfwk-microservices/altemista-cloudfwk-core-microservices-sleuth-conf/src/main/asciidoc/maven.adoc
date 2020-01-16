@@ -1,0 +1,14 @@
+
+:fragment:
+
+To manually install the {framework} Sleuth feature, add the following dependencies to the pom.xml file of the aggregator boot project of your application:
+
+[source,xml]
+.new-application-boot/pom.xml
+----
+<dependency>
+	<groupId>org.altemista.cloudfwk.microservices</groupId>
+	<artifactId>altemista-cloudfwk-core-microservices-sleuth-conf</artifactId><!--1-->
+</dependency>
+----
+<1> Sleuth feature dependencies and auto-discoverable configuration.

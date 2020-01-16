@@ -1,0 +1,106 @@
+
+:fragment:
+
+.3rd party frameworks and libraries
+[options="header"]
+|===
+^.^|Feature 2+^|Framework or library |Version
+
+.10+^.^|{framework} core
+^.^|image:altemista-cloudfwk-documentation/frameworks/terasoluna.png[align="center"] |TERASOLUNA Server Framework for Java |5.5.0.RELEASE
+^.^|image:altemista-cloudfwk-documentation/frameworks/spring.png[align="center"] |Spring IO Platform    |Cairo-SR3
+^.^|image:altemista-cloudfwk-documentation/frameworks/spring.png[align="center"] |Spring Framework    |5.0.8.RELEASE
+^.^|image:altemista-cloudfwk-documentation/frameworks/spring.png[align="center"] |Spring Boot    |2.0.4.RELEASE
+^.^|image:altemista-cloudfwk-documentation/frameworks/apache-commons.jpg[align="center"] |Apache Commons Collections |4.1
+^.^|image:altemista-cloudfwk-documentation/frameworks/apache-commons.jpg[align="center"] |Apache Commons FileUpload |1.3.2
+^.^|image:altemista-cloudfwk-documentation/frameworks/apache-commons.jpg[align="center"] |Apache Commons IO |2.5
+^.^|image:altemista-cloudfwk-documentation/frameworks/apache-commons.jpg[align="center"] |Apache Commons Lang |3.4
+^.^|image:altemista-cloudfwk-documentation/frameworks/aspectj.jpg[align="center"] |AspectJ |1.8.13
+^.^|image:altemista-cloudfwk-documentation/frameworks/json.png[align="center"] |Jackson JSON processor |2.8.5
+
+.2+^.^|Logging
+^.^|image:altemista-cloudfwk-documentation/frameworks/slf4j.jpg[align="center"] |Simple Logging Facade for Java (SLF4J) |1.7.22
+^.^|image:altemista-cloudfwk-documentation/frameworks/logback.png[align="center"] |Logback |1.2.3
+
+^.^|Batch processing
+^.^|image:altemista-cloudfwk-documentation/frameworks/spring.png[align="center"] |Spring Batch |4.0.1.RELEASE
+
+^.^|Business process management (BPM)
+^.^|image:altemista-cloudfwk-documentation/frameworks/activiti.png[align="center"] |Activiti BPM Platform |5.22.0
+
+^.^|Business Rules Management (BRM)
+^.^|image:altemista-cloudfwk-documentation/frameworks/drools.png[align="center"] |Drools |6.5.0.Final
+
+^.^|Cache
+^.^|image:altemista-cloudfwk-documentation/frameworks/ehcache.png[align="center"] |Ehcache |2.10.3
+
+^.^|Connectivity utilities
+^.^|image:altemista-cloudfwk-documentation/frameworks/httpcomponents.png[align="center"] |Apache HttpComponents |4.5.2
+
+.2+^.^|Cryptography utilities
+^.^|image:altemista-cloudfwk-documentation/frameworks/apache-commons.jpg[align="center"] |Apache Commons Codec |1.10
+^.^|image:altemista-cloudfwk-documentation/frameworks/spring.png[align="center"] |Spring Security RSA |1.0.3.RELEASE
+
+^.^|Integration
+^.^|image:altemista-cloudfwk-documentation/frameworks/spring.png[align="center"] |Spring Integration |5.0.7.RELEASE
+
+^.^|Mail server
+^.^|image:altemista-cloudfwk-documentation/frameworks/javamail.png[align="center"] |JavaMail API |1.6.1
+
+.2+^.^|Message broker
+^.^|image:altemista-cloudfwk-documentation/frameworks/rabbit.png[align="center"] |RabbitMQ |3.6.6
+^.^|image:altemista-cloudfwk-documentation/frameworks/activeMQ.png[align="center"] |ActiveMQ |5.5.1
+
+^.^|Microservices Cloud
+^.^|image:altemista-cloudfwk-documentation/frameworks/spring.png[align="center"] |Spring Cloud |Finchley.SR1
+
+.8+^.^|Persistence
+^.^|image:altemista-cloudfwk-documentation/frameworks/spring.png[align="center"] |Spring Data |Hopper-SR6
+^.^|image:altemista-cloudfwk-documentation/frameworks/spring.png[align="center"] |Spring Data REST |Hopper-SR6
+^.^|image:altemista-cloudfwk-documentation/frameworks/hibernate.png[align="center"] |Hibernate ORM |5.0.11.Final
+^.^|image:altemista-cloudfwk-documentation/frameworks/mybatis.png[align="center"] |MyBatis |3.4.2
+^.^|image:altemista-cloudfwk-documentation/frameworks/mybatis.png[align="center"] |MyBatis Spring |1.3.1
+^.^|image:altemista-cloudfwk-documentation/frameworks/mybatis.png[align="center"] |MyBatis Generator |1.3.2
+^.^|image:altemista-cloudfwk-documentation/frameworks/mongodb.png[align="center"] |MongoDB |3.2.2
+^.^|image:altemista-cloudfwk-documentation/frameworks/querydsl.png[align="center"] |QueryDSL |4.1.4
+
+.4+^.^|Presentation Layer
+^.^|image:altemista-cloudfwk-documentation/frameworks/spring.png[align="center"] |Spring Web Flow |2.5.0.RELEASE
+^.^|image:altemista-cloudfwk-documentation/frameworks/tiles.png[align="center"] |Apache Tiles |3.0.7
+^.^|image:altemista-cloudfwk-documentation/frameworks/primefaces.png[align="center"] |PrimeFaces |6.0
+^.^|image:altemista-cloudfwk-documentation/frameworks/thymleaf.png[align="center"] |Thymleaf |3.0.9.RELEASE
+
+.3+^.^|Reporting
+^.^|image:altemista-cloudfwk-documentation/frameworks/jasperreports.png[align="center"] |JasperReports |6.3.1
+^.^|image:altemista-cloudfwk-documentation/frameworks/apache-poi.png[align="center"] |Apache POI |3.14
+^.^|image:altemista-cloudfwk-documentation/frameworks/itext.png[align="center"] |iText PDF |5.5.9
+
+^.^|Security
+^.^|image:altemista-cloudfwk-documentation/frameworks/spring.png[align="center"] |Spring Security |4.1.4.RELEASE
+
+.3+^.^|Spring cloud stream
+^.^|image:altemista-cloudfwk-documentation/frameworks/kafka.png[align="center"] |Kafka |2.1.18.RELEASE
+^.^|image:altemista-cloudfwk-documentation/frameworks/rabbit.png[align="center"] |RabbitMQ |2.0.5.RELEASE
+^.^|image:altemista-cloudfwk-documentation/frameworks/spring.png[align="center"] |Spring Cloud Bus |Finchley.SR1
+
+.2+^.^|SOAP web service
+^.^|image:altemista-cloudfwk-documentation/frameworks/cxf.png[align="center"] |Apache CXF |3.1.11
+^.^|image:altemista-cloudfwk-documentation/frameworks/apache-commons.jpg[align="center"] |Apache WSS4J |2.1.8
+
+^.^|Swagger
+^.^|image:altemista-cloudfwk-documentation/frameworks/swagger.png[align="center"] |Swagger |2.8.0
+
+.4+^.^|Amazon
+^.^|image:altemista-cloudfwk-documentation/frameworks/amazon.png[align="center"] |S3 |2.0.0.RELEASE
+^.^|image:altemista-cloudfwk-documentation/frameworks/amazon.png[align="center"] |SQS |2.0.0.RELEASE
+^.^|image:altemista-cloudfwk-documentation/frameworks/amazon.png[align="center"] |SES |2.0.0.RELEASE
+^.^|image:altemista-cloudfwk-documentation/frameworks/amazon.png[align="center"] |RDS |2.0.0.RELEASE
+
+.5+^.^|Azure
+^.^|image:altemista-cloudfwk-documentation/frameworks/azure.png[align="center"] |Active Directory |2.1.6
+^.^|image:altemista-cloudfwk-documentation/frameworks/azure.png[align="center"] |Key vault |2.1.6
+^.^|image:altemista-cloudfwk-documentation/frameworks/azure.png[align="center"] |Storage |1.0.0.M2
+^.^|image:altemista-cloudfwk-documentation/frameworks/azure.png[align="center"] |Service Bus |2.1.6
+^.^|image:altemista-cloudfwk-documentation/frameworks/azure.png[align="center"] |CosmosDB |2.0.4
+
+|===

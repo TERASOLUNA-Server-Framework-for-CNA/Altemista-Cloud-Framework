@@ -1,0 +1,22 @@
+
+:fragment:
+
+To manually install the {framework} Registry Server feature, add the following dependencies to the pom.xml file of the aggregator boot project of your application:
+
+[source,xml]
+.new-application-boot/pom.xml
+----
+<dependency>
+	<groupId>org.altemista.cloudfwk.microservices</groupId>
+	<artifactId>altemista-cloudfwk-core-microservices-registry-conf</artifactId><!--1-->
+</dependency>
+----
+<1> Registry Server feature dependencies and auto-discoverable configuration.
+
+The {framework} `AltemistaCloudfwkMicroserviceEureka` class has the next annotations to configure the application as a {framework} Registry Server
+
+[source,java]
+----
+include::{basedir}/altemista-cloudfwk-core-microservices-registry-conf/src/main/java/org/altemista/cloudfwk/config/microservice/registry/AltemistaCloudfwkMicroserviceEureka.java[tags=annotation]
+----
+<1> The Spring Cloud Netflix @EnableEurekaServer annotation is used to enable the application as a Registry Server.

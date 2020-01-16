@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+	
+	<!-- Example declaration of DatabasePropertiesProvider to be tested -->
+	<bean id="databasePropertiesProvider" class="org.altemista.cloudfwk.core.properties.impl.DatabasePropertiesProvider">
+		<property name="dataSource" ref="dataSourceTest" />
+		<property name="propertiesQuery" value="select KEY, VALUE from T_PROPERTIES" />
+	</bean>
+
+	<!-- In-memory database to test the DatabasePropertiesProvider -->
+	<jdbc:embedded-database id="dataSourceTest">
+		<jdbc:script location="classpath:scripts/schema.sql" />
+		<jdbc:script location="classpath:scripts/test-data.sql" />
+	</jdbc:embedded-database>
+	
+</beans>

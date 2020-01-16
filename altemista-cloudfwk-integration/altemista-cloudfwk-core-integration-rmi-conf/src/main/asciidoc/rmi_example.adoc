@@ -1,0 +1,75 @@
+
+:fragment:
+
+On the next example you can see how to configure a Resource Inbound Channel Adapter with an Integration Poller to check the status of a directory every 1 second and process the resource.
+
+[source,xml,options="nowrap"]
+./my-application-module-core/src/main/resources/spring/my-application-module-core-integration-rmi.xml
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:rmi="http://www.springframework.org/schema/integration/rmi"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/rmi
+			http://www.springframework.org/schema/integration/rmi/spring-integration-rmi.xsd">
+	
+	<rmi:inbound-gateway request-channel="requestChannel"/> <!--1-->
+ 
+	<integration:channel id="requestChannel"/> <!--2-->
+	 
+	<bean id="rmiService" class="org.altemista.cloudfwk.test.integration.rmi.service.IntegrationRMIServiceActivator"/> <!--3-->
+	
+	<integration:service-activator method="integrationRMIServiceMethod" input-channel="requestChannel" ref="rmiService"/> <!--4-->
+	
+	<bean class="org.springframework.integration.core.MessagingTemplate" /> <!--5-->
+
+</beans>
+----
+<1> *Integration RMI Inbound Gateway*
+<2> *Integration Channel* 
+<3> *Integration RMI Service Activator Bean* for message processing.
+<4> *Integration Service Activator* for message processing.
+<5> *Integration Messaging Template* for message sending.
+
+//
+[source,java,options="nowrap"]
+.org.altemista.cloudfwk.test.integration.rmi.service.IntegrationRMIServiceActivator
+----
+package org.altemista.cloudfwk.test.integration.rmi.service;
+
+public class IntegrationRMIServiceActivator {
+	
+	public String integrationRMIServiceMethod(String param) {
+		return "Param is " + param;
+	}
+
+}
+----
+
+//
+[source,java,options="nowrap"]
+----
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired
+	MessageChannel requestChannel;
+	 
+	@Autowired
+	MessagingTemplate template;
+	
+	@Test
+	public void testRmiAdapterDemo() throws Exception{
+		String requestParam = "requestParam";
+		String param = template.convertSendAndReceive(requestChannel, requestParam, String.class);
+		logger.info(" =======> Param: "+param);
+		Assert.assertNotNull(param);
+		Assert.assertEquals("Param is " + requestParam, param);
+	}
+----

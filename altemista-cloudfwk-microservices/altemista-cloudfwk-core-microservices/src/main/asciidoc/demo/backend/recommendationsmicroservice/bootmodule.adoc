@@ -1,0 +1,195 @@
+
+:fragment:
+
+===== Enable Feign Clients
+To enable Feign Clients in Recommendations microservice to consume Users and Movies services instantiated in the same Eureka Server it has to enable the feign clients interfaces.
+
+You have to rename the main class of the project named `MicroserviceApplication` to `AltemistaMoviesRecommendationsApplication`.
+
+[source,java,linenums]
+./AltemistaMoviesRecommendations-boot/.../AltemistaMoviesRecommendationsApplication.java
+----
+package org.altemista.cloudfwk.demo.altemistamoviesrecomend.microservice;
+
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.altemista.cloudfwk.config.boot.AltemistaPlusApplicationBuilder;
+import org.altemista.cloudfwk.config.microservice.AltemistaPlusMicroservice;
+import org.altemista.cloudfwk.config.microservice.AltemistaPlusMicroserviceBuilder;
+import org.altemista.cloudfwk.demo.altemistamoviesmovies.microservice.service.AltemistaMoviesMovies;
+import org.altemista.cloudfwk.demo.altemistamoviesusers.microservice.service.AltemistaMoviesUsers;
+
+@AltemistaPlusMicroservice
+@EnableFeignClients(basePackageClasses = {AltemistaMoviesUsers.class, AltemistaMoviesMovies.class}) // <1>
+public class AltemistaMoviesRecommendationsApplication extends AltemistaPlusMicroserviceBuilder {
+
+    public static void main(String[] args) {
+        configureApplication(new AltemistaPlusApplicationBuilder(), AltemistaMoviesRecommendationsApplication.class).run(args);
+    }
+	
+}
+----
+<1> `@EnableFeignClients` annotation whit <<users-interface,AltemistaMoviesUsers>> and <<movies-interface,AltemistaMoviesMovies>> classes
+
+[[recommendations-controller]]
+===== Microservice Controller
+
+First of all you have to delete the `MicroserviceExampleController` class. 
+
+Next step is create new class with the client interface implementation. The name of this class could be `AltemistaMoviesRecommendationsController` and implements `AltemistaMoviesRecommendations` interface. You have to annotate this class with `@RestController` annotation.
+
+[source,java,linenums]
+./AltemistaMoviesRecommendations-boot/.../AltemistaMoviesRecommendationsController.java
+----
+package org.altemista.cloudfwk.demo.altemistamoviesrecomend.microservice.controller;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.altemista.cloudfwk.demo.altemistamoviesmovies.microservice.domain.MovieDTO;
+import org.altemista.cloudfwk.demo.altemistamoviesmovies.microservice.service.AltemistaMoviesMovies;
+import org.altemista.cloudfwk.demo.altemistamoviesrecomend.datacore.entity.Recommendation;
+import org.altemista.cloudfwk.demo.altemistamoviesrecomend.datacore.repository.RecommendationRepository;
+import org.altemista.cloudfwk.demo.altemistamoviesrecomend.microservice.domain.RecommendationDTO;
+import org.altemista.cloudfwk.demo.altemistamoviesrecomend.microservice.service.AltemistaMoviesRecommendations;
+import org.altemista.cloudfwk.demo.altemistamoviesusers.microservice.domain.UserDTO;
+import org.altemista.cloudfwk.demo.altemistamoviesusers.microservice.service.AltemistaMoviesUsers;
+
+@RestController
+public class AltemistaMoviesRecommendationsController implements AltemistaMoviesRecommendations {
+
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@Autowired
+	private RecommendationRepository recommendationRepository; // <1>
+
+	@Autowired
+	private AltemistaMoviesMovies microMovies; // <2>
+
+	@Autowired
+	private AltemistaMoviesUsers microUsers; // <3>
+
+	@Autowired
+	private ModelMapper modelMapper;
+
+	Type targetListType = new TypeToken<List<RecommendationDTO>>() {}.getType();
+
+	@Override
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ResponseEntity<List<RecommendationDTO>> listAllRecommendations() {
+		List<Recommendation> recommendations = (List<Recommendation>) recommendationRepository.findAll();
+		if(recommendations.isEmpty()){
+			return new ResponseEntity<List<RecommendationDTO>>(HttpStatus.NO_CONTENT);
+		}
+		List<RecommendationDTO> recommendationsDTO = modelMapper.map(recommendations, targetListType);
+		return new ResponseEntity<List<RecommendationDTO>>(recommendationsDTO, HttpStatus.OK);
+	}
+
+	@Override
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<RecommendationDTO> getRecommendation(@PathVariable("id") long id) {
+		logger.info("Fetching Recommendation with id " + id);
+		Recommendation recommendation = recommendationRepository.findOne(id);
+		if (recommendation == null) {
+			logger.info("Recommendation " + id + " not found");
+			return new ResponseEntity<RecommendationDTO>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<RecommendationDTO>(modelMapper.map(recommendation, RecommendationDTO.class), HttpStatus.OK);
+	}
+
+	@Override
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public ResponseEntity<RecommendationDTO> createRecommendation(@RequestBody RecommendationDTO recommendationDTO) {
+		logger.info("Creating Recommendation by User with id " + recommendationDTO.getUserId() + " about Movie with id " + recommendationDTO.getMovieId());
+
+		if (recommendationDTO.getId()!=null) {
+			logger.info("The Recommendation ID must be null");
+			return new ResponseEntity<RecommendationDTO>(HttpStatus.BAD_REQUEST);
+		}
+
+		List<Recommendation> findByUserIdAndMovieId = recommendationRepository.findByUserIdAndMovieId(recommendationDTO.getUserId(),recommendationDTO.getMovieId());
+		if (findByUserIdAndMovieId!=null && !findByUserIdAndMovieId.isEmpty()) {
+			logger.info("A Recommendation by User with id " + recommendationDTO.getUserId() + " about Movie with id " + recommendationDTO.getMovieId() + " already exist");
+			return new ResponseEntity<RecommendationDTO>(HttpStatus.CONFLICT);
+		}
+
+		Recommendation savedRecommendation = recommendationRepository.save(modelMapper.map(recommendationDTO, Recommendation.class));
+		RecommendationDTO savedRecommendationDTO = modelMapper.map(savedRecommendation, RecommendationDTO.class);
+
+		return new ResponseEntity<RecommendationDTO>(savedRecommendationDTO, HttpStatus.CREATED);
+	}
+
+	@Override
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<RecommendationDTO> updateRecommendation(@PathVariable("id") long id, 
+		@RequestBody RecommendationDTO recommendationDTO) {
+		logger.info("Updating Recommendation " + id);
+
+		if (recommendationDTO.getId()==null || id!=recommendationDTO.getId().longValue()){
+			logger.info("Recommendation id " + recommendationDTO.getId() + " not equals id param "+id);
+			return new ResponseEntity<RecommendationDTO>(HttpStatus.BAD_REQUEST);
+		}
+		if (recommendationRepository.findOne(id)==null) {
+			logger.info("Recommendation with id " + id + " not found");
+			return new ResponseEntity<RecommendationDTO>(HttpStatus.NOT_FOUND);
+		}
+
+		recommendationDTO.setId(id);
+		Recommendation savedRecommendation = recommendationRepository.save(modelMapper.map(recommendationDTO, Recommendation.class));
+		recommendationDTO = modelMapper.map(savedRecommendation, RecommendationDTO.class);
+		return new ResponseEntity<RecommendationDTO>(recommendationDTO, HttpStatus.OK);
+	}
+
+	@Override
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<RecommendationDTO> deleteRecommendation(@PathVariable("id") long id) {
+		logger.info("Fetching & Deleting Recommendation with id " + id);
+
+		if (recommendationRepository.findOne(id) == null) {
+			logger.info("Unable to delete. Recommendation with id " + id + " not found");
+			return new ResponseEntity<RecommendationDTO>(HttpStatus.NOT_FOUND);
+		}
+
+		recommendationRepository.delete(id);
+		return new ResponseEntity<RecommendationDTO>(HttpStatus.NO_CONTENT);
+	}
+
+	@Override
+	@RequestMapping(value = "/findByUserID/{userId}", method = RequestMethod.GET)
+	public ResponseEntity<List<RecommendationDTO>> findByUserID(@PathVariable("userId") Long userId) {
+		List<Recommendation> recommendationsByUserID = recommendationRepository.findByUserId(userId);
+
+		Type targetListType = new TypeToken<List<RecommendationDTO>>() {}.getType();
+		List<RecommendationDTO> recommendations = modelMapper.map(recommendationsByUserID, targetListType);
+
+		for (RecommendationDTO recommendation : recommendations) {
+			ResponseEntity<MovieDTO> movie = microMovies.getMovie(recommendation.getMovieId());
+			MovieDTO movieDTO = movie.getBody();
+			recommendation.setMovieTitle(movieDTO.getTitle());
+			ResponseEntity<UserDTO> user = microUsers.getUser(recommendation.getUserId());
+			UserDTO userDTO = user.getBody();
+			recommendation.setUserFirstName(userDTO.getFirstName());
+			recommendation.setUserLastName(userDTO.getLastName());
+		}
+
+		return new ResponseEntity<List<RecommendationDTO>>(recommendations, HttpStatus.OK);
+	}
+
+}
+----
+
+<1> Recommendation Spring Data Repository
+<2> <<movies-interface,AltemistaMoviesMovies>> interface.
+<3> <<users-interface,AltemistaMoviesUsers>> interface.

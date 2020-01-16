@@ -1,0 +1,20 @@
+
+:fragment:
+
+The common nature serves for the purpose of creating lightweight business module interfaces. This interfaces can be shared between business modules, projects or even to 3rd parties.
+
+This nature can also be used to create utility projects.
+
+== Business module interface
+
+The default package structure of a _common_ hints how to build the business module interface. Inside the business module base package:
+
+* The `service` subpackage will contain the interfaces to the services this business module exposes.
+
+* In the `model` subpackage will contain the business model. I.e.: the model actually exposed by the business module. This model contains the model used by the service interfaces, but can include additional classes as well.
++
+Depending on the application, the business model is usually referred to as _data transfer objects_ (DTO), _value objects_ (VO), _plain old Java objects_ (POJO) or _JavaBeans_.
+
+* The `exception` subpackage, like the `model` subpackage, contains the exceptions thrown by the services interfaces, but also can include additional exceptions.
++
+Please read the <<natures-common-exceptions,exception hierarchy>> section for further information on how to design the exceptions in a {framework} application.

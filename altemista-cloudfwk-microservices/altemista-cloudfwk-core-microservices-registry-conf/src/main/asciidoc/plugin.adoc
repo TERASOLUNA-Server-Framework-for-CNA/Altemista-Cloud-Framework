@@ -1,0 +1,14 @@
+
+:fragment:
+
+{framework} Registry Server feature only can be added in a [application]-boot module in a <<microservice-nature,Microservice Infrastructure Nature project>>.
+
+Only one microservice infrastructure feature can be added over a microservice nature project.
+
+image::altemista-cloudfwk-documentation/microservices/registry_server_feature.png[align="center"]
+
+Self implementation for a Microservice Registry Server Infrastructure typology allows to configure any server properties:
+
+image::altemista-cloudfwk-documentation/microservices/registry_server_additional_properties.png[align="center"]
+
+* *Config Server URL*: Configuration Server URL. This property is set to http://localhost:8888 by default.

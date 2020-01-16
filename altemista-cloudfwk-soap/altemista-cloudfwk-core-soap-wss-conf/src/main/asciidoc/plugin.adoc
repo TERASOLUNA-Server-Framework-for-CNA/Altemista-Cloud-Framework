@@ -1,0 +1,4 @@
+
+:fragment:
+
+The _Outgoing WS-Security for SOAP client_ feature requires the _SOAP web service consumer (SOAP client)_ feature to be installed first (and, hence, can only be installed in _core_ nature projects).

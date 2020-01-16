@@ -1,0 +1,72 @@
+
+:fragment:
+
+The monitoring feature of {framework} allows the definition of indicators to register information about different resources, such as databases or remote services. The executions register the status of the resource, the execution time, how long took the execution, and can be extended to include custom information fields or messages, according the needs of the application.
+
+The interface `MonitoringService` is the main interface of the feature and allows applications the execution of indicators and retrieval of the status of the monitored resources. Different policies for storing the previous executions (such as keeping the last execution only, last _ok_ and _failure_, etc.) can be defined using the `MonitoringStorage` interface.
+
+With this separation, monitoring information can be exploited in any way the application requires: programatically (e.g.: by creating an status page inside the application), by logging the execution results, providing a REST API, etc.
+
+== Defining indicators
+
+The `Indicator` interface represents an indicator, which can be identified by its unique `id`. The `execute()` method of the indicator returns a `MonitoringInfo` instance containing the execution information.
+
+Each application can create its own indicators, but {framework} already provides some implementations out-of-the-box to be used by the applications. A non-comprehensive list:
+
+`AliveIndicator`::
+
+Indicator that always returns the status OK. It can be used to simply check the application is deployed.
+
+`SocketIndicator`::
+
+Indicator to check the status of a socket address (e.g.: a SMTP server).
+
+`HttpIndicator`::
+
+Indicator to check the status of an HTTP connection.
+
+`DatabaseIndicator`::
+
+Indicator to check the status of a database through a data source.
+
+`MongoIndicator`::
+
+Indicator to check the status of a MongoDB database through a `MongoClient` instance (e.g. the auto-configured by the MongoDB {framework} module).
+
+`LdapIndicator`::
+
+Indicator to check the status of a LDAP server.
+
+Please check the Javadoc of the classes for further information.
+
+== Monitoring service
+
+The main interface for the monitoring feature is `MonitoringService`. This service serves both as a container for indicators relevant to a business module and as an executor for those indicators and can be injected in the application to be used programatically:
+
+[source,java]
+----
+@Autowired
+private MonitoringService service;
+----
+
+Please refer to the Javadoc for further information about execution of indicators and retrieval of information of previous executions.
+
+NOTE: No `MonitoringService` bean is included in the framework configuration; it is up to the applications to declare its own monitoring services. Please check the <<altemista-cloudfwk-core-monitoring-configuration,configuration>> section for further details.
+
+== Monitoring storages
+
+The storage policies, as defined by the `MonitoringStorage` interface, determine which indicators execution are kept and how.
+
+{framework} already provides a default implementation that stores in-memory the last execution of each indicator. Applications are free to implement its own storage policies, such as keeping the last _ok_ and _failure_, the executions of the last 24 hours, or any required algorithm.
+
+TIP: With the default implementations provided by the framework, it is possible to cover the most common usage of the monitoring feature: the {framework} application will execute the indicators periodically and then will use the retrieval methods of the monitoring service to check availability; for example, to implement a https://en.wikipedia.org/wiki/Circuit_breaker_design_pattern[_circuit breaker_] at the beginning of a heavy business process.
+
+In addition to the default `MonitoringStorage` implementation, the framework provides some convenience _wrappers_ that can be combined with any other storage policy:
+
+`LoggerMonitoringStorageWrapperImpl`::
+
+This storage policy wrapper will log the information of the indicators when added to the storage.
+
+`MailMonitoringStorageWrapperImpl`::
+
+This _email-on-error_ storage policy wrapper will send an email when adding to the storage an indicator execution with status _failure_.

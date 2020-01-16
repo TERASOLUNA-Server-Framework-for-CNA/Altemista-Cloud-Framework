@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.altemista.cloudfwk.framework</groupId>
+		<artifactId>altemista-cloudfwk-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	<groupId>org.altemista.cloudfwk.mail</groupId>
+	<artifactId>altemista-cloudfwk-core-mail-javamail</artifactId>
+	<name>altemista-cloudfwk mail server: JavaMail implementation</name>
+
+	<dependencies>
+
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-common</artifactId>
+		</dependency>		
+		<dependency>
+			<groupId>org.altemista.cloudfwk.mail</groupId>
+			<artifactId>altemista-cloudfwk-core-mail</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.altemista.cloudfwk.async</groupId>
+			<artifactId>altemista-cloudfwk-core-async</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- == End ACF framework == -->
+
+		<!-- == Begin other libraries == -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- == End other libraries == -->
+		
+	</dependencies>
+</project>

@@ -1,0 +1,6 @@
+
+:fragment:
+
+HTTP security::
+
+The _HTTP security_ feature can only be installed in module projects with the _web_ nature.

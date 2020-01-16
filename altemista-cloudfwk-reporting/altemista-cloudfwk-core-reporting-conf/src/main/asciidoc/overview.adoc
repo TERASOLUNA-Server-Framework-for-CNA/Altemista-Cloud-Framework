@@ -1,0 +1,99 @@
+
+:fragment:
+
+The reporting module provides functionality to create and export reports.
+
+Supported formats, such as PDF or Microsoft Excel, will depend on the implementation provider.
+
+Currently, there is only one implementation available, based on http://community.jaspersoft.com/project/jasperreports-library[JasperReports], that supports:
+
+* Comma-Separated Values (CSV)
+
+* HyperText Markup Language (HTML)
+
+* Microsoft Excel
+
+* Microsoft Word
+
+* Microsoft PowerPoint
+
+* Microsoft Office - OOXML - Spreadsheet
+
+* Adobe Portable Document Format (PDF)
+
+* Rich Text Formats (RTF)
+
+* Text file
+
+* Extensible Markup Language (XML)
+
+[[altemista-cloudfwk-core-reporting-conf-overview-generating]]
+== Generating a report
+
+The main interface of the reporting feature is `ReportBuilder`. With that interface, it is possible to create a `ReportBean` instance, representing the report to be generated, and then use any of the `build()` methods to actually generate the report. Reports can be written to any destination, such as a file in the filesystem, a BLOB in the database, or as the content of an HTTP reponse.
+
+The process of generating a report is as follows:
+
+[source]
+.ReportBuilderExample.java
+----
+include::{basedir}/altemista-cloudfwk-core-reporting-jasper-conf/src/test/java/org/altemista/cloudfwk/example/reporting/ReportBuilderExample.java[tags=example]
+----
+<1> Inject the `ReportBuilder`. Typically, one unique report builder will be available in the application.
+<2> Create a new `ReportBean` by the proper method of the report builder. This will ensure the correct subclass of `ReportBean` is instantiated depending on the implementation provider.
+<3> The logical template name is one of the required attributes for building the report. This name will be mapped to the actual report template resource by the template resolver injected in the report builder.
+<4> The content type is the other required attribute. Be aware that implementation providers do not have to support all the content types, so certain combinations will cause an error (e.g.: exporting to _Microsoft Office - OOXML - Presentation_ format with JasperReports).
+<5> The output file name is optional (the template logical name will be used if not set). Usually, the report builder will append a valid extension depending on the content type when setting the file name.
+<6> Populate the parameter map as needed.
+<7> The report can be built and written to a provided destination as shown in the example (e.g.: a file in the filesystem), or leave it to the report builder implementation, and then be read by the application. The latter is an optional operation and it is not recommended, as it can be a memory unfriendly operation.
+
+== Report templates
+
+The reporting feature uses logical template names to reference the different report templates. The `TemplateResolver` interface defines how to translate the logical name of the template (used by the application) to the actual templates used by the the `ReportBuilder` implementations.
+
+Implementation providers will usually provide its own default configuration as the template resolver. However, applications can replace it to use custom translation strategies.
+
+[[altemista-cloudfwk-core-reporting-conf-overview-serving]]
+== Serving reports
+
+The most common use case for the reporting module is to serve the reports for being downloaded.
+
+The web part of the reporting module inludes `AbstractReportController`, a base class that eases the implementaion of Spring MVC controllers that serve reports, regardless the reporting module implementation. This class extends Spring `WebContentGenerator` to support HTTP cache control options via Spring `CacheControl`.
+
+The process of serving a report is as follows:
+
+[source]
+.ExampleReportingController.java
+----
+@RequestMapping("/exampleReport")
+@RestController //<1>
+public class ExampleReportingController extends AbstractReportController { //<2>
+	
+	@RequestMapping(value = "/pdf") //<3>
+	public void getPdf(HttpServletRequest request, HttpServletResponse response) {
+		
+		ReportBean report = this.getReportBuilder().newReport();
+		report.setTemplate("example");
+		report.setContentType(ContentType.PDF); //<3> <5>
+		report.setFilename("Hello world"); //<5>
+		
+		this.build(report, response); //<3>
+	}
+
+	@RequestMapping("/html") //<4>
+	public void getHtmlInline(HttpServletRequest request, HttpServletResponse response) {
+		
+		ReportBean report = this.getReportBuilder().newReport();
+		report.setTemplate("example");
+		report.setContentType(ContentType.HTML); //<4> <5>
+		report.setFilename("Hello world"); //<5>
+		
+		this.build(report, response, true); //<4>
+	}
+}
+----
+<1> Prefer `@RestController` over `@Controller` for the methods to assume `@ResponseBody` semantics by default.
+<2> Extend `AbstractReportController`.
+<3> In this example, the PDF report is served as a download.
+<4> In this example, the report is generated as HTML and served inline (see the third parameter of the `build` method). This allows the report to be shown insde the application (e.g.: using an `<iframe>`) rather than showing the download dialog to the user.
+<5> Both MIME type and filename extension will be set to proper values according the target `ContentType` of the report. 

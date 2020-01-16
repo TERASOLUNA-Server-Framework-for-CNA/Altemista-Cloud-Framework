@@ -1,0 +1,32 @@
+#set($dollar = '$')
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Default implementation of the monitoring service -->
+	<bean id="${businessShortId}MonitoringService"
+			class="org.altemista.cloudfwk.core.monitoring.impl.MonitoringServiceImpl">
+		
+		<property name="storage">
+			<!-- Default in-memory storage that keeps the last execution of each indicator -->
+			<bean id="${businessShortId}Storage"
+					class="org.altemista.cloudfwk.core.monitoring.impl.storage.MonitoringStorageImpl"
+				/>
+		</property>
+		
+		<property name="indicators">
+			<array>
+			
+				<!-- Indicator that always returns the status OK -->
+				<bean id="${businessShortId}AliveIndicator"
+						class="org.altemista.cloudfwk.core.monitoring.impl.indicator.AliveIndicator">
+					<property name="id" value="${businessShortId}Alive" />
+				</bean>
+				
+			</array>
+		</property>
+	</bean>
+
+</beans>

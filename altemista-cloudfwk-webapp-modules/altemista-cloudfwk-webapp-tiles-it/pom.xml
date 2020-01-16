@@ -1,0 +1,48 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.altemista.cloudfwk.it</groupId>
+		<artifactId>altemista-cloudfwk-it-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+	<groupId>org.altemista.cloudfwk.webapp.modules</groupId>
+	<artifactId>altemista-cloudfwk-webapp-tiles-it</artifactId>
+	<packaging>war</packaging>
+	<name>altemista-cloudfwk web application: JSP implementation (with Apache Tiles) integration tests</name>
+	<description>Integration tests for ACF web applications with JSP and Apache Tiles implementation</description>
+
+	<properties>
+		<skip.boot.environments>true</skip.boot.environments>
+	</properties>
+
+	<dependencies>
+
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<groupId>org.altemista.cloudfwk.webapp.modules</groupId>
+			<artifactId>altemista-cloudfwk-webapp-tiles-conf</artifactId>
+		</dependency>
+		<!-- == End ACF framework == -->
+
+		<!-- == Begin JavaEE APIs == -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- == End JavaEE APIs == -->
+		
+		<!-- == Begin example WebJars (Bootstrap) == -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>3.3.7-1</version>
+		</dependency>
+		<!-- == End example WebJars (Bootstrap) == -->
+
+	</dependencies>
+
+</project>

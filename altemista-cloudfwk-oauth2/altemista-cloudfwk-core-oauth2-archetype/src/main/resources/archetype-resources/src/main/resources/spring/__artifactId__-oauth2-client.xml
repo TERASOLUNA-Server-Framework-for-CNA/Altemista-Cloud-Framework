@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:oauth2="http://www.springframework.org/schema/security/oauth2"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd">
+	
+	<!-- == Client using Client Credentials Grant flow == -->
+	
+	<!-- Detailed information of the resource to be accessed -->
+	<oauth2:resource id="clientCredentialsResource"
+			type="client_credentials"
+			client-id="${clientId}"
+			client-secret="${clientSecret}"
+			scope="${scope}"
+			access-token-uri="${accessTokenEndpointUri}"
+		/>
+	
+	<!-- Actual RestTemplate object -->
+	<oauth2:rest-template id="clientCredentialsRestTemplate" resource="clientCredentialsResource" /> 
+	
+</beans>

@@ -1,0 +1,34 @@
+
+:fragment:
+
+*ALTEMISTA Cloud Framework* ({framework}) provides the features to build a Azure Resources applications.
+
+On this tutorial we will make a differents applications with Azure features, 
+
+NOTE: At the end of this document you will be able to link the example code in the svn. <<demo-resources>>
+
+== Azure Storage
+
+include::{basedir}/altemista-cloudfwk-core-azure/demo/StorageDemo.adoc[]
+
+== Azure Active Directory
+
+include::{basedir}/altemista-cloudfwk-core-azure/demo/ActiveDirectory.adoc[]
+
+== Azure Key Vault
+
+include::{basedir}/altemista-cloudfwk-core-azure/demo/KeyVault.adoc[]
+
+== Azure Support Bus
+
+include::{basedir}/altemista-cloudfwk-core-azure/demo/SupportBus.adoc[]
+
+== Azure Cosmos Db
+
+include::{basedir}/altemista-cloudfwk-core-azure/demo/SupportCosmosDb.adoc[]
+
+
+[[demo-resources]]
+== Demo resources
+
+include::{basedir}/altemista-cloudfwk-core-azure/demo/resources.adoc[]

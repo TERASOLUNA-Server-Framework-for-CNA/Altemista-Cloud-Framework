@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>ACF security: OAuth2 web application client for integration tests</title>
+	<link rel="stylesheet" href="./webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"></link>
+</head>
+<body>
+
+<div class="container">
+	<div class="page-header">
+		<h1>ACF security: OAuth2 web application client for integration tests</h1>
+	</div>
+
+	<h2>Invoke client</h2>
+	<p>
+		<a class="btn btn-primary" href="./client/hello">GET</a> .../client/hello
+	</p>
+
+	<h2>Invoke client that consumes resource server</h2>
+	<p>
+		<a class="btn btn-primary" href="./client/hello/api">GET</a> .../client/hello/api
+	</p>
+</div>
+	
+<script src="./webjars/jquery/3.1.1/jquery.min.js"></script>
+<script src="./webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	
+	// (nothing to initialize here)
+});
+</script>
+
+</body>
+</html>

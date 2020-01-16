@@ -1,0 +1,6 @@
+
+:fragment:
+
+{framework} Integration RMI Feature provides inbound and outbound channel adapters supporting the RMI protocol.
+
+{framework} Integration RMI Feature is based on https://docs.spring.io/spring-integration/docs/5.0.0.RELEASE/reference/html/rmi.html[Spring Integration RMI Support^]

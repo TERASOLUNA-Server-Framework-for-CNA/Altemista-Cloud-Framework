@@ -1,0 +1,14 @@
+
+:fragment:
+
+The maven dependency of the _core_ nature is:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.altemista.cloudfwk.framework</groupId>
+  <artifactId>altemista-cloudfwk-core</artifactId>
+</dependency>
+----
+
+TIP: If the purpose of the module project is to be a shared Spring-aware utility project, consider using the _provided_ scope for this dependency to avoid tight coupling with a strict {framework} version. This will favour the usage of the project in any {framework} application disregarding the version.

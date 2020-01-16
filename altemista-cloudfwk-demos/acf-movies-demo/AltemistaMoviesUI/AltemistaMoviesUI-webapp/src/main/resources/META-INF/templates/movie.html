@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragment :: headfragment"></head>
+<body>
+	
+	<div id="divtitle">MOVIE</div>
+ 	<form class="main_form" id="formulario" method="post" action="#" th:object="${movie}">  
+        <div>  
+            <ul>
+                <li>  
+                    <label for="title">Title:</label>
+                    <input type="text" name ="title" placeholder="Star Wars" th:field="*{title}" />
+                </li>
+            </ul>
+            <div>&nbsp;</div>
+            <div>
+            	<span th:if="${movie.id != null}">
+   					<button class="submit" type="button" th:onclick="'actionForm(this.form.id, \''+@{/movies/update}+'/'+${movie.id}+'\'); return false;'"><i class="far fa-save"></i>&nbsp;Update</button>
+            	</span>
+				<span th:if="${movie.id == null}">
+                	<button class="submit" type="button" th:onclick="'actionForm(this.form.id, \''+@{/movies/save}+'\'); return false;'"><i class="far fa-save"></i>&nbsp;Save</button>
+				</span>
+                <span>
+                	<button class="submit" type="button" th:onclick="'actionForm(this.form.id, \''+@{/movies/cancel}+'\'); return false;'"><i class="far fa-times-circle"></i>&nbsp;Cancel</button>
+                </span>
+            </div>
+        </div>  
+    </form>
+</body>
+</html>

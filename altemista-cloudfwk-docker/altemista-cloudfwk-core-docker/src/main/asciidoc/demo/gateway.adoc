@@ -1,0 +1,22 @@
+
+:fragment:
+
+To see more information about how to set up your gateway server in ACF, go to https://terasoluna.everis.com/dev/TSFPlus%20Microservices%20Demo.html#gateway-server-demo[here^]. After this, we have to create a dockerfile like this:
+[source,txt]
+.new-application-gateway-boot/Dockerfile
+----
+FROM openjdk:8-jdk-alpine	<!--1-->
+VOLUME /tmp		<!--2-->
+ADD "target/new-application-gateway-boot-1.0.0-SNAPSHOT.jar" app.jar		<!--3-->
+ENV JAVA_OPTS=""		<!--4-->
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Dspring.cloud.config.uri=http://${CONFIG_HOST}:8888 -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]	<!--5-->
+EXPOSE 8765		<!--6-->
+----
+<1> The FROM instruction sets the base image for subsequent instructions.
+<2> The VOLUME expose configuration storage , fileles/folders created by your docker container in a specified path.
+<3> The ADD instruction add's the local files into the containers specified path.
+<4> The ENV instruction can update the PATH environment variable for the software your container installs.
+<5> The ENTRYPOINT instruction should be used to run the software contained by your image, along with any arguments.
+<6> The EXPOSE instruction indicates the ports on which a container listens for connections.
+
+IMPORTANT: See above "-Dspring.cloud.config.uri=http://${CONFIG_HOST}:8888", this is can be added in you bootstrap.properties by this "spring.cloud.config.uri=http://config-server:8888". And "config-server" is the image name of your Config server that you want to give.

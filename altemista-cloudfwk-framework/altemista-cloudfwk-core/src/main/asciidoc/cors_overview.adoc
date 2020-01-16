@@ -1,0 +1,109 @@
+
+:fragment:
+
+Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP headers to tell a browser to let a web application running at one origin (domain) have permission to access selected resources from a server at a different origin. 
+A web application executes a cross-origin HTTP request when it requests a resource that has a different origin (domain, protocol, and port) than its own origin.
+
+
+By default ACF does not give a configuration for the treatment of the CORS, but we propose these two .class of configuration
+
+[source,java,options="nowrap"]
+/my-application-boot/src/main/java/mycompany.application.boot/WebCorsConfig.class
+
+----
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+@Configuration
+public class WebCorsConfig {
+
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		
+		return new WebMvcConfigurerAdapter() {
+			
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				
+				registry.addMapping("/**")
+						.allowedMethods(
+								HttpMethod.DELETE.name(),
+								HttpMethod.GET.name(),
+								HttpMethod.OPTIONS.name(),
+								HttpMethod.POST.name(),
+								HttpMethod.PUT.name())
+						.maxAge(3600L)
+						.allowedHeaders(
+								HttpHeaders.CONTENT_TYPE,
+								HttpHeaders.ACCEPT,
+								"X-Requested-With",
+								"remember-me");
+			}
+		};
+	}
+}
+
+
+----
+
+You can adapter this .class to your project needs.
+
+[source,java,options="nowrap"]
+/my-application-boot/src/main/java/mycompany.application.boot/SimpleCORSFilter.class
+
+----
+
+import java.io.IOException;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+@Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
+public class SimpleCORSFilter implements Filter {
+
+	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+			throws IOException, ServletException {
+
+		HttpServletRequest request = (HttpServletRequest) req;
+		HttpServletResponse response = (HttpServletResponse) res;
+
+		response.setHeader("Access-Control-Allow-Credentials", "true");
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+		response.setHeader("Access-Control-Max-Age", "3600");
+		response.setHeader("Access-Control-Allow-Headers",
+				"Origin, X-Requested-With, Content-Type, Accept, Authorization, Pragma,Cache-Control");
+
+		if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+			response.setStatus(HttpServletResponse.SC_OK);
+		} else {
+			chain.doFilter(req, res);
+		}
+	}
+
+	public void init(FilterConfig filterConfig) {
+	}
+
+	public void destroy() {
+	}
+}
+
+----
+
+
+endif::getting-started[]

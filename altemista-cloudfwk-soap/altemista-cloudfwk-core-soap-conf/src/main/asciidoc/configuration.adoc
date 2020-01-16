@@ -1,0 +1,26 @@
+
+:fragment:
+
+Please notice that `SimpleJaxWsPortProxyFactoryBean` extends from Spring `JaxWsPortProxyFactoryBean`, so all of its properties can be used as well:
+
+[source,xml]
+.spring/soap-client.xml
+----
+<bean id="exampleServiceClient" class="org.altemista.cloudfwk.core.soap.SimpleJaxWsPortProxyFactoryBean"> <!--1-->
+  <property name="serviceInterface" value="org.altemista.cloudfwk.test.soap.ExampleService" />
+  <property name="endpointAddress" value="http://localhost/example/soap/Example" />
+  
+  <property name="namespaceUri" value="http://example/"/> <!--2-->
+  <property name="serviceName" value="MyExampleService"/>
+  <property name="portName" value="MyExamplePort"/>
+
+  <property name="username" value="user" /> <!--3-->
+  <property name="password" value="password" />
+
+  <property name="lookupServiceOnStartup" value="false" /> <!--4-->
+</bean>
+----
+<1> It is possible to create more than one client for the same web service interface by specifying a bean name (e.g.: to use different endpoint addresses).
+<2> Is it possible to override the sensitive default values of `SimpleJaxWsPortProxyFactoryBean` if they do not match the WSDL correspondant values.
+<3> User and password for basic authentication if the JAX-WS service requires it.
+<4> If the `lookupServiceOnStartup` flag is turned off, the JAX-WS service will be lazily fetched on first access.

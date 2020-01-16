@@ -1,0 +1,129 @@
+
+:fragment:
+
+[IMPORTANT]
+====
+You must have configured the <<kafka-configuration,Kafka Configuration>> before to continue with the next steps.
+====
+
+Firstly, we need to define the Kafka Streams, one for producers and other for listeners
+
+[source,java,options="nowrap"]
+./org.altemista.cloudfwk.stream.ProducerStreams
+----
+public interface ProducerStreams {
+	
+    String OUTPUT = "example-out";
+ 
+    @Output(OUTPUT)
+    MessageChannel outboundExample();	#<1>
+----
+<1> The outboundExample() method defines the outbound stream to write to Kafka.
+
+[source,java,options="nowrap"]
+./org.altemista.cloudfwk.stream.ListenerStreams
+----
+public interface ListenerStreams {
+	
+    String INPUT = "example-in";
+ 
+    @Input(INPUT)
+    MessageChannel inboundExample();	#<1>
+----
+<1> The inboundExample() method defines the inbound stream to read from Kafka. 
+
+To configure Spring Cloud Stream to bind to our streams in the ProducerStreams and ListenerStreams interfaces. This can be done by creating a @Configuration class with below code:
+
+[source,java,options="nowrap"]
+./org.altemista.cloudfwk.stream.ExampleStreams
+----
+@EnableBinding(ExampleStreams.class) #<1>
+@Configuration
+public class StreamsConfig {
+
+}
+----
+<1> Binding the streams is done using the @EnableBinding annotation where the Exampleservice interface is passed to.
+
+Our next step is to create a simple class with below code that will represent the message object we read from and write to the greetings Kafka topic:
+
+[source,java,options="nowrap"]
+./.com.mycompany.application.module.model.ExampleObject
+----
+package com.mycompany.application.module.model;
+
+public class ExampleObject {
+	private long timestamp;
+    private String message;
+    
+    public ExampleObject(long timestamp,String message) {
+		this.timestamp = timestamp;
+		this.message = message;
+	} 
+ 
+    public ExampleObject() {
+    }
+    
+	public long getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	@Override
+	public String toString() {
+		return "ExampleObject [timestamp=" + timestamp + ", message=" + message + "]";
+	}
+	
+}
+----
+Let's create a Service Layer to Write to Kafka:
+
+[source,java,options="nowrap"]
+./.org.altemista.cloudfwk.stream.ExampleService
+----
+@Service	#<1>
+public class ExampleService {
+    private final ProducerStreams exampleStreams;
+ 
+    public ExampleService(ProducerStreams exampleStreams) {
+        this.exampleStreams = exampleStreams;
+    }
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+    
+    public void sendGreeting(final ExampleObject example) {		#<2>
+        logger.info("send-------------{}", example);
+        
+        MessageChannel messageChannel = exampleStreams.outboundExample();
+        messageChannel.send(MessageBuilder.withPayload(example).setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+                .build());
+    }
+}
+----
+<1> The @Service annotation will configure this class as a Spring Bean and inject the ExampleService dependency via the constructor.
+<2> In the sendGreeting() method we use the injected ExampleStream object to send a message represented by the ExampleObject.
+
+Finally, Let's create a class that will listen to messages on the greetings Kafka topic and log them on the console:
+
+[source,java,options="nowrap"]
+./.org.altemista.cloudfwk.stream.ExampleListener
+----
+@Component
+public class ExampleListener {
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+    @StreamListener(ListenerStreams.INPUT)
+    public void handleGreetings(@Payload ExampleObject example) {
+        logger.info("receive------------------------{}", example);
+   }
+----
+<1> The @Component annotation, similarly to @Service and @RestController, defines a Spring Bean.
+<2> ExampleListener has a single method, handleGreetings() that will be invoked by Spring Cloud Stream with every new ExampleObject message on the greetings Kafka topic. This is thanks to the @StreamListener annotation configured for the handleGreetings() method.

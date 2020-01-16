@@ -1,0 +1,1630 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.altemista.cloudfwk.framework</groupId>
+		<artifactId>altemista-cloudfwk-recommended-plugins</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+
+	<groupId>org.altemista.cloudfwk.it</groupId>
+	<artifactId>altemista-cloudfwk-it-parent</artifactId>
+	<packaging>pom</packaging>
+	<name>altemista-cloudfwk integration tests: parent POM</name>
+	<description>
+		Common parent for the ACF integration test projects.
+		Also adds the possibility to run the integration tests in different environments
+	</description>
+
+	<properties>
+		<servers.basedir>/opt/jee-servers</servers.basedir>
+		<servers.weblogic.basedir>${servers.basedir}/Oracle/Middleware/Oracle_Home</servers.weblogic.basedir>
+
+		<!-- == ACF version == -->
+		<altemista-cloudfwk.version>${project.version}</altemista-cloudfwk.version>
+
+		<!-- == Default packaging is war == -->
+		<packaging.type>war</packaging.type>
+
+		<!-- == Allows some IT projects to easily disable webapp or boot environrments == -->
+		<skip.webapp.environments>false</skip.webapp.environments>
+		<skip.boot.environments>false</skip.boot.environments>
+
+		<!-- == Additional plugins versions == -->
+		<jacoco-maven-plugin.version>0.7.7.201606060606</jacoco-maven-plugin.version>
+		<tomcat-maven-plugin.version>2.2</tomcat-maven-plugin.version>
+		<liberty-maven-plugin.version>1.3</liberty-maven-plugin.version>
+		<cargo-maven2-plugin.version>1.5.0</cargo-maven2-plugin.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- == ACF integration tests: bill of materials == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.it</groupId>
+				<artifactId>altemista-cloudfwk-it-bom</artifactId>
+				<version>${altemista-cloudfwk.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+
+		<!-- == Begin ACF framework integration tests == -->
+		<dependency>
+			<groupId>org.altemista.cloudfwk.it</groupId>
+			<artifactId>altemista-cloudfwk-it-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.altemista.cloudfwk.it</groupId>
+			<artifactId>altemista-cloudfwk-it-common</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<!-- == End ACF framework integration tests == -->
+
+		<!-- == Begin test dependencies == -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- == End test dependencies == -->
+
+		<!-- == Begin SeleniumHQ (test) == -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- == End SeleniumHQ == -->
+
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+
+				<!-- == Includes the IT log folder in the clean plugin == -->
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>${maven-clean-plugin.version}</version>
+					<configuration>
+						<filesets>
+							<fileset>
+								<directory>log</directory>
+								<includes>
+									<include>*.log</include>
+								</includes>
+							</fileset>
+						</filesets>
+					</configuration>
+				</plugin>
+
+				<!-- == Reserves a network port to execute the integration tests server == -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>${build-helper-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>reserve-network-port</id>
+							<phase>pre-integration-test</phase>
+							<goals>
+								<goal>reserve-network-port</goal>
+							</goals>
+							<configuration>
+								<portNames>
+									<portName>it.http.port</portName>
+								</portNames>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- == Will define which dependencies will be scanned for integration 
+					tests; also, passes the URL to the integration tests == -->
+				<plugin>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>${maven-failsafe-plugin.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>integration-test</goal>
+								<goal>verify</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<argLine>${failsafeArgLine}</argLine>
+						<systemPropertyVariables>
+							<integration-test.url>http://localhost:${it.http.port}/${project.artifactId}</integration-test.url>
+						</systemPropertyVariables>
+					</configuration>
+				</plugin>
+				
+				<!-- == Begin JaCoCo == -->
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>${jacoco-maven-plugin.version}</version>
+				</plugin>
+				<!-- == End JaCoCo == -->
+
+				<!-- == Apache Tomcat 7.x (embedded) == -->
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>${tomcat-maven-plugin.version}</version>
+				</plugin>
+
+				<!-- == Deploys the application for integration tests using Codehaus Cargo == -->
+				<plugin>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-maven2-plugin</artifactId>
+					<version>${cargo-maven2-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>cargo-start</id>
+							<goals>
+								<goal>start</goal>
+							</goals>
+							<phase>pre-integration-test</phase>
+							<!-- (the double configuration tag is intended; not a typo) -->
+							<configuration>
+								<configuration>
+									<properties>
+										<cargo.servlet.port>${it.http.port}</cargo.servlet.port>
+									</properties>
+								</configuration>
+								<container>
+									<systemProperties>
+										<integration-test.url>http://localhost:${it.http.port}/${project.artifactId}</integration-test.url>
+									</systemProperties>
+								</container>
+							</configuration>
+						</execution>
+						<execution>
+							<id>cargo-stop</id>
+							<goals>
+								<goal>stop</goal>
+							</goals>
+							<phase>post-integration-test</phase>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- == WebSphere Application Server V8.5 Liberty Profile == -->
+				<plugin>
+					<groupId>net.wasdev.wlp.maven.plugins</groupId>
+					<artifactId>liberty-maven-plugin</artifactId>
+					<version>${liberty-maven-plugin.version}</version>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+
+			<!-- == Begin enforcer == -->
+			<plugin>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<configuration>
+					<rules>
+						<!-- Ensures the IT are being run with the proper Java version -->
+						<requireJavaVersion>
+							<version>1.8</version>
+						</requireJavaVersion>
+					</rules>
+				</configuration>
+				<executions>
+					<execution>
+						<id>enforce-java-maven-versions</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- == End enforcer == -->
+
+		</plugins>
+	</build>
+
+	<profiles>
+
+		<!-- == Begin integration tests environment: embedded Apache Tomcat (7.x) == -->
+		<profile>
+			<id>tomcat-environment</id>
+
+			<dependencies>
+				<!-- == ACF framework integration tests as web application == -->
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+
+				<!-- == Begin JavaEE APIs == -->
+				<dependency>
+					<groupId>javax</groupId>
+					<artifactId>javaee-api</artifactId>
+					<scope>provided</scope>
+				</dependency>
+				<dependency>
+					<!-- == JSTL (required on Tomcat) == -->
+					<groupId>javax.servlet</groupId>
+					<artifactId>jstl</artifactId>
+				</dependency>
+				<!-- == End JavaEE APIs == -->
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.tomcat.maven</groupId>
+						<artifactId>tomcat7-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>tomcat-start</id>
+								<goals>
+									<goal>run-war-only</goal>
+								</goals>
+								<phase>pre-integration-test</phase>
+								<configuration>
+									<fork>true</fork>
+									<port>${it.http.port}</port>
+									<skip>${skip.webapp.environments}</skip>
+									<systemProperties>
+										<integration-test.url>http://localhost:${it.http.port}/${project.artifactId}</integration-test.url>
+									</systemProperties>
+								</configuration>
+							</execution>
+							<execution>
+								<id>tomcat-stop</id>
+								<goals>
+									<goal>shutdown</goal>
+								</goals>
+								<phase>post-integration-test</phase>
+								<configuration>
+									<skip>${skip.webapp.environments}</skip>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<excludedGroups>org.altemista.cloudfwk.it.group.SkipWebappEnvironment</excludedGroups>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- == End integration tests environment: embedded Apache Tomcat (7.x) == -->
+
+		<!-- == Begin integration tests environment: Codehaus Cargo: Apache Tomcat (7.x) == -->
+		<profile>
+			<id>tomcat7-environment</id>
+
+			<dependencies>
+				<!-- == ACF framework integration tests as web application == -->
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+
+				<!-- == Begin JavaEE APIs == -->
+				<dependency>
+					<groupId>javax</groupId>
+					<artifactId>javaee-api</artifactId>
+					<scope>provided</scope>
+				</dependency>
+				<dependency>
+					<!-- == JSTL (required on Tomcat) == -->
+					<groupId>javax.servlet</groupId>
+					<artifactId>jstl</artifactId>
+				</dependency>
+				<!-- == End JavaEE APIs == -->
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>reserve-network-port</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>reserve-network-port</goal>
+								</goals>
+								<configuration>
+									<portNames>
+										<portName>it.http.port</portName>
+										<portName>cargo.tomcat.ajp.port</portName>
+									</portNames>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<configuration>
+							<container>
+								<containerId>tomcat7x</containerId>
+								<home>${servers.basedir}/apache-tomcat-7.0</home>
+							</container>
+							<deployables>
+								<deployable>
+									<pingTimeout>60000</pingTimeout>
+									<pingURL>http://localhost:${it.http.port}/${project.artifactId}/index.html</pingURL>
+								</deployable>
+							</deployables>
+							<configuration>
+								<properties>
+									<cargo.servlet.port>${it.http.port}</cargo.servlet.port>
+									<cargo.tomcat.ajp.port>${cargo.tomcat.ajp.port}</cargo.tomcat.ajp.port>
+								</properties>
+							</configuration>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<excludedGroups>org.altemista.cloudfwk.it.group.SkipWebappEnvironment</excludedGroups>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- == End integration tests environment: Codehaus Cargo: Apache Tomcat (7.x) == -->
+
+		<!-- == Begin integration tests environment: Codehaus Cargo: Apache Tomcat (8.x) == -->
+		<profile>
+			<id>tomcat8-environment</id>
+
+			<dependencies>
+				<!-- == ACF framework integration tests as web application == -->
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+
+				<!-- == Begin JavaEE APIs == -->
+				<dependency>
+					<groupId>javax</groupId>
+					<artifactId>javaee-api</artifactId>
+					<scope>provided</scope>
+				</dependency>
+				<dependency>
+					<!-- == JSTL (required on Tomcat) == -->
+					<groupId>javax.servlet</groupId>
+					<artifactId>jstl</artifactId>
+				</dependency>
+				<!-- == End JavaEE APIs == -->
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>reserve-network-port</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>reserve-network-port</goal>
+								</goals>
+								<configuration>
+									<portNames>
+										<portName>it.http.port</portName>
+										<portName>cargo.tomcat.ajp.port</portName>
+									</portNames>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<configuration>
+							<container>
+								<containerId>tomcat8x</containerId>
+								<home>${servers.basedir}/apache-tomcat-8.0</home>
+							</container>
+							<deployables>
+								<deployable>
+									<pingTimeout>60000</pingTimeout>
+									<pingURL>http://localhost:${it.http.port}/${project.artifactId}/index.html</pingURL>
+								</deployable>
+							</deployables>
+							<configuration>
+								<properties>
+									<cargo.servlet.port>${it.http.port}</cargo.servlet.port>
+									<cargo.tomcat.ajp.port>${cargo.tomcat.ajp.port}</cargo.tomcat.ajp.port>
+								</properties>
+							</configuration>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<excludedGroups>org.altemista.cloudfwk.it.group.SkipWebappEnvironment</excludedGroups>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- == End integration tests environment: Codehaus Cargo: Apache Tomcat (8.x) == -->
+
+		<!-- == Begin integration tests environment: Codehaus Cargo: Apache Tomcat (8.5.x) == -->
+		<profile>
+			<id>tomcat85-environment</id>
+
+			<dependencies>
+				<!-- == ACF framework integration tests as web application == -->
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+
+				<!-- == Begin JavaEE APIs == -->
+				<dependency>
+					<groupId>javax</groupId>
+					<artifactId>javaee-api</artifactId>
+					<scope>provided</scope>
+				</dependency>
+				<dependency>
+					<!-- == JSTL (required on Tomcat) == -->
+					<groupId>javax.servlet</groupId>
+					<artifactId>jstl</artifactId>
+				</dependency>
+				<!-- == End JavaEE APIs == -->
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>reserve-network-port</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>reserve-network-port</goal>
+								</goals>
+								<configuration>
+									<portNames>
+										<portName>it.http.port</portName>
+										<portName>cargo.tomcat.ajp.port</portName>
+									</portNames>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<configuration>
+							<container>
+								<containerId>tomcat8x</containerId>
+								<home>${servers.basedir}/apache-tomcat-8.5</home>
+							</container>
+							<deployables>
+								<deployable>
+									<pingTimeout>60000</pingTimeout>
+									<pingURL>http://localhost:${it.http.port}/${project.artifactId}/index.html</pingURL>
+								</deployable>
+							</deployables>
+							<configuration>
+								<properties>
+									<cargo.servlet.port>${it.http.port}</cargo.servlet.port>
+									<cargo.tomcat.ajp.port>${cargo.tomcat.ajp.port}</cargo.tomcat.ajp.port>
+								</properties>
+							</configuration>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<excludedGroups>org.altemista.cloudfwk.it.group.SkipWebappEnvironment</excludedGroups>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- == End integration tests environment: Codehaus Cargo: Apache Tomcat (8.5.x) == -->
+
+		<!-- == Begin integration tests environment: Codehaus Cargo: Apache Tomcat (9.x) == - ->
+		<profile>
+			<id>tomcat9-environment</id>
+
+			<dependencies>
+				<!- - == ACF framework integration tests as web application == - ->
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+
+				<!- - == Begin JavaEE APIs == - ->
+				<dependency>
+					<groupId>javax</groupId>
+					<artifactId>javaee-api</artifactId>
+					<scope>provided</scope>
+				</dependency>
+				<dependency>
+					<!- - == JSTL (required on Tomcat) == - ->
+					<groupId>javax.servlet</groupId>
+					<artifactId>jstl</artifactId>
+				</dependency>
+				<!- - == End JavaEE APIs == - ->
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-enforcer-plugin</artifactId>
+						<configuration>
+							<rules>
+								<requireJavaVersion>
+									<version>1.8</version>
+								</requireJavaVersion>
+							</rules>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>reserve-network-port</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>reserve-network-port</goal>
+								</goals>
+								<configuration>
+									<portNames>
+										<portName>it.http.port</portName>
+										<portName>cargo.tomcat.ajp.port</portName>
+									</portNames>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<configuration>
+							<container>
+								<containerId>tomcat9x</containerId>
+								<home>${servers.basedir}/apache-tomcat-9.0</home>
+							</container>
+							<deployables>
+								<deployable>
+									<pingTimeout>60000</pingTimeout>
+									<pingURL>http://localhost:${it.http.port}/${project.artifactId}/index.html</pingURL>
+								</deployable>
+							</deployables>
+							<configuration>
+								<properties>
+									<cargo.servlet.port>${it.http.port}</cargo.servlet.port>
+									<cargo.tomcat.ajp.port>${cargo.tomcat.ajp.port}</cargo.tomcat.ajp.port>
+								</properties>
+							</configuration>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<excludedGroups>org.altemista.cloudfwk.it.group.SkipWebappEnvironment</excludedGroups>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!- - == End integration tests environment: Codehaus Cargo: Apache Tomcat (9.x) == -->
+
+		<!-- == Begin integration tests environment: Codehaus Cargo: Jetty (8.x) == -->
+		<profile>
+			<id>jetty8-environment</id>
+
+			<dependencies>
+				<!-- == ACF framework integration tests as web application == -->
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+
+				<!-- == Java EE == -->
+				<dependency>
+					<groupId>javax</groupId>
+					<artifactId>javaee-api</artifactId>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<configuration>
+							<container>
+								<containerId>jetty8x</containerId>
+							</container>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<excludedGroups>org.altemista.cloudfwk.it.group.SkipWebappEnvironment</excludedGroups>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- == End integration tests environment: Codehaus Cargo: Jetty (8.x) == -->
+
+		<!-- == Begin integration tests environment: Codehaus Cargo: Jetty (9.x) == -->
+		<profile>
+			<id>jetty9-environment</id>
+
+			<dependencies>
+				<!-- == ACF framework integration tests as web application == -->
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+
+				<!-- == Java EE == -->
+				<dependency>
+					<groupId>javax</groupId>
+					<artifactId>javaee-api</artifactId>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<configuration>
+							<container>
+								<containerId>jetty9x</containerId>
+							</container>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<excludedGroups>org.altemista.cloudfwk.it.group.SkipWebappEnvironment</excludedGroups>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- == End integration tests environment: Codehaus Cargo: Jetty (9.x) == -->
+
+		<!-- == Begin integration tests environment: Codehaus Cargo: JBoss 7 == -->
+		<profile>
+			<id>jboss7-environment</id>
+
+			<dependencies>
+				<!-- == ACF framework integration tests as web application == -->
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>reserve-network-port</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>reserve-network-port</goal>
+								</goals>
+								<configuration>
+									<portNames>
+										<portName>it.http.port</portName>
+										<portName>cargo.jboss.ajp.port</portName>
+										<portName>cargo.jboss.management-http.port</portName>
+									</portNames>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<configuration>
+							<container>
+								<containerId>jboss7x</containerId>
+							</container>
+							<context>${project.artifactId}</context>
+							<deployables>
+								<deployable>
+									<pingTimeout>60000</pingTimeout>
+									<pingURL>http://localhost:${it.http.port}/${project.artifactId}/index.html</pingURL>
+								</deployable>
+							</deployables>
+							<configuration>
+								<properties>
+									<cargo.servlet.port>${it.http.port}</cargo.servlet.port>
+									<cargo.jboss.management-http.port>${cargo.jboss.management-http.port}</cargo.jboss.management-http.port>
+									<cargo.jboss.ajp.port>${cargo.jboss.ajp.port}</cargo.jboss.ajp.port>
+								</properties>
+							</configuration>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<excludedGroups>org.altemista.cloudfwk.it.group.SkipWebappEnvironment</excludedGroups>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- == End integration tests environment: Codehaus Cargo: JBoss 7 == -->
+
+		<!-- == Begin integration tests environment: Codehaus Cargo: WildFly 8 == -->
+		<profile>
+			<id>wildfly8-environment</id>
+
+			<dependencies>
+				<!-- == ACF framework integration tests as web application == -->
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+				<!-- == Java EE == -->
+				<dependency>
+					<groupId>javax</groupId>
+					<artifactId>javaee-api</artifactId>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>reserve-network-port</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>reserve-network-port</goal>
+								</goals>
+								<configuration>
+									<portNames>
+										<portName>it.http.port</portName>
+										<portName>cargo.jboss.ajp.port</portName>
+										<portName>cargo.jboss.management-http.port</portName>
+										<portName>cargo.jboss.transaction.recoveryManager.port</portName>
+										<portName>cargo.jboss.transaction.statusManager.port</portName>
+									</portNames>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<configuration>
+							<container>
+								<containerId>wildfly8x</containerId>
+								<home>${servers.basedir}/wildfly-8.2.1.Final</home>
+							</container>
+							<context>${project.artifactId}</context>
+							<deployables>
+								<deployable>
+									<pingTimeout>60000</pingTimeout>
+									<pingURL>http://localhost:${it.http.port}/${project.artifactId}/index.html</pingURL>
+								</deployable>
+							</deployables>
+							<configuration>
+								<properties>
+									<cargo.servlet.port>${it.http.port}</cargo.servlet.port>
+									<cargo.jboss.management-http.port>${cargo.jboss.management-http.port}</cargo.jboss.management-http.port>
+									<cargo.jboss.ajp.port>${cargo.jboss.ajp.port}</cargo.jboss.ajp.port>
+									<cargo.jboss.transaction.recoveryManager.port>${cargo.jboss.transaction.recoveryManager.port}</cargo.jboss.transaction.recoveryManager.port>
+									<cargo.jboss.transaction.statusManager.port>${cargo.jboss.transaction.statusManager.port}</cargo.jboss.transaction.statusManager.port>
+								</properties>
+							</configuration>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<excludedGroups>org.altemista.cloudfwk.it.group.SkipWebappEnvironment</excludedGroups>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- == End integration tests environment: Codehaus Cargo: WildFly 8 == -->
+
+		<!-- == Begin integration tests environment: Codehaus Cargo: WildFly 9 == -->
+		<profile>
+			<id>wildfly9-environment</id>
+
+			<dependencies>
+				<!-- == ACF framework integration tests as web application == -->
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+				<!-- == Java EE == -->
+				<dependency>
+					<groupId>javax</groupId>
+					<artifactId>javaee-api</artifactId>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>reserve-network-port</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>reserve-network-port</goal>
+								</goals>
+								<configuration>
+									<portNames>
+										<portName>it.http.port</portName>
+										<portName>cargo.jboss.ajp.port</portName>
+										<portName>cargo.jboss.management-http.port</portName>
+										<portName>cargo.jboss.transaction.recoveryManager.port</portName>
+										<portName>cargo.jboss.transaction.statusManager.port</portName>
+									</portNames>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<configuration>
+							<container>
+								<containerId>wildfly9x</containerId>
+								<home>${servers.basedir}/wildfly-9.0.2.Final</home>
+							</container>
+							<context>${project.artifactId}</context>
+							<deployables>
+								<deployable>
+									<pingTimeout>60000</pingTimeout>
+									<pingURL>http://localhost:${it.http.port}/${project.artifactId}/index.html</pingURL>
+								</deployable>
+							</deployables>
+							<configuration>
+								<properties>
+									<cargo.servlet.port>${it.http.port}</cargo.servlet.port>
+									<cargo.jboss.management-http.port>${cargo.jboss.management-http.port}</cargo.jboss.management-http.port>
+									<cargo.jboss.ajp.port>${cargo.jboss.ajp.port}</cargo.jboss.ajp.port>
+									<cargo.jboss.transaction.recoveryManager.port>${cargo.jboss.transaction.recoveryManager.port}</cargo.jboss.transaction.recoveryManager.port>
+									<cargo.jboss.transaction.statusManager.port>${cargo.jboss.transaction.statusManager.port}</cargo.jboss.transaction.statusManager.port>
+								</properties>
+							</configuration>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<excludedGroups>org.altemista.cloudfwk.it.group.SkipWebappEnvironment</excludedGroups>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- == End integration tests environment: Codehaus Cargo: WildFly 9 == -->
+
+		<!-- == Begin integration tests environment: Codehaus Cargo: WildFly 10 == -->
+		<profile>
+			<id>wildfly10-environment</id>
+
+			<dependencies>
+				<!-- == ACF framework integration tests as web application == -->
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+
+				<!-- == Java EE == -->
+				<dependency>
+					<groupId>javax</groupId>
+					<artifactId>javaee-api</artifactId>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>reserve-network-port</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>reserve-network-port</goal>
+								</goals>
+								<configuration>
+									<portNames>
+										<portName>it.http.port</portName>
+										<portName>cargo.jboss.ajp.port</portName>
+										<portName>cargo.jboss.management-http.port</portName>
+										<portName>cargo.jboss.transaction.recoveryManager.port</portName>
+										<portName>cargo.jboss.transaction.statusManager.port</portName>
+									</portNames>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<configuration>
+							<container>
+								<containerId>wildfly10x</containerId>
+								<home>${servers.basedir}/wildfly-10.1.0.Final</home>
+							</container>
+							<context>${project.artifactId}</context>
+							<deployables>
+								<deployable>
+									<pingTimeout>60000</pingTimeout>
+									<pingURL>http://localhost:${it.http.port}/${project.artifactId}/index.html</pingURL>
+								</deployable>
+							</deployables>
+							<configuration>
+								<properties>
+									<cargo.servlet.port>${it.http.port}</cargo.servlet.port>
+									<cargo.jboss.management-http.port>${cargo.jboss.management-http.port}</cargo.jboss.management-http.port>
+									<cargo.jboss.ajp.port>${cargo.jboss.ajp.port}</cargo.jboss.ajp.port>
+									<cargo.jboss.transaction.recoveryManager.port>${cargo.jboss.transaction.recoveryManager.port}</cargo.jboss.transaction.recoveryManager.port>
+									<cargo.jboss.transaction.statusManager.port>${cargo.jboss.transaction.statusManager.port}</cargo.jboss.transaction.statusManager.port>
+								</properties>
+							</configuration>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<excludedGroups>org.altemista.cloudfwk.it.group.SkipWebappEnvironment</excludedGroups>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- == End integration tests environment: Codehaus Cargo: WildFly 10 == -->
+
+		<!-- == Begin integration tests environment: Codehaus Cargo: WebLogic 12.2.x == -->
+		<profile>
+			<id>weblogic12-environment</id>
+
+			<dependencies>
+				<!-- == ACF framework integration tests as web application == -->
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>reserve-network-port</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>reserve-network-port</goal>
+								</goals>
+								<configuration>
+									<portNames>
+										<portName>it.http.port</portName>
+									</portNames>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<configuration>
+							<container>
+								<containerId>weblogic122x</containerId>
+								<type>installed</type>
+								<home>${servers.weblogic.basedir}/wlserver</home>
+							</container>
+							<context>${project.artifactId}</context>
+							<configuration>
+								<type>existing</type>
+								<home>${servers.weblogic.basedir}/user_projects/domains/base_domain</home>
+								<properties>
+									<cargo.servlet.port>${it.http.port}</cargo.servlet.port>
+									<cargo.weblogic.administrator.user>admin</cargo.weblogic.administrator.user>
+									<cargo.weblogic.administrator.password>password00?</cargo.weblogic.administrator.password>
+									<cargo.weblogic.bea.home>${servers.weblogic.basedir}</cargo.weblogic.bea.home>
+									<cargo.weblogic.server>AdminServer</cargo.weblogic.server>
+								</properties>
+							</configuration>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<excludedGroups>org.altemista.cloudfwk.it.group.SkipWebappEnvironment</excludedGroups>
+							<skip>${skip.webapp.environments}</skip>
+							<systemPropertyVariables>
+								<integration-test.url>http://localhost:${it.http.port}/${project.artifactId}-${project.version}</integration-test.url>
+							</systemPropertyVariables>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- == End integration tests environment: Codehaus Cargo: WebLogic 12.2.x == -->
+
+		<!-- == Begin integration tests environment: Codehaus Cargo: GlassFish 4 == -->
+		<profile>
+			<id>glassfish4-environment</id>
+
+			<dependencies>
+				<!-- == ACF framework integration tests as web application == -->
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+				<!-- == Java EE == -->
+				<dependency>
+					<groupId>javax</groupId>
+					<artifactId>javaee-api</artifactId>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>reserve-network-port</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>reserve-network-port</goal>
+								</goals>
+								<configuration>
+									<portNames>
+										<portName>it.http.port</portName>
+										<portName>cargo.glassfish.admin.port</portName>
+									</portNames>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<configuration>
+							<container>
+								<containerId>glassfish4x</containerId>
+								<home>${servers.basedir}/glassfish4</home>
+							</container>
+							<context>${project.artifactId}</context>
+							<deployables>
+								<deployable>
+									<pingTimeout>60000</pingTimeout>
+									<pingURL>http://localhost:${it.http.port}/${project.artifactId}/index.html</pingURL>
+								</deployable>
+							</deployables>
+							<configuration>
+								<properties>
+									<cargo.servlet.port>${it.http.port}</cargo.servlet.port>
+									<cargo.glassfish.admin.port>${cargo.glassfish.admin.port}</cargo.glassfish.admin.port>
+								</properties>
+							</configuration>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<excludedGroups>org.altemista.cloudfwk.it.group.SkipWebappEnvironment</excludedGroups>
+							<skip>${skip.webapp.environments}</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- == End integration tests environment: Codehaus Cargo: GlassFish 4 == -->
+
+		<!-- == Begin integration tests environment: WebSphere Application Server V8.5 Liberty Profile == -->
+		<profile>
+			<id>wlp-environment</id>
+
+			<dependencies>
+				<!-- == ACF framework integration tests as web application == -->
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-webapp</artifactId>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+				<!-- == Java EE == -->
+				<dependency>
+					<groupId>javax</groupId>
+					<artifactId>javaee-api</artifactId>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>net.wasdev.wlp.maven.plugins</groupId>
+						<artifactId>liberty-maven-plugin</artifactId>
+						<configuration>
+							<assemblyArtifact>
+								<groupId>com.ibm.websphere.appserver.runtime</groupId>
+								<artifactId>wlp-webProfile7</artifactId>
+								<version>8.5.5.9</version>
+								<type>zip</type>
+							</assemblyArtifact>
+							<appArchive>${project.build.directory}/${project.build.finalName}.war</appArchive>
+							<appDeployName>${project.artifactId}.war</appDeployName>
+							<skip>${skip.webapp.environments}</skip>
+							<timeout>180</timeout>
+							<jvmOptions>
+								<jvmOption>-Dintegration-test.url=http://localhost:9080/${project.artifactId}</jvmOption>
+							</jvmOptions>
+						</configuration>
+						<executions>
+							<execution>
+								<id>wlp-start</id>
+								<goals>
+									<goal>start-server</goal>
+									<goal>deploy</goal>
+								</goals>
+								<phase>pre-integration-test</phase>
+							</execution>
+							<execution>
+								<id>wlp-stop</id>
+								<goals>
+									<goal>stop-server</goal>
+								</goals>
+								<phase>post-integration-test</phase>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<excludedGroups>org.altemista.cloudfwk.it.group.SkipWebappEnvironment</excludedGroups>
+							<skip>${skip.webapp.environments}</skip>
+							<systemPropertyVariables>
+								<integration-test.url>http://localhost:9080/${project.artifactId}</integration-test.url>
+							</systemPropertyVariables>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- == End integration tests environment: WebSphere Application Server V8.5 Liberty Profile == -->
+
+		<!-- == Begin integration tests environment: Spring Boot (traditional deployable war file) == -->
+		<profile>
+			<id>boot-environment</id>
+
+			<dependencies>
+				<!-- == ACF framework integration tests as Spring Boot application == -->
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-boot</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-boot</artifactId>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+
+				<!-- == Spring Boot application support == -->
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-web</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>reserve-network-port</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>reserve-network-port</goal>
+								</goals>
+								<configuration>
+									<portNames>
+										<portName>it.http.port</portName>
+										<portName>management.http.port</portName>
+									</portNames>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<configuration>
+							<fork>true</fork>
+							<mainClass>org.altemista.cloudfwk.boot.Main</mainClass>
+						</configuration>
+						<executions>
+							<execution>
+								<id>boot-start</id>
+								<goals>
+									<goal>start</goal>
+								</goals>
+								<phase>pre-integration-test</phase>
+								<configuration>
+									<arguments>
+										<argument>--server.port=${it.http.port}</argument>
+										<argument>--management.port=${management.http.port}</argument>
+									</arguments>
+									<jvmArguments>-Dintegration-test.url=http://localhost:${it.http.port}</jvmArguments>
+									<skip>${skip.boot.environments}</skip>
+									<maxAttempts>100</maxAttempts>
+									<wait>2000</wait>
+								</configuration>
+							</execution>
+							<execution>
+								<id>boot-stop</id>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+								<phase>post-integration-test</phase>
+								<configuration>
+									<skip>${skip.boot.environments}</skip>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<excludedGroups>org.altemista.cloudfwk.it.group.SkipBootEnvironment</excludedGroups>
+							<skip>${skip.boot.environments}</skip>
+							<systemPropertyVariables>
+								<integration-test.url>http://localhost:${it.http.port}</integration-test.url>
+							</systemPropertyVariables>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- == End integration tests environment: Spring Boot (traditional deployable war file) == -->
+
+		<!-- == Begin integration tests environment: Spring Boot (executable jar format) == -->
+		<profile>
+			<id>standalone-boot-environment</id>
+
+			<properties>
+				<packaging.type>jar</packaging.type>
+			</properties>
+
+			<dependencies>
+				<!-- == ACF framework integration tests as Spring Boot application == -->
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-boot</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.altemista.cloudfwk.it</groupId>
+					<artifactId>altemista-cloudfwk-it-common-boot</artifactId>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+
+				<!-- == Spring Boot application support == -->
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-web</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>reserve-network-port</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>reserve-network-port</goal>
+								</goals>
+								<configuration>
+									<portNames>
+										<portName>it.http.port</portName>
+										<portName>management.http.port</portName>
+									</portNames>
+								</configuration>
+							</execution>
+						</executions>
+
+					</plugin>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<configuration>
+							<fork>true</fork>
+							<mainClass>org.altemista.cloudfwk.boot.Main</mainClass>
+						</configuration>
+						<executions>
+							<execution>
+								<id>boot-start</id>
+								<goals>
+									<goal>start</goal>
+								</goals>
+								<phase>pre-integration-test</phase>
+								<configuration>
+									<arguments>
+										<argument>--server.port=${it.http.port}</argument>
+										<argument>--management.port=${management.http.port}</argument>
+									</arguments>
+									<jvmArguments>-Dintegration-test.url=http://localhost:${it.http.port}</jvmArguments>
+									<skip>${skip.boot.environments}</skip>
+									<maxAttempts>100</maxAttempts>
+									<wait>2000</wait>
+								</configuration>
+							</execution>
+							<execution>
+								<id>boot-stop</id>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+								<phase>post-integration-test</phase>
+								<configuration>
+									<skip>${skip.boot.environments}</skip>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<excludedGroups>org.altemista.cloudfwk.it.group.SkipBootEnvironment</excludedGroups>
+							<skip>${skip.boot.environments}</skip>
+							<systemPropertyVariables>
+								<integration-test.url>http://localhost:${it.http.port}</integration-test.url>
+							</systemPropertyVariables>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- == End integration tests environment: Spring Boot (executable jar format) == -->
+
+		<!-- Generates coverage reports using the JaCoCo runtime agent -->
+		<profile>
+			<id>with-it-coverage</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+				<file>
+					<exists>src/test/java</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>jacoco-for-unit</id>
+								<phase>none</phase>
+							</execution>
+							<execution>
+								<id>jacoco-agent-for-it</id>
+								<goals>
+									<goal>prepare-agent-integration</goal>
+								</goals>
+								<configuration>
+									<destFile>${project.build.directory}/jacoco-it.exec</destFile>
+									<propertyName>failsafeArgLine</propertyName>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
+
+</project>

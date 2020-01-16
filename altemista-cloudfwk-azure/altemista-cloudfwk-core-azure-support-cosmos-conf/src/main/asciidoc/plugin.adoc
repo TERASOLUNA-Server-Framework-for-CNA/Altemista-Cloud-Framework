@@ -1,0 +1,16 @@
+
+:fragment:
+
+{framework} Azure Cosmos Db feature only can be added in a core module.
+
+[source,xml,options="nowrap"]
+./my-application-core/pom.xml
+----
+		<dependency>
+			<groupId>com.microsoft.azure</groupId>
+			<artifactId>azure-documentdb-spring-boot-starter</artifactId>
+		</dependency>
+----
+
+
+

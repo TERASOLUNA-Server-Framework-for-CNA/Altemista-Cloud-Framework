@@ -1,0 +1,92 @@
+
+:fragment:
+
+The projects with web nature developed with framework configures and uses Spring MVC and any special module has to be included to use these features in your projects.
+That is the reason why the framework does not provide an specific module oriented to publish REST services, there is a framework capability.
+
+In addition, the framework allows the exposing the persistence layer as a RESTful API, benefit Spring Data REST support as described in the persistence modules documentation.
+
+As these publishing capabilities are built arround Spring MVC and Spring Data REST, we recommend you to visit the official Spring documentation about
+these topics:
+
+* https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/web.html#mvc[Spring MVC - RestController]
+* http://docs.spring.io/spring-data/rest/docs/current/reference/html/[Spring Data REST]
+
+Anyway, following we porivded some general useful topics that we think can help if you want to use the capability of publish RESTful services in your application:
+
+== `@Controller` and `@RestController`
+
+Both anotations are provided by Spring MVC and it is important to know when we need to use each one:
+
+* `@Controller` is used to mark classes as Spring MVC Controller.
+* `@RestController` is a convenience annotation that does nothing more than adding the `@Controller` and `@ResponseBody` annotations.
+
+So, `@RestController` includes `@Controller` and adds the capabilities provided by `@ResponseBody`, which converts the return value and writes it to the HTTP response automatically and
+that is the behavior we are looking for when we are building REST services
+
+== Consuming data from a persistence store
+
+In this case, the framework uses the options provided by Spring Data REST.
+
+It is important to know that {framework} provides Spring Data REST integration in the persistence features based on Spring Data:
+
+* <<altemista-cloudfwk-core-persistence-jpa-hibernate-conf-overview,Object-relational mapping (O/RM): Spring Data JPA>> persistence.
+* <<altemista-cloudfwk-core-persistence-mongodb-conf-overview,NoSQL: MongoDB>> persistence.
+
+The core functionality of Spring Data REST is to export resources for Spring Data repositories.
+Assume the following repository interface:
+
+[source]
+.OrderRepository.java
+----
+public interface OrderRepository extends CrudRepository<Order, Long> { }
+----
+
+For this repository, Spring Data REST exposes a collection resource at `/orders`.
+The path is derived from the uncapitalized, pluralized, simple class name of the domain class being managed.
+It also exposes an item resource for each of the items managed by the repository under the URI template `/orders/{id}`.
+
+The methods available to interact with these resources are map according the Repository used. According to that, you can use different
+parameters (without extra configuration). For example, `GET` is map to `findAll(..)` method of the repository and you can use these parameters
+if pagination is available on it:
+
+* page - the page number to access (0 indexed, defaults to 0).
+
+* size - the page size requested (defaults to 20).
+
+* sort - a collection of sort directives in the format `($propertyname,)+[asc|desc]?`.
+
+You have more information available in:
+
+* http://docs.spring.io/spring-data/rest/docs/current/reference/html/#repository-resources.collection-resource
+
+== Paging, Sorting and Filtering
+
+Independently you were using persistence or not with RESTful, you can use `Pageable` Spring Data interface (which includes `Sort` class)
+to manage the related capabilities.
+
+If you are not using Spring Data, you will need to add the following dependency that allows the use of these interfaces:
+
+[source, xml]
+.pom.xml
+----
+<dependency>
+  <!-- (for pagination interfaces) -->
+  <groupId>org.springframework.data</groupId>
+  <artifactId>spring-data-commons</artifactId>
+</dependency>
+----
+
+More information is available in:
+
+* http://docs.spring.io/spring-data/rest/docs/current/reference/html/#paging-and-sorting
+
+== Resource discoverability and relation with HATEOAS
+
+HATEOAS is an abbreviation for "Hypermedia As The Engine Of Application State" and is one of the architectures for creating a
+RESTful Web application. The main principle of HATEOAS is that resources should be discoverable through the publication of links that point
+to the available resources.
+
+You can read more about it in:
+
+* http://docs.spring.io/spring-data/rest/docs/current/reference/html/#repository-resources.resource-discoverability

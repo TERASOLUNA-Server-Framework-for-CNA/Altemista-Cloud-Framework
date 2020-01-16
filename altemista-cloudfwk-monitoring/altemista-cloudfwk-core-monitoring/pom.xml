@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.altemista.cloudfwk.framework</groupId>
+		<artifactId>altemista-cloudfwk-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	<groupId>org.altemista.cloudfwk.monitoring</groupId>
+	<artifactId>altemista-cloudfwk-core-monitoring</artifactId>
+	<name>altemista-cloudfwk monitoring</name>
+	<description>Core of the ACF monitoring module</description>
+
+	<dependencies>
+
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<!-- required due CustomMetadataNamingStrategy dependency -->
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-core</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.altemista.cloudfwk.monitoring</groupId>
+			<artifactId>altemista-cloudfwk-common-monitoring</artifactId>
+		</dependency>
+		<!-- == End ACF framework == -->
+
+		<!-- == Begin optional Spring Framework and other libraries == -->
+	    <dependency>
+			<!-- Optional: MongoDB driver for mongoDB indicator is not mandatory -->
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+   			<optional>true</optional>
+   		</dependency>
+		<dependency>
+			<!-- Optional: sending e-mails from aspects is not mandatory -->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<!-- Optional: sending e-mails from aspects is not mandatory -->
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<!-- Optional: sending e-mails from aspects is not mandatory -->
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<!-- Optional: LDAP aspects are not mandatory -->
+			<groupId>org.springframework.ldap</groupId>
+			<artifactId>spring-ldap-core</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<!-- Optional: database aspects are not mandatory -->
+			<groupId>commons-dbutils</groupId>
+			<artifactId>commons-dbutils</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<!-- Optional: socket I/O aspects are not mandatory -->
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- == End optional Spring Framework and other libraries == -->
+		
+		<!-- == Begin test dependencies == -->
+		<dependency>
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- == End test dependencies == -->
+		
+	</dependencies>
+
+</project>

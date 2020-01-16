@@ -1,0 +1,18 @@
+
+:fragment:
+
+The {framework} persistence feature are actually a set of features to persist and retrieve data from either relational and non-relational databases, using familiar and consistent abstractions while still allowing the use of the special features of each technology.
+
+Depending the underlying technology, {framework} offers differentiated features:
+
+Relational databases::
+
+* The *JDBC/SQL* feature includes http://www.mybatis.org/mybatis-3/[MyBatis] for integration with relational databases.
+
+* The *Object-relational mapping (O/RM)* feature includes http://projects.spring.io/spring-data-jpa/[Spring Data JPA] for integration with relational databases with the _de facto_ standard provider http://hibernate.org/orm/[Hibernate ORM].
+
+https://en.wikipedia.org/wiki/NoSQL[NoSQL] databases::
+
+** The *MongoDB* feature integrates http://projects.spring.io/spring-data/[Spring Data]-based persistence with the non-relational https://www.mongodb.com/[MongoDB] document database.
+
+WARNING: Despite their popularity, an O/RM may not be suitable in some situations. When most of the tables are not normalized, the number of columns of the tables is too large, etc. trying to apply an O/RM solution can be difficult and counterproductive. Furthermore, it can be considered a prerequisite for the application development team to have experience with JPA.

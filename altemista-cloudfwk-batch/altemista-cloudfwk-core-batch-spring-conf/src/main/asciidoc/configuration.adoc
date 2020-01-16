@@ -1,0 +1,23 @@
+
+:fragment:
+
+The Spring Batch-based implementation of the batch processing module of the framework provides all the necessary infrastructure to execute batch jobs, except for a data source, named `batchDataSource`, to the database where the jobs meta-data and execution information will be stored.
+
+This data source must be provided by the application. Either by declaring a separate data source or aliasing an existing one:
+
+[source,xml]
+.spring/my-application-module-core-batch.xml
+----
+<alias name="applicationDataSource" alias="batchDataSource" />
+----
+
+This database must have the Spring Batch schema; and Spring Batch already provides an script to create it. In the most simple scenario (an in-memory database), this schema can be included to be run when the database is initalized as follows:
+
+[source,xml]
+.spring/my-application-module-core-batch.xml
+----
+<jdbc:embedded-database id="batchDataSource" />
+<jdbc:initialize-database data-source="batchDataSource" ignore-failures="ALL">
+	<jdbc:script location="classpath:org/springframework/batch/core/schema-hsqldb.sql" />
+</jdbc:initialize-database>
+----

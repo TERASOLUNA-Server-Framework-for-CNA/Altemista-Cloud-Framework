@@ -1,0 +1,302 @@
+
+:fragment:
+
+For this example, we will use Kafka as a binder.
+
+[IMPORTANT]
+====
+You must have configured the <<kafka-configuration,Kafka Configuration>> before to continue with the next steps.
+====
+
+Our first step is to create a simple class with below code that will represent the message object we read from and write to the greetings Kafka topic:
+
+[source,java,options="nowrap"]
+./.com.mycompany.application.module.model.Greetings
+----
+package com.mycompany.application.module.model;
+
+public class Greetings {
+	private long timestamp;
+    private String message;
+    private String day;
+    private String broker;
+    
+    public Greetings(long timestamp,String message, String day, String broker) {
+		this.timestamp = timestamp;
+		this.message = message;
+		this.day = day;
+		this.broker = broker;
+	} 
+ 
+    public Greetings() {
+    }
+    
+	public long getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day = day;
+	}
+
+	public String getBroker() {
+		return broker;
+	}
+
+	public void setBroker(String broker) {
+		this.broker = broker;
+	}
+
+	@Override
+	public String toString() {
+		return "Greetings [timestamp=" + timestamp + ", message=" + message + 
+				", day=" + day + ", broker=" + broker + "]";
+	}
+----
+
+== Using Custom Interface
+
+Firstly, we need to define the Kafka Streams, one for producers and other for listeners
+
+[source,java,options="nowrap"]
+./org.altemista.cloudfwk.stream.GreetingsStreams
+----
+public interface GreetingsStreams {
+	
+    String OUTPUT = "greetings-out";
+ 
+    @Output(OUTPUT)
+    MessageChannel outboundGreetings();	#<1>
+----
+<1> The outboundGreetings() method defines the outbound stream to write to Kafka.
+
+[source,java,options="nowrap"]
+./org.altemista.cloudfwk.stream.GreetingsStreams
+----
+public interface GreetingsStreams {
+    String INPUT = "greetings-in";
+ 
+ 
+    @Input(INPUT)
+    SubscribableChannel inboundGreetings();	 #<1>
+----
+<1> The inboundGreetings() method defines the inbound stream to read from Kafka. 
+
+To configure Spring Cloud Stream to bind to our streams in the GreetingsStreams interfaces. This can be done by creating a @Configuration class with below code:
+
+[source,java,options="nowrap"]
+./org.altemista.cloudfwk.stream.GreetingsStreams
+----
+@EnableBinding(GreetingsStreams.class) #<1>
+@Configuration
+public class StreamsConfig {
+
+}
+----
+<1> Binding the streams is done using the @EnableBinding annotation where the GreetingsStreams interface is passed to.
+
+
+Let's create a Service Layer to Write to Kafka:
+
+[source,java,options="nowrap"]
+./.org.altemista.cloudfwk.stream.GreetingsService
+----
+@Service	#<1>
+public class GreetingsService {
+    private final GreetingsStreams greetingsStreams;
+ 
+    public GreetingsService(GreetingsStreams greetingsStreams) {
+        this.greetingsStreams = greetingsStreams;
+    }
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+    
+    public void sendGreeting(final Greetings greetings) {		#<2>
+        logger.info("send-------------{}", example);
+        
+        MessageChannel messageChannel = greetingsStreams.outboundGreetings();
+        messageChannel.send(MessageBuilder.withPayload(greetings).setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+                .build());
+    }
+}
+----
+<1> The @Service annotation will configure this class as a Spring Bean and inject the GreetingsService dependency via the constructor.
+<2> In the sendGreeting() method we use the injected GreetingsStreams object to send a message represented by the Greetings object.
+
+Finally, Let's create a class that will listen to messages on the greetings Kafka topic and log them on the console:
+
+[source,java,options="nowrap"]
+./.org.altemista.cloudfwk.stream.GreetingsListener
+----
+@Component
+public class GreetingsListener {
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+    @StreamListener(GreetingsStreams.INPUT)
+    public void handleGreetings(@Payload Greetings greetings) {
+        logger.info("receive------------------------{}", greetings);
+   }
+----
+<1> The @Component annotation, similarly to @Service and @RestController, defines a Spring Bean.
+<2> GreetingsListener has a single method, handleGreetings() that will be invoked by Spring Cloud Stream with every new ExampleObject message on the greetings Kafka topic. This is thanks to the @StreamListener annotation configured for the handleGreetings() method.
+
+
+Finally, we need to add the following properties in the application.yml file.
+
+For the producer:
+
+[source,yml]
+.resources/application.yml
+----
+spring:
+  cloud:
+    stream:
+      kafka:
+      bindings:
+        greetings-out:
+          destination: greetings	#<1>
+          contentType: application/json	#<2>
+	
+----
+
+<1> Kafka topic we use for outbound streams in our code.
+<2> The contentType property tells Spring Cloud Stream to send our message objects as Strings in the streams.
+
+
+For the listener:
+
+[source,yml]
+.resources/application.yml
+----
+spring:
+  cloud:
+    stream:
+      kafka:
+      bindings:
+        greetings-in:
+          destination: greetings	#<1>
+          contentType: application/json	#<2>
+	
+----
+
+<1> Kafka topic we use for inbound streams in our code.
+<2> The contentType property tells Spring Cloud Stream to recieve our message objects as Strings in the streams.
+
+
+== Using Default Interface
+
+If we decide to do it by this way, we need to follow these steps:
+
+Let's create a Service Layer to Write to Kafka:
+
+[source,java,options="nowrap"]
+./.com.mycompany.application.module.stream.GreetingsService
+----
+package com.mycompany.application.module.stream;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.stereotype.Service;
+import org.springframework.util.MimeTypeUtils;
+
+import com.mycompany.application.module.model.Greetings;
+ 
+@Service	#<1>
+@EnableBinding(Source.class)	
+public class GreetingsService {
+	@Autowired	#<2>
+    Source  greetingsStreams;
+ 
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+    
+    public void sendGreeting(final Greetings greetings) {
+        logger.info("send-------------{}", greetings);
+        
+        greetingsStreams.output().send(MessageBuilder.withPayload(greetings).setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+                .build());	#<3>
+    }
+}
+----
+
+<1> The @Service annotation will configure this class as a Spring Bean and inject the GreetingsService dependency via the constructor.
+<2> Add an @Autowired variable that references the bean that Spring Cloud Stream adds for the Source interface.
+<2> In the sendGreeting() method we use to send a message represented by the Greetings Object.
+
+Let's create a class that will listen to messages on the greetings topic and log them on the console:
+
+[source,java,options="nowrap"]
+./com.mycompany.application.module.stream.GreetingsListener
+----
+package com.mycompany.application.module.stream;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.stereotype.Component;
+
+import com.mycompany.application.module.model.Greetings;
+
+@Component	#<1>
+@EnableBinding(Sink.class)
+public class GreetingsListener {
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@StreamListener(value=Sink.INPUT)
+	public void handleGreetings(@Payload Greetings greetings) {	#<2>
+        logger.info("receive------------------------{}", greetings);
+   }
+
+
+}
+----
+<1> The @Component annotation, similarly to @Service and @RestController, defines a Spring Bean.
+<2> GreetingsListener has a single method, handleGreetings() that will be invoked by Spring Cloud Stream with every new Greetings message on the greetings topic. This is thanks to the @StreamListener annotation configured for the handleGreetings() method.
+
+Finally, When we used the Sink class as binder, we need to specify "output" bind in the property, we need to add the following properties in the application.properties file 
+
+For the producer:
+
+[source,yml]
+.resources/application.properties
+----
+# PRODUCER
+spring.cloud.stream.bindings.output.destination=greetings
+spring.cloud.stream.bindings.output.contentType= application/json
+----
+
+
+For the listener, we need to specify "input" bind in the property:
+
+[source,yml]
+.resources/application.properties
+----
+# LISTENER
+spring.cloud.stream.bindings.input.destination=greetings
+spring.cloud.stream.bindings.input.contentType= application/json
+----
+
+<1> Kafka topic we use for outbound streams in our code.
+<2> The contentType property tells Spring Cloud Stream to send our message objects as Strings in the streams.

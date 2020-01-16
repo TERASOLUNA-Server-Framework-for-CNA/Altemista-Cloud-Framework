@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/WEB-INF/faces/bootstrap-page.xhtml">
+	<ui:define name="title">#{submenu1}</ui:define>
+	
+	<ui:define name="nav">
+		<ui:include src="/WEB-INF/faces/nav.xhtml"></ui:include>
+	</ui:define>
+
+	<ui:define name="section">
+		<h2>#{msg.option1Message}</h2>
+
+		<!-- Bootstrap Glyphicon example: -->
+		<button type="button" class="btn btn-default btn-lg">
+			<span class="glyphicon glyphicon-star" aria-hidden="true"></span> Star
+		</button>
+		
+	</ui:define>
+	
+	<ui:define name="footer">#{msg.footerMessage}</ui:define>
+</ui:composition>
+
+</html>

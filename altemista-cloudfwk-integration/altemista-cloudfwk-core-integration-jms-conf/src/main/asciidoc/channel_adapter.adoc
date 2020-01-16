@@ -1,0 +1,110 @@
+
+:fragment:
+
+On the next example you can see how to configure a JMS Messsage Driven Channel Adapter for send a message to a JMS Queue and receive it.
+
+[source,xml,options="nowrap"]
+./my-application-module-core/src/main/resources/spring/my-application-module-core-integration-jms.xml
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:stream="http://www.springframework.org/schema/integration/stream"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+			http://www.springframework.org/schema/integration/stream
+			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+
+	<bean id="jmsConnectionFactory"
+		class="org.springframework.jms.connection.CachingConnectionFactory">
+		<property name="targetConnectionFactory">
+			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
+				<property name="brokerURL"
+					value="vm://localhost?broker.persistent=false&amp;broker.useShutdownHook=false" />
+			</bean>
+		</property>
+		<property name="sessionCacheSize" value="10" />
+		<property name="cacheConsumers" value="false" />
+	</bean> <!--1-->
+
+	<alias name="jmsConnectionFactory" alias="connectionFactory" /> 
+
+	<bean id="requestQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="queue.test" />
+	</bean> <!--2-->
+
+	<bean id="requestTopic" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg value="topic.test" />
+	</bean> <!--3-->
+
+	<bean id="replyQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="queue.reply" />
+	</bean>  <!--4-->
+
+	<integration:poller id="poller" default="true" fixed-delay="1000" />  <!--5-->
+
+	<jms:message-driven-channel-adapter
+		id="jmsIn" destination="requestQueue" channel="jmsInChannel" /> <!--6-->
+
+	<integration:channel id="jmsInChannel" /> <!--7-->
+
+	<integration:bridge input-channel="jmsInChannel" output-channel="queueChannel" /> <!--8-->
+
+	<integration:channel id="queueChannel">
+		<integration:queue />
+	</integration:channel> <!--9-->
+
+	<stream:stdin-channel-adapter id="stdin"
+		channel="stdinToJmsOutChannel" /> <!--10-->
+
+	<integration:channel id="stdinToJmsOutChannel" />  <!--11-->
+
+	<jms:outbound-channel-adapter id="jmsout"
+		channel="stdinToJmsOutChannel" destination="requestQueue"
+		connection-factory="jmsConnectionFactory" />  <!--12-->
+
+
+</beans>
+----
+<1> *JMS Caching Connection Factory* with the JMS Queue connection configuration with alias for Spring Integration internal connection
+<2> *Request Queue*
+<3> *Request Topic*
+<4> *Reply Queue*
+<5> *Integration Poller* for queue checking delay
+<6> *JMS Message Driven Channel Adapter* for input message receive
+<7> *Integration Channel* JMS Input Channel
+<8> *Integration Bridge* to connect JMS Input Channel with Queue Channel
+<9> *Integration Queue Channel*
+<10> *Stream Channel Adapter* for JMS Message send
+<11> *Integration Channel*
+<12> *JMS Outbound Channel Adapter* for JMS Output channel connection.
+
+And the example to send a request over the Channel and receive it through the Queue Channel.
+
+[source,java,options="nowrap"]
+----
+	@Autowired
+	private MessageChannel stdinToJmsOutChannel;
+	
+	@Autowired
+	private QueueChannel queueChannel;
+
+	@Test
+	public void testChannelAdapter() throws InterruptedException {
+
+		stdinToJmsOutChannel.send(MessageBuilder.withPayload("jms test").build());
+
+		@SuppressWarnings("unchecked")
+		Message<String> reply = (Message<String>) queueChannel.receive(20000);
+		Assert.assertNotNull(reply);
+		String out = reply.getPayload();
+		
+		Assert.assertEquals("jms test", out);
+		
+	}
+----

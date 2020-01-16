@@ -1,0 +1,78 @@
+
+:fragment:
+
+Spring has a built-in support to send e-mails based on the Java Mail API to avoid any static method calls while using the Java Mail API and thus supporting the testability of an application. Spring Cloud AWS supports the Amazon SES as an implementation of the Spring Mail abstraction.
+
+As a result Spring Cloud AWS users can decide to use the Spring Cloud AWS implementation of the Amazon SES service or use the standard Java Mail API based implementation that sends e-mails via SMTP to Amazon SES.
+
+
+From {framework} give some basic configurations in order to start using quickly.
+
+= Amazon console
+
+We need to use an account in order to send emails. If we go to our AWS console, in our SES console, in the "Email Addresses":
+
+image::altemista-cloudfwk-documentation/amazon/email.png[align="center"]
+
+Click on "Verify a New Email Address":
+
+image::altemista-cloudfwk-documentation/amazon/verify_email.png[align="center"]
+
+And once you have verified your email, you can use this feature.
+
+Finally, if you want to retrieve your aws credentials, please go to this https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_passwords_admin-change-user.html[site^]
+
+IMPORTANT: You need to create an user and a group who has permissions to send emails 
+
+= Configuration
+
+In the following paragraphs you can see the configuration we provide from {framework} in order to set up a infrastructure configuration. You can change it if you need it.
+[source,xml,options="nowrap"]
+./my-application-module-core/src/main/resources/spring/my-application-module-core-amazon-ses.xml
+----
+
+
+	<aws-context:context-credentials>
+		<aws-context:simple-credentials
+			access-key="#{systemEnvironment['AWS_ACCESS_KEY_ID'] }" secret-key="#{systemEnvironment['AWS_SECRET_ACCESS_KEY'] }" />	<!--1-->
+	</aws-context:context-credentials>
+
+	<aws-context:context-region region="#{systemEnvironment['AWS_DEFAULT_REGION'] }" />	<!--2-->
+
+	 <aws-mail:mail-sender id="testSender" />	<!--3-->
+	
+----
+<1> *SDK credentials configuration*: allow to assign a profile that is authorized by a role while starting an EC2 instance .
+
+<2> *Region configuration*: usually our region should be "eu-west-1".
+
+<3> *mail Configuration*: configuration needed to connect to the email configuration.
+
+And finally we provide a class where you need to edit to send an email. It could be like this:
+
+[source,java,options="nowrap"]
+./amazon/MailSenderService.java
+----
+@Service
+public class MailSenderService {
+
+    private final MailSender testSender;
+
+    @Autowired
+    public MailSenderService(MailSender testSender) {
+        this.testSender = testSender;
+    }
+
+    public void sendMessage() {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setFrom("senderemail@test.com");
+        simpleMailMessage.setTo("recievermail@test.com");
+        simpleMailMessage.setSubject("subject");
+        simpleMailMessage.setText("text");
+
+        this.testSender.send(simpleMailMessage);
+
+    }
+
+}
+----

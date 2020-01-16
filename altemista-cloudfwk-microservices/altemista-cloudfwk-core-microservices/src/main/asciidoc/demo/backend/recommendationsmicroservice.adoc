@@ -1,0 +1,34 @@
+
+:fragment:
+
+The `AltemistaMoviesRecommendation` service manage the application recommendations. This microservice will return every comments that a user has added to a movie. To do this, the recommendations microservice will be connected to the user microservices and movies with @FeignClient.
+
+[[recommendationmicroservice-endpoints]]
+==== Endpoints
+
+include::{basedir}/altemista-cloudfwk-core-microservices/demo/backend/recommendationsmicroservice/endpoints.adoc[]
+
+[[recommendations-dependencies]]
+==== Users and Movies microservices dependencies
+
+include::{basedir}/altemista-cloudfwk-core-microservices/demo/backend/recommendationsmicroservice/dependencies.adoc[]
+
+==== Data Module: AltemistaMoviesRecommendations-data-core
+
+include::{basedir}/altemista-cloudfwk-core-microservices/demo/backend/recommendationsmicroservice/datamodule.adoc[]
+
+==== Client Module: AltemistaMoviesRecommendations-client
+
+include::{basedir}/altemista-cloudfwk-core-microservices/demo/backend/recommendationsmicroservice/clientmodule.adoc[]
+
+==== Boot Module: AltemistaMoviesRecommendations-boot. Microservice implementation
+
+include::{basedir}/altemista-cloudfwk-core-microservices/demo/backend/recommendationsmicroservice/bootmodule.adoc[]
+
+==== Microservice Startup
+
+include::{basedir}/altemista-cloudfwk-core-microservices/demo/backend/recommendationsmicroservice/startup.adoc[]
+
+==== Microservice Test
+
+include::{basedir}/altemista-cloudfwk-core-microservices/demo/backend/recommendationsmicroservice/test.adoc[]

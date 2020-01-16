@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+	
+	<!-- All states of the flow are defined within this element.
+		The first state defined becomes the flow's starting point -->
+	
+	<!-- Use the var element to declare a flow variable -->
+	<var name="exampleVariable" class="org.altemista.cloudfwk.it.model.Example" />
+	
+	<!-- Use the view-state element to define a step of the flow that renders a view -->
+	<view-state id="inputDataPage" model="exampleVariable">
+		<!-- Use the transition element to handle events that occur within a state -->
+		<transition on="cancel" to="dataCancelled" />
+		<transition on="submit" to="reviewDataPage" />
+	</view-state>
+	
+	<!-- Use the view-state element to define a step of the flow that renders a view -->
+	<view-state id="reviewDataPage">
+		<!-- Use the transition element to handle events that occur within a state -->
+		<transition on="revise" to="inputDataPage" />
+		<transition on="cancel" to="dataCancelled" />
+		<transition on="confirm" to="dataConfirmed" />
+	</view-state>
+
+	<!-- Use the end-state element to define a flow outcome -->
+	<end-state id="dataCancelled" view="dataCancelled" />
+	
+	<!-- Use the end-state element to define a flow outcome -->
+	<end-state id="dataConfirmed" view="dataConfirmed" >
+		<on-entry>
+			<evaluate expression="exampleService.exampleMethod(exampleVariable)" result="flowScope.resultValue" />
+		</on-entry>
+		<output name="confirmedName" value="flowScope.exampleVariable.name" />
+	</end-state>
+
+</flow>

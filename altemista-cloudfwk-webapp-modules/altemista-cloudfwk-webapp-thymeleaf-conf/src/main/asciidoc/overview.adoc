@@ -1,0 +1,213 @@
+
+:fragment:
+
+Thymeleaf is a Java template engine. It’s an open source project and is licensed under the Apache License 2.0. Here are the core features of Thymeleaf:
+
+- Simple and natural templating
+- Optimized for web environment but can work standalone
+- Advanced evaluation language (OGNL or Spring Expression Language)
+- Support for template logic (condition, iteration)
+- Full support for internationalization
+- Spring MVC and Spring Web Flow integration
+- Support for the composite view pattern (native with fragments, Tiles integration, usable with Sitemesh)
+- Sophisticated template caching support
+- Works with Dandelion-Datatables
+
+
+== The template
+
+Our template is a index.html file located at the root of the classpath (in the src/main/resources/templates directory of the project if we follow Maven conventions). The first version of the template contains only the skeleton an HTML page:
+
+[source,html]
+----
+<html lang="en">  
+    <head>  
+        <title>Spring Boot Thymeleaf Example</title>  
+    </head>  
+    <body/>  
+</html>
+----
+
+== Variable substitution
+
+
+Let’s imagine we want to display the current date in the view. We can feed the context with an already-formatted string:
+
+[source,java]
+----
+public String index(org.springframework.ui.Model model) {
+	String now = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+    model.addAttribute("date", now);
+    return "index";
+}
+----
+
+And then refer to this variable in the template like the following:
+
+[source,html]
+----
+<p th:text="${date}">The date</p>
+----
+
+Note the use of the ${variable} syntax this time (we used #{...} for i18n). We’re again relying on the th:text attribute to inject dynamic content. If we process the template again, the output contains the expected content:
+
+[source,html]
+----
+<p>2013-01-18</p>
+----
+
+
+== Iteration
+
+One of the interesting things about this attribute is that it will accept and iterate over some different data types, such as:
+
+- Objects implementing java.util.Iterable 
+- Objects implementing java.util.Map
+- Arrays
+- Any other object is treated as if it were a single-valued list containing one element
+
+The iterate over the list, we use the th:each attribute:
+
+[source,html]
+----
+
+<table>
+    <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+    </tr>
+    <tr th:each="contact : ${contacts}">
+         <td th:text="${contact.lastname}">The first name</td>
+         <td th:text="${contact.firstname}">The last name</td>
+     </tr>
+</table>
+----
+
+We end up with this output:
+
+[source,html]
+----
+
+<table>
+    <tr>
+        <th rowspan="1" colspan="1">Firstname</th>
+        <th rowspan="1" colspan="1">Lastname</th>
+    </tr>
+    <tr>
+         <td rowspan="1" colspan="1">Doe</td>
+         <td rowspan="1" colspan="1">John</td>
+    </tr><tr>
+         <td rowspan="1" colspan="1">Doe</td>
+         <td rowspan="1" colspan="1">Jane</td>
+    </tr>
+</table>
+ 
+----
+Note Thymeleaf added some rowspan and colspan attributes in accordance with the DTD for the selected XHTML 1.0 Strict standard. Thymeleaf wouldn’t generate them if we have told it to be compliant to HTML 5.
+
+Before finishing our discovery of Thymeleaf, let’s play with conditional statements.
+
+
+== Conditional, « if » syntax
+
+Imagine we don’t want to display an empty table if the list of contacts is empty, we can easily check the size of the list and choose to display the whole table only if the list isn’t empty:
+
+[source,html]
+----
+<table th:if="${not #lists.isEmpty(contacts)}">
+    <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+    </tr>
+    <tr th:each="contact : ${contacts}">
+         <td th:text="${contact.lastname}">The first name</td>
+         <td th:text="${contact.firstname}">The last name</td>
+     </tr>
+</table>
+----
+
+Note the use of the #lists utility objects to check whether the list is empty or not.
+
+== More Conditional expressions
+
+Conditional expressions are meant to evaluate only one of two expressions depending on the result of evaluating a
+condition (which is itself another expression).
+Lets have a look at an example fragment (introducing another attribute modifier, this time th:class ):
+
+[source,html]
+----
+<tr th:class="${row.even}? 'even' : 'odd'">
+...
+</tr>
+----
+
+All three parts of a conditional expression ( condition , then and else ) are themselves expressions, which means that
+they can be variables ( ${...} , *{...} ), messages ( #{...} ), URLs ( @{...} ) or literals ( '...' ).
+Conditional expressions can also be nested using parentheses:
+
+[source,html]
+----
+<tr th:class="${row.even}? (${row.first}? 'first' : 'even') : 'odd'">
+...
+</tr>
+----
+
+Else expressions can also be omitted, in which case a null value is returned if the condition is false:
+
+[source,html]
+----
+<tr th:class="${row.even}? 'alt'">
+...
+</tr>
+----
+
+
+== Other expression syntax
+
+There are more types of value , and more interesting detail to know about the ones we already know. First, let´s see a quick summary of the Standard Expression features:
+
+Simple expressions:
+
+- Variable Expressions: ${...}
+- Selection Variable Expressions: *{...}
+- Message Expressions: #{...}
+- Link URL Expressions: @{...}
+	
+Literals:
+
+- Text literals: 'one text' , 'Another one!' ,…
+- Number literals: 0 , 34 , 3.0 , 12.3 ,…
+- Boolean literals: true , false
+- Null literal: null
+- Literal tokens: one , sometext , main ,…
+	
+Text operations:
+
+- String concatenation: +
+- Literal substitutions: |The name is ${name}|
+	
+Arithmetic operations:
+	
+- Binary operators: + , - , * , / , %
+- Minus sign (unary operator): -
+	
+Boolean operations:
+	
+- Binary operators: and , or
+- Boolean negation (unary operator): ! , not
+	
+Comparisons and equality:
+	
+- Comparators: > , < , >= , <= ( gt , lt , ge , le )
+- Equality operators: == , != ( eq , ne )
+
+Conditional operators:
+	
+- If-then: (if) ? (then)
+- If-then-else: (if) ? (then) : (else)
+- Default: (value) ?: (defaultvalue)
+
+All these features can be combined and nested.
+
+
+

@@ -1,0 +1,17 @@
+
+:fragment:
+
+{framework} RabbitMQ feature only can be added in a core module. Both _webapp_ and _boot_ natures are supported. In _webaap_ nature you should add this dependency in order to start the server
+
+[source,xml,options="nowrap"]
+./my-application-webapp/pom.xml
+----
+				<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-aop</artifactId>
+					<version>5.0.5.RELEASE</version><!--$NO-MVN-MAN-VER$ -->
+				</dependency>
+----
+
+
+IMPORTANT: To use the RabbitMQ Message Broker feature, the RabbitMQ software has to be installed in your environment.

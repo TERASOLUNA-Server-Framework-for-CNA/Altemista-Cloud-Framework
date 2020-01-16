@@ -1,0 +1,71 @@
+
+:fragment:
+
+For more information about Azure Key Vault go to this https://docs.microsoft.com/en-us/azure/key-vault/key-vault-overview[link].
+
+[IMPORTANT]
+To create a Azure Key Vault application you need create a Key Vault in a Azure Console. For more information click urlsvn[here] on how to create a key vault.
+
+In a boot module add the Azure Storage feature.
+
+image::altemista-cloudfwk-documentation/azure/KeyVaultFeature.png[align="center"]
+
+Open the web controller Java file in a text editor, and add the following lines to the file:
+[source,java,options="nowrap"]
+/src/main/java/.com.mycompany.application.controller.Controller
+
+----
+
+import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class Controller {
+
+	 @Value("${connectionString}") //the @value has to be the same as the secret of your key vault.
+	 private String connectionString;
+	
+	 @GetMapping(value = "/read")
+	    public String write() throws IOException {
+		 System.out.println(String.format("\nConnection String stored in Azure Key Vault:\n%s\n",connectionString));
+	       return "File was read.\n";
+	    }
+}
+
+----
+
+Check that in the configuration ...boot.xml this reading the controller package.
+----
+<context:component-scan base-package="com.mycompany.application.controller" />
+----
+
+
+Add the values for your key vault using values; for example:
+[source,properties,options="nowrap"]
+./my-application-boot/src/main/resources/config/properties/application.properties
+----
+
+#
+# Key Vault File Feature Properties
+#
+
+#Specifies the URI from when you created your key vault.
+*.azure.keyvault.uri=https://examplekeyvault.vault.azure.net/ 
+
+#Specifies the appId GUID from when you created your service principal.
+*.azure.keyvault.client-id=iiiiiiii-iiii-iiii-iiii-iiiiiiiiiiii 
+
+#Specifies the password GUID from when you created your service principal.
+*.azure.keyvault.client-key=pppppppp-pppp-pppp-pppp-pppppppppppp 
+
+----
+
+Now if you start the boot application you can send by postman and test the application.
+
+Send get _http://localhost:8080/read_ and the result should be:
+
+image::altemista-cloudfwk-documentation/azure/KeyVaultResult.png[align="center"]
+

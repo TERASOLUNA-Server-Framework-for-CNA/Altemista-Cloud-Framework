@@ -1,0 +1,4 @@
+
+:fragment:
+
+The _Presentation layer: Thymeleaf feature can be installed in module projects with the _webapp_ and _boot_ nature.

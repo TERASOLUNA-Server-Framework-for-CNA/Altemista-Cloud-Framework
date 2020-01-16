@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	
+	<!--
+		The Spring Web Flow example (see /WEB-INF/flows/example-flow.xml)
+		uses the views "example-step1" and "example-step2",
+		and expects them to be resolved to /WEB-INF/jsp/*.jsp by the default view resolver.
+		
+		If the Apache Tiles feature is installed,
+		the default view resolver is replaced by the Apache Tiles view resolver,
+		so it is necessary to define how to resolve those views (i.e.: this configuration file).
+		
+		If the Apache Tiles feature is not installed, this file is simply ignored.
+	 -->
+	 
+	<definition name="webflow-example-step1" extends="app.page">
+		<put-attribute name="section" value="/WEB-INF/jsp/webflow-example-step1.jsp" />
+	</definition>
+	
+	<definition name="webflow-example-step2" extends="app.page">
+		<put-attribute name="section" value="/WEB-INF/jsp/webflow-example-step2.jsp" />
+	</definition>
+	
+</tiles-definitions>

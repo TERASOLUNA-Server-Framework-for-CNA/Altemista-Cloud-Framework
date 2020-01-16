@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<artifactId>altemista-cloudfwk-parent</artifactId>
+		<groupId>org.altemista.cloudfwk.framework</groupId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	
+	<artifactId>altemista-cloudfwk-web-conf</artifactId>
+	<name>altemista-cloudfwk web CONF</name>
+	<description>
+		Core module of the web part of the framework, namely integration layers (web services, REST services, etc.)
+	</description>
+
+	<dependencies>
+
+		<!-- == Begin Altemista cloud framework == -->		
+		<dependency>
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-web</artifactId>
+		</dependency>		
+		<!-- == End Altemista cloud framework == -->
+
+		<!-- == Begin Java standard extensions == -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- == End Java standard extensions == -->
+		
+	</dependencies>
+
+</project>

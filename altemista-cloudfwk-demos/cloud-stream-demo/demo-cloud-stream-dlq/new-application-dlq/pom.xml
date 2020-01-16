@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>org.altemista.cloudfwk.framework</groupId>
+		<artifactId>altemista-cloudfwk-recommended-plugins</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	
+	<groupId>com.mycompany</groupId>
+	<artifactId>new-application-dlq</artifactId>
+	<version>3.0.0-SNAPSHOT</version>
+	<name>Application new-application-dlq</name>
+	<packaging>pom</packaging>
+  
+	<properties>
+		<appShortId>application</appShortId>
+		
+		<java.source.version>1.7</java.source.version>
+		<java.target.version>1.7</java.target.version>
+		
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+		
+			<!-- == Begin ACF framework == -->
+			<dependency>
+				<groupId>org.altemista.cloudfwk.framework</groupId>
+				<artifactId>altemista-cloudfwk-bom</artifactId>
+				<version>3.0.0-SNAPSHOT</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- == End ACF framework == -->
+			
+			<!-- == Begin new-application-dlq application == -->
+			<dependency>
+				<groupId>com.mycompany</groupId>
+				<artifactId>new-application-dlq-env</artifactId>
+				<version>3.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.mycompany</groupId>
+				<artifactId>new-application-dlq-boot</artifactId>
+				<version>3.0.0-SNAPSHOT</version>
+			</dependency>
+			<!-- == End new-application-dlq application == -->
+			
+		</dependencies>
+	</dependencyManagement>
+	
+  <modules>
+    <module>new-application-dlq-boot</module>
+    <module>new-application-dlq-env</module>
+  </modules>
+</project>

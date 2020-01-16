@@ -1,0 +1,34 @@
+
+:fragment:
+
+Currently, all the internal configuration is done in the provided Spring Batch implementation.
+
+For the job registry part, and to automatically load the job definitions when the application starts:
+
+[source,xml,options="nowrap"]
+.org/altemista/cloudfwk/config/core/altemista-cloudfwk-core-batch-spring.xml
+----
+include::{basedir}/altemista-cloudfwk-core-batch-spring-conf/src/main/resources/org/altemista/cloudfwk/config/core/altemista-cloudfwk-core-batch-spring.xml[tags=internals1]
+----
+<1> This is the location of the job definitions that will be automatically loaded when the application starts.
+
+For the common monitoring tasks (i.e.: to support `BatchServiceImpl`, the Spring Batch-based implementation of the batch module service):
+
+[source,xml,options="nowrap"]
+.org/altemista/cloudfwk/config/core/altemista-cloudfwk-core-batch-spring.xml
+----
+include::{basedir}/altemista-cloudfwk-core-batch-spring-conf/src/main/resources/org/altemista/cloudfwk/config/core/altemista-cloudfwk-core-batch-spring.xml[tags=internals2]
+----
+<1> As described in the <<altemista-cloudfwk-core-batch-spring-conf-configuration,configuration>> paragraphs of this module, a data source to store the jobs meta-data and execution information is required.
+<2> The default configuration fires each task asynchronously in a new thread. Applications may override this bean to replace it with any `TaskExecutor`.
+
+[TIP]
+====
+Replace the job executor with a synchronous one for testing purposes (synchronous execution reduces the tests complexity):
+[source,xml]
+.spring/my-application-module-core-batch.xml
+----
+<bean id="jobTaskExecutor"
+	class="org.springframework.core.task.SyncTaskExecutor" />
+----
+====

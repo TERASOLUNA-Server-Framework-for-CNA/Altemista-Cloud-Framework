@@ -1,0 +1,80 @@
+:doctype: book
+:sectnums:
+:nofooter:
+:title: {framework} Reference Documentation
+= {title}
+:author: {author} <{email}>
+:revnumber: {project-version}
+
+////
+//	Asciidoctor i18n and configuration
+////
+
+:toc-title: Table of Contents
+:appendix-caption: Appendix
+
+:tabsize: 2
+
+////
+//	Main body
+////
+
+[[introduction]]
+= Introduction to {framework}
+:chapter-introduction:
+:!chapter-number:
+include::{basedir}/altemista-cloudfwk-documentation/chapter_01_introduction.adoc[]
+
+[[applications]]
+= {framework} applications
+:chapter-applications:
+:!chapter-number:
+include::{basedir}/altemista-cloudfwk-documentation/chapter_02_applications.adoc[]
+
+[[ide]]
+= {framework} development environment
+:chapter-ide:
+:!chapter-number:
+include::{basedir}/altemista-cloudfwk-documentation/chapter_03_environment.adoc[]
+
+[[natures]]
+= {framework} natures reference
+:chapter-natures:
+:!chapter-number:
+include::{basedir}/altemista-cloudfwk-documentation/chapter_04_natures.adoc[]
+
+[[features]]
+= {framework} features reference
+:chapter-features:
+:!chapter-number:
+include::{basedir}/altemista-cloudfwk-documentation/chapter_05_features.adoc[]
+
+= Testing {framework} applications
+:chapter-applications:
+:!chapter-number:
+include::{basedir}/altemista-cloudfwk-documentation/chapter_06_testing.adoc[]
+
+= Appendices
+
+[appendix]
+== 3rd party frameworks and libraries
+include::{basedir}/altemista-cloudfwk-documentation/appendix_frameworks.adoc[leveloffset=+1]
+
+[appendix]
+== Compatibility
+include::{basedir}/altemista-cloudfwk-documentation/appendix_compatibility.adoc[leveloffset=+1]
+
+[appendix]
+== Versioning
+include::{basedir}/altemista-cloudfwk-documentation/appendix_versioning.adoc[leveloffset=+1]
+
+[appendix]
+== Changelog
+include::{basedir}/altemista-cloudfwk-documentation/appendix_changelog.adoc[leveloffset=+1]
+
+[appendix]
+== Migration guides
+include::{basedir}/altemista-cloudfwk-documentation/appendix_migration.adoc[leveloffset=+1]
+
+
+include::{basedir}/altemista-cloudfwk-documentation/footer.adoc[]

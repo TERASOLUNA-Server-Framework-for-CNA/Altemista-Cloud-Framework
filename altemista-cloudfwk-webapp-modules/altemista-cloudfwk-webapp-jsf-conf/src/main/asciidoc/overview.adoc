@@ -1,0 +1,146 @@
+
+:fragment:
+
+JavaServer Faces (JSF) is a Java specification for building component-based user interfaces for web applications, with Facelets as its default templating system.
+
+This feature allows building component-based user interfaces for web applications using http://www.primefaces.org/[PrimeFaces].
+
+CAUTION: JSF is *not* a view technology but a MVC framework. Spring MVC and JSF are competitors with a different ideology (JSF is component based and Spring MVC is a request based) and should not be mixed.
+
+== Spring beans as Managed Beans
+
+To be able to use Spring beans as managed beans (and hence benefit from Spring dependency injection), do not mix JSF annotations with Spring annotations.
+
+To work with JSF-managed beans, injection of dependencies can be achieved as follows:
+[source]
+----
+@ManagedBean
+@RequestScoped
+public class JsfManagedBean {
+
+	@ManagedProperty("#{springBeanName}")
+	private SpringBeanClass springBean;
+
+	public void setSpringBean(SpringBeanClass pSpringBean) { //<1>
+		this.springBean = pSpringBean;
+	}
+}
+----
+<1> Setter required.
+
+On the other hand, to let Spring manage your beans, use the next set of annotations:
+[source]
+----
+@Component
+@Scope("request")
+public class SpringManagedBean {
+
+	@Autowired
+	private SpringBeanClass springBean; //<1>
+}
+----
+<1> No setter required.
+
+== Internationalization (I18n)
+
+As stated in the <<altemista-cloudfwk-webapp-common-conf-i18n>> section of the _presentation layer: common functionality_ feature, and as any other {framework} application, a JSF-based {framework} application starts with the default locale.
+
+When using the JSF feature, an `ActionListener` that allows for changing the current locale on a request is automatically set up out-of-the-box to mimic the behaviour of Spring MVC `LocaleChangeInterceptor`. Therefore, any request with the parameter `locale` will propagate the selected locale to both the user session, and Spring `LocaleContextHolder`, as shown in the following example:
+
+[source,xml]
+----
+<h:commandLink action="changeLocale" value="Switch to Japanese">
+	<f:param name="locale" value="jp" />
+</h:commandLink>
+----
+
+== Securing JavaServer Facelets
+
+The module includes the *Spring Security Facelets Tag Library* which allows the use the authorize tag in your views.
+
+It is important to notice that this feature works in combination with Spring Security so, *the security module has to be included in the webapp application*.
+
+Following, there is an example which shows how to include nested content conditionally:
+
+[source,xml]
+----
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+	<sec:authorize ifAllGranted="ROLE_FOO, ROLE_BAR">
+		Lorem ipsum dolor sit amet
+	</sec:authorize>
+
+	<sec:authorize ifNotGranted="ROLE_FOO, ROLE_BAR">
+		Consectetur adipiscing elit
+	</sec:authorize>
+
+	<sec:authorize ifAnyGranted="ROLE_FOO, ROLE_BAR">
+		Pellentesque ex sem
+	</sec:authorize>
+
+</ui:composition>
+----
+
+== Special considerations
+
+Once the web application has been configured as stated in the <<altemista-cloudfwk-webapp-jsf-conf-configuration,configuration>> section, there are only a few special considerations when coding the JSF views:
+
+=== Internationalized messages using expression language (EL)
+
+ACF extends the `SpringBeanFacesELResolver` to ease printing internationalized messages (without parameters) simply accessing the Spring `MessageSource` bean using the expression language:
+
+[source,xml]
+./welcome-page.xhtml
+----
+<h1>#{msg.welcomeTitle}</h1><!--1-->
+<p>#{messageSource.welcome.page.text}</p><!--2-->
+----
+<1> The `MessageSource` bean is published by default under the names `messageSource` and the shorter `msg`.
+<2> Property keys with dots are also supported.
+
+=== CodeList
+
+By default, code list bean will be accessible by a managed bean "codeList" that load all list with Id patter by default ".+". It's possible redefine this pattern in a property value.
+
+[source,text]
+.webapp.properties
+----
+*.codeListIdPattern=CL_.+
+----
+
+[source,xml]
+./welcome.xhtml
+----
+<p:dataTable var="item" value="#{codeList.get('CL_I18N_PRICE')}"> <!--1-->
+	<p:column headerText="Key">
+		<h:outputText value="#{item.key}" /> <!--2-->
+	</p:column>
+
+	<p:column headerText="Value">
+		<h:outputText value="#{item.value}" /> <!--3-->
+	</p:column>
+</p:dataTable>
+----
+<1> The codelist managed bean is published by default under the name `codeList`. Call `get` method in order to get a specific codelist.
+<2> Show key for each element in the code list.
+<3> Show value for each element in the code list.
+
+=== Exception in error pages
+
+When rendering error pages, a managed bean `errorHandler` is provided to get the exception details. This bean allows easy access to the default request attributes (those starting with `"javax.servlet.error"`):
+
+[source,xml]
+./custom-error-page.xhtml
+----
+<ul>
+	<li>Exception: #{errorHandler.exception}</li>
+	<li>Exception type: #{errorHandler.exceptionType}</li>
+	<li>Message: #{errorHandler.message}</li>
+	<li>Request URI: #{errorHandler.requestUri}</li>
+	<li>Servlet name: #{errorHandler.servletName}</li>
+	<li>Status code: #{errorHandler.statusCode}</li>
+</ul>
+----

@@ -1,0 +1,105 @@
+
+:fragment:
+
+Firstly, go to <<microservices-infrastructure-feature>> documentation if you want to get more information how to build microservices with ACF. As there are a lot of combinations to configure and run microservices, from ACF, we don´t provide a feature for this but here some piece of advises.
+	
+We think the best approach to achieve this, it is by docker-compose. A docker-compose file could look like:
+[source,yml]
+.docker-compose
+----
+version: '3.3'
+
+services:
+
+ eureka:
+  build: ./new-application-eureka/new-application-eureka-boot
+  image: eureka
+  ports:
+   - "8761:8761"
+  links: 
+    - config-server:config-server
+  tty:
+    true
+  restart:
+    unless-stopped
+  environment:
+    - CONFIG_HOST=config-server
+
+ config-server:
+  build: ./new-application-config/new-application-config-boot
+  image: config-server
+  ports:
+   - "8888:8888"
+  environment:
+    - REGISTRY_HOST=eureka
+    - CONFIG_HOST=config-server
+  tty:
+    true
+  restart:
+    unless-stopped
+
+ gateway:
+  build: ./new-application-gateway/new-application-gateway-boot
+  image: gateway
+  ports:
+   - "8765:8765"
+  environment:
+    - REGISTRY_HOST=eureka
+    - CONFIG_HOST=config-server
+  tty:
+    true
+  restart:
+    unless-stopped
+  links: 
+    - config-server:config-server
+  depends_on:
+    - config-server
+ micro:
+  build: ./new-application-micro/new-application-micro-boot
+  image: micro
+  ports:
+   - "9001:9001"
+  environment:
+    - REGISTRY_HOST=eureka
+    - CONFIG_HOST=config-server
+  tty:
+    true
+  restart:
+    unless-stopped    
+
+# "Windows Docker native"-specific configuration
+
+networks:
+ default:
+  external:
+   name: "nat"
+----
+	
+
+If you decide to do it by this way, you should add a Dockerfile in every component to build his image. This could be an example for a config server :
+ 
+[source,txt]
+.new-application-config-boot/Dockerfile
+----
+FROM openjdk:8-jdk-alpine		
+VOLUME /tmp		
+ADD "target/new-application-config-boot-1.0.0-SNAPSHOT.jar" app.jar		
+ENV JAVA_OPTS=""	
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS  -Djava.security.egd=file:/dev/./urandom	 -jar /app.jar" ]	
+EXPOSE 8888	
+----
+		
+In addition, to make visible eureka, you should add this:
+	
+[source,properties]
+.new-application-config-boot/src/main/resources/config/localconfig/application.properties
+----
+eureka.client.serviceUrl.defaultZone=http://eureka:8761/eureka/
+----
+	
+And finally, in every component, we have to indicate the path of the config server:
+[source,properties]
+.new-application-config-env/src/main/resources/config/bootstrap.properties
+----
+spring.cloud.config.uri=http://config-server:8888	
+----

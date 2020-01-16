@@ -1,0 +1,23 @@
+
+:fragment:
+
+*ALTEMISTA Cloud Framework* ({framework}) provides the features to build a docker application.
+
+On this tutorial we will make two simple applications with docker developed with {framework} version from *{project-version}*.
+
+Docker is a computer program that performs operating-system-level virtualization, also known as "containerization"
+
+For more information click in this https://terasoluna.everis.com/dev/TSFplus%20Reference%20Documentation.html#_docker[link^]
+
+NOTE: At the end of this document you will be able to link the example code. <<demo-resources>>
+
+
+== Docker
+
+include::{basedir}/altemista-cloudfwk-core-docker/demo/docker.adoc[]
+
+
+[[demo-resources]]
+== Demos resources
+
+include::{basedir}/altemista-cloudfwk-core-docker/demo/resources.adoc[]

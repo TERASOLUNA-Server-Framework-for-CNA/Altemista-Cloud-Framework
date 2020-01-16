@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Scan all the beans of the Activiti module -->
+	<context:component-scan base-package="org.altemista.cloudfwk.workflow.activiti" />
+	
+	<!--tag::internals[]-->
+	<!-- Transaction manager that will be used by Activiti -->
+	<bean id="workflowTransactionManager"
+			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="workflowDataSource" /><!--1-->
+	</bean>
+	
+	<!-- Starting point of the Activiti-Spring integration -->
+	<bean id="processEngineConfiguration"
+			class="org.activiti.spring.SpringProcessEngineConfiguration">
+			
+		<!-- Database configuration -->
+		<property name="dataSource" ref="workflowDataSource" /><!--1-->
+		<property name="databaseSchemaUpdate"
+				value="${workflow.activiti.databaseSchemaUpdate:true}" /><!--2-->
+		
+		<!-- Job and Async executors activation --><!--3-->
+		<property name="jobExecutorActivate"
+				value="${workflow.activiti.jobExecutorActivate:false}" />
+		<property name="asyncExecutorEnabled"
+				value="${workflow.activiti.asyncExecutorEnabled:true}" />
+		<property name="asyncExecutorActivate"
+				value="${workflow.activiti.asyncExecutorActivate:true}" />
+		
+		<!-- transactionManager (required for SpringProcessEngineConfiguration) -->
+		<property name="transactionManager" ref="workflowTransactionManager" />
+		
+		<!-- Automatic resource deployment -->
+		<property name="deploymentResources"
+				value="classpath:workflow/**/*.bpmn20.xml" /><!--4-->
+		<property name="deploymentMode"
+				value="${workflow.activiti.deploymentMode:default}" />
+	</bean>
+
+	<!-- Configures the ProcessEngine as a regular Spring Bean -->
+	<bean id="processEngine"
+			class="org.activiti.spring.ProcessEngineFactoryBean">
+		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
+	<!--end::internals[]-->
+	
+</beans>

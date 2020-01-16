@@ -1,0 +1,194 @@
+
+:fragment:
+
+The plug-in (actually, the Eclipse or STS plug-in) is composed of three projects:
+
+* `altemista-cloudfwk-plugin-config` contains the configuration of the plug-in, accessible in Java format:
+	** `org.altemista.cloudfwk.plugin.config.Config` provides convenient access to the configuration values from the `.yaml` files
+	** `org.altemista.cloudfwk.plugin.config.Constant` contains symbolic constants for the plug-in that usually should not be changed.
+	** This project also contains the necessary classes that support the configuration (mainly, DTO classes)
+* `altemista-cloudfwk-plugin-core` contains the interface and the implementation of the plug-in itself:
+	** `org.altemista.cloudfwk.plugin.core.PluginReaderService` supports the read-only tasks related to {framework} applications.
+	** `org.altemista.cloudfwk.plugin.core.PluginService` supports the main tasks of the plug-in.
+* `altemista-cloudfwk-plugin-eclipse` is the Eclipse integration for the plug-in
+
+Both `altemista-cloudfwk-plugin-config` and `altemista-cloudfwk-plugin-core` are Maven projects. Their dependencies are _provided_ wherever convenient (e.g.: `org.apache.maven:maven-embedder`) so it should be possible to use any Maven version (e.g.: the Eclipse plug-in provides Maven embedder through the m2e plug-in).
+
+`altemista-cloudfwk-plugin-eclipse` is *not* a Maven project, but has a pom.xml to ease the task of bringing the necessary dependencies of the plug-in not resolved by the Eclipse Plug-in Development mechanism by running `mvn dependency:copy-dependencies`.
+
+== Configuration details
+
+The base class for configuration values is `org.altemista.cloudfwk.plugin.config.model.ValueDto`. Represents a value and a version (or a range of versions) where the value is valid. The next base class is `org.altemista.cloudfwk.plugin.config.model.OptionDto` which adds a human-readable text and a description for the value.
+
+With this two base classes, the configuration aims to be extensible and resuable between versions.
+
+There are unit tests to ensure the configuration is readable and minimally consistent.
+
+[discrete]
+=== `Config.VERSIONS` / `versions.yaml`
+
+The versions available in the plug-in are feed by the `versions.yaml` file.
+
+It is possible to tag a version as `deprecated` to avoid the plug-in to use that version in new applications while keeping the plug-in working on applications created on that version.
+
+[source, yaml]
+.versions.yaml (example)
+----
+value: 1.0.0.RELEASE
+text: ACF v1.0 RELEASE
+deprecated: true # replaced by 1.0.1.RELEASE
+---
+
+value: 1.0.1.RELEASE
+text: ACF v1.0 RELEASE (v1.0.1)
+---
+
+value: 1.1.0-RELEASE
+text: ACF v1.1 RELEASE
+----
+
+The rest of the configuration files can have values filtered by version ranges as shown here:
+
+[source, yaml]
+.example.yaml
+----
+value: common
+text: Common (pre-release)
+description: This value will be shown when version < 1.0.0.RELEASE
+versions: "(, 1.0.0.RELEASE)"
+---
+
+value: common # duplicated values are ok if the value is to be read filtering by version
+text: Common
+description: This value will be shown when version >= 1.0.0.RELEASE
+versions: "[1.0.0.RELEASE, )"
+----
+
+[[altemista-cloudfwk-documentation-developers-plugin-configuration-businessModules]]
+[discrete]
+=== `Config.BUSINESS_MODULES` and `businessModules.yaml`
+
+This configuration file contains the different business module types. Apart from the usual `OptionDto` fields, this configuration elements contains a `List<ProjectTemplateDto> projectTemplates`, a list of projects this business module will create (using Maven archetypes) and their relationships with the aggregator project and between them.
+
+As the artifact ID of the projects is created dynamically based on the application and the business mdoule names, the fields `artifactIdFormatter` and `dependencyArtifactIdFormatter` are patterns. Refer to the JavaDoc of `org.altemista.cloudfwk.plugin.config.model.ProjectTemplateDto` for further information.
+
+[discrete]
+=== `Config.MODULE_PROJECTS` and `moduleProjects.yaml`
+
+The module project types are not shown to the user (except for those with `aggregator: true`).
+This list is internally used by the plugin to detect the different business projects natures and, also, to determine which project of one application will contain the shared implementation and configuration.
+
+Refer to the JavaDoc of `org.altemista.cloudfwk.plugin.config.model.ModuleProjectTypeDto` for further information.
+
+[discrete]
+=== `Config.APPLICATION_ARCHETYPES` and `applicationArchetypes.yaml`
+
+Contains the Maven archetype coordinates for new applications, depending on the aggregator project types. This configuration file simply maps the proper `moduleProjects` value (and {framework} version) to the desired archetype.
+
+When creating a new application, the user will select a module project type with `aggregator: true`. To be able to find the archetype properly, the value filed in this file *must* match the value field of the module project type.
+
+[[altemista-cloudfwk-documentation-developers-plugin-configuration-features]]
+[discrete]
+=== `Config.FEATURES` and `features.yaml`
+
+This is the most important configuration file as it contains all the features the plug-in support.
+
+Apart from the usual `OptionDto` fields, each feature may contain some additional fields:
+
+* `requirements`: Required dependencies for the feature to be installable. All of the required dependencies must be present in the current project for the feature to be shown as available.
+
+* `incompatibilities`: Incompatible dependencies that disallow this feature for being installable. If any of the incompatible dependencies is present in the current project, this feature can not be installed.
+
+* `dependencies`: The set of dependencies that represent this feature. This dependencies will be used to detect if the feature is already installed.
+
+There are two types of features, dependending on the `selfImplemented` flag. If the feature is installed by itself (e.g.: common or webapp modules), that means the project will contain the implementation and the configuration of the feature. Otherwise, the feature will have one or more implementations available.
+
+* `archetype`: If the feature is self-implemented, this field points to the partial archetype that will be used to install this feature. Simpler features may not require an archetype; if that's the case, the `dependencies` will be used to install the feature (simply modifying the pom.xml file of the project). Please note that if the dependencies of the partial archetype and the `dependencies` field do not match, the plug-in may behave erratically (e.g.: not being able to detect installed features).
+
+* `implementations`: If the feature is not self-implemented, contains the list of possible implementations for the feature. This implementations have the same archetype-dependencies approach as the feature itself. For further information on how a feature with implementations is installed, refer to the <<altemista-cloudfwk-documentatino-developers-plugin-implementation-install,installing a feature>> section.
+
+* `additionalProperties`: collection of additional properties that should be passed to the partial archetype when installing the feature. The `value` field is the name of the property in the archetype, `text` and `description` will be used to construct the input field for the user, and `defaultValue` is the initial default value for that input.
+
+== Implementation details
+
+Refer to the JavaDoc of `org.altemista.cloudfwk.plugin.core.PluginReaderService` for the read-only tasks.
+
+Refer to the JavaDoc of `org.altemista.cloudfwk.plugin.core.PluginService` for the actual plug-in tasks such as creating a new application, a new business module or installing a feature.
+
+=== Creating a new application
+
+Executes `mvn archetype:generate` from the proper archetype, based on the aggregator type and the {framework} version.
+
+The code should be self-explanatory.
+
+=== Creating a new business module in an existing ACF application
+
+The code should be self-explanatory. Succintly:
+
+. For each archetyype, executes `mvn archetype:generate`.
+. Includes the new projects as managed dependencies of the application pom.xml.
+. Relates the business module projects.
+. Includes the projects as dependencies of the aggregator project.
+
+See <<altemista-cloudfwk-documentation-developers-plugin-configuration-businessModules,business modules configuration>>.
+
+[[altemista-cloudfwk-documentatino-developers-plugin-implementation-install]]
+=== Installing a feature in a module project
+
+The code should be self-explanatory, but there are a few key points that should be noted:
+
+* The implementation is installed first, so if the same dependency with different scopes is in both feature and implementation, the correct scope will prevail after the modifications (partial archetypes do not overwrite dependencies).
+* When the implementation is installed using a partial archetype, the installation follows the next steps:
+	. Executes `mvn archetype:generate`.
+	. Moves the implementation dependencies from the current project to the shared environment project.
+	. Moves the shared part of the configuration to the shared environment project. If the configuration is already in the shared implementation project, simply removes the shared part from the current project.
+
+See <<altemista-cloudfwk-documentation-developers-plugin-configuration-features,features configuration>>.
+
+=== Utilities and support classes
+
+Notable utility classes:
+
+* `ConsoleProvider` and `ConsoleHolder`: convenience interface for accessing the output and the error consoles, and class to statically access the current provider. This classes are necessary to allow redirection of the output of the embedded Maven (e.g.: to an Eclipse console).
+
+* `InputValidator`: utility class for input field validations that supports both validation while it is still being written and proper validatin.
+
+* `MavenCommand`: Maven command executor implemented using `MavenCli`
+
+=== Eclipse integration
+
+`altemista-cloudfwk-plugin-eclipse`, the Eclipse integration project, has two main packages:
+
+* `org.altemista.cloudfwk.common.eclipse` contains utilities mainly to ease and simplify Eclipse UI development and it is completely unrelated to the {framework} plug-in. Notable classes:
+
+** `ComponentBuilder`: convenience class to build visually-pleasant and homogeneous containers.
+
+** `EnableDisableListener`: `SelectionListener` implementation to enable/disable controls depending on the selection of a button (usually, a check box).
+
+* On the other hand, `org.altemista.cloudfwk.plugin.eclipse` contains the specifics parts related to the {framework} plugin and its classes follow the standard Eclipse plug-in naming:
+
+** `Activator`: The activator class controls the plug-in life cycle. Sets the proper console provider as the plug-in console when the plug-in is started.
+
+** `action.*Action`: actions that invoke wizards. See `org.altemista.cloudfwk.plugin.eclipse.action.AbstractAction` for a convenience base class.
+
+** `wizard.*Wizard`: wizards. See `org.altemista.cloudfwk.plugin.eclipse.wizard.AbstractWizard` for a convenience base class that simplifies the `performFinish()`-`IRunnableWithProgress` implementation.
+
+** `wizard.page.*Page`: wizard pages. See `org.altemista.cloudfwk.plugin.eclipse.wizard.page.AbstractWizardPage` for a conevnience base class that simplifies the implementation of a useful life-cycle for the pages (with automatic update and validation).
+
+== Publishing the plug-in and the update-site
+
+To generate a new plugin package:
+
+* Import the projects related with the plugin:
+
+** `altemista-cloudfwk-plugin-config` and `altemista-cloudfwk-plugin-core` as Maven projects, and
+
+** `altemista-cloudfwk-plugin-eclipse`, `altemista-cloudfwk-plugin-eclipse-feature`, `altemista-cloudfwk-eclipse-site` as Eclipse projects
+
+* Right click on `altemista-cloudfwk-plugin-eclipse`, and _Export..._ as _Deployable features_. _Select All_ the _Available Features_ and choose _Archive File_ as _Destination_. The generated file is valid to be included in the installer, but not for generating an update-site.
+
+* Right click on `altemista-cloudfwk-plugin-eclipse`, and _Export..._ as _Deployable plug-ins and fragments_.
+
+* Import the _features_ and _plugins_ exported in the previous step into `altemista-cloudfwk-plugin-eclipse-site`. Open `site.xml` and add the feature to the existing category and click the `Build All` button. The structure and contents of the `altemista-cloudfwk-plugin-eclipse-site` project are suitable to be uploaded via FTP as the update-site.
+
+WARNING: Document how to keep previous versions of the plug-in in the latest update-site (e.g.: uploading the .jars to source control?)

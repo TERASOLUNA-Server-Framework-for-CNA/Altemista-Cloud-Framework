@@ -1,0 +1,6 @@
+
+:fragment:
+
+{framework} Integration AMQP Feature allows to receive and send messages using the Advanced Message Queuing Protocol (AMQP) based on Spring Integration AMQP Support.
+
+{framework} Integration AMQP Feature is based on https://docs.spring.io/spring-integration/docs/5.0.0.RELEASE/reference/html/amqp.html[Spring Integration AMQP Support^]

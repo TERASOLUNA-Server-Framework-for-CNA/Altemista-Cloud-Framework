@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.altemista.cloudfwk.it</groupId>
+		<artifactId>altemista-cloudfwk-it-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	
+	<groupId>org.altemista.cloudfwk.persistence</groupId>	
+	<artifactId>altemista-cloudfwk-core-persistence-jpa-hibernate-it</artifactId>
+	<packaging>${packaging.type}</packaging>
+
+	<name>altemista-cloudfwk persistence: JPA (Hibernate provider) integration tests</name>
+
+	<dependencies>
+		
+		<!-- == Begin ACF module to be tested == -->
+		<dependency>
+			<groupId>org.altemista.cloudfwk.framework</groupId>
+			<artifactId>altemista-cloudfwk-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.altemista.cloudfwk.persistence</groupId>
+			<artifactId>altemista-cloudfwk-core-persistence-jpa-hibernate-conf</artifactId>
+		</dependency>
+		<!-- == End ACF module to be tested == -->
+
+		<!-- == Begin in-memory database -->
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+		</dependency>
+		<!-- == End in-memory database -->
+		
+	</dependencies>
+	
+	<build>
+		<plugins>
+
+			<!-- == Begin QueryDSL code generation == -->
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>apt-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- == End QueryDSL code generation == -->
+			
+		</plugins>
+	</build>
+
+</project>

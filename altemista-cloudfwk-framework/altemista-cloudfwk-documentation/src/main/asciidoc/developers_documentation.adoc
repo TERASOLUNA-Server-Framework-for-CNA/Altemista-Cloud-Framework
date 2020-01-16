@@ -1,0 +1,161 @@
+
+:fragment:
+
+{framework} documentation is written in AsciiDoc, compiled with Asciidoctor, and deployed as a Maven artifact like the rest of the framework.
+
+The `altemista-cloudfwk-documentation` project builds the documentation artifact when the framework is built (it is included in the `framework` Maven profile).
+
+Actually, natures and features documentation is included in the corresponding feature to keep the documentation synchronized with the code. The documentation project only contains the main structure of the documents, and uses the _include_ mechanism of AsciiDoc/Asciidoctor to complete the documents.
+
+The `altemista-cloudfwk-parent` artifact, the parent of all the framework artifacts, defines the `with-asciidoc` profile, so every project containing a `src/main/asciidoc` folder will generate an _asciidoc bundle_ that can be imported by the documentation project.
+
+== Target documents
+
+The documentation project builds three separate documents:
+
+`ACFplus Reference Documentation`::
+
+The main document for {framework} users, containing all the documentation except for the _{framework} development_ chapter.
++
+Contains detailed documentation of the framework with technical explanations, best practices and detailed information about different aspects of the framework. The target readers are architects and developers using {framework}.
+
+`Getting Started with ACFplus`::
+
+Quick guide for developers that are using the framework for the first time. This document is a reduced version of the reference documentation, with a non-comprehensive list of features, and without advanced configuration and technical details.
+
+`ACFplus Developers Guide`::
+
+Internal document that augments the reference documentation with an specific chapter for {framework} developers.
+
+== Feature documentation structure
+
+The documentation structure of the different natures and features it usually as follows:
+
+* `overview.adoc`: a brief summary of the feature and guides on how to use the feature
+
+* `configruation.adoc`: configuration required or supported by the feature.
+
+* `plugin.adoc`: special considerations when installing the feature using the {framework} plug-in.
+
+* `maven.adoc`: special considerations when manually installing the feature using Maven, or special considerations related to Maven (e.g.: optional dependencies, code generators).
+
+* `internals.adoc`: internal configuration of the feature in the framework, explaining how the feature is loaded and configured (e.g.: for the applications to know which beans to override).
+
+NOTE: This structure can be modified ad-hoc to enhance readability and comprehensibility of complex modules.
+
+== Images and diagrams
+
+Keep the images in the `src/main/asciidoc/images` folder of each project. Prefer the `.png` format for the images.
+
+Included images should be centered and have a descriptive title. The path of the image to be included is simply the project name. Example:
+
+[source,asciidoc]
+....
+.{framework} exception hierarchy
+\image::altemista-cloudfwk-common/exceptions.png[align="center"]
+....
+
+For diagrams, use http://www.objectaid.com/installation[ObjectAid UM Explorer] and save the `.ucls` files in the same folder (saving the `.ucls` file will automatically update the image).
+
+Update site for the ObjectAid Eclipse plug-in:
+
+* Name: `ObjectAid UML Explorer`
+
+* URL: http://www.objectaid.com/update
+
+== Documentation syntax
+
+Documentation is written in AsciiDoc and compiled using Asciidoctor. Please refer to the following links for a complete syntax reference:
+
+* http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Syntax Quick Reference].
+
+* http://asciidoctor.org/docs/user-manual/[Asciidoctor User Manual].
+
+== Documentation guidelines
+
+=== Styles
+
+Class names, file names, and paths should be displayed as code, using inverted quotes. Example: "Exceptions that inherit from `ApplicationException` (...)".
+
+Italics should be used for technical terms in order to improve readability. Examples: "Projects with _common_ nature (...)", "The _appShortId_ is required (...)"
+
+Bold should be used scarcely.
+
+=== Fragments, includes and source blocks
+
+The documentation fragments or sections must start with `:fragment:` and not include the section title. The section title should be put before the inclusion of the fragment. Nested section titles should start at level 2 (e.g.: `== Section`).
+
+When including fragments, always use the `\{basedir\}` prefix and specify a relative `leveloffset` as follows:
+
+[source,asciidoc]
+----
+== Example title
+\include::{basedir}/altemista-cloudfwk-documentation/example.adoc[leveloffset=+2]
+----
+
+When including source code, always clarify the actual (or expected) name of the source file. If the source is not java, specify the syntax:
+
+[source,asciidoc]
+....
+[source,xml]
+.spring/new-application-module-core.xml
+----
+<bean class="com.mycompany.application.module.beans.ExampleBean" />
+----
+....
+
+Consider the default plug-in values and the file names of the archetypes to compose the expected file names:
+
+* Default value for the _groupId_: `com.mycompany`.
+
+* Default value for the _applicationName_: `new-application`
+
+* Default value for the _appShortId_: `application`
+
+* Default value for the _businessShortId_: `module`
+
+=== Admonition blocks
+
+Use the admonition blocks as follows:
+
+* `NOTE:` to point small details that could otherwise be unnoticed (e.g.: "notice there are two points (`..`) and not just one (`.`)")
+
+* `TIP:` tips on _how to do_. Typically, small best practices and extensions points of the framework.
+
+* `IMPORTANT:` point something important or tricky that could otherwise be unnoticed, but that usually works as intuitively could be expected.
+
+* `CAUTION:` point something important or tricky that could otherwise be unnoticed, but that usually does not work as could initially be expected (e.g.: additivity in Logback)
+
+* `WARNING:` point something prone to develop unintentional, undesired or plain wrong usage or configuration.
+
+=== Cross references
+
+To declare cross references, always use qualified names (with the name of the project) to avoid conflicts:
+
+[source,asciidoc]
+....
+[[altemista-cloudfwk-core-mail-javamail-conf-internals]]
+=== Mail server internals
+....
+
+Remember it is possible to use a different text in the cross reference for readability purposes:
+
+[source,asciidoc]
+....
+Refer to the <<altemista-cloudfwk-core-mail-javamail-conf-internals,internals>> of this module.
+....
+
+=== Symbolic constants
+
+Some terms and names are provided by symbolic constants. Do not hardcode them:
+
+|===
+|Symbolic constant |Current value
+
+|`\{basedir}` |{basedir}
+|`\{project-version}` |{project-version}
+|`\{terasoluna-version}` |{terasoluna-version}
+|`\{framework}` |{framework}
+|`\{author}` |{author}
+|`\{email}` |{email}
+|===

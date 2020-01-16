@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.altemista.cloudfwk.build</groupId>
+		<artifactId>altemista-cloudfwk-build</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	
+	<artifactId>altemista-cloudfwk-azure</artifactId>
+	<packaging>pom</packaging>
+
+	<name>altemista-cloudfwk * Azure build script</name>
+	<description>Convenience pom.xml for building the ACF Azure modules</description>
+
+	<profiles>
+
+		<!-- == Builds ACF framework == -->
+		<profile>
+			<id>framework</id>
+			<modules>
+				<module>altemista-cloudfwk-core-azure</module>
+				<module>altemista-cloudfwk-core-azure-active-directory</module>
+				<module>altemista-cloudfwk-core-azure-active-directory-conf</module>
+				<module>altemista-cloudfwk-core-azure-active-directory-archetype</module>
+				<module>altemista-cloudfwk-core-azure-key-vault</module>
+				<module>altemista-cloudfwk-core-azure-key-vault-conf</module>
+				<module>altemista-cloudfwk-core-azure-key-vault-archetype</module>
+				<module>altemista-cloudfwk-core-azure-storage</module>
+				<module>altemista-cloudfwk-core-azure-storage-conf</module>
+				<module>altemista-cloudfwk-core-azure-storage-archetype</module>
+				<module>altemista-cloudfwk-core-azure-support-bus</module>
+				<module>altemista-cloudfwk-core-azure-support-bus-conf</module>
+				<module>altemista-cloudfwk-core-azure-support-bus-archetype</module>
+				<module>altemista-cloudfwk-core-azure-support-cosmos</module>
+				<module>altemista-cloudfwk-core-azure-support-cosmos-conf</module>
+				<module>altemista-cloudfwk-core-azure-support-cosmos-archetype</module>
+			</modules>
+		</profile>
+		
+	</profiles>
+	
+</project>

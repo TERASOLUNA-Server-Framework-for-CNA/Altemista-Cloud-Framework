@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.altemista.cloudfwk</groupId>
+    <artifactId>reminders-mybatis-tiles</artifactId>
+    <version>3.0.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>reminders-mybatis-tiles-module-web</artifactId>
+  <name>reminders-mybatis-tiles module web project</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.altemista.cloudfwk.framework</groupId>
+      <artifactId>altemista-cloudfwk-web-conf</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.altemista.cloudfwk</groupId>
+      <artifactId>reminders-mybatis-tiles-module-common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.altemista.cloudfwk.security</groupId>
+      <artifactId>altemista-cloudfwk-web-security-conf</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.altemista.cloudfwk.monitoring</groupId>
+      <artifactId>altemista-cloudfwk-web-monitoring</artifactId>
+    </dependency>
+  </dependencies>
+</project>

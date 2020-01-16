@@ -1,0 +1,96 @@
+
+:fragment:
+
+== Unit testing
+
+Unit testing is performed using Maven Surefire Plugin and actual tests are defined and run using JUnit.
+
+Please note that unit tests in {framework} are not _strictly unit_: most of the time they test Spring configuration (by example, ensuring the configuration provided from within the framework is valid) and they are located in the `*-conf` projects.
+
+Consider including the `altemista-cloudfwk-test` dependency:
+
+[source,xml]
+.altemista-cloudfwk-feature-conf/pom.xml
+----
+<dependency>
+  <groupId>org.altemista.cloudfwk.framework</groupId>
+  <artifactId>altemista-cloudfwk-test</artifactId>
+  <scope>test</scope>
+</dependency>
+----
+
+This will include:
+
+`AbstractSpringContextTest`::
+
+Convenience base class for unit tests that needs a {frameowrk} Spring context.
++
+By default, this loads the core {frameowrk} Spring application context without aggregator-specific bean (such as _webapp_ or _boot_ modules), and without the application specific configuration files (i.e.: `/spring/*.xml`).
+
+`TestConstants`::
+
+Convenience constants for tests, such as _Lorem Ipsum_ passage, binary streams, etc.
+
+`SlowByteArrayInputStream` and `SlowInputStreamSource`::
+
+To simulate latency reading from an array where required (e.g.: tests of asynchrinous executions).
+
+== Integration testing
+
+Integration testing in {framework} is performed using Maven Failsafe Plugin and run using JUnit.
+
+In {framework}, integration tests are not _strict integration tests_: what {framework} integration tests verifies is that the feature, which has been already unit tested, does work when deployed on a server.
+
+{framework} integration tests are separate projects (with the `-it` suffix) with two parts. The main part defines a web application with some REST endpoint that internally use the feature. The test part simply invokes those endpoints and verifies the expected result, usually a _HTTP 200 OK_ response.
+
+Consider inheriting from `altemista-cloudfwk-it-parent`. Besides the testing environments (described ahead in this document), this includes the `altemista-cloudfwk-it-common` dependency:
+
+[source,xml]
+.altemista-cloudfwk-it-parent/pom.xml
+----
+<dependency>
+  <groupId>org.altemista.cloudfwk.it</groupId>
+  <artifactId>altemista-cloudfwk-it-common</artifactId>
+</dependency>
+<dependency>
+  <groupId>org.altemista.cloudfwk.it</groupId>
+  <artifactId>altemista-cloudfwk-it-common</artifactId>
+  <type>test-jar</type>
+  <scope>test</scope>
+</dependency>
+----
+
+In the server side, this dependency will include `ITControllerUtil`, an utility class for implementing REST controllers invoked by the actual integration tests. This class methods mimic the names of `org.junit.Assert` to favor readability. Please refer to the Javadoc of the class to know all the posibilities.
+
+Example usge:
+
+[source]
+.org.altemista.cloudfwk.it.controller.AliveController.java
+----
+@RestController
+@RequestMapping("/alive")
+public class AliveController {
+
+  @RequestMapping
+  public Object alive() {
+    ITControllerUtil.assertNotNull(/* ... */);
+    return "OK";
+  }
+----
+
+In the test side, this dependency includes `AbstractIT`, the base for integration tests. Using this class, the aggregator type, the application context, the server port, etc. will be automatically managed and, hence, the same tests will be valid for every testing environment.
+
+Example usage:
+
+[source]
+.org.altemista.cloudfwk.it.AliveIT.java
+----
+public class AliveIT extends AbstractIT {
+	
+	@Test
+	public void testAlive() {
+		this.testMapping("/alive");
+	}
+----
+
+Please refer to the Javadoc of `AbstractIT` (and existing tests) to know all the posibilities.

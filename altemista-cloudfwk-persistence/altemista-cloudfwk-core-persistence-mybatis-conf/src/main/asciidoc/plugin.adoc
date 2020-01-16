@@ -1,0 +1,8 @@
+
+:fragment:
+
+The _JDCB/SQL persistence_ feature can only be installed in module projects with the _core_ nature.
+
+Currently, only the MyBatis-based implementation is available.
+
+NOTE: This feature is not compatible with neither the _O/RM persistence_ nor the _MongoDB persistence_ features.

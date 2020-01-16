@@ -1,0 +1,27 @@
+
+:fragment:
+
+The {framework} Configuration Server feature is based on the Spring Cloud Config Server implementation. It provides server and client-side support for externalized configuration in a distributed system. 
+	
+With the Config Server you have a central place to manage external properties for applications across all environments. 
+	
+The concepts on both client and server map identically to the Spring Environment and PropertySource abstractions, so they fit very well with Spring applications, but can be used with any application running in any language. As an application moves through the deployment pipeline from development to test and into production you can manage the configuration between those environments and be certain that applications have everything they need to run when they migrate.
+	
+The default implementation of the server storage backend uses GIT so it easily supports labeled versions of configuration environments, as well as being accessible to a wide range of tooling for managing the content. It is easy to add alternative implementations and plug them in with Spring configuration.
+
+Where do you want to store the configuration data for the Config Server? The strategy that governs this behaviour is the EnvironmentRepository, serving Environment objects. This Environment is a shallow copy of the domain from the Spring Environment (including propertySources as the main feature). The Environment resources are parametrized by three variables:
+
+* `{application}` maps to "spring.application.name" on the client side;
+* `{profile}` maps to "spring.profiles.active" on the client (comma separated list); and
+* `{label}` which is a server side feature labelling a "versioned" set of config files.
+
+Repository implementations generally behave just like a Spring Boot application loading configuration files from a _"spring.config.name"_ equal to the `{application}` parameter, and _"spring.profiles.active"_ equal to the `{profiles}` parameter. Precedence rules for profiles are also the same as in a regular Boot application: active profiles take precedence over defaults, and if there are multiple profiles the last one wins (like adding entries to a Map).
+
+{framework} Config Server application consumer bootstrap example file:
+
+[source,properties]
+.aplication-env/src/main/resources/config/bootstrap.properties
+----
+spring.application.name=aplication
+spring.profiles.active=local
+----

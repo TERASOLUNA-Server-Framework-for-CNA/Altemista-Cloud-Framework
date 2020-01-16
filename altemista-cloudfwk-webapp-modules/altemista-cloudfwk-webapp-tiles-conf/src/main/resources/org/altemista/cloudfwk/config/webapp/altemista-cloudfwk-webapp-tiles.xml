@@ -1,0 +1,40 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		TODO should this be restored?
+		Builds a Map using messageSource, allowing page messages using EL
+	<bean id="eLAttributeInitializer" class="org.altemista.cloudfwk.webapp.i18n.bean.ServletContextAttributeInitializer" />
+	-->
+	
+	<!--tag::internals[]-->	
+	<bean id="tilesErrorController" class="org.altemista.cloudfwk.webapp.controller.TilesErrorController"></bean>
+	
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<!--end::internals[]-->
+		<!--
+			Not using Apache Tiles 3.x "complete-autoload" configuration as it causes:
+			java.lang.NullPointerException at org.apache.tiles.el.JspExpressionFactoryFactory.getExpressionFactory.
+			This is actually a problem with tomcat7-maven-plugin, which does not provide JSP or EL support by default.
+			It works well if you provide a server.xml file for tomcat.
+			@see https://issues.apache.org/jira/browse/TILES-561
+			
+			<property name="completeAutoload" value="true" />
+		-->
+		<!--tag::internals[]-->	
+		<property name="definitions">
+			<array>
+				<value>classpath:tiles/**/*.xml</value>
+				<value>/WEB-INF/tiles/**/*.xml</value>
+			</array>
+		</property>
+	</bean>
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
+	<!--end::internals[]-->
+	
+	<!-- TODO switch to org.springframework.webflow.mvc.view.FlowAjaxTiles3View ? -->
+	
+</beans>

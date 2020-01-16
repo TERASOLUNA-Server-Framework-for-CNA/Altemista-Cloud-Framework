@@ -1,0 +1,10 @@
+
+:fragment:
+
+You can see the demonstration code here: link:resources/altemista-cloudfwk-documentation/acf-cloud-stream-kafka.zip[KafkaExample^].
+
+The demonstration of RabbitMQ code here: link:resources/altemista-cloudfwk-documentation/acf-cloud-stream-rabbit.zip[RabbitExample].
+
+The spring cloud stream group demo here: link:resources/altemista-cloudfwk-documentation/acf-cloud-stream-groups.zip[GroupExample].
+
+Or the spring cloud stream error handling demo here: link:resources/altemista-cloudfwk-documentation/acf-cloud-stream-dlq.zip[HandlingsExample].

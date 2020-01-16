@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+		
+	<!--
+		Authenticated client for org.altemista.cloudfwk.it.soap.secured.BottomUpSecuredExampleService
+	 -->
+	
+	<!-- <bean id="bottomUpSecuredExampleServiceClient" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean"> ... -->
+	
+	<bean id="bottomUpSecuredExampleServiceClient" class="org.altemista.cloudfwk.core.soap.SimpleJaxWsPortProxyFactoryBean">
+		<property name="serviceInterface" value="org.altemista.cloudfwk.it.soap.secured.BottomUpSecuredExampleService" />
+		<property name="endpointAddress" value="#{systemProperties['integration-test.url']}/soap/BottomUpSecuredExampleService" />
+		
+		<!-- This specific client will have outbound WS-Security -->
+		<property name="serviceFeatures" ref="outgoingWssFeature" />
+	</bean>
+
+	<!-- Creates the necessary authentication-manager to provide the password for the user -->
+	<security:user-service id="outgoingwssUserDetailsService">
+		<security:user name="user" password="{noop}password" authorities="NOT_IMPORTANT" />
+	</security:user-service>
+
+</beans>

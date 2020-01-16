@@ -1,0 +1,25 @@
+
+:fragment:
+
+At the end of this section the following REST enpoints will be published by this microservice. The microservice will publish the typical operations of a CRUD for create, read, update and delete a user
+
+.Microservice AltemistaMoviesUsers Endpoints
+[cols="<30e,<50d,^20s",options="header"]
+|===
+   ^.^|*Operation* |*Endpoint* | *Method*        
+.2+^.^|*Get all Users*
+   ^.^|\http://localhost:8765/altemistamoviesusers/                     |[green]#GET#
+   2+^|image:altemista-cloudfwk-documentation/microservices/demo/usersListAllUsersEndpoint.png[align="center"]
+.2+^.^|*Get Users By ID*
+   ^.^|\http://localhost:8765/altemistamoviesusers/{id}                 |[green]#GET#
+   2+^|image:altemista-cloudfwk-documentation/microservices/demo/usersGetUserEndpoint.png[align="center"]
+.2+^.^|*Create User*
+   ^.^|\http://localhost:8765/altemistamoviesusers/                     |[blue]#POST#
+   2+^|image:altemista-cloudfwk-documentation/microservices/demo/usersCreateUserEndpoint.png[align="center"]
+.2+^.^|*Update User*
+   ^.^|\http://localhost:8765/altemistamoviesusers/{id}                 |[blue]#PUT#
+   2+^|image:altemista-cloudfwk-documentation/microservices/demo/usersUpdateUserEndpoint.png[align="center"]
+.2+^.^|*Delete User*
+   ^.^|\http://localhost:8765/altemistamoviesusers/{id}                 |[red]#DELETE#
+   2+^|image:altemista-cloudfwk-documentation/microservices/demo/usersDeleteUserEndpoint.png[align="center"]
+|===

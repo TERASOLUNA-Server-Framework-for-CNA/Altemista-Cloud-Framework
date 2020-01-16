@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		
+	<!--tag::internals[]-->
+	<!-- Jasper Reports implementation of the report builder -->
+	<bean id="jasperReportBuilder"
+			class="org.altemista.cloudfwk.reporting.jasper.impl.JasperReportBuilderImpl">
+			
+		<property name="templateResolver"	ref="jasperTemplateResolver" />
+		<property name="fillerPolicy"		ref="jasperFillerPolicy" />
+		<property name="exporterPolicy"		ref="jasperExporterPolicy" />
+	</bean>
+	
+	<!-- Default template resolver for classpath:reports/templates/<logical name>.jasper -->
+	<bean id="jasperTemplateResolver"
+			class="org.altemista.cloudfwk.core.reporting.impl.PrefixSuffixTemplateResolver">
+			
+		<property name="prefix" value="${reporting.jasper.templateResolver.prefix:classpath:reports/templates/}" />
+		<property name="suffix" value="${reporting.jasper.templateResolver.suffix:.jasper}" />
+	</bean>
+	
+	<!-- Default simple JasperFillerPolicy that always returns a JRDataSourceJasperFillerImpl -->
+	<bean id="jasperFillerPolicy"
+			class="org.altemista.cloudfwk.reporting.jasper.filler.impl.SimpleJasperFillerPolicyImpl">
+			
+		<property name="filler">
+			<bean class="org.altemista.cloudfwk.reporting.jasper.filler.impl.JRDataSourceJasperFillerImpl" />
+		</property>
+	</bean>
+	
+	<!-- Default JasperExporterPolicy implementation -->
+	<bean id="jasperExporterPolicy"
+			class="org.altemista.cloudfwk.reporting.jasper.exporter.impl.DefaultJasperExporterPolicyImpl"
+		/>
+	<!--end::internals[]-->
+	
+</beans>

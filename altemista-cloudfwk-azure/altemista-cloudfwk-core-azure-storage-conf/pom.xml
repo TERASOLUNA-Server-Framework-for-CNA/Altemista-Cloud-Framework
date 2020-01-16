@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.altemista.cloudfwk.framework</groupId>
+		<artifactId>altemista-cloudfwk-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+
+	<groupId>org.altemista.cloudfwk.azure</groupId>
+	<artifactId>altemista-cloudfwk-core-azure-storage-conf</artifactId>
+
+	<name>altemista-cloudfwk Azure Storage CONF</name>
+	<description>altemista-cloudfwk Azure Storage CONF</description>
+
+	<dependencies>
+
+		<!-- == Begin ACF Integration Dependencies== -->
+		<dependency>
+			<groupId>org.altemista.cloudfwk.azure</groupId>
+			<artifactId>altemista-cloudfwk-core-azure-storage</artifactId>
+		</dependency>
+		<!-- == End ACF Integration Dependencies== -->
+		
+	</dependencies>
+
+</project>

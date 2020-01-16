@@ -1,0 +1,27 @@
+Template files for creating a ACF Project on Altemista
+
+altemista-project-template.yaml
+	Creates the Openshift Projects (CICD, DEV, STAGE & PRO)
+	Populates the CICD Project.
+		Nexus
+		SonarQube
+		Gogs
+		Jenkins
+	launch cicd-template
+altemista-cicd-template.yaml
+	Configure the Jenkins Config-Map
+	Initialize the Gogs Repository to hold the Cicd files (Jenkins-files)
+	Gets the tmpl and modifies it with default data for the project
+	Install the tmpl on the project, so new apps see it on the console
+	Launches  the creation new ACF Basic App
+altemista-cicd-newproject.tmpl
+	Pre-Template file, for be updated. Once updated:
+	Creates a new Gogs Project
+	Initializes an ACF on the gogs
+	Creates the Pipelines
+altemista-cicd-newproject.yaml
+	The previus with data compatible with all projects
+	For use with the "oc Command", needs more parameters.
+
+
+	

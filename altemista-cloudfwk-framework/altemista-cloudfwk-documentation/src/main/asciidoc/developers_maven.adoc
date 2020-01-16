@@ -1,0 +1,140 @@
+
+:fragment:
+
+== Development environment
+
+The recommended development environment for {framework} is Maven 3.3.x and JDK 8 with the Java Cryptography Extension ,Java Cryptography Extension (JCE) Unlimited Strength installed.
+
+The minimum development environment is Maven 3.2.x and JDK 7.
+
+NOTE: In Maven versions prior to 3.2.2, profile activation is triggered if at least one condition is met (instead of requiring all them, as expected). To allow {framework} to be compiled with those versions, there are no multiple-trigger profile activations in {framework}. The drawback of this compatibility workarounds is that some profiles have been enabled by default, so they should be explicitly disabled now.
+
+Example development environment:
+
+[source,properties]
+----
+JAVA_HOME = C:\altemista-cloudfwk-dev\jdk-8u102-x64
+M2_HOME = C:\altemista-cloudfwk-dev\apache-maven-3.3.9
+MAVEN_OPTS = -Xmx1536m
+----
+
+TIP: See the `readme.md` file at the root of the project for a {framework} Maven quick reference.
+
+== Building {framework}
+
+Steps:
+
+* `mvn -Pparents` (run once)
+* `mvn -Pframework`
+
+The `parents` profile builds and installs the _recommended Maven plug-in versions_ and _bill of materials_ artifacts of the framework. This artifacts must be installed first because they are not properly resolved by the Maven reactor.
+
+The `framework` profile builds the framework, the Maven archetypes, and the <<altemista-cloudfwk-documentation-developers-documentation,documentation>>.
+
+The `altemista-cloudfwk-parent` artifact is the parent of all the framework artifacts and defines a series of profiles. The most relevant are:
+
+`update-copyright`::
+
+Includes or updates the copyright notice in the source files. This profile is disabled by default and should be triggered manually.
+
+`with-sources`::
+
+Enable to create a jar archive of the source files of the project. Currently, it is disabled by default and should be triggered manually.
+
+`with-javadoc`::
+
+Generates javadocs for the project.
+
+== Testing {framework}
+
+{framework} test are divided in two groups, unit tests and integration tests. Unit tests are automatically run when building the framework. Integration tests must be explicitly run with a different set of Maven profiles.
+
+Steps:
+
+* `mvn -Pit-parents` (run once)
+* `mvn -Prun-it,tomcat-environment` (example)
+
+The `it-parents` profile builds and installs the _bill of materials_ and parent artifacts of the integration tests.
+
+The `run-it` profile actually runs the integration tests: builds the deployable artifact, starts the proper servers, deploys the artifact and runs the failsafe plugin.
+
+The `run-it` profile can not be used alone; it must be combined with one of the environment profiles defined in `altemista-cloudfwk-it-parent`. Namely:
+
+|===
+|Maven profile |Environment (server)
+
+|`-Prun-it,tomcat-environment` |Embedded Apache Tomcat (7.x)
+|`-Prun-it,tomcat8-environment` |Codehaus Cargo: Apache Tomcat (8.x)
+|`-Prun-it,jetty8-environment` |Codehaus Cargo: Jetty (8.x)
+|`-Prun-it,jetty9-environment` |Codehaus Cargo: Jetty (9.x)
+|`-Prun-it,jboss7-environment` |Codehaus Cargo: JBoss 7
+|`-Prun-it,wildfly8-environment` |Codehaus Cargo: WildFly 8
+|`-Prun-it,wildfly9-environment` |Codehaus Cargo: WildFly 9
+|`-Prun-it,wildfly10-environment` |Codehaus Cargo: WildFly 10
+|`-Prun-it,weblogic12-environment` |Codehaus Cargo: WebLogic 12.2.x
+|`-Prun-it,glassfish4-environment` |Codehaus Cargo: GlassFish 4
+|`-Prun-it,wlp-environment` |WebSphere Application Server V8.5 Liberty Profile
+|`-Prun-it,boot-environment` |Spring Boot (traditional deployable war file)
+|`-Prun-it,standalone-boot-environment` |Spring Boot (executable jar format)
+|===
+
+Please check the `altemista-cloudfwk-it-parent/pom.xml` file for further details of every environment.
+
+Integration test projects can define two properties to selectively skip being tested on web application environments or Spring Boot-based environments:
+
+[source,xml]
+.altemista-cloudfwk-webapp-feature-it/pom.xml
+----
+<properties>
+  <skip.boot.environments>true</skip.boot.environments>
+</properties>
+----
+
+[source,xml]
+.altemista-cloudfwk-boot-feature-it/pom.xml
+----
+<properties>
+  <skip.webapp.environments>true</skip.webapp.environments>
+</properties>
+----
+
+== Deploying {framework}
+
+{framework} framework and archetypes are deployed to the following Nexus repository:
+
+[source,xml]
+.apache-maven-3.3.9/conf/settings.xml
+----
+<repository>
+	<id>terasoluna-plus.steps.everis.com</id>
+	<url>https://steps.everis.com/nexus/content/repositories/ARCHEVERIS.Release/</url>
+	<releases>
+		<enabled>true</enabled>
+	</releases>
+</repository>
+----
+
+There is `<ditributionManagement>` section in any {framework} `pom.xml` file. This is an intentional decision to avoid {framework} applications inheriting it via the _recommended plugins_ artifact. Hence, use the following command to deploy a new version:
+
+[source,bash]
+----
+mvn deploy
+	-Pparents,framework
+	-DaltDeploymentRepository=terasoluna-plus.steps.everis.com::default::https://steps.everis.com/nexus/content/repositories/ARCHEVERIS.Release/
+----
+
+Please note that only the `parents` and `framework` profiles should be deployed; integration tests are not to be deployed.
+
+The server with the ID `terasoluna-plus.steps.everis.com` should be configured in developer's Maven `settings.xml` file with authentication information with authorization to deploy artifacts:
+
+[source,xml]
+.apache-maven-3.3.9/conf/settings.xml
+----
+<server>
+	<id>terasoluna-plus.steps.everis.com</id>
+	<username>genarcheverisext</username> <!--1-->
+	<password>Genarcheveris18/08/2016!</password> <!--2-->
+</server>
+----
+<1> This user, provided by the {framework} IDE installer, is read-only. Change this value to your username.
+<2> Change this value to your password. The password can be written as plain text, or encoded by using the `mvn -ep` command.

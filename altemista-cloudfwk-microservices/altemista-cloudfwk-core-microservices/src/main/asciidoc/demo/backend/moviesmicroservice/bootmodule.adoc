@@ -1,0 +1,148 @@
+
+:fragment:
+
+[[movies-controller]]
+===== Microservice Controller
+
+First of all you have to delete the `MicroserviceExampleController` class. 
+
+Next step is create new class with the client interface implementation. The name of this class could be `AltemistaMoviesMoviesController` and implements `AltemistaMoviesMovies` interface. You have to annotate this class with `@RestController` annotation.
+
+[source,java,linenums]
+.AltemistaMoviesMoviesController.java
+----
+package org.altemista.cloudfwk.demo.altemistaMoviesmovies.microservice.controller;
+
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.altemista.cloudfwk.demoAltemistaMoviessmovies.datacore.entity.Movie;
+import org.altemista.cloudfwk.demo.altemistaMoviesmovies.datacore.repository.MovieRepository;
+import org.altemista.cloudfwk.demo.altemistaMoviesmovies.microservice.domain.MovieDTO;
+import org.altemista.cloudfwk.demo.altemistaMoviesmovies.microservice.service.AltemistaMoviesMovies;
+
+@RestController
+public class AltemistaMoviesMoviesController implements AltemistaMoviesMovies {
+
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@Autowired
+	private MovieRepository movieRepository; // <1>
+
+	@Autowired
+	private ModelMapper modelMapper;
+
+	Type targetListType = new TypeToken<List<MovieDTO>>() {}.getType();
+
+	@Override
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ResponseEntity<List<MovieDTO>> listAllMovies(Pageable page) {
+		Page<Movie> findAllPage = movieRepository.findAll(page);
+		List<Movie> movies = findAllPage.getContent();
+		if(movies.isEmpty()){
+			return new ResponseEntity<List<MovieDTO>>(HttpStatus.NO_CONTENT);
+		}
+		List<MovieDTO> moviesDTO = modelMapper.map(movies, targetListType);
+		return new ResponseEntity<List<MovieDTO>>(moviesDTO, HttpStatus.OK);
+	}
+
+	@Override
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<MovieDTO> getMovie(@PathVariable("id") long id) {
+		logger.info("Fetching Movie with id " + id);
+		Movie movie = movieRepository.findOne(id);
+		if (movie == null) {
+			logger.info("Movie " + id + " not found");
+			return new ResponseEntity<MovieDTO>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<MovieDTO>(modelMapper.map(movie, MovieDTO.class), HttpStatus.OK);
+	}
+
+	@Override
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public ResponseEntity<MovieDTO> createMovie(@RequestBody MovieDTO movieDTO) {
+		logger.info("Creating Movie " + movieDTO.getTitle());
+
+		if (movieDTO.getId()!=null) {
+			logger.info("The Movie ID must be null");
+			return new ResponseEntity<MovieDTO>(HttpStatus.BAD_REQUEST);
+		}
+
+		List<Movie> findByTitle = movieRepository.findByTitle(movieDTO.getTitle());
+		if (findByTitle!=null && !findByTitle.isEmpty()) {
+			logger.info("A Movie with title " + movieDTO.getTitle() + " already exist");
+			return new ResponseEntity<MovieDTO>(HttpStatus.CONFLICT);
+		}
+
+		Movie savedMovie = movieRepository.save(modelMapper.map(movieDTO, Movie.class));
+		MovieDTO savedMovieDTO = modelMapper.map(savedMovie, MovieDTO.class);
+
+		return new ResponseEntity<MovieDTO>(savedMovieDTO, HttpStatus.CREATED);
+	}
+
+	@Override
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<MovieDTO> updateMovie(@PathVariable("id") long id, @RequestBody MovieDTO movieDTO) {
+		logger.info("Updating Movie " + id);
+
+		if (movieDTO.getId()==null || id!=movieDTO.getId().longValue()){
+			logger.info("Movie id " + movieDTO.getId() + " not equals id param "+id);
+			return new ResponseEntity<MovieDTO>(HttpStatus.BAD_REQUEST);
+		}
+		if (movieRepository.findOne(id)==null) {
+			logger.info("Movie with id " + id + " not found");
+			return new ResponseEntity<MovieDTO>(HttpStatus.NOT_FOUND);
+		}
+
+		movieDTO.setId(id);
+		Movie savedMovie = movieRepository.save(modelMapper.map(movieDTO, Movie.class));
+		movieDTO = modelMapper.map(savedMovie, MovieDTO.class);
+		return new ResponseEntity<MovieDTO>(movieDTO, HttpStatus.OK);
+	}
+
+	@Override
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<MovieDTO> deleteMovie(@PathVariable("id") long id) {
+		logger.info("Fetching & Deleting Movie with id " + id);
+
+		if (movieRepository.findOne(id) == null) {
+			logger.info("Unable to delete. Movie with id " + id + " not found");
+			return new ResponseEntity<MovieDTO>(HttpStatus.NOT_FOUND);
+		}
+
+		movieRepository.delete(id);
+		return new ResponseEntity<MovieDTO>(HttpStatus.NO_CONTENT);
+	}
+	
+	@Override
+	@RequestMapping(value = "/queryHealth", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<Map<String,String>> queryHealth() {
+		return new ResponseEntity<Map<String,String>>(
+				Collections.singletonMap("response", "AltemistaMoviesMovies microservice is Alive"),HttpStatus.OK);
+	}
+
+}
+----
+
+<1> Movie Spring Data Repository
+
+===== OPTIONAL: Main class renaming 
+
+TIP: You can rename the main class of the project named `MicroserviceApplication` to `AltemistaMoviesMoviesApplication`.

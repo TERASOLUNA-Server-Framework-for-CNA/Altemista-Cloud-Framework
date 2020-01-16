@@ -1,0 +1,58 @@
+
+:fragment:
+
+Docker is available for {framework} boot projects. It will add a file called "Dockerfile" which we can create an image by maven.
+
+[source,txt]
+.new-application-boot/Dockerfile
+----
+FROM openjdk:8		<!--1-->
+ADD target/${applicationName}-boot-1.0.0-SNAPSHOT.jar ${applicationName}-boot-1.0.0-SNAPSHOT.jar		<!--2-->
+ENTRYPOINT ["java" , "-jar", "/${applicationName}-boot-1.0.0-SNAPSHOT.jar"]	<!--3-->
+----
+<1> The FROM instruction sets the Base Image for subsequent instructions.
+<2> The ADD instruction add's the local files into the containers specified path.
+<3> The ENTRYPOINT instruction should be used to run the software contained by your image, along with any arguments.
+
+IMPORTANT: You can configure this as much as you want in order to achieve the best configuration for your project.
+
+If you add "EXPOSE" command, remember to use this command when you want to run your application "docker run -p  your-port:8080 your-image-name". 
+"Your-port" is the one you expose and 8080 is the one you publish, https://medium.freecodecamp.org/expose-vs-publish-docker-port-commands-explained-simply-434593dbc9a3/[here^]
+you have more information about it.
+
+And finally, in the pom it will add this piece of code to build the docker image.
+
+[source,xml]
+.new-application-boot/pom.xml
+----
+<plugin>
+	<groupId>com.spotify</groupId>
+	<artifactId>dockerfile-maven-plugin</artifactId>	<!--1-->
+	<version>1.3.7</version>
+	<configuration>
+		<repository>${imageName}</repository>			<!--2-->
+		<resources>
+			<resource>
+				<targetPath>/</targetPath>
+				<directory>${project.build.directory}</directory>
+				<include>${project.build.finalName}.jar</include>
+			</resource>
+		</resources>
+	</configuration>
+</plugin>
+----
+<1> dockerfile spotify maven plugin to build the docker image
+<2> Image name which we have specified in the wizard
+
+IMPORTANT: You can configure this as much as you want in order to achieve the best configuration for your project.
+
+To build the image we will need to run this command "mvn clean package dockerfile:build". 
+
+IMPORTANT: Just the first time, before to build the image, you will need to run mvn clean install from the root project. 
+
+To run the image you just need to follow the official instructions provided by Docker. For example, in the command line, you will need to type "docker run image-name"
+
+TIP: if you are getting an error like "Connect to localhost:2375: Connection refused", you should enable the following setting in Docker:
+
+image::altemista-cloudfwk-documentation/docker/docker_setting.png[align="center"]
+

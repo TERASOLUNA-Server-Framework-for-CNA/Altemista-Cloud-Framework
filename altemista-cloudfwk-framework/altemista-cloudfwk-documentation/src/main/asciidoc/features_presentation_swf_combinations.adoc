@@ -1,0 +1,19 @@
+
+:fragment:
+
+== Spring Web Flow (SWF) with Apache Tiles
+
+The combination of Spring Web Flow (SWF) and Apache Tiles does not require any additional considerartion: tiles will be available to compose the views of the flows.
+
+[[webapp-webflow-jsf]]
+== Spring Web Flow (SWF) with JavaServer Faces (JSF)
+
+When the JavaServer Faces (JSF) feature is combined with the Spring Web Flow (SWF) feature, the later will be the one managing the requests and controlling the navigation of the application, overriding the component-based behavior of JSF. In this case, the application `faces-config.xml` file is most likely to be empty:
+
+[source,xml]
+.WEB-INF/faces-config.xml
+----
+include::{basedir}/altemista-cloudfwk-webapp-webflow-conf/src/test/resources/META-INF/empty-faces-config.xml[]
+----
+
+WARNING: Despite both Spring Web Flow and JavaServer Faces (JSF) features can be installed together, mixing different MVC strategies is discouraged.

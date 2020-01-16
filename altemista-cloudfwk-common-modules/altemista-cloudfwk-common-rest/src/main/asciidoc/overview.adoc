@@ -1,0 +1,122 @@
+
+:fragment:
+
+Invoking RESTful services in Java is typically done using a helper class, such as Apache HttpComponents `HttpClient`. This approach is usually too low level.
+
+Spring Framework already provides `RestTemplate`, with higher level methods that correspond to each of the six main HTTP methods that make invoking many RESTful services a one-liner and enforce REST best practices.
+
+{framework} extends `RestTemplate` to support both Basic and Digest Authentication.
+
+== Accessing RESTful services on the client
+
+http://docs.spring.io/spring/docs/current/spring-framework-reference/html/remoting.html#rest-resttemplate[`RestTemplate`] is the central Spring class for client-side HTTP access.
+
+.Overview of `RestTemplate` methods
+|===
+|HTTP Method	|RestTemplate Method
+
+|DELETE	|`delete`
+|GET	|`getForObject`, `getForEntity`
+|HEAD	|`headForHeaders(...)`
+|OPTIONS	|`optionsForAllow(...)`
+|POST	|`postForLocation(...)`, `postForObject(...)`
+|PUT	|`put(...)`
+|PATCH (and others)	|`exchange`, `execute`
+|===
+
+Example usages:
+
+[source]
+----
+include::{basedir}/altemista-cloudfwk-common-rest/src/test/java/org/altemista/cloudfwk/example/rest/RestTemplateExample.java[tags=example]
+----
+
+== Basic Authentication
+
+{framework} `BasicAuthRestTemplate` extends Spring `RestTemplate` to use Basic Authentication.
+
+The usage is nearly the same as `RestTemplate`:
+
+[source]
+----
+include::{basedir}/altemista-cloudfwk-common-rest/src/test/java/org/altemista/cloudfwk/example/rest/BasicAuthRestTemplateExample.java[tags=example]
+----
+
+TIP: It is also possible to construct the `BasicAuthRestTemplate` instances using a set of `Credentials` instead of plain username and password.
+
+`BasicAuthRestTemplate` is intended as a drop-in replacement of `RestTemplate`, so it is possible to rely on Spring configuration to use one or another interchangeably:
+
+[source]
+----
+include::{basedir}/altemista-cloudfwk-common-rest/src/test/java/org/altemista/cloudfwk/example/rest/BasicAuthRestTemplateExample.java[tags=example2]
+----
+
+[source,xml]
+----
+include::{basedir}/altemista-cloudfwk-common-rest/src/test/resources/spring/altemista-cloudfwk-example-rest.xml[tags=basic]
+----
+
+== Digest Authentication
+
+{framework} `DigestAuthRestTemplate` extends Spring `RestTemplate` to use Digest Authentication.
+
+The usage is exactly the same as `BasicAuthRestTemplate`, and nearly the same as `RestTemplate`:
+
+[source]
+----
+include::{basedir}/altemista-cloudfwk-common-rest/src/test/java/org/altemista/cloudfwk/example/rest/DigestAuthRestTemplateExample.java[tags=example]
+----
+
+TIP: It is also possible to construct the `DigestAuthRestTemplate` instances using a set of `Credentials` instead of plain username and password.
+
+And, again, `DigestAuthRestTemplate` is intended as a drop-in replacement of `RestTemplate`, so it is possible to rely on Spring configuration to use either of them interchangeably:
+
+[source,xml]
+----
+include::{basedir}/altemista-cloudfwk-common-rest/src/test/resources/spring/altemista-cloudfwk-example-rest.xml[tags=digest]
+----
+
+== OAuth 2.0
+
+For OAuth 2.0-authenticated REST requests from a {framework} application, Spring Security OAuth provides `OAuth2RestTemplate`.
+
+Please refer to the <<altemista-cloudfwk-app-oauth2-client-conf>> section of the <<oauth2,OAuth 2.0>> chapter of this document for further details.
+
+[[altemista-cloudfwk-common-rest-forwarding]]
+== Forwarding user credentials
+
+As previously stated, both `BasicAuthRestTemplate` and `DigestAuthRestTemplate` support using a set of credentials instead of plain user and password.
+
+Given that the security feature is installed, and that the <<altemista-cloudfwk-web-security-conf-configuration-forwarding,forwarding credentials>> feature is properly configured, then it is possible to use those credentials in `BasicAuthRestTemplate` as follows:
+
+[source,xml]
+----
+<!-- BasicAuthRestTemplate that forwards the authentication -->
+<bean id="forwardedCredentialsBasicAuthRestTemplate"
+		class="org.altemista.cloudfwk.core.rest.security.BasicAuthRestTemplate"
+		scope="prototype"><!--1-->
+		
+	<!-- Scoped proxy bean; it can be injected in singleton beans
+		such as typical controllers or services -->
+	<aop:scoped-proxy /><!--2-->
+	
+	<!-- The user credentials that will be forwarded -->
+	<constructor-arg ref="forwardedSecurityCredentials" />
+</bean>
+----
+<1> The scope of this REST clients should be at least `session`, because the injected `forwardedSecurityCredentials` bean is session scoped. In order to avoid session serialization problems we recommend to use the `prototype` scope.
+<2> It is recommended for these beans to be scoped proxy beans, so they can be injected in services (and also controllers), which usually are singletons.
+
+As expected, `DigestAuthRestTemplate` can be used as well:
+
+[source,xml]
+----
+<!-- DigestAuthRestTemplate that forwards the authentication -->
+<bean id="forwardedCredentialsDigestAuthRestTemplate"
+		class="org.altemista.cloudfwk.core.rest.security.DigestAuthRestTemplate"
+		scope="prototype">
+	<aop:scoped-proxy />
+	<constructor-arg ref="forwardedSecurityCredentials" />
+</bean>
+----
+

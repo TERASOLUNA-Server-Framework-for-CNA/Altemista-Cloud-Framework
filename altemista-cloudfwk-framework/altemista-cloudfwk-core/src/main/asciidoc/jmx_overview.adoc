@@ -1,0 +1,4 @@
+
+:fragment:
+
+{framework} configuration automaticallye will publish _Java Management Extensions_ (JMX) MBeans from both the framework itself and from {framework} applications.
