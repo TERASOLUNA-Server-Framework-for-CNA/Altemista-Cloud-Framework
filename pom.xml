@@ -9,6 +9,29 @@
 
 	<name>altemista-cloudfwk * build script</name>
 	<description>Convenience pom.xml for building the framework, the archetypes, running the integration tests, etc.</description>
+	<url>https://terasoluna.everis.com/</url>
+	
+	<developers>
+    	<developer>
+      		<name>Altemista Cloud Framework</name>
+      		<email>tsfplus@everis.com</email>
+      		<organization>NTT DATA Corporation</organization>
+      		<organizationUrl>https://terasoluna.everis.com/</organizationUrl>
+    	</developer>
+  	</developers>
+  
+  	<scm>
+  		<connection>scm:git:git://github.com/TERASOLUNA-Server-Framework-for-CNA/Altemista-Cloud-Framework.git</connection>
+  		<developerConnection>scm:git:ssh://github.com:TERASOLUNA-Server-Framework-for-CNA/Altemista-Cloud-Framework.git</developerConnection>
+  		<url>http://github.com/TERASOLUNA-Server-Framework-for-CNA/Altemista-Cloud-Framework/tree/master</url>
+  	</scm>
+  	
+  	<licenses>
+  		<license>
+    		<name>The Apache License, Version 2.0</name>
+    		<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+  		</license>
+	</licenses>	
 
 	<modules>
 		<module>altemista-cloudfwk-framework</module>
