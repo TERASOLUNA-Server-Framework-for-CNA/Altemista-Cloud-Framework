@@ -1,0 +1,12 @@
+
+:fragment:
+
+The maven dependency of the _web_ nature is:
+
+[source,xml]
+----
+<dependency>
+  <groupId>cloud.altemista.fwk.framework</groupId>
+  <artifactId>cloud-altemistafwk-web-conf</artifactId>
+</dependency>
+----

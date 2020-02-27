@@ -1,0 +1,36 @@
+
+:fragment:
+
+The {framework} Gateway Server feature has the Hystrix feature enabled by default. To configure the Hystrix timeouts you can add the next properties in the service properties file configuration or if you use the <<cloud-altemistafwk-core-microservices-config,{framework} Configuration Server Infrastructure feature>> you can add this properties in the application.properties to share between all services.
+
+[source,properties]
+./application.properties
+----
+# Ribbon
+ribbon.ConnectTimeout = 30000                                                         <!--1--> 
+ribbon.ReadTimeout = 30000                                                            <!--2-->
+
+# Hystrix
+hystrix.threadpool.default.coreSize = 20                                              <!--3--> 
+hystrix.threadpool.default.maxQueueSize = 500000                                      <!--4--> 
+hystrix.threadpool.default.keepAliveTimeMinutes = 2                                   <!--5--> 
+hystrix.threadpool.default.queueSizeRejectionThreshold = 500000                       <!--6--> 
+hystrix.command.default.fallback.isolation.semaphore.maxConcurrentRequests = 20       <!--7--> 
+hystrix.command.default.execution.timeout.enabled = false                             <!--8--> 
+hystrix.command.default.execution.isolation.strategy = THREAD                         <!--9--> 
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds = 30000      <!--10-->
+----
+<1> Connect timeout used by Apache HttpClient
+<2> Read timeout used by Apache HttpClient
+<3> This property sets the core thread-pool size.
+<4> This property sets the maximum queue size of the BlockingQueue implementation. If you set this to -1 then SynchronousQueue will be used, otherwise a positive value will be used with LinkedBlockingQueue. Note: This property only applies at initialization time since queue implementations cannot be resized or changed without re-initializing the thread executor which is not supported. If you need to overcome this limitation and to allow dynamic changes in the queue, see the queueSizeRejectionThreshold property. To change between SynchronousQueue and LinkedBlockingQueue requires a restart.
+<5> This property sets the keep-alive time, in minutes.
+<6> This property sets the queue size rejection threshold — an artificial maximum queue size at which rejections will occur even if maxQueueSize has not been reached. This property exists because the maxQueueSize of a BlockingQueue cannot be dynamically changed and we want to allow you to dynamically change the queue size that affects rejections.
+<7> This property sets the maximum number of requests a HystrixCommand.getFallback() method is allowed to make from the calling thread. If the maximum concurrent limit is hit then subsequent requests will be rejected and an exception thrown since no fallback could be retrieved.
+<8> This property indicates whether the HystrixCommand.run() execution should have a timeout.
+<9> This property indicates which isolation strategy HystrixCommand.run() executes with, one of the following two choices: 
+* THREAD — it executes on a separate thread and concurrent requests are limited by the number of threads in the thread-pool
+* SEMAPHORE — it executes on the calling thread and concurrent requests are limited by the semaphore count
+Thread or Semaphore
+The default, and the recommended setting, is to run HystrixCommands using thread isolation (THREAD) and HystrixObservableCommands using semaphore isolation (SEMAPHORE). Commands executed in threads have an extra layer of protection against latencies beyond what network timeouts can offer. Generally the only time you should use semaphore isolation for HystrixCommands is when the call is so high volume (hundreds per second, per instance) that the overhead of separate threads is too high; this typically only applies to non-network calls.
+<10> This property sets the time in milliseconds after which the caller will observe a timeout and walk away from the command execution. Hystrix marks the HystrixCommand as a TIMEOUT, and performs fallback logic. Note that there is configuration for turning off timeouts per-command, if that is desired (see command.timeout.enabled).

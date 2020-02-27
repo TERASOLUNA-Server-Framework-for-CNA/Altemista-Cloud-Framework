@@ -1,0 +1,14 @@
+
+:fragment:
+
+To manually install this feature, add the following dependencies to the `pom.xml` file of a web application aggregator project, or a Spring Boot-based aggregator project:
+
+[source,xml]
+.new-application-webapp/pom.xml
+----
+<dependency>
+	<groupId>cloud.altemista.fwk.webapp.modules</groupId>
+	<artifactId>cloud-altemistafwk-webapp-common-conf</artifactId> <!--1-->
+</dependency>
+----
+<1> Auto-discoverable configuration for the {framework} Spring context.

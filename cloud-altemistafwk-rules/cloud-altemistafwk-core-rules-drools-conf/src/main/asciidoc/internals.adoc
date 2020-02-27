@@ -1,0 +1,10 @@
+
+:fragment:
+
+As previously stated in the <<cloud-altemistafwk-core-rules-drools-conf-configuration,configuration>> section, the default configuration of the Drools-based implementation is as follows:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/ruels/cloud-altemistafwk-rules-drools.xml
+----
+include::{basedir}/cloud-altemistafwk-core-rules-drools-conf/src/main/resources/cloud/altemista/fwk/config/rules/cloud-altemistafwk-rules-drools.xml[tags=internals]
+----

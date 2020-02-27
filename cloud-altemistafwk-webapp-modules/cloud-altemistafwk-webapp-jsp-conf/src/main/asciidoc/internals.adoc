@@ -1,0 +1,10 @@
+
+:fragment:
+
+This modules simply sets up the view resolver as follows:
+
+[source,xml,options="nowrap"]
+.cloud-altemistafwk-webapp-jsp-conf/src/main/resources/cloud/altemista/fwk/config/webapp/cloud-altemistafwk-webapp-jsp.xml
+----
+include::{basedir}//cloud-altemistafwk-webapp-jsp-conf/src/main/resources/cloud/altemista/fwk/config/webapp/cloud-altemistafwk-webapp-jsp.xml[tags=internals]
+----

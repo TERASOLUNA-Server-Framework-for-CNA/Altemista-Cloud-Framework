@@ -1,0 +1,50 @@
+
+:fragment:
+
+This feature augments a core project to support asynchronous task execution and scheduling by using http://docs.spring.io/spring/docs/current/spring-framework-reference/html/scheduling.html[Spring Framework] `@Async` and `@Scheduled` annotations on methods.
+
+For the asynchronous part, the module also provides convenience utility classes for registering asynchronous executions with different storage policies (e.g.: to implement a status page on the asynchronous executions).
+
+== Scheduling
+
+The `@Scheduled` annotation defines when a particular method runs:
+
+[source,java]
+----
+include::{basedir}/cloud-altemistafwk-core-async-conf/src/test/java/cloud/altemista/fwk/test/async/service/ScheduledService.java[tags=usage]
+----
+<1> The scheduled methods must have void returns and must not expect any arguments. 
+<2> Example of a fixed rate execution, expressed in milliseconds. This method will execute every 5 seconds.
+<3> Example of a cron expression. This method will execute every 5 seconds on weekdays.
+
+For further information on the possibilities of the `@Scheduled` anotation, See the http://docs.spring.io/spring/docs/current/spring-framework-reference/html/scheduling.html#scheduling-annotation-support-scheduled[proper section] of the Spring Framework Reference Documentation.
+
+== Asynchronous task execution
+
+Any `@Async` annotated method will be invoked asynchronously:
+
+[source,java]
+----
+include::{basedir}/cloud-altemistafwk-core-async-conf/src/test/java/cloud/altemista/fwk/test/async/service/AsyncService.java[tags=usage]
+----
+<1> The asyncrhonous methods are required to have a `Future` type return value.
+<2> The `Future` value will be set to `true` when the task actually finishes.
+
+== Registering asynchronous executions
+
+To register the result of asynchronous executions to be retrieved later (e.g.: to implement a status page to verify the status of the asynchronous executions), the {framework} already provides some utility classes.
+
+The main interface for this feature is `AsyncStoragePolicy`, that defines storage policies for registering asynchronous executions.
+
+[source,java]
+----
+include::{basedir}/cloud-altemistafwk-core-async-conf/src/test/java/cloud/altemista/fwk/example/async/AsyncStoragePolicyExample.java[tags=usage]
+----
+<1> Inject the storage.
+<2> Puts an asynchronous execution result (the `Future`) in the storage. The storage will return an identifier for this execution. It is also possible to use a custom identifier.
+<3> Pass the identifier between executions
+<4> Use the storage API to check the status of the execution.
+
+The applications may define any storage policy. Check its Javadoc for details.
+
+The framework already provides a simple in-memory map based storage policy implementation (`MemoryStoragePolicy`) that can be useful in development stages or for simple projects. This implementation supports configuration of the maximum time that completed and pending tasks are to be kept in the map.

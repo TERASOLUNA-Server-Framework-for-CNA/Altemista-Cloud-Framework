@@ -1,0 +1,47 @@
+#
+# Versions supported by terasoluna-plus-plugin
+# @see OptionDto.class
+#
+
+#
+# Snapshots
+#
+value: 3.0.0.RELEASE
+text: Current 3.0.x (3.0.0.RELEASE)
+---
+
+#
+# Releases (desc order)
+#
+
+value: 2.0.0.RELEASE
+text: Release 2.0.x (2.0.0.RELEASE)
+---
+
+value: 1.6.0.RELEASE
+text: Release 1.5.x (1.6.0.RELEASE)
+---
+
+value: 1.5.0.RELEASE
+text: Release 1.5.x (1.5.0.RELEASE)
+---
+
+value: 1.4.0.RELEASE
+text: Release 1.4.x (1.4.0.RELEASE)
+---
+
+value: 1.3.0.RELEASE
+text: Release 1.3.x (1.3.0.RELEASE)
+---
+
+value: 1.2.0.RELEASE
+text: Release 1.2.x (1.2.0.RELEASE)
+---
+
+value: 1.1.0-RELEASE
+text: Release 1.1.x (1.1.0-RELEASE)
+---
+
+value: 1.0.0.RELEASE
+text: Release 1.0.x (1.0.0.RELEASE)
+---

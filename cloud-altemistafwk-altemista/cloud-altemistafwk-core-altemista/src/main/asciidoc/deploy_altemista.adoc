@@ -1,0 +1,11 @@
+
+:fragment:
+
+Openshift lets us deploy docker images from external registry such as https://hub.docker.com/[docker hub^] or from his internal registry using altemista frontend or even by a json/ymal file which from ACF we are going to provide a basic yaml file to import in Altemista. 
+We will give a simple example of each case but if you need more information, please go to https://blog.openshift.com/deploying-applications-from-images-in-openshift-part-one-web-console/[site^].
+
+Firstly, we need to login to OpenShift console which is https://openshift-altemista.everis.com:8443/console/[this^] and you need to access through the option "everis_short_username".
+
+image::cloud-altemistafwk-documentation/altemista/login.png[align="center"]
+
+IMPORTANT: You need to connect to Altemista VPN in order to access to the console

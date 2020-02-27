@@ -1,0 +1,16 @@
+
+:fragment:
+
+The Activiti BPM implementation of the workflow module has a default configuration. An application using this default configuration is only required to provide a datasource for the Activiti internal persistence. The bean for this datasource should be named `workflowDataSource` and can be aliased from an existing datasource (e.g.: the main database of the application):
+
+[source,xml]
+----
+<!-- Provides the "workflowDataSource" bean
+		required by the Activiti BPM implementation -->
+<alias name="applicationDataSource" alias="workflowDataSource" />
+----
+
+The workflow datbase can be the main database of the application, a different database (even an in-memory database). It also can be pointed to the database of an existing Activiti installation in order to reuse the existing workflow definitions and use the Activiti workbench to explore the workflows and instances. 
+ 
+NOTE: Please note that requiring a datasource does not imply that a persistence module is required to be present in the application; simply a database is required for the workflow module to persist its workflow definitions and instances.
+

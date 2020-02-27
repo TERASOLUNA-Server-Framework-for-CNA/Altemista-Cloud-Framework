@@ -1,0 +1,23 @@
+
+:fragment:
+
+[[cloud-altemistafwk-web-security-conf-configuration-forwarding]]
+== Forwarding credentials
+
+To enable it, configure the `<security:http>` element as shown:
+
+[source,xml]
+.spring/my-application-webapp-security-http.xml
+----
+<security:http ...>
+	...
+	<security:form-login /><!--1-->
+	<security:custom-filter ref="forwardSecurityCredentialsFilter" before="FORM_LOGIN_FILTER" /><!--2-->
+</security:http>
+----
+<1> The `<security:http>` element *must* have form-login based authentication
+<2> The `forwardSecurityCredentialsFilter` is declared in the framework, but must be included as a `<security:custom-filter>` executed before `FORM_LOGIN_FILTER`
+
+With this configuration, when any user logs in the application using the login form, a session scoped bean named `forwardedSecurityCredentials` will be available for the application.
+
+TIP: For an example on how to actually use the forwarding credentials feature, see the <<cloud-altemistafwk-common-rest-forwarding,forwarding user credentials>> section of the <<cloud-altemistafwk-common-rest>> feature.

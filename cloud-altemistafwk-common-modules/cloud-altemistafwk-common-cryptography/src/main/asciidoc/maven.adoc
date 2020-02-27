@@ -1,0 +1,14 @@
+
+:fragment:
+
+To manually install this feature, add the following dependencies to the `pom.xml` file of a business tier interface or implementation project:
+
+[source,xml]
+.new-application-module-common/pom.xml
+----
+<dependency>
+	<groupId>cloud.altemista.fwk.cryptography</groupId>
+	<artifactId>cloud-altemistafwk-common-cryptography</artifactId><!--1-->
+</dependency>
+----
+<1> Feature classes.

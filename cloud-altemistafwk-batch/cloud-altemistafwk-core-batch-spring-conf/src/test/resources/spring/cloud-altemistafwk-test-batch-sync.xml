@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Replaces the default asynchronous TaskExecutor with a synchronous one (simplifies the tests code) -->
+	<bean id="jobTaskExecutor" class="org.springframework.core.task.SyncTaskExecutor" />
+	
+</beans>

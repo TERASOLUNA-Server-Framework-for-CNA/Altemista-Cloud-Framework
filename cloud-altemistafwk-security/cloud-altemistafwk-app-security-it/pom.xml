@@ -1,0 +1,39 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.it</groupId>
+		<artifactId>cloud-altemistafwk-it-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+
+	<groupId>cloud.altemista.fwk.security</groupId>
+	<artifactId>cloud-altemistafwk-app-security-it</artifactId>
+	<packaging>${packaging.type}</packaging>
+
+	<name>cloud-altemistafwk security: webapp and boot authentication integration tests</name>
+
+	<dependencies>
+
+		<!-- == Begin ACF module to be tested == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.security</groupId>
+			<artifactId>cloud-altemistafwk-app-security-conf</artifactId>
+		</dependency>
+		<!-- == End ACF module to be tested == -->
+
+		<!-- == Begin JSR 250 == -->
+		<dependency>
+			<!-- Support for JSR 250 method-security annotations -->
+			<groupId>javax.annotation</groupId>
+			<artifactId>jsr250-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- == End JSR 250 == -->
+		
+
+	</dependencies>
+
+</project>

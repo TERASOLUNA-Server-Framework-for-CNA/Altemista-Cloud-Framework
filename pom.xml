@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>org.altemista.cloudfwk.build</groupId>
-	<artifactId>altemista-cloudfwk-build</artifactId>
+	<groupId>cloud.altemista.fwk.build</groupId>
+	<artifactId>cloud-altemistafwk-build</artifactId>
 	<version>3.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>altemista-cloudfwk * build script</name>
+	<name>cloud-altemistafwk * build script</name>
 	<description>Convenience pom.xml for building the framework, the archetypes, running the integration tests, etc.</description>
 	<url>https://terasoluna.everis.com/</url>
 	
@@ -31,37 +31,37 @@
     		<name>The Apache License, Version 2.0</name>
     		<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
   		</license>
-	</licenses>	
+	</licenses>
 
 	<modules>
-		<module>altemista-cloudfwk-framework</module>
-		<module>altemista-cloudfwk-azure</module>
-		<module>altemista-cloudfwk-altemista</module>
-		<module>altemista-cloudfwk-amazon</module>
-		<module>altemista-cloudfwk-batch</module>
-		<module>altemista-cloudfwk-cache</module>
-		<module>altemista-cloudfwk-common-modules</module>
-		<module>altemista-cloudfwk-core-modules</module>
-		<module>altemista-cloudfwk-docker</module>
-		<module>altemista-cloudfwk-integration</module>
-		<module>altemista-cloudfwk-it</module>
-		<module>altemista-cloudfwk-mail</module>
-		<module>altemista-cloudfwk-message</module>
-		<module>altemista-cloudfwk-microservices</module>
-		<module>altemista-cloudfwk-monitoring</module>
-		<module>altemista-cloudfwk-oauth2</module>
-		<module>altemista-cloudfwk-jwt</module>
-		<module>altemista-cloudfwk-performance</module>
-		<module>altemista-cloudfwk-persistence</module>
-		<module>altemista-cloudfwk-reporting</module>
-		<module>altemista-cloudfwk-rules</module>
-		<module>altemista-cloudfwk-security</module>
-		<module>altemista-cloudfwk-soap</module>
-		<module>altemista-cloudfwk-stream</module>
-		<module>altemista-cloudfwk-swagger</module>
-		<module>altemista-cloudfwk-thymeleaf</module>
-		<module>altemista-cloudfwk-webapp-modules</module>
-		<module>altemista-cloudfwk-workflow</module>
+		<module>cloud-altemistafwk-framework</module>
+		<module>cloud-altemistafwk-azure</module>
+		<module>cloud-altemistafwk-altemista</module>
+		<module>cloud-altemistafwk-amazon</module>
+		<module>cloud-altemistafwk-batch</module>
+		<module>cloud-altemistafwk-cache</module>
+		<module>cloud-altemistafwk-common-modules</module>
+		<module>cloud-altemistafwk-core-modules</module>
+		<module>cloud-altemistafwk-docker</module>
+		<module>cloud-altemistafwk-integration</module>
+		<module>cloud-altemistafwk-it</module>
+		<module>cloud-altemistafwk-mail</module>
+		<module>cloud-altemistafwk-message</module>
+		<module>cloud-altemistafwk-microservices</module>
+		<module>cloud-altemistafwk-monitoring</module>
+		<module>cloud-altemistafwk-oauth2</module>
+		<module>cloud-altemistafwk-jwt</module>
+		<module>cloud-altemistafwk-performance</module>
+		<module>cloud-altemistafwk-persistence</module>
+		<module>cloud-altemistafwk-reporting</module>
+		<module>cloud-altemistafwk-rules</module>
+		<module>cloud-altemistafwk-security</module>
+		<module>cloud-altemistafwk-soap</module>
+		<module>cloud-altemistafwk-stream</module>
+		<module>cloud-altemistafwk-swagger</module>
+		<module>cloud-altemistafwk-thymeleaf</module>
+		<module>cloud-altemistafwk-webapp-modules</module>
+		<module>cloud-altemistafwk-workflow</module>
 	</modules>
 			
 	<properties>
@@ -79,8 +79,8 @@
 		<sonar.jacoco.itReportPath>target/jacoco-it.exec</sonar.jacoco.itReportPath>
 		<!-- <sonar.jacoco.reportMissing.force.zero>true</sonar.jacoco.reportMissing.force.zero> -->
 		<sonar.exclusions>
-				**/org/altemista/cloudfwk/**/it/**/*,
-				**/org/altemista/cloudfwk/**/test/**/*,
+				**/cloud/altemista/fwk/**/it/**/*,
+				**/cloud/altemista/fwk/**/test/**/*,
 				**/example/**/*
 		</sonar.exclusions>
 	</properties>

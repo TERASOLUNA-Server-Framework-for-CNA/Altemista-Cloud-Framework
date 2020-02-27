@@ -1,0 +1,48 @@
+
+:fragment:
+
+The {framework} web application nature is an application nature (i.e.: is a nature for aggregator projects, not for business module projects). The project with this nature will bundle the {framework} application as a deployable Web application ARchive (WAR).
+
+This nature actually bootstraps the Spring context in Spring Web MVC and provides convenient support for the Spring MVC controller programming model.
+
+This nature also starts serving static resources from both the web application directly and from the classpath (to allow the presentation layer to follow a modular design). As any other Java web application, JavaServer Pages (JSP) is supported out-of-the-box for dynamically generated web pages.
+
+[[cloud-altemistafwk-webapp-conf-serving-web-content]]
+== Serving web content
+
+Without any configuration on the application, a {framework} web application uses the default configuration provided by the framework. This default configuration serves:
+
+* Spring MVC *controllers* at `/*`. This ``@Controller``s can be in the web application project or in any of the web projects of the application.
+
+* Static resources provided as *http://www.webjars.org/[WebJars]* at `/webjars/*`.
+
+* Application *static resources* at `/*` (when the URI is not matched by any controller), from both the web
+application directly (from `/WEB-INF/resources`) and the classpath (from `/META-INF/resources`).
+** The landing page, usually `index.html`, can be placed here.
+** Do not put any JSP here; they would be served as a static resource (i.e.: the page will not be rendered).
+
+* Other requests are served by the default Servlet of the Servlet container, such as JavaServer Pages (JSP), from the `src/main/webapp` folder.
+
+CAUTION: It is discouraged to rely on the default Servlet of the Servlet container. Dynamic views, such as JavaServer Pages (JSP), should not be accessed directly, but through a Spring MVC controller. Please check the available <<presentation-layer,presentation layer features>>.
+
+[TIP]
+====
+If static resources are to be declared in business modules (i.e.: `/META-INF/resources`), these resources will also be served if the business module is included in a Spring Boot-based {framework} application. Static resources from `/WEB-INF/resources` will not; in fact, a Spring Boot aggregator project does not have a `WEB-INF` folder.
+
+Consider creating a separate <<applications-business-module-types,stand-alone web part>> to hold the presentation layer for compatibility with, and portability to, Spring Boot-based {framework} applications.
+====
+
+[[cloud-altemistafwk-webapp-conf-filters]]
+== Filters, listeners and intercpetors
+
+For web applications, {framework} sets up several Servlet filters, Servlet listeners, and Spring interceptors around web requests in the web application, following the recommendations of the http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/index.html[TERASOLUNA Server Framework Development Guideline].
+
+Here is a non-comprehensive list:
+
+* `HttpSessionEventLoggingListener` to output debug log at the time of generating, discarding, activating or deactivating session, and adding or deleting session attributes. See http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/ArchitectureInDetail/GeneralFuncDetail/Logging.html#httpsessioneventlogginglistener[HttpSessionEventLoggingListener] section.
+
+* `HandlerExceptionResolverLoggingInterceptor` to properly record (log) unexpected exceptions. See http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/ArchitectureInDetail/WebApplicationDetail/ExceptionHandling.html[Exception Handling] section.
+
+* `ExceptionLoggingFilter` to log exceptions that are out of the boundaries of Spring MVC (and, hence that are not being handled by `HandlerExceptionResolverLoggingInterceptor`). See http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/ArchitectureInDetail/WebApplicationDetail/ExceptionHandling.html#basic-flow-when-the-servlet-container-handles-the-exception-at-web-application-level[Basic flow then the servlet container handles the exception at web application level] section.
+
+* To improve traceability by correlating all the logging of the same request or user, the Servlet filters `MDCClearFilter` and `XTrackMDCPutFilter` are set up following the http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/ArchitectureInDetail/GeneralFuncDetail/Logging.html#using-mdc[Mapped Diagnostics Context (MDC)] section.

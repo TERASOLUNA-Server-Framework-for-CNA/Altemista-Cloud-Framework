@@ -1,0 +1,16 @@
+
+:fragment:
+
+== Migrating to {framework} 1.1.x
+
+=== Presentation layer features decoupled from the _web application_ nature
+include::{basedir}/cloud-altemistafwk-webapp-conf/migration_11x.adoc[leveloffset=+2]
+
+=== Environment-aware properties priorities
+include::{basedir}/cloud-altemistafwk-core/migration_11x.adoc[leveloffset=+2]
+
+=== Spring Data JPA-based persistence
+include::{basedir}/cloud-altemistafwk-core-persistence-jpa-hibernate-conf/migration_11x.adoc[leveloffset=+2]
+
+=== Spring Data MongoDB-based persistence
+include::{basedir}/cloud-altemistafwk-core-persistence-mongodb-conf/migration_11x.adoc[leveloffset=+2]

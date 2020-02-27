@@ -1,0 +1,104 @@
+
+:fragment:
+
+
+== {framework} SVN layout
+
+The SVN repository layout follows the usual layout, except for a `tasks` folder, and follows the "always-branch" approach:
+
+* `trunk` contains the next version as SNAPSHOT. No direct work will be done on trunk. Actual `pom.xml` files will have the next revision number set (e.g.: `v1.1.0-SNAPSHOT`).
+
+* `branches` contain the already releases versions as SNAPSHOT, and the branch name has no revision number (e.g.: `v1.0.x`). No direct work will be done on branches. Actual `pom.xml` files will have the next revision number set. Actual `pom.xml` files will have the next revision number set (e.g.: `v1.0.1-SNAPSHOT`).
+
+* `tags` contain the actual released versions, as RELEASES, and with revision number (e.g.: `v1.0.0.RELEASE`). `pom.xml` files have the same version (e.g.: `v1.0.0.RELEASE`).
+
+* `tasks` contain working versions, one per task to perform. `pom.xml` files have the same version number as the original branch (e.g.: `v1.1.0-SNAPSHOT` or `v1.0.1-SNAPSHOT). 
+
+
+== Opening a new task (branching)
+
+Depending of the type of the task, it will be originated from different source:
+
+* For bugs and vulnerabilities, it will be created from the proper branch (or trunk), or from the specific tag if it is not possible to replicate the problem using the branch.
+
+* For improvements and new features, the task will be usually created from the current version (i.e.: trunk), but in some scenarios it may be possible to create the task from a previous branch.
+
+The name of the `tasks` is expected to follow the schema `<version>_<type>_<short name>`. Using the example `v1.0.x_impr_devGuide`:
+
+* `v1.0.x` is the name of the source branch. This will also help to prevent merging the task in the wrong branches.
+
+* `impr` implies that the task is an improvement. Other codes are: `fix` (for fixing bugs and vulnerabilities), `feat`(for features), and maybe others if necessary. This can also help to prevent merging the task in the wrong branches.
+
+* `devGuide` is a short name to know the contents of the task (improvements in the developers guide). For tasks motivated by issues, use the issue ID from the JIRA.
+
+Examples:
+
+* `v1.0.x_impr_devGuide` (previous to have JIRA issue tracker available)
+* `v1.0.x_fix_TSFPLUS-1`
+* `v1.1.x_impr_TSFPLUS-8`
+* `v1.1.x_feat_microservices`
+
+== Finishing a task (merging)
+
+Depending on the type of the task, the merge can follow different procedures.
+
+Improvements and new feature tasks will be usually merged on trunk:
+
+.Merging an improvement or feature task
+image::cloud-altemistafwk-documentation/developers/svn_task.png[align="center"]
+
+Bugfix and vulnerability tasks will be merged to the source branch and subsequent branches (including trunk):
+
+.Merging an bugfix or vulnerability task
+image::cloud-altemistafwk-documentation/developers/svn_task_not_latest.png[align="center"]
+
+Please note that, if the improvement or new feature braks backward compatibility, it is necessary to review and upgrade the version number of the branches (e.g.: from `v1.1.x` to `v2.0.x`). This *must* be done before the merge. In some scenarios, if the next version already exist, the task will be merged to the existing branch and simply skip the original version.
+
+.Merging a feature task that breaks backwards compatibility
+image::cloud-altemistafwk-documentation/developers/svn_task_major_version.png[align="center"]
+
+
+=== Checklist
+
+*Before* performing a merge, all the items of the following checklist *must* be validated:
+
+- [*] The source code is propely documented (Javadoc), and all the files has the proper copyright notice.
+
+- [*] Unit test have been written and are passing. Integration tests have been written and are passing for all the environments.
+
+- [*] Any new runtime artifact is correctly versioned in the framework BOM, and referenced to into build scripts. Any new archetype is correctly referenced into build scripts.
+
+- [*] The plug-in includes the proper dependencies or achetypes in the YAML configuration files.
+
+- [*] Documentation of the new feature is written, and properly referenced in the _Reference documentation_ (and in the _Getting started_ guide if necessary).
+
+- [*] The new feature is documented in the _changelog_ section of the _Reference documentation_.
+
+
+== Releasing a version
+
+In order to promote a SNAPSHOT branch to a RELEASE tag, follow the next procedure:
+
+. Upgrade to the proper `x.y.z.RELEASE` version all the `pom.xml` files *except* for the plug-in, installer, demos (i.e.: the _n + 1_ build scripts, BOM, recommended-plugins, and other parents, framework artifacts, and framework archetypes).
+
+	* For the demo application, upgrade the version of the framework, but keep the application as `1.0.0-SNAPSHOT`.
+
+	* For the plug-in, upgrade the version of the `{asterisk}-config` and `{asterisk}-eclipse` project, but keep the version of the `{asterisk}-core` project (as it is not necessary to upgrade it). Verify the new version is correctly defined in the `versions.yaml`. Rebuild and export the new plug-in.
+
+	* For the installer, include the dependency to the documentation of the new release, and the proper entry in the NSIS installer script. Rebuild the installers.
+
+. Commit to the branch.
+
+. Create the tag from the branch, and deploy the artifacts (as described in the next section).
+
+. Upgrade all the `pom.xml` files again to the next `x.y.z-SNAPSHOT` version.
+
+. Commit to the branch.
+
+.Releasing a version
+image::cloud-altemistafwk-documentation/developers/svn_release.png[align="center"]
+
+As the plug-in and the installer have a very different lifecycle (e.g.: only the last version gets published), changes done in the plug-in (namely: the addition of the new version) and the installer (namely: the addition of the new version documentation) *must* be merged in the subsequent branches (e.g.: if the new version appears in the branch `v1.1.x`, then it needs to be merged into `v1.2.x`, `v1.3.x`, `v2.0.x`, etc.).
+
+.Merging a release in subsequent versions
+image::cloud-altemistafwk-documentation/developers/svn_release_not_latest.png[align="center"]

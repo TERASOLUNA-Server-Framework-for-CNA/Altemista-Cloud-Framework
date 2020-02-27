@@ -1,0 +1,76 @@
+
+:fragment:
+
+////
+	Note: this fragment uses the _ifndef_ conditional preprocessor directive
+	to exclude advanced topics if _getting-started_ is defined
+////
+
+This feature offers out-of-the-box support for relational databases using https://en.wikipedia.org/wiki/SQL[SQL] statemens through the http://www.mybatis.org/mybatis-3/[MyBatis framework].
+
+MyBatis, unlike O/RM frameworks, does not map Java objects to database tables but Java methods to SQL statements. This allows to easily use all the database functionality like stored procedures, views, queries of any complexity and vendor proprietary features. As there is no 1:1 model to tables relationship, favors working with legacy or de-normalized databases, or to obtain full control of SQL execution.
+
+Being the model no longer tied to the database schema also favors applying the https://en.wikipedia.org/wiki/Command%E2%80%93query_separation#Command_query_responsibility_segregation[Command query reponsibility segregation] principle.
+
+== Repositories 
+
+Repositories are called _mappers_. Mappers are actually Java interfaces bound to mapped statements. The most usual way for declaring the actual mapped statements is to use mapper files:
+
+[source,xml,options="nowrap"]
+.com/mycompany/application/module/repository/DemoMapper.xml
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-mybatis-conf/src/test/java/com/mycompany/application/module/repository/DemoMapper.xml[]
+----
+<1> The namespace of the mapper. Matches the qualified name of the Java interface bound to this mapper.
+<2> The name of the methods of the Java interface will be mapped according the id of the sentences.
+
+To invoke the mapper statements, define the mapper interface (i.e.: the repository) as follows:
+
+[source]
+.com/mycompany/application/module/repository/DemoMapper.java
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-mybatis-conf/src/test/java/com/mycompany/application/module/repository/DemoMapper.java[tags=example]
+----
+
+{framework} provides most of the necessary infrastructure required for MyBatis to create instances of the repository interfaces. The required <<cloud-altemistafwk-core-persistence-mybatis-conf-configuration,configuration>> in the application side is also provided by the {framework} plug-in (or Maven archetype). So, in order to use the repository, simply autowire it where necessary:
+
+[source]
+.com/mycompany/application/module/service/DemoService.java
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-mybatis-conf/src/test/java/com/mycompany/application/module/service/DemoService.java[tags=example]
+----
+<1> Use `@Transactional` to declare the transaction boundaries.
+<2> Autowired repository instance.
+
+== MyBatis Generator
+
+http://www.mybatis.org/generator/[MyBatis Generator] (MBG) is a code generator for MyBatis. It will introspect database tables and will generate artifacts that can be used to access the tables. This lessens the initial nuisance of setting up objects and configuration files to interact with simple CRUD (_Create, Retrieve, Update, Delete_).
+
+When installing the feature using the {framework} plug-in, the MyBatis Generator will be automatically included.
+
+The MyBatis Generator is not meant to be run in each compilation, but to be manually triggered to create the initial version of the entities and mappers that will probably be modified (and, hence, are to be included in source control).
+
+With the default configuration given by {framework}, activate the Maven profile `generate-mybatis-sources` to run MyBatis Genrator:
+
+[source,shell]
+----
+mvn -Pgenerate-mybatis-sources generate-sources
+----
+
+The configuration will be read from the `generatorConfig.xml` file (also included by the plug-in). Read the <<cloud-altemistafwk-core-persistence-mybatis-conf-configuration-generator,MyBatis Generator configuration>> section for details.
+
+ifndef::getting-started[]
+== Dynamic querying
+
+The infrastructure provided by {frameowork} also includes dynamic querying using the _example_ classes created by the MyBatis Generator.
+
+Use the example classes as shown in the next example:
+
+[source]
+.com/mycompany/application/module/service/DemoService.java
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-mybatis-conf/src/test/java/com/mycompany/application/module/service/DemoTableService.java[tags=example]
+----
+
+TIP: For more examples and detailed information, please refer to the http://www.mybatis.org/generator/generatedobjects/exampleClassUsage.html[MyBatis Generator Example Class Usage Notes].
+endif::getting-started[]

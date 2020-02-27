@@ -1,0 +1,116 @@
+
+:fragment:
+
+Spring has a broad support of data access technologies built on top of JDBC like *JdbcTemplate* and dedicated ORM (JPA, Hibernate support). Spring Cloud AWS enables application developers to re-use their JDBC technology of choice and access the Amazon Relational Database Service with a declarative configuration. The main support provided by Spring Cloud AWS for JDBC data access are:
+
+- Automatic data source configuration and setup based on the Amazon RDS database instance.
+- Automatic read-replica detection and configuration for Amazon RDS database instances.
+- Retry-support to handle exception during Multi-AZ failover inside the data center.
+
+
+From {framework} give some basic configurations in order to start using quickly.
+
+= Amazon console
+
+We need to add our IP in order to connect to the database. If we go to our AWS console, in our database, in connectivity tab:
+
+image::cloud-altemistafwk-documentation/amazon/connectivity.png[align="center"]
+
+Click on VPC security groups and edit it:
+
+image::cloud-altemistafwk-documentation/amazon/vpc.png[align="center"]
+
+Add your IP there:
+
+image::cloud-altemistafwk-documentation/amazon/ip.png[align="center"]
+
+Now you can see your IP on the list
+
+image::cloud-altemistafwk-documentation/amazon/list.png[align="center"]
+
+Finally, if you want to retrieve your aws credentials, please go to this https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_passwords_admin-change-user.html[site^]
+
+
+
+= Configuration
+
+In the following paragraphs you can see the configuration we provide from {framework}. It is neccesary to add the data source here in order to connect to the database. In the demo part, you could see an example.
+[source,xml,options="nowrap"]
+./my-application-module-core/src/main/resources/spring/my-application-module-core-amazon-rds.xml
+----
+
+	<aws-context:context-credentials>
+		<aws-context:simple-credentials
+			access-key="#{systemEnvironment['AWS_ACCESS_KEY_ID'] }" secret-key="#{systemEnvironment['AWS_SECRET_ACCESS_KEY'] }" />	<!--1-->
+	</aws-context:context-credentials>
+
+	<aws-context:context-region region="#{systemEnvironment['AWS_DEFAULT_REGION'] }" />	<!--2-->
+
+	<jpa:repositories base-package=".....repository" transaction-manager-ref="jpaTransactionManager" /> <!--3-->
+	
+----
+<1> *SDK credentials configuration*: allow to assign a profile that is authorized by a role while starting an EC2 instance .
+
+<2> *Region configuration*: usually our region should be "eu-west-1".
+
+<3> *Repository packages*: where we locate the repository java classes.
+
+Furthermore, we provide a property file where you can change some configurations about database:
+
+[source,property,options="nowrap"]
+./new-application-rds-env.properties
+----
+
+# Specify the target database to operate on: DB2, DERBY, H2, HSQL, INFORMIX, MYSQL, ORACLE, POSTGRESQL, SQL_SERVER, SYBASE
+# *.persistence.jpa.database=DEFAULT
+
+# Set whether to generate DDL after the EntityManagerFactory has been initialized, creating/updating all relevant tables
+# *.persistence.jpa.generateDdl=false
+
+# Set whether to show SQL in the log
+# *.persistence.jpa.showSql=false
+
+# Specify base packages to search here by Spring-based scanning (no persistence.xml needed)
+*.persistence.jpa.packagesToScan=com.mycompany.application.*.entity
+----
+
+And finally we will add the packages *repository* and *entity* where you can located your custom java classes.
+
+== Other databases
+
+ACF RDS feature, it is prepared to work with MySQL database but if you want to work with others you will need to add the following dependencies:
+
+- MariaDB
+
+[source,xml,options="nowrap"]
+./my-application-module-core/pom.xml
+----
+<dependency>
+    <groupId>org.mariadb.jdbc</groupId>
+	<artifactId>mariadb-java-client</artifactId>
+</dependency>
+----
+
+- PostgreSQL
+
+[source,xml,options="nowrap"]
+./my-application-module-core/pom.xml
+----
+<dependency>
+    <groupId>org.postgresql</groupId>
+	<artifactId>postgresql</artifactId>
+</dependency>
+----
+
+- Microsoft SQL Server
+
+[source,xml,options="nowrap"]
+./my-application-module-core/pom.xml
+----
+<dependency>
+    <groupId>com.microsoft.sqlserver</groupId>
+	<artifactId>mssql-jdbc</artifactId>
+	<version>6.4.0.jre8</version>
+</dependency>
+---- 
+

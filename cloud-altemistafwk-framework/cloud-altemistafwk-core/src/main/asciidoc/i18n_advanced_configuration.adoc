@@ -1,0 +1,60 @@
+:fragment:
+
+To advanced configuration to configure the language of your application. You must add an interceptor bean.
+
+
+src/main/resources/spring/your_name_projet-env.xml 
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" //add this
+	 xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd"> //add this
+
+	.....
+	
+	<!-- Locale Change Interceptor to achieve internationalization. -->
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/locale" /> // <1>
+			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+				<property name="paramName" value="lang"></property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+	</bean>
+	
+	.......
+
+</beans>
+----
+<1> configure your path to intercept the lang value
+
+You must add a method that returns your home page, to take the language changes.
+
+[source]
+----
+@Controller
+public class LocaleController {
+ 
+   private static final Logger logger = LoggerFactory.getLogger(LocaleController.class);
+	
+   @RequestMapping(value = "/locale", method = RequestMethod.GET)
+   public String getLocalePage(Locale locale){
+	   logger.info(" The client locale is {}.", locale);
+       return "index.jsp";
+   }
+   
+   ......
+----
+
+And run for example:
+http://localhost:8080/your-app-name/locale?lang=en
+

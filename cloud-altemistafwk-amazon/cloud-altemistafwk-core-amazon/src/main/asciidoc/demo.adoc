@@ -1,0 +1,39 @@
+
+:fragment:
+
+*ALTEMISTA Cloud Framework* ({framework}) provides the features to build an application using AWS components.
+
+On this tutorial we will make a four applications :
+
+* Relational Database Service(RDS)
+* Simple Storage Service(S3)
+* Simple Email Service(SES)
+* Simple Queueing Service(SQS)
+
+We will explain how to configure your application and how to set up your AWS account in order to use these demos.
+For more information about AWS feature go to this https://terasoluna.everis.com/dev/TSFplus%20Reference%20Documentation.html#_amazon_web_services[link].
+
+
+NOTE: At the end of this document you will be able to link the example code in the svn. <<demo-resources>>
+
+== RDS
+
+include::{basedir}/cloud-altemistafwk-core-amazon/demo/rds_demo.adoc[]
+
+== S3
+
+include::{basedir}/cloud-altemistafwk-core-amazon/demo/s3_demo.adoc[]
+
+== SES
+
+include::{basedir}/cloud-altemistafwk-core-amazon/demo/ses_demo.adoc[]
+
+== SQS
+
+include::{basedir}/cloud-altemistafwk-core-amazon/demo/sqs_demo.adoc[]
+
+
+[[demo-resources]]
+== Demo resources
+
+include::{basedir}/cloud-altemistafwk-core-amazon/demo/resources.adoc[]

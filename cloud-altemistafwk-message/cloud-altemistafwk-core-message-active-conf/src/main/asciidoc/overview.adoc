@@ -1,0 +1,71 @@
+
+:fragment:
+
+{framework} Message Broker Features lets your project incorporate http://activemq.apache.org[ActiveMQ^] easily.  Apache ActiveMQ is an open source message broker written in Java together with a full Java Message Service (JMS) client. It needs to be highly available and dynamically scalable to facilitate communication between dynamic heterogeneous distributed applications which have varying capacity needs. 
+
+Scaling enterprise applications on commodity hardware is a rage nowadays. ActiveMQ caters to that very well by being able to create a network of brokers to share the load.
+From {framework} give some basic configurations in order to start using quickly.
+
+
+= One To One
+
+In the following paragraphs you can see the configuration we provide from {framework} using JMSTemplate in order to set up a infrastructure configuration. You can change it if you need it..
+[source,xml,options="nowrap"]
+./my-application-module-core/src/main/resources/spring/my-application-module-core-active.xml
+----
+
+	<!-- Activemq connection factory -->
+	<bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory"> <!--1-->
+		<constructor-arg index="0" value="${jms.broker.user}" />
+		<constructor-arg index="1" value="${jms.broker.pass}" />
+		<constructor-arg index="2" value="${jms.broker.url}" />
+	</bean>
+
+
+	<!-- ConnectionFactory Definition -->
+	<bean id="connectionFactory"
+		class="org.springframework.jms.connection.CachingConnectionFactory">
+		<constructor-arg ref="amqConnectionFactory" />
+	</bean>
+
+	<!-- Default Destination Queue Definition -->
+	<bean id="defaultDestination" class="org.apache.activemq.command.ActiveMQQueue"> <!--2-->
+		<constructor-arg index="0" value="${jms.queue.name}" />
+	</bean>
+
+	<!-- JmsTemplate Definition For One To One -->
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate"> <!--3-->
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestination" ref="defaultDestination" />
+	</bean>
+	
+----
+<1> *ActiveMQ Connection Factory*: Convenience "factory" class to facilitate opening a Connection .
+
+<2> *ActiveMQ Queue*: ActiveMQ Queue configuration bean.
+
+<3> *JMS Template*: Helper class that simplifies synchronous JMS access (sending and receiving messages).
+
+And now, you can configure all the infrastructure properties in 
+
+[source,properties,options="nowrap"]
+./my-application-env/src/main/resources/config/properties/my-application-message-active-env.properties
+----
+#
+# ActiveMQ File Feature Properties
+#
+.
+# Set the mail server host, typically an SMTP host.
+*.jms.broker.url=tcp://localhost:61616
+
+# Set username.
+*.jms.broker.user=admin
+
+# Set password.
+*.jms.broker.pass=admin
+
+# Set the queue name to send/recieve messages.
+*.jms.queue.name=testqueue
+*
+----
+=

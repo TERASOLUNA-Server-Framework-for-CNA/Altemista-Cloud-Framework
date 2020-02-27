@@ -1,0 +1,2 @@
+The EhCache module is installed throw the framework plugin as we explain in the installation of
+general Cache module, specifying EhCache as Implementation.

@@ -1,0 +1,733 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.framework</groupId>
+		<artifactId>cloud-altemistafwk-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+
+	<artifactId>cloud-altemistafwk-documentation</artifactId>
+	<packaging>pom</packaging>
+	<name>cloud-altemistafwk framework: documentation</name>
+	<description>Contains the documentation for the ACF framework</description>
+
+	<dependencies>
+
+		<!-- ACF natures reference -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-web-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-webapp-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-boot-conf</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: Asynchornous and scheduled executions -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.async</groupId>
+			<artifactId>cloud-altemistafwk-core-async-conf</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: Batch processing -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.batch</groupId>
+			<artifactId>cloud-altemistafwk-core-batch-spring-conf</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: Business process management (BPM) -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.workflow</groupId>
+			<artifactId>cloud-altemistafwk-core-workflow</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.workflow</groupId>
+			<artifactId>cloud-altemistafwk-core-workflow-activiti-conf</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: Business Rules Management (BRM) -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.rules</groupId>
+			<artifactId>cloud-altemistafwk-core-rules-drools-conf</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: Cache -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.cache</groupId>
+			<artifactId>cloud-altemistafwk-core-cache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.cache</groupId>
+			<artifactId>cloud-altemistafwk-core-cache-spring-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.cache</groupId>
+			<artifactId>cloud-altemistafwk-core-cache-ehcache-conf</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: Connectivity utilities -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.connection</groupId>
+			<artifactId>cloud-altemistafwk-common-connection</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: Cryptography utilities -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.cryptography</groupId>
+			<artifactId>cloud-altemistafwk-common-cryptography</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: Mail server -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.mail</groupId>
+			<artifactId>cloud-altemistafwk-core-mail-javamail-conf</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: Monitoring -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.monitoring</groupId>
+			<artifactId>cloud-altemistafwk-core-monitoring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.monitoring</groupId>
+			<artifactId>cloud-altemistafwk-web-monitoring</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: Performance -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.performance</groupId>
+			<artifactId>cloud-altemistafwk-app-performance-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.performance</groupId>
+			<artifactId>cloud-altemistafwk-app-performance-jdbc-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.performance</groupId>
+			<artifactId>cloud-altemistafwk-app-performance-web-conf</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: Persistence -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.persistence</groupId>
+			<artifactId>cloud-altemistafwk-core-persistence-jpa-hibernate-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.persistence</groupId>
+			<artifactId>cloud-altemistafwk-core-persistence-mongodb-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.persistence</groupId>
+			<artifactId>cloud-altemistafwk-core-persistence-mybatis-conf</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: Presentation layer -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.webapp.modules</groupId>
+			<artifactId>cloud-altemistafwk-webapp-common-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.webapp.modules</groupId>
+			<artifactId>cloud-altemistafwk-webapp-jsp-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.webapp.modules</groupId>
+			<artifactId>cloud-altemistafwk-webapp-jsf-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.webapp.modules</groupId>
+			<artifactId>cloud-altemistafwk-webapp-tiles-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.webapp.modules</groupId>
+			<artifactId>cloud-altemistafwk-webapp-webflow-conf</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: Reporting -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.reporting</groupId>
+			<artifactId>cloud-altemistafwk-core-reporting-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.reporting</groupId>
+			<artifactId>cloud-altemistafwk-core-reporting-jasper-conf</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: REST web services consumer / publisher -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.rest</groupId>
+			<artifactId>cloud-altemistafwk-common-rest</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: Security -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.security</groupId>
+			<artifactId>cloud-altemistafwk-core-security-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.security</groupId>
+			<artifactId>cloud-altemistafwk-web-security-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.security</groupId>
+			<artifactId>cloud-altemistafwk-app-security-conf</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: Security: OAuth 2.0 -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.oauth2</groupId>
+			<artifactId>cloud-altemistafwk-core-oauth2-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.oauth2</groupId>
+			<artifactId>cloud-altemistafwk-app-oauth2-authzsrv-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.oauth2</groupId>
+			<artifactId>cloud-altemistafwk-app-oauth2-ressrv-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.oauth2</groupId>
+			<artifactId>cloud-altemistafwk-app-oauth2-client-conf</artifactId>
+		</dependency>
+		<!-- ACF features reference: Security: Jwt over OAuth 2.0 -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.jwt</groupId>
+			<artifactId>cloud-altemistafwk-core-jwt-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.jwt</groupId>
+			<artifactId>cloud-altemistafwk-app-jwt-authzsrv-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.jwt</groupId>
+			<artifactId>cloud-altemistafwk-app-jwt-ressrv-conf</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: SOAP client/server -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.soap</groupId>
+			<artifactId>cloud-altemistafwk-common-soap-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.soap</groupId>
+			<artifactId>cloud-altemistafwk-core-soap-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.soap</groupId>
+			<artifactId>cloud-altemistafwk-core-soap-wss-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.soap</groupId>
+			<artifactId>cloud-altemistafwk-web-soap-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.soap</groupId>
+			<artifactId>cloud-altemistafwk-web-soap-wss-conf</artifactId>
+		</dependency>
+
+		<!-- Testing ACF applications -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-test</artifactId>
+		</dependency>
+
+		<!-- ACF features reference: Microservices -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-microservice-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-microservice-infrastructure-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-microservice-application-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.microservices</groupId>
+			<artifactId>cloud-altemistafwk-core-microservices</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.microservices</groupId>
+			<artifactId>cloud-altemistafwk-core-microservices-config-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.microservices</groupId>
+			<artifactId>cloud-altemistafwk-core-microservices-registry-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.microservices</groupId>
+			<artifactId>cloud-altemistafwk-core-microservices-gateway-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.microservices</groupId>
+			<artifactId>cloud-altemistafwk-core-microservices-monitoring-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.microservices</groupId>
+			<artifactId>cloud-altemistafwk-core-microservices-zipkin-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.microservices</groupId>
+			<artifactId>cloud-altemistafwk-core-microservices-hystrix-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.microservices</groupId>
+			<artifactId>cloud-altemistafwk-core-microservices-sleuth-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.microservices</groupId>
+			<artifactId>cloud-altemistafwk-core-microservices-bus-conf</artifactId>
+		</dependency>
+		<!-- ACF features reference: Integration -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.integration</groupId>
+			<artifactId>cloud-altemistafwk-core-integration</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.integration</groupId>
+			<artifactId>cloud-altemistafwk-core-integration-amqp-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.integration</groupId>
+			<artifactId>cloud-altemistafwk-core-integration-file-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.integration</groupId>
+			<artifactId>cloud-altemistafwk-core-integration-ftp-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.integration</groupId>
+			<artifactId>cloud-altemistafwk-core-integration-http-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.integration</groupId>
+			<artifactId>cloud-altemistafwk-core-integration-jms-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.integration</groupId>
+			<artifactId>cloud-altemistafwk-core-integration-jmx-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.integration</groupId>
+			<artifactId>cloud-altemistafwk-core-integration-jpa-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.integration</groupId>
+			<artifactId>cloud-altemistafwk-core-integration-mail-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.integration</groupId>
+			<artifactId>cloud-altemistafwk-core-integration-mqtt-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.integration</groupId>
+			<artifactId>cloud-altemistafwk-core-integration-resource-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.integration</groupId>
+			<artifactId>cloud-altemistafwk-core-integration-rmi-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.integration</groupId>
+			<artifactId>cloud-altemistafwk-core-integration-sftp-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.integration</groupId>
+			<artifactId>cloud-altemistafwk-core-integration-ip-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.integration</groupId>
+			<artifactId>cloud-altemistafwk-core-integration-ws-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.integration</groupId>
+			<artifactId>cloud-altemistafwk-core-integration-websocket-conf</artifactId>
+		</dependency>
+		<!-- ACF features reference: Swagger -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.swagger</groupId>
+			<artifactId>cloud-altemistafwk-core-swagger</artifactId>
+		</dependency>
+		<!-- == ACF features reference: Swagger == -->
+
+		<!-- == Begin Message broker == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.message</groupId>
+			<artifactId>cloud-altemistafwk-core-message</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.message</groupId>
+			<artifactId>cloud-altemistafwk-core-message-active</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.message</groupId>
+			<artifactId>cloud-altemistafwk-core-message-rabbit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.message</groupId>
+			<artifactId>cloud-altemistafwk-core-message-active-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.message</groupId>
+			<artifactId>cloud-altemistafwk-core-message-rabbit-conf</artifactId>
+		</dependency>
+		<!-- == End Message Broker == -->
+
+		<!-- ACF features reference: Docker -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.docker</groupId>
+			<artifactId>cloud-altemistafwk-core-docker</artifactId>
+		</dependency>
+		<!-- == ACF features reference: Docker == -->
+
+		<!-- ACF features reference: Spring Cloud Stream -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.stream</groupId>
+			<artifactId>cloud-altemistafwk-core-stream</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.stream</groupId>
+			<artifactId>cloud-altemistafwk-core-stream-kafka</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.stream</groupId>
+			<artifactId>cloud-altemistafwk-core-stream-kafka-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.stream</groupId>
+			<artifactId>cloud-altemistafwk-core-stream-rabbit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.stream</groupId>
+			<artifactId>cloud-altemistafwk-core-stream-rabbit-conf</artifactId>
+		</dependency>
+		<!-- == ACF features reference: Spring Cloud Stream == -->
+
+		<!-- ACF features reference: Altemista -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.altemista</groupId>
+			<artifactId>cloud-altemistafwk-core-altemista</artifactId>
+		</dependency>
+		<!-- == ACF features reference: Altemista == -->
+		
+		<!-- == Begin Amazon == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.amazon</groupId>
+			<artifactId>cloud-altemistafwk-core-amazon</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.amazon</groupId>
+			<artifactId>cloud-altemistafwk-core-amazon-s3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.amazon</groupId>
+			<artifactId>cloud-altemistafwk-core-amazon-s3-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.amazon</groupId>
+			<artifactId>cloud-altemistafwk-core-amazon-ses</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.amazon</groupId>
+			<artifactId>cloud-altemistafwk-core-amazon-ses-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.amazon</groupId>
+			<artifactId>cloud-altemistafwk-core-amazon-rds</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.amazon</groupId>
+			<artifactId>cloud-altemistafwk-core-amazon-rds-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.amazon</groupId>
+			<artifactId>cloud-altemistafwk-core-amazon-sqs</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.amazon</groupId>
+			<artifactId>cloud-altemistafwk-core-amazon-sqs-conf</artifactId>
+		</dependency>
+		<!-- == End Amazon == -->
+		
+		<!-- ACF features reference: Azure -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.azure</groupId>
+			<artifactId>cloud-altemistafwk-core-azure</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.azure</groupId>
+			<artifactId>cloud-altemistafwk-core-azure-active-directory</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.azure</groupId>
+			<artifactId>cloud-altemistafwk-core-azure-active-directory-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.azure</groupId>
+			<artifactId>cloud-altemistafwk-core-azure-key-vault</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.azure</groupId>
+			<artifactId>cloud-altemistafwk-core-azure-key-vault-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.azure</groupId>
+			<artifactId>cloud-altemistafwk-core-azure-storage</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.azure</groupId>
+			<artifactId>cloud-altemistafwk-core-azure-storage-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.azure</groupId>
+			<artifactId>cloud-altemistafwk-core-azure-support-bus</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.azure</groupId>
+			<artifactId>cloud-altemistafwk-core-azure-support-bus-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.azure</groupId>
+			<artifactId>cloud-altemistafwk-core-azure-support-cosmos</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.azure</groupId>
+			<artifactId>cloud-altemistafwk-core-azure-support-cosmos-conf</artifactId>
+		</dependency>
+		<!-- == ACF features reference: Azure == -->
+		
+		<!-- ACF features reference: Thymeleaf -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.thymeleaf</groupId>
+			<artifactId>cloud-altemistafwk-core-thymeleaf-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.webapp.modules</groupId>
+			<artifactId>cloud-altemistafwk-webapp-thymeleaf-conf</artifactId>
+		</dependency>
+		<!-- == ACF features reference: Thymeleaf == -->		
+
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<!-- Imports asciidoc bundles from the dependencies -->
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+
+					<!-- This project does not generate an asciidoc bundle -->
+					<execution>
+						<id>import-asciidoc-assembly-descriptor</id>
+						<phase />
+					</execution>
+
+					<!-- Imports asciidoc bundles from the dependencies -->
+					<execution>
+						<id>import-asciidoc</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeGroupIds>cloud.altemista.fwk</includeGroupIds>
+							<excludeTransitive>true</excludeTransitive>
+							<classifier>asciidoc</classifier>
+							<type>zip</type>
+							<outputDirectory>${project.build.directory}/generated-resources</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+
+					<!-- Copies this project asciidoc as if it was a asciidoc bundle from 
+						a dependency -->
+					<execution>
+						<id>copy-asciidoc</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<outputDirectory>${project.build.directory}/generated-resources/asciidoc/${project.artifactId}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/asciidoc</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-asciidoc-images</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<outputDirectory>${project.build.directory}/generated-resources/images/${project.artifactId}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/images</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-asciidoc-resources</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<outputDirectory>${project.build.directory}/generated-resources/resources/${project.artifactId}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/resources</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+
+					<!-- Alternatively, use the :data-uri: macro to embed the images as 
+						base64 into the HTML -->
+					<execution>
+						<id>prepare-assembly-html</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/generated-docs/images</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.build.directory}/generated-resources/images</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>prepare-assembly-html-resources</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/generated-docs/resources</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.build.directory}/generated-resources/resources</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Compiles the asciidoc, generating the documentation in HTML5 format, 
+				and bundles it -->
+			<plugin>
+				<groupId>org.asciidoctor</groupId>
+				<artifactId>asciidoctor-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>compile-asciidoc-html</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>process-asciidoc</goal>
+						</goals>
+						<configuration>
+							<backend>html5</backend>
+							<!-- While the book doctype seems to fit better, there is no chapter 
+								numbering and the toc gets confusing. <doctype>book</doctype> -->
+							<!-- WORKAROUND Currently, the configuration option sourceDocumentName 
+								does not support multiple files, so we are using the folder "guides" to declare 
+								the multiple roots for the different documents <sourceDocumentName>index.adoc</sourceDocumentName> -->
+							<sourceDirectory>${basedir}/src/main/asciidoc/guides</sourceDirectory>
+							<baseDir>${project.build.directory}/generated-resources/asciidoc</baseDir>
+							<attributes>
+
+								<!-- == AsciiDoc / Asciidoctor properties == -->
+								<icons>font</icons>
+								<sectanchors>true</sectanchors>
+								<sectnums>true</sectnums>
+								<sectnumlevels>4</sectnumlevels>
+								<stylesheet>${project.artifactId}/cloud-altemistafwk-documentation.css</stylesheet>
+								<toc>left</toc>
+								<toclevels>3</toclevels>
+
+								<source-highlighter>coderay</source-highlighter>
+								<source-language>java</source-language>
+								<source-indent>0</source-indent>
+
+								<!-- experimental enables: keyboard shortcuts macro (kbd:[]), menu 
+									selections (menu:[]), UI buttons (btn:[]) -->
+								<experimental>true</experimental>
+
+								<!-- == Custom properties == -->
+								<!-- baseDir is passed as an attribute to normalize includes -->
+								<basedir>${project.build.directory}/generated-resources/asciidoc</basedir>
+								<project-version>${project.version}</project-version>
+								<terasoluna-version>5.2.0.RELEASE</terasoluna-version>
+								<framework>ACF</framework>
+								<author>Center of Excellence ALTEMISTA Cloud Framework</author>
+								<email>tsfplus@everis.com</email>
+								<updatesite>https://terasoluna.everis.com/update-site/</updatesite>
+
+							</attributes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+
+					<!-- This project does not generate an asciidoc bundle -->
+					<execution>
+						<id>export-asciidoc</id>
+						<phase />
+					</execution>
+
+					<execution>
+						<id>assembly-html</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>src/assembly/html.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:oauth2="http://www.springframework.org/schema/security/oauth2"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd">
+	
+	<!--tag::internals[]-->
+	<!-- Declares the security filter for the OAuth 2.0 Client -->
+	<oauth2:client id="oauth2ClientContextFilter" />
+	<!--end::internals[]-->
+	
+	<!-- Detailed information of the resource to be accessed (using Client credentials grant flow),
+		and the actual RestTemplate object are to be provided by the application.
+		E.g.:
+	<oauth2:resource id="authorizationCodeResource"
+			type="authorization_code"
+			client-id="example" client-secret="3Zeh4eNw" scope="EXAMPLE"
+			access-token-uri="http://{authorizationserver}/oauth/token"
+			user-authorization-uri="http://{authorizationserver}/oauth/authorize"
+			pre-established-redirect-uri="http://{resourceserver}/" 
+		/>
+	<oauth2:rest-template id="authorizationCodeRestTemplate" resource="authorizationCodeResource" />
+	 -->
+
+</beans>

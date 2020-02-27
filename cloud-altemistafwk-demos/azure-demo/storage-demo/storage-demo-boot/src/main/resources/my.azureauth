@@ -1,0 +1,12 @@
+{
+  "clientId": "c38d5003-949c-4036-84e4-549fc231ea81",
+  "clientSecret": "0787e3f9-5d9c-4694-9f6f-67fa802e8b67",
+  "subscriptionId": "cbb6a3d2-5600-46ac-93ca-ba70d3fdeda5",
+  "tenantId": "b2e22559-1383-4ef1-af2b-02d010278a17",
+  "activeDirectoryEndpointUrl": "https://login.microsoftonline.com",
+  "resourceManagerEndpointUrl": "https://management.azure.com/",
+  "activeDirectoryGraphResourceId": "https://graph.windows.net/",
+  "sqlManagementEndpointUrl": "https://management.core.windows.net:8443/",
+  "galleryEndpointUrl": "https://gallery.azure.com/",
+  "managementEndpointUrl": "https://management.core.windows.net/"
+}

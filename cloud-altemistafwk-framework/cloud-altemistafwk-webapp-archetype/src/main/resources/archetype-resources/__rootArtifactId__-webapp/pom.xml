@@ -1,0 +1,60 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>${groupId}</groupId>
+		<artifactId>${rootArtifactId}</artifactId>
+		<version>${version}</version>
+	</parent>
+	
+	<artifactId>${rootArtifactId}-webapp</artifactId>
+	<packaging>war</packaging>
+	<name>${rootArtifactId} web application (WAR) aggregator project</name>
+	
+	<dependencies>
+
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-webapp-conf</artifactId>
+		</dependency>
+		<!-- == End ACF framework == -->
+
+		<!-- == Begin ${rootArtifactId} application == -->
+		<dependency>
+			<groupId>${groupId}</groupId>
+			<artifactId>${rootArtifactId}-env</artifactId>
+		</dependency>
+		<!-- == End ${rootArtifactId} application == -->
+		
+		<!-- == Begin JavaEE APIs == -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- == End JavaEE APIs == -->
+
+	</dependencies>
+	
+	<profiles>
+	
+		<!-- == Begin JSTL support on Tomcat == -->
+		<profile>
+			<id>tomcat</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>javax.servlet</groupId>
+					<artifactId>jstl</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+		<!-- == End JSTL support on Tomcat == -->
+		
+	</profiles>
+
+</project>

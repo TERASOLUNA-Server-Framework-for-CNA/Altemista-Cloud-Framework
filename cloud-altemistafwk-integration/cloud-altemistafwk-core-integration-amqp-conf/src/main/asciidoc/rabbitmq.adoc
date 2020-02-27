@@ -1,0 +1,78 @@
+
+:fragment:
+
+In the following paragraphs you can see a RabbitMQ infrastructure configuration example.
+
+First off all, you have to configure the next RabbitMQ Spring beans in {module-name}-core/src/main/resources/spring/{module-name}-core-integration-amqp.xml
+
+[source,xml,options="nowrap"]
+./my-application-module-core/src/main/resources/spring/my-application-module-core-integration-amqp.xml
+----
+	<!-- Begin RabbitMQ Infrastructure Configuration Example -->
+
+	<rabbit:connection-factory id="rabbitConnectionFactory"
+		host="${spring.integration.amqp.rabbitmq.host}" port="${spring.integration.amqp.rabbitmq.port}"
+		username="${spring.integration.amqp.rabbitmq.username}" password="${spring.integration.amqp.rabbitmq.password}" /> <!--1-->
+
+	<rabbit:template id="rabbitTemplate"
+		connection-factory="rabbitConnectionFactory"
+		exchange="${spring.integration.amqp.rabbitmq.topic-exchange}" /> <!--2-->
+
+	<rabbit:admin connection-factory="rabbitConnectionFactory" /> <!--3-->
+
+	<rabbit:queue id="rabbitQueue"
+		name="${spring.integration.amqp.rabbitmq.queue}" /> <!--4-->
+
+	<rabbit:topic-exchange id="rabbitExchange"
+		name="${spring.integration.amqp.rabbitmq.topic-exchange}">
+		<rabbit:bindings>
+			<rabbit:binding queue="rabbitQueue"
+				pattern="${spring.integration.amqp.rabbitmq.binding.pattern}" />
+		</rabbit:bindings>
+	</rabbit:topic-exchange> <!--5-->
+
+	<!-- End RabbitMQ Infrastructure Configuration Example -->
+----
+<1> *RabbitMQ Connection Factory*: Convenience "factory" class to facilitate opening a Connection to an AMQP broker. 
+<2> *RabbitMQ Template*: Helper class that simplifies synchronous RabbitMQ access (sending and receiving messages).
+<3> *RabbitMQ Admin*: The <rabbit:admin/> declaration by default automatically looks for beans of type Queue, Exchange and Binding and declares them to the broker on behalf of the user, hence there is no need to use that bean explicitly in the simple Java driver. There are plenty of options to configure the properties of the components in the XML schema - you can use auto-complete features of your XML editor to explore them and look at their documentation.
+<4> *RabbitMQ Queue*: RabbitMQ Queue configuration bean.
+<5> *RabbitMQ Topic Exchange*: RabbitMQ Topic Exchange configuration bean.
+
+And now, you can configure all the infrastructure properties in 
+
+[source,properties,options="nowrap"]
+./my-application-env/src/main/resources/config/properties/my-application-integration-amqp-env.properties
+----
+# RabbitMQ Configuration Properties
+#
+#   - ConnectionFactory: Is the "factory" class to facilitate opening a Connection to an AMQP broker.
+#        The properties used to configure the connection factory are host, port, username and password.
+#   - RabbitTemplate: Is the helper class that simplifies synchronous RabbitMQ access 
+#        (sending and receiving messages).
+#   - Queue: Is a buffer that stores messages.
+#   - Exchange: Is a component used on one side to receive messages from producers and on the other 
+#        side it pushes them to queues.
+#
+spring.integration.amqp.rabbitmq.host=localhost
+spring.integration.amqp.rabbitmq.port=5672
+spring.integration.amqp.rabbitmq.username=guest
+spring.integration.amqp.rabbitmq.password=guest
+spring.integration.amqp.rabbitmq.queue=com.mycompany.queue
+spring.integration.amqp.rabbitmq.topic-exchange=com.mycompany.exchange
+spring.integration.amqp.rabbitmq.binding.pattern=com.mycompany.#.*
+----
+
+//
+.Spring Integration AMQP RabbitMQ Infrastructure properties
+[cols="60,40",options="header"]
+|===
+^.^|Property                                          |Description 
+^.^|spring.integration.amqp.rabbitmq.host             |The RabbitMQ Host Address
+^.^|spring.integration.amqp.rabbitmq.port             |The RabbitMQ Port Number.
+^.^|spring.integration.amqp.rabbitmq.username         |The RabbitMQ User Name.
+^.^|spring.integration.amqp.rabbitmq.password         |The RabbitMQ Password.
+^.^|spring.integration.amqp.rabbitmq.queue            |The RabbitMQ Queue.
+^.^|spring.integration.amqp.rabbitmq.topic-exchange   |The RabbitMQ Topic Exchange Name.
+^.^|spring.integration.amqp.rabbitmq.binding.pattern  |The RabbitMQ Binding Pattern.
+|===

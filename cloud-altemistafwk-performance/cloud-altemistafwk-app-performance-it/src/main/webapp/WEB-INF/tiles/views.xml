@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<!--
+		Application templates
+	 -->
+	
+	<definition name="app.page" extends="boostrap.page">
+		<put-attribute name="title" value="altemista-cloud performance module integration tests" />
+	</definition>
+
+	<!--
+		Application views
+	 -->
+	
+	<definition name="tasks" extends="app.page">
+		<put-attribute name="section" value="/WEB-INF/views/tasksPage.jsp" />
+	</definition>
+
+</tiles-definitions>

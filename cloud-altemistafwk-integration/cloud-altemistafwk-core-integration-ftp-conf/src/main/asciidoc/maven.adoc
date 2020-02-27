@@ -1,0 +1,37 @@
+
+:fragment:
+
+To manually install the {framework} Integration FTP feature, add the following dependencies to the pom.xml file of a core project of your application:
+
+[source,xml,options="nowrap"]
+./my-application-module-core/pom.xml
+----
+<dependency>
+    <groupId>cloud.altemista.fwk.integration</groupId>
+    <artifactId>cloud-altemistafwk-core-integration-ftp-conf</artifactId> <!--1-->
+</dependency>
+----
+<1> {framework} Integration FTP feature dependencies.
+
+[source,xml,options="nowrap"]
+./my-application-module-core/src/main/resources/spring/my-application-module-core-integration-ftp.xml
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:ftp="http://www.springframework.org/schema/integration/ftp"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/ftp
+			http://www.springframework.org/schema/integration/ftp/spring-integration-ftp.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="com.mycompany.application.module.ftp.config"/> <!--1-->
+
+</beans>
+----
+<1> *OPTIONAL*: Component scan configuration classes package if needed.

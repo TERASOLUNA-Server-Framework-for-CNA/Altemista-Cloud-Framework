@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>cloud-altemistafwk-parent</artifactId>
+		<groupId>cloud.altemista.fwk.framework</groupId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	<groupId>cloud.altemista.fwk.webapp.modules</groupId>
+	<artifactId>cloud-altemistafwk-webapp-webflow-conf</artifactId>
+	<name>cloud-altemistafwk presentation layer: Spring Web Flow support CONF</name>
+
+	<dependencies>
+
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-webapp-conf</artifactId>
+		</dependency>
+		<!-- == End ACF framework == -->
+
+		<!-- == Begin Spring Web Flow == -->
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-webflow</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-faces</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<!-- == Begin Spring Web Flow == -->
+		
+		<!-- == Begin JavaEE APIs == -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- == End JavaEE APIs == -->
+		
+		<!-- == Begin test dependencies == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- == End test dependencies == -->
+
+	</dependencies>
+
+</project>

@@ -1,0 +1,11 @@
+
+:fragment:
+
+The _JWT over OAuth 2.0 Resource Server_ feature includes the following configuration:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/app/cloud-altemistafwk-app-jwt-ressrv.xml
+----
+include::{basedir}/cloud-altemistafwk-app-jwt-ressrv-conf/src/main/resources/cloud/altemista/fwk/config/app/cloud-altemistafwk-app-jwt-ressrv.xml[tags=internals]
+----
+

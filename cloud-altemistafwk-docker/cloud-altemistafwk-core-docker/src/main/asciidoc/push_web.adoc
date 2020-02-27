@@ -1,0 +1,6 @@
+
+:fragment:
+
+Docker lets us push our image if we have a local repository. By the command "dockerfile:push -Ddockerfile.username=... -Ddockerfile.password=..." you could push your image. Make sure you type correctly your credentials in order to avoid to block your user.
+
+IMPORTANT: you need logout of Docker before pushing the image by the maven plugin.

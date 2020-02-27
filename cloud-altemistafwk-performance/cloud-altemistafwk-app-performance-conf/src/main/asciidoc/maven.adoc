@@ -1,0 +1,48 @@
+
+:fragment:
+
+To manually install the core performance feature, add the following dependencies to the `pom.xml` of the aggregator project (either `webapp` or `boot`) of your application:
+
+[source,xml]
+.new-application-webapp/pom.xml
+----
+<dependency>
+  <groupId>cloud.altemista.fwk.performance</groupId>
+  <artifactId>cloud-altemistafwk-app-performance-conf</artifactId><!--1-->
+</dependency>
+----
+<1> Core performance feature classes and auto-discoverable configuration.
+
+To manually install the JDBC performance feature, add the following dependency:
+
+[source,xml]
+.new-application-webapp/pom.xml
+----
+<dependency>
+  <groupId>cloud.altemista.fwk.performance</groupId>
+  <artifactId>cloud-altemistafwk-app-performance-conf</artifactId><!--1-->
+</dependency>
+<dependency>
+  <groupId>cloud.altemista.fwk.performance</groupId>
+  <artifactId>cloud-altemistafwk-app-performance-jdbc-conf</artifactId><!--2-->
+</dependency>
+----
+<1> Core performance feature classes and auto-discoverable configuration (prerequisite).
+<2> JDBC performance feature classes and auto-discoverable configuration.
+
+To manually install the web performance feature, add the following dependency:
+
+[source,xml]
+.new-application-webapp/pom.xml
+----
+<dependency>
+  <groupId>cloud.altemista.fwk.performance</groupId>
+  <artifactId>cloud-altemistafwk-app-performance-conf</artifactId><!--1-->
+</dependency>
+<dependency>
+  <groupId>cloud.altemista.fwk.performance</groupId>
+  <artifactId>cloud-altemistafwk-app-performance-web-conf</artifactId><!--2-->
+</dependency>
+----
+<1> Core performance feature classes and auto-discoverable configuration (prerequisite).
+<2> Web performance feature classes and auto-discoverable configuration.

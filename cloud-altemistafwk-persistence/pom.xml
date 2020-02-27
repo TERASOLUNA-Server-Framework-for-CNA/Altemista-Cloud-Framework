@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>cloud.altemista.fwk.build</groupId>
+		<artifactId>cloud-altemistafwk-build</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	
+	<artifactId>cloud-altemistafwk-persistence</artifactId>
+	<packaging>pom</packaging>
+
+	<name>cloud-altemistafwk * persistence build script</name>
+	<description>Convenience pom.xml for building the ACF persistence</description>
+	
+	<profiles>
+	
+		<!-- == Builds ACF framework == -->
+		<profile>
+			<id>framework</id>
+			<modules>
+				<module>cloud-altemistafwk-core-persistence-jpa-hibernate-conf</module>
+				<module>cloud-altemistafwk-core-persistence-jpa-hibernate-archetype</module>
+				<module>cloud-altemistafwk-core-persistence-mybatis-conf</module>
+				<module>cloud-altemistafwk-core-persistence-mybatis-archetype</module>
+				<module>cloud-altemistafwk-core-persistence-mongodb-conf</module>
+				<module>cloud-altemistafwk-core-persistence-mongodb-archetype</module>
+			</modules>
+		</profile>
+		
+		<!-- == Builds and run ACF integration tests == -->
+		<profile>
+			<id>run-it</id>
+			<modules>
+				<module>cloud-altemistafwk-core-persistence-jpa-hibernate-it</module>
+				<module>cloud-altemistafwk-core-persistence-mybatis-it</module>
+				<module>cloud-altemistafwk-core-persistence-mongodb-it</module>
+			</modules>
+		</profile>
+		
+	</profiles> 
+
+</project>

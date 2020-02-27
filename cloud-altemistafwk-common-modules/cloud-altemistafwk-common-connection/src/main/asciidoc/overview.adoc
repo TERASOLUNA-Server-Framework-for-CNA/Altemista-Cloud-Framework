@@ -1,0 +1,24 @@
+
+:fragment:
+
+The connectivity utilities fulfil common connectivity-related requirements, such as conectivity over _Secure Sockets Layer_ (SSL),  setting up a _proxy_, etc.
+
+== Proxy server
+
+The `ThreadLocalProxySelector` utility class is a `java.net.ProxySelector` to set (and reset) a single proxy in a thread:
+
+[source]
+----
+include::{basedir}/cloud-altemistafwk-common-connection/src/test/java/cloud/altemista/fwk/test/proxy/ProxyTest.java[tags=usage]
+----
+<1> Use the `ProxyBean` class to define the proxy.
+<2> The _hostname_ and _port_ attributes are required.
+<3> The _username_ and _password_ are optional.
+<4> From this point on, any HTTP or HTTPS connection established by the thread will go through the specified proxy.
+<5> As a good practice, reset the previous configuration when the proxy is no longer necessary.
+
+== Secure Sockets Layer (SSL)
+
+The `SSLSocketFactoryUtil` utility class can be used to create a new `javax.net.ssl.SSLSocketFactory` that uses the proper certificates and keys, and set it as the default `SSLSocketFactory` to create the secure socket for new HTTPS connections.
+
+NOTE: This feature uses utility classes from the <<cloud-altemistafwk-common-security-overview,security utilities>> feature. 

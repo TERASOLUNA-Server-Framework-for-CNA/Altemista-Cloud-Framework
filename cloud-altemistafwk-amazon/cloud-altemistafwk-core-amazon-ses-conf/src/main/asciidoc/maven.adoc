@@ -1,0 +1,15 @@
+
+:fragment:
+
+When we choose to install SES Implementation, {framework} will add the following dependencies to the pom.xml file of a core project of your application:
+
+[source,xml,options="nowrap"]
+./my-application-module-core/pom.xml
+----
+<dependency>
+    <groupId>cloud.altemista.fwk.amazon</groupId>
+    <artifactId>cloud-altemistafwk-core-amazon-ses-conf</artifactId> <!--1-->
+</dependency>
+----
+<1> {framework} Amazon SES feature dependencies.
+

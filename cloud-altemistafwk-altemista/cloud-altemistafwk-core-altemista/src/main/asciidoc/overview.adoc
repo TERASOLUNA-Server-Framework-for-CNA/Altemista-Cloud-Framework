@@ -1,0 +1,18 @@
+
+Altemista is a cloud platform for continuous productivity by using openshift platform.
+
+image::cloud-altemistafwk-documentation/altemista/overview.png[align="center"]
+
+Red Hat https://www.openshift.com/[OpenShift^] is a multifaceted, open source container application platform from Red Hat Inc. for the development, deployment and management of applications. OpenShift provides developers with an integrated development environment (https://searchcloudapplications.techtarget.com/definition/cloud-IDE[IDE^]) for building and deploying Docker-formatted containers, and then managing them with the open source https://kubernetes.io/[Kubernetes^] container orchestration platform.
+
+Red Hat OpenShift is available in four models:
+
+- OpenShift Container Platform
+- OpenShift Online
+- OpenShift Dedicated
+OpenShift.io
+Though the implementations and locations on which they run and the pricing models differ, the actual underlying OpenShift code and functionality are identical.
+
+Certain operations require CLI to be installed on your computer.The easiest way to download the CLI is by accessing the About page on the web console. Also you can through this process by watching this https://access.redhat.com/videos/2212891/[video^]
+
+Apart from this documentation ,it is available a confluence where you can see information about https://steps.everis.com/confluence/display/ALTEM/ALTEM+-+Altemista[Altemista^]

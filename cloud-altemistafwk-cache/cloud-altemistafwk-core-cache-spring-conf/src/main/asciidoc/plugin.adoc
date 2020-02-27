@@ -1,0 +1,4 @@
+
+:fragment:
+
+The _Spring-based implementation_ of the _cache_ module can only be installed in module projects with the _core_ nature.

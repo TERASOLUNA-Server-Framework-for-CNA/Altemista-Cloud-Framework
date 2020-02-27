@@ -1,0 +1,59 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+	<!-- Storage for prior executions of indicators (default implementation) -->
+	<bean id="mailStorage"
+			class="cloud.altemista.fwk.core.monitoring.impl.storage.wrapper.MailMonitoringStorageWrapperImpl">
+		<property name="target">
+			<bean class="cloud.altemista.fwk.core.monitoring.impl.storage.MonitoringStorageImpl" />
+		</property>
+		<property name="mailSender" ref="monitoringMailSender" />
+		<property name="template" ref="monitoringMailTemplate" />
+	</bean>
+	
+	<bean id="monitoringMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="localhost" />
+		<property name="port" value="${mail.port:25}" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">false</prop>
+				<prop key="mail.smtp.starttls.enable">false</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="monitoringMailTemplate" class="org.springframework.mail.SimpleMailMessage">
+		<property name="from" value="sender@nttdata.com" />
+		<property name="to" value="receiver@nttdata.com" />
+	</bean>
+
+	<!-- Monitoring Service configuration with logger storage wrapper and some indicators -->
+	<bean id="monitoringServiceImpl"
+			class="cloud.altemista.fwk.core.monitoring.impl.MonitoringServiceImpl">
+		
+		<property name="indicators">
+			<array>
+			
+				<!-- Dummy indicator -->
+				<bean class="cloud.altemista.fwk.core.monitoring.impl.indicator.AliveIndicator">
+					<property name="id" value="alive" />
+				</bean>
+				
+				<!-- HTTP indicator -->
+				<bean class="cloud.altemista.fwk.core.monitoring.impl.indicator.HttpIndicator">
+					<property name="id" value="server1" />
+					<property name="url" value="http://0.0.0.0:0/" />
+					<property name="timeout" value="1000" />
+				</bean>
+				
+			</array>
+		</property>
+		
+		<property name="storage" ref="mailStorage" />
+	</bean>
+
+</beans>

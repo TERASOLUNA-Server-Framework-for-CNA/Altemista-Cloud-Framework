@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<artifactId>cloud-altemistafwk-parent</artifactId>
+		<groupId>cloud.altemista.fwk.framework</groupId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	<groupId>cloud.altemista.fwk.performance</groupId>	
+	<artifactId>cloud-altemistafwk-app-performance-web-conf</artifactId>
+	<name>cloud-altemistafwk performance: web part CONF</name>
+	<description>Web part of the framework peformance module</description>
+
+	<dependencies>
+
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-web-conf</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.performance</groupId>
+			<artifactId>cloud-altemistafwk-app-performance-conf</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.performance</groupId>
+			<artifactId>cloud-altemistafwk-app-performance-web</artifactId>
+		</dependency>
+		<!-- == End ACF framework == -->
+
+		<!-- == Begin Spring Boot support == -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- == End Spring Boot support == -->
+		
+		<!-- == Begin Java standard extensions (required here because of the Spring Boot support) == -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- == End Java standard extensions == -->
+		
+	</dependencies>
+
+</project>

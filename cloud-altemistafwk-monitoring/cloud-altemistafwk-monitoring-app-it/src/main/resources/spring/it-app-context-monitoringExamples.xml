@@ -1,0 +1,110 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+	<!-- Monitoring Storage configuration for values obtained from indicators -->
+
+	<bean id="defaultStorage"
+		class="cloud.altemista.fwk.core.monitoring.impl.storage.MonitoringStorageImpl" />
+
+	<!-- End Monitoring Storage configuration -->
+
+
+	<!-- Monitoring Service Configuration -->
+
+	<bean id="monitoringServiceDefaultStorage"
+		class="cloud.altemista.fwk.core.monitoring.impl.MonitoringServiceImpl">
+		<property name="storage" ref="defaultStorage" />
+		<property name="indicators">
+			<array>
+				<ref bean="aliveIndicator" />
+				<ref bean="httpIndicator" />
+				<ref bean="databaseIndicator" />
+				<ref bean="mongoIndicator" />
+				<ref bean="ldapIndicator" />
+				<ref bean="socketIndicator" />
+			</array>
+		</property>
+	</bean>
+
+	<!-- End Monitoring Service Configuration -->
+
+
+	<!-- == Begin example indicators == -->
+
+	<!-- Alive indicator -->
+	<bean id="aliveIndicator"
+		class="cloud.altemista.fwk.core.monitoring.impl.indicator.AliveIndicator">
+		<property name="id" value="alive" />
+	</bean>
+
+	<!-- HTTP indicator -->
+	<bean id="httpIndicator"
+		class="cloud.altemista.fwk.core.monitoring.impl.indicator.HttpIndicator">
+		<property name="id" value="httpServer" />
+		<property name="url" value="http://0.0.0.0:0/" />
+		<property name="timeout" value="1000" />
+	</bean>
+
+	<!-- Database indicator -->
+	<bean id="databaseIndicator"
+		class="cloud.altemista.fwk.core.monitoring.impl.indicator.DatabaseIndicator">
+		<property name="id" value="database" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="checkQuery"
+			value="SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS" />
+	</bean>
+	
+	<!-- MongoDB indicator -->
+	<bean id="mongoIndicator"
+		class="cloud.altemista.fwk.core.monitoring.impl.indicator.MongoIndicator">
+		<property name="id" value="mongo" />
+		<property name="client" ref="mongo" />
+	</bean>
+
+	<!-- LDAP indicator -->
+	<bean id="ldapIndicator"
+		class="cloud.altemista.fwk.core.monitoring.impl.indicator.LdapIndicator">
+		<property name="id" value="ldap" />
+		<property name="ldapTemplate" ref="ldapTemplate" />
+	</bean>
+
+	<!-- Socket indicator -->
+	<bean id="socketIndicator"
+		class="cloud.altemista.fwk.core.monitoring.impl.indicator.SocketIndicator">
+		<property name="id" value="socket" />
+		<property name="host" value="${mail.host:localhost}" />
+		<property name="port" value="${mail.port:25}" />
+	</bean>
+
+	<!-- == End example indicators == -->
+	
+
+	<!-- == Begin auxiliary beans == -->
+
+	<!-- In-memory database to test the DatabasePropertiesProvider -->
+	<jdbc:embedded-database id="dataSource" />
+
+	<!-- LDAP configuration beans -->
+	<bean id="ladpContextSource" class="org.springframework.ldap.core.support.LdapContextSource">
+		<property name="url" value="ldap://localhost:389" />
+		<property name="base" value="dc=ldap, dc=example,dc=com" />
+		<property name="password" value="mysecretpassword" />
+		<property name="userDn" value="cn=admin, dc=ldap, dc=example,dc=com" />
+	</bean>
+
+	<bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
+		<constructor-arg name="contextSource" ref="ladpContextSource" />
+	</bean>
+	
+	<!-- Sets up the MongoDB client -->
+	<bean id="mongo" class="com.mongodb.MongoClient">
+		<constructor-arg name="host" value="127.0.0.1" />
+		<constructor-arg name="port" value="37017" />
+	</bean>
+
+	<!-- == End auxiliary beans == -->
+
+</beans>

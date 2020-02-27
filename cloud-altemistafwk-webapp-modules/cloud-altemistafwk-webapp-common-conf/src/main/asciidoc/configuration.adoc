@@ -1,0 +1,52 @@
+
+:fragment:
+
+[[cloud-altemistafwk-webapp-common-conf-welcomepage]]
+== Welcome page
+
+The correct way of specifying a welcome or landing page in a {framework} application is to properly handle the requests to the root mapping of the dispatcher servlet (i.e.: `/`).
+
+The simplest way of handling this requests is to have a `@Controller` handling them:
+
+[source]
+.com.mycompany.application.controller.HomeController
+----
+@Controller
+@RequestMapping("/")
+public class HomeController {
+
+  @RequestMapping
+  public ModelAndView welcomePage() {
+    // (...)
+  }
+}
+----
+
+If this controller does not perform any processing but simply renders a view, it is preferred to use a http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#mvc-config-view-controller[view controller] as shown:
+
+[source,properties]
+.spring/my-application-webapp.xml
+----
+<!-- Maps the root path of the DispatcherServlet (/)
+    to the welcome page of the web application -->
+<mvc:view-controller path="/" view-name="foo" /> <--1-->
+----
+<1> Please note that this is a view name (*not* a redirection), and therefore will be processed by the <<cloud-altemistafwk-webapp-conf-viewresolver,view resolver>>.
+
+If the root path is to be redirected to an URI, such as an static resource or an existing controller, use the prefix `forward:` or the element `<mvc:redirect-view-controller/>` as follows:
+
+[source,properties]
+.spring/my-application-webapp.xml
+----
+<mvc:view-controller path="/" view-name="forward:/bar.html" /> <!--1-->
+
+<mvc:redirect-view-controller path="/" redirect-url="/bar.html" /> <!--1-->
+
+<mvc:view-controller path="/" view-name="forward:/baz" /> <!--2-->
+
+<mvc:redirect-view-controller path="/" redirect-url="/baz" /> <!--2-->
+----
+<1> The root path of the application will serve the static resource `bar.html`.
+<2> The root path of the application will be processed by the controller mapped at `/baz`.
+
+NOTE: Though discouraged, it is still possible to use the default Servlet of the Servlet container to serve the welcome page. It should be a JavaServer Page (JSP) (it cannot be an static resource as they are handled by Spring dispatcher servlet), placed at `src/main/webapp` folder of the web application, and named `index.jsp` (or any non-default value set in the optional `welcome-file-list` element of the deployment descriptor file).

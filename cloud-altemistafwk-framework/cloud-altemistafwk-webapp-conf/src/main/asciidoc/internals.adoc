@@ -1,0 +1,63 @@
+
+:fragment:
+
+For the servlet part, {framework} web modules and {framework} web application modules rely on the _web fragment_ mechanism of Servlet 3.0 (https://jcp.org/en/jsr/detail?id=315[JSR 315: Java Servlet 3.0 Specification]) to achieve extensibility and pluggability.
+
+The _web application_ module is itself a web fragment that will be included by the actual web application project. Its configuration bootstraps a single root context in Spring Web MVC (as described in the _Single root context in Spring Web MVC_ paragraphs of the http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html#mvc-servlet[DispatcherServlet] section of the http://docs.spring.io/spring/docs/current/spring-framework-reference/html/[Spring Framework Reference Documentation]):
+
+[source,xml,options="nowrap"]
+.cloud-altemistafwk-webapp-conf/src/main/resources/META-INF/web-fragment.xml
+----
+include::{basedir}/cloud-altemistafwk-webapp-conf/src/main/resources/META-INF/web-fragment.xml[tags=internals1]
+----
+
+CAUTION: Please note that the Spring MVC dispatcher servlet mapping is *not* `/{asterisk}`, but at `/`. This mapping sets up the dispatcher servlet as the default servlet of the application.
+
+The rest of the web fragment sets up the aforementioned Servlet <<cloud-altemistafwk-webapp-conf-filters,filters and listeners>> as follows:
+
+[source,xml,options="nowrap"]
+.cloud-altemistafwk-webapp-conf/src/main/resources/META-INF/web-fragment.xml
+----
+include::{basedir}/cloud-altemistafwk-webapp-conf/src/main/resources/META-INF/web-fragment.xml[tags=internals2]
+----
+
+For reference (and ordering purposes if required), this web fragment is named `cloudAltemistaWebapp`:
+[source,xml,options="nowrap"]
+.cloud-altemistafwk-webapp-conf/src/main/resources/META-INF/web-fragment.xml
+----
+include::{basedir}/cloud-altemistafwk-webapp-conf/src/main/resources/META-INF/web-fragment.xml[tags=name]
+----
+
+The single root context of Spring MVC is defined by the `cloud/altemista/fwk/config/webapp/cloud-altemistafwk-webapp.xml` configuration file. This configuration file can be considered divided in three sections:
+
+Imports the <<natures-core-internals,_core_ configuration of the framework>> first. All the features that are not dependent on the deployment platform will be loaded at this point:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/webapp/cloud-altemistafwk-webapp.xml
+----
+include::{basedir}/cloud-altemistafwk-webapp-conf/src/main/resources/cloud/altemista/fwk/config/webapp/cloud-altemistafwk-webapp.xml[tags=internals1]
+----
+
+Then, the Spring MVC `@Controller` programming model is enabled as follows:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/webapp/cloud-altemistafwk-webapp.xml
+----
+include::{basedir}/cloud-altemistafwk-webapp-conf/src/main/resources/cloud/altemista/fwk/config/webapp/cloud-altemistafwk-webapp.xml[tags=internals2]
+----
+
+The WebJars support, the serving of static resources, and the fallback to the default Java EE server of the servlet container are set up as follows:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/webapp/cloud-altemistafwk-webapp.xml
+----
+include::{basedir}/cloud-altemistafwk-webapp-conf/src/main/resources/cloud/altemista/fwk/config/webapp/cloud-altemistafwk-webapp.xml[tags=internals3]
+----
+
+Finally, this configuration file includes all the web application features found in the classpath, using an _autodiscovery_ mechanism similar to the one of `cloud-altemistafwk-core.xml`, by importing `cloud-altemistafwk-webapp-<feature>.xml` configuration files. It also imports the application configuration files, located at `spring/*.xml` in the classpath.
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/webapp/cloud-altemistafwk-webapp.xml
+----
+include::{basedir}/cloud-altemistafwk-webapp-conf/src/main/resources/cloud/altemista/fwk/config/webapp/cloud-altemistafwk-webapp.xml[tags=internals4]
+----

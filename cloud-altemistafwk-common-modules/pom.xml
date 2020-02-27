@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>cloud.altemista.fwk.build</groupId>
+		<artifactId>cloud-altemistafwk-build</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	
+	<artifactId>cloud-altemistafwk-common-modules</artifactId>
+	<packaging>pom</packaging>
+
+	<name>cloud-altemistafwk * common-modules build script</name>
+	<description>Convenience pom.xml for building the common-based modules</description>
+	
+	<profiles>
+	
+		<!-- == Builds ACF framework == -->
+		<profile>
+			<id>framework</id>
+			<modules>
+				<module>cloud-altemistafwk-common-connection</module>
+				<module>cloud-altemistafwk-common-cryptography</module>
+				<module>cloud-altemistafwk-common-rest</module>
+			</modules>
+		</profile>
+		
+		<!-- == Builds and run ACF integration tests == -->
+		<profile>
+			<id>run-it</id>
+			<modules>
+				<module>cloud-altemistafwk-common-rest-it</module>
+			</modules>
+		</profile>
+		
+	</profiles> 
+
+</project>

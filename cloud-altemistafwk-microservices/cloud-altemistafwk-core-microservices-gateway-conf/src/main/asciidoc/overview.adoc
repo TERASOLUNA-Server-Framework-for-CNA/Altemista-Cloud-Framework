@@ -1,0 +1,6 @@
+
+:fragment:
+
+The {framework} Gateway Server feature is based on the Netflix Zuul Server implementation. It is the front door for all requests from devices and web sites to an application backend. As an edge service application, Zuul is built to enable dynamic routing, monitoring, resiliency and security.
+
+Gateway server secures access to microservices API layer.

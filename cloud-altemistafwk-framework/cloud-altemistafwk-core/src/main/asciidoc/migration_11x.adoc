@@ -1,0 +1,8 @@
+
+:fragment:
+
+The environment-aware and external properties files loading mechanisms has been reworked. Now, Spring placeholder replacement works as expected in both web applications and Spring Boot-based {framework} applications, and the framework no longer needs to override the default `PropertyPlaceholderConfigurer`.
+
+Existing {framework} applications upgrading to this version need to take into account that external properties have now higher priority than classpath properties, regardless any environment prefix. This new hierarchy is actually the excepted one (the previous hierarchy was non-obvious and counter-intuitive), and makes easier to override values from the packaged application.
+
+{framework} `SpringProperties` class has been deprecated. In order to programatically access property values, please use `ApplicationContextUtil.getEnvironment()` instead.

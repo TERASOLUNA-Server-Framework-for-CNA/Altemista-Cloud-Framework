@@ -1,0 +1,7 @@
+
+:fragment:
+
+The _Inbound WS-Security for SOAP server_ feature requires both the _SOAP web service publisher (SOAP server)_ and _Security_ features to be installed first. This feature can only be installed in _web_ nature projects.
+
+.Required features for installing the WS-Security for SOAP server feature
+image::cloud-altemistafwk-web-soap-wss-conf/plugin-screenshot.png[align="center"]

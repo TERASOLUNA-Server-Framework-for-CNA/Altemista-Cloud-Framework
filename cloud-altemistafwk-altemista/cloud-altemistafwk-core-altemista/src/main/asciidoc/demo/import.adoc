@@ -1,0 +1,36 @@
+
+:fragment:
+
+We are going to deploy an docker image created by Docker feature and pushed in the Altemista registry by importing a yaml file created by Altemista ACF feature. Before to start, make sure you have your image in a external registry o in Altemista registry, for this demo, we will push a local image to Altemista registry and then we will import the file.
+
+=== Push Image
+
+From a ACF docker image, we need to prepare to push the image:
+
+* Tag your image : "docker tag your-image docker-registry-default.helix.everis.cloud/your-project/your-image". Example: "docker tag boot-test docker-registry-default.helix.everis.cloud/altemista/boot-test
+*  Authenticate into his docker registry: "docker login docker-registry-default.helix.everis.cloud". Remember to use your token("oc whoami -t") as password.
+* Push your image : " "docker push docker-registry-default.helix.everis.cloud/your-project/your-image". Example: "docker push docker-registry-default.helix.everis.cloud/altemista/boot-test
+* Now you will be able to see it in "Builds/Image".
+	
+From here you can deploy it by "Deploy Image" or "Import YAML/JSON", in our case, we are going to use the last option.
+
+=== Use Altemista ACF feature
+
+{framework} Altemista feature has to be added in a [application]-boot module in a Spring Boot application nature.
+
+image::cloud-altemistafwk-documentation/altemista/plugin.png[align="center"]
+
+You could type the Image Name, Deployment Name, Service Name, Route Name and Volume name as you can see in the following screenshot:
+
+image::cloud-altemistafwk-documentation/altemista/form.png[align="center"]
+
+=== Import File
+
+Once you have created your yaml file, you can deploy it in Altemista. Choose the option "IMPORT YAML/JSON" and you will see a pop up where you can paste the content of your file or you can choose your file to upload it
+
+image::cloud-altemistafwk-documentation/altemista/deploy_file.png[align="center"]
+
+If you want to see an example file, please download this link:resources/cloud-altemistafwk-documentation/altemista/deploymentBoot.zip[file].
+
+In this case, you do not need to add a storage, because in the yaml file is added.
+

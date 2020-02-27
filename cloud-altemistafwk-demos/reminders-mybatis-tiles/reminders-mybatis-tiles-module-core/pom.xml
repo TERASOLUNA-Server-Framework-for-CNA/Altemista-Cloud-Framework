@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>cloud.altemista.fwk</groupId>
+		<artifactId>reminders-mybatis-tiles</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	<artifactId>reminders-mybatis-tiles-module-core</artifactId>
+	<name>reminders-mybatis-tiles module core project</name>
+	<properties>
+		<hsqldb.version>2.3.3</hsqldb.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk</groupId>
+			<artifactId>reminders-mybatis-tiles-module-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.persistence</groupId>
+			<artifactId>cloud-altemistafwk-core-persistence-mybatis-conf</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk</groupId>
+			<artifactId>reminders-mybatis-tiles-env</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.security</groupId>
+			<artifactId>cloud-altemistafwk-core-security-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.monitoring</groupId>
+			<artifactId>cloud-altemistafwk-core-monitoring</artifactId>
+		</dependency>
+		<dependency>
+			<!-- Optional: database aspects are not mandatory -->
+			<groupId>commons-dbutils</groupId>
+			<artifactId>commons-dbutils</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.async</groupId>
+			<artifactId>cloud-altemistafwk-core-async</artifactId>
+		</dependency>
+	</dependencies>
+	<build />
+	<profiles>
+		<profile>
+			<id>generate-mybatis-sources</id>
+			<activation />
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.mybatis.generator</groupId>
+						<artifactId>mybatis-generator-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>generate-mybatis-sources</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
+							<outputDirectory>${basedir}/src/main/java</outputDirectory>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

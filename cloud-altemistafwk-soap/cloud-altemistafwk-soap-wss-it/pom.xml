@@ -1,0 +1,116 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.it</groupId>
+		<artifactId>cloud-altemistafwk-it-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+	
+	<groupId>cloud.altemista.fwk.soap</groupId>
+	<artifactId>cloud-altemistafwk-soap-wss-it</artifactId>
+	<packaging>${packaging.type}</packaging>
+	
+	<name>cloud-altemistafwk SOAP client/server with WS-Security integration tests</name>
+	<description>cloud-altemistafwk SOAP client/server with WS-Security (Apache CXF and Spring Security based) integration tests</description>
+
+	<dependencies>
+
+		<!-- == Begin ACF modules to be tested (server part) == -->
+		<dependency>
+			<!-- ACF SOAP server -->
+			<groupId>cloud.altemista.fwk.soap</groupId>
+			<artifactId>cloud-altemistafwk-web-soap-conf</artifactId>
+		</dependency>
+		<dependency>
+			<!-- ACF SOAP server with WS-Security -->
+			<groupId>cloud.altemista.fwk.soap</groupId>
+			<artifactId>cloud-altemistafwk-web-soap-wss-conf</artifactId>
+		</dependency>
+		<dependency>
+			<!-- Business services Spring Security authorization -->
+			<groupId>cloud.altemista.fwk.security</groupId>
+			<artifactId>cloud-altemistafwk-core-security-conf</artifactId>
+		</dependency>
+		<dependency>
+			<!-- Spring Security authentication -->
+			<groupId>cloud.altemista.fwk.security</groupId>
+			<artifactId>cloud-altemistafwk-app-security-conf</artifactId>
+		</dependency>
+		<!-- == End ACF modules to be tested (server part) == -->
+
+		<!-- == Begin ACF modules to be tested (JUnit part) == -->
+		<dependency>
+			<!-- ACF SOAP client -->
+			<groupId>cloud.altemista.fwk.soap</groupId>
+			<artifactId>cloud-altemistafwk-core-soap-conf</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<!-- ACF SOAP client with WS-Security -->
+			<groupId>cloud.altemista.fwk.soap</groupId>
+			<artifactId>cloud-altemistafwk-core-soap-wss-conf</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- == End ACF modules to be tested (JUnit part) == -->
+
+	</dependencies>
+	
+	<build>
+		<plugins>
+		
+			<!-- Excludes the server part from the IT classpath (to have only the client part) -->
+			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<classpathDependencyExcludes>
+						<classpathDependencyExclude>cloud.altemista.fwk.soap:cloud-altemistafwk-web-soap-conf</classpathDependencyExclude>
+						<classpathDependencyExclude>cloud.altemista.fwk.soap:cloud-altemistafwk-web-soap-wss-conf</classpathDependencyExclude>
+					</classpathDependencyExcludes>
+				</configuration>
+			</plugin>
+		
+		</plugins>
+	</build>
+	
+	<profiles>
+
+		<!-- == Builds and run ACF integration tests == -->
+		<profile>
+			<id>wildfly8-environment</id>
+			<dependencies>
+				<!-- Explicit JAX-WS API declaration for JBoss -->
+				<dependency>
+					<groupId>javax.xml.ws</groupId>
+					<artifactId>jaxws-api</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<id>wildfly9-environment</id>
+			<dependencies>
+				<!-- Explicit JAX-WS API declaration for JBoss -->
+				<dependency>
+					<groupId>javax.xml.ws</groupId>
+					<artifactId>jaxws-api</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<id>wildfly10-environment</id>
+			<dependencies>
+				<!-- Explicit JAX-WS API declaration for JBoss -->
+				<dependency>
+					<groupId>javax.xml.ws</groupId>
+					<artifactId>jaxws-api</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+
+	</profiles>
+	
+</project>

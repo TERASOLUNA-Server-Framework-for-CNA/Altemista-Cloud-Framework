@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.it</groupId>
+		<artifactId>cloud-altemistafwk-it-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	
+	<groupId>cloud.altemista.fwk.reporting</groupId>	
+	<artifactId>cloud-altemistafwk-web-reporting-it</artifactId>
+	<packaging>${packaging.type}</packaging>
+
+	<name>cloud-altemistafwk web reporting integration tests</name>
+	<description>Integration tests for the ACF web reporting module</description>
+
+	<dependencies>
+	
+		<!-- == Begin ACF module to be tested == -->
+		<dependency>
+			<!-- Depends on cloud-altemistafwk-core-reporting-jasper-conf to make the core reporting module available -->
+			<groupId>cloud.altemista.fwk.reporting</groupId>
+			<artifactId>cloud-altemistafwk-core-reporting-jasper-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.reporting</groupId>
+			<artifactId>cloud-altemistafwk-web-reporting</artifactId>
+		</dependency>
+		<!-- == End ACF module to be tested == -->
+
+	</dependencies>
+	
+</project>

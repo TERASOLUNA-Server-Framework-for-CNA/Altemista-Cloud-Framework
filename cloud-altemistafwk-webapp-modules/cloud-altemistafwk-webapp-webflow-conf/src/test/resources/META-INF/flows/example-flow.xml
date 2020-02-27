@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/webflow
+		http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"> <!--1-->
+	
+	<var name="exampleVariable" class="com.acme.model.Container" /> <!--5-->
+	
+	<view-state id="firstStep" model="exampleVariable" view="inputPage"> <!--1--><!--2-->
+		<transition on="submit" to="secondStep" /> <!--3-->
+	</view-state>
+	
+	<view-state id="secondStep" view="reviewPage"> <!--2-->
+		<transition on="back" to="firstStep" /> <!--3-->
+		<transition on="confirm" to="thirdStep" /> <!--3-->
+	</view-state>
+
+	<end-state id="thirdStep" view="confirmationPage" > <!--2--><!--4-->
+		<on-entry>
+			<evaluate
+					expression="exampleService.exampleMethod(exampleVariable)"
+					result="flowScope.resultValue"
+				/> <!--6-->
+		</on-entry>
+		<output name="confirmedName" value="flowScope.exampleVariable.name" /> <!--7-->
+	</end-state>
+
+</flow>

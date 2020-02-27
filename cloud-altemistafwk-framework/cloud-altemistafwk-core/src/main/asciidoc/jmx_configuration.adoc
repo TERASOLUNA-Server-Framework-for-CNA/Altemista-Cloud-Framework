@@ -1,0 +1,12 @@
+
+:fragment:
+
+The default {framework} configuration of JMX is as follows:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/core/cloud-altemistafwk-core-jmx.xml
+----
+include::{basedir}/cloud-altemistafwk-core/src/main/resources/cloud/altemista/fwk/config/core/cloud-altemistafwk-core-jmx.xml[tags=strategy]
+----
+
+In order to use a different naming strategy, override the `namingStrategy` bean in the application.

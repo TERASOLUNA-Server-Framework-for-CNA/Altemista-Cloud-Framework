@@ -1,0 +1,26 @@
+
+:fragment:
+
+{framework} security module favors the integration of security in your {framework} application using http://projects.spring.io/spring-security/[Spring Security].
+
+There are two separate concepts covered by this module:
+
+Authentication::
+
+Authentication defines where the existing users and their roles are stored, and provides the users the ability to be authenticated in the application (i.e.: how the _log-in_ is done).
+
+Authorization::
+
+Authorization defines the security to allow or disallow the invocation of classes, mehtods and application URIs depending on the roles of the current user.
+
+== Authentication
+
+The Spring Security authentication in {framework} applications is done through an `AuthenticationManager` instance (or instances), set up in an application-wide manner. This 
+
+The initial configuration included by the {framework} plug-in uses a simple in-memory user repository. While useful during early stages of development, {framework} applications are most likely to change this configuration as described in the <<cloud-altemistafwk-app-security-conf-configuration-authentication,authentication managers configuration>> section.
+
+== HTTP security
+
+Authorization at the web layer is achieved through the HTTP security configuration-centric feature of Spring Security. This configuration includes securing HTTP resources (namely, URIs), definition of the login mechanism, etc. and is also done in an application-wide manner.
+
+The initial configuration included by the {framework} plug-in sets up Basic Access Authentication, a simple login page and forces any URL with the mapping `/secure/**` to be available to authenticated users only. Again, this configuration is most likely to changed by the applications as described in the <<cloud-altemistafwk-app-security-conf-configuration-http,HTTP security configuration>> section.

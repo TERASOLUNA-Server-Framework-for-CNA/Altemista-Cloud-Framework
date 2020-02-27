@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:ftp="http://www.springframework.org/schema/integration/ftp"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration-5.0.xsd
+			http://www.springframework.org/schema/integration/ftp
+			http://www.springframework.org/schema/integration/ftp/spring-integration-ftp-5.0.xsd
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="com.mycompany.application.module.ftp.config" />
+
+<!-- 	<bean id="ftpClientFactory" -->
+<!-- 		class="org.springframework.integration.ftp.session.DefaultFtpSessionFactory"> -->
+<!-- 		<property name="host" value="${spring.integration.ftp.host}" /> -->
+<!-- 		<property name="port" value="${spring.integration.ftp.port}" /> -->
+<!-- 		<property name="username" value="${spring.integration.ftp.username}" /> -->
+<!-- 		<property name="password" value="${spring.integration.ftp.password}" /> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean id="cachingSessionFactory" -->
+<!-- 		class="org.springframework.integration.file.remote.session.CachingSessionFactory"> -->
+<!-- 		<constructor-arg ref="ftpClientFactory" /> -->
+<!-- 	</bean> -->
+
+<!-- 	<integration:channel id="ftpInChannel"> -->
+<!-- 		<integration:queue /> -->
+<!-- 	</integration:channel> -->
+
+<!-- 	<ftp:inbound-channel-adapter id="ftpInbound" -->
+<!-- 		channel="ftpInChannel" session-factory="ftpClientFactory" -->
+<!-- 		auto-create-local-directory="true" delete-remote-files="false" -->
+<!-- 		remote-directory="/integration/" local-directory="/temp/ftpInbound" -->
+<!-- 		filename-pattern="*.txt" > -->
+<!-- 		<integration:poller fixed-rate="5000" /> -->
+<!-- 	</ftp:inbound-channel-adapter> -->
+
+<!-- 	<integration:channel id="ftpOutChannel" /> -->
+
+<!-- 	<ftp:outbound-channel-adapter -->
+<!-- 		session-factory="cachingSessionFactory" id="ftpOutbound" channel="ftpOutChannel" -->
+<!-- 		remote-directory="/integration/out" auto-create-directory="true"> -->
+<!-- 		<ftp:request-handler-advice-chain> -->
+<!-- 			<integration:retry-advice /> -->
+<!-- 		</ftp:request-handler-advice-chain> -->
+<!-- 	</ftp:outbound-channel-adapter> -->
+
+</beans>

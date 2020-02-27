@@ -1,0 +1,29 @@
+
+:fragment:
+
+The `AltemistaMoviesMovies` service manage the application movies.
+
+[[moviemicroservice-endpoints]]
+==== Endpoints
+
+include::{basedir}/cloud-altemistafwk-core-microservices/demo/backend/moviesmicroservice/endpoints.adoc[]
+
+==== Data Module: AltemistaMoviesMovies-data-core
+
+include::{basedir}/cloud-altemistafwk-core-microservices/demo/backend/moviesmicroservice/datamodule.adoc[]
+
+==== Client Module: AltemistaMoviesMovies-client
+
+include::{basedir}/cloud-altemistafwk-core-microservices/demo/backend/moviesmicroservice/clientmodule.adoc[]
+
+==== Boot Module: AltemistaMoviesMovies-boot. Microservice implementation
+
+include::{basedir}/cloud-altemistafwk-core-microservices/demo/backend/moviesmicroservice/bootmodule.adoc[]
+
+==== Microservice Startup
+
+include::{basedir}/cloud-altemistafwk-core-microservices/demo/backend/moviesmicroservice/startup.adoc[]
+
+==== Microservice Test
+
+include::{basedir}/cloud-altemistafwk-core-microservices/demo/backend/moviesmicroservice/test.adoc[]

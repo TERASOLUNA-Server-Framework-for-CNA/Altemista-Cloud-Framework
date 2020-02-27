@@ -1,0 +1,49 @@
+
+:fragment:
+
+[[cloud-altemistafwk-web-monitoring-overview]]
+== Exposing indicator statuses through a REST API
+
+In addition to exploiting the indicators programatically, {framework} monitoring feature allows applications to expose ``MonitoringService``s as a REST API by simply extending the abstract MVC controller `AbstractMonitoringController`:
+
+[source,java]
+----
+@RestController
+@RequestMapping("/health")
+public class ApplicationMonitoringController extends AbstractMonitoringController { //<1>
+
+	@Autowired
+	private MonitoringService service; //<2>
+
+	@Override
+	protected MonitoringService getService() { //<3>
+		return this.service;
+	}
+}
+----
+<1> Declare a `@RestController` with the desired base mapping (`/health` in the example) and extending `AbstractMonitoringController`.
+<2> Autowire the `MonitoringService` bean that is to be exposed. Please note that an application can have more than one monitoring service declared; if that is the case, choose the right one using the `@Qualifier` annotation.
+<3> Implement the abstract method `getService()` to return the proper `MonitoringService`.
+
+This will publish the following services:
+
+* `GET /{mapping}/` to retrieve the information of prior executions of all the indicators kwnown to this service.
+* `POST /{mapping}/` to execute all the indicators known to this service and return the execution results.
+* `GET /{mapping}/{indicatorId}/` to retrieve the information of prior executions of the specified indicator.
+* `POST /{mapping}/{indicatorId}/` to execute one indicator and return the execution result.
+
+An example response:
+
+[source,json]
+.GET /module/health
+----
+{
+	"moduleAlive": [{
+		"indicatorId": "moduleAlive",
+		"execTime": 1487691151348,
+		"responseTime": 0,
+		"status": "OK",
+		"message": "Alive"
+	}]
+}
+----

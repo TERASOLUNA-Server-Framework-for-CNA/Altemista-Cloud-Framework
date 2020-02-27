@@ -1,0 +1,15 @@
+
+:fragment:
+
+Regardless of the implementation provider, a convenience base class `AbstractReportBuilderImpl` that implements `ReportBuilder` interface is provided by the framework.
+
+This class uses a `TemplateResolver` to translate the logical name of the template (used by the application) to the actual templates used by the implementation provider.
+
+The framework contains `PrefixSuffixTemplateResolver`, a simple template resolver implementation that composes a resource location prepending a prefix and appending a suffix to the logical name of the template.
+
+.`AbstractReportBuilderImpl` and related classes
+image::cloud-altemistafwk-core-reporting-conf/abstractReportBuilderImpl.png[align="center"]
+
+Despite not required to, implementation providers are likely to extend `AbstractReportBuilderImpl` and set up a `PrefixSuffixTemplateResolver` as the template resolver. If that is the case, it is possible to override the `TemplateResolver` bean to change the location of the templates (e.g.: to use an external folder in the filesystem).
+
+Please refer to the specific implementation provider configuration.

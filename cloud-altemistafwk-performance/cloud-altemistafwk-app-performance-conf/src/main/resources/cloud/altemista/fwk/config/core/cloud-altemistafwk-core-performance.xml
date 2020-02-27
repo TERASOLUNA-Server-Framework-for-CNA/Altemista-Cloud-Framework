@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Scan the beans of the performance module -->
+	<context:component-scan base-package="cloud.altemista.fwk.core.performance" />
+
+
+	<!--tag::internals[]-->
+	<bean id="methodExecutionMeasuresStorage"
+			class="cloud.altemista.fwk.core.performance.impl.LongestMeasuresStorageImpl" /> <!--1-->
+
+	<bean id="methodExecutionMeasuredTaskHolder"
+			class="cloud.altemista.fwk.core.performance.MeasuredTaskHolder"> <!--2-->
+		<property name="nestingLevels" value="8" /> <!--3-->
+	</bean>
+
+	<bean id="methodExecutionPerformanceAspect"
+			class="cloud.altemista.fwk.core.performance.aop.PerformanceAspect"> <!--4-->
+		<property name="holder" ref="methodExecutionMeasuredTaskHolder" />
+		<property name="storage" ref="methodExecutionMeasuresStorage" />
+	</bean>
+	<!--end::internals[]-->
+
+
+	<!-- Activate JMX only if this profile is active in Application.
+		This is needed to deploy application in JBoss 7.1 and maybe other servers,
+		or just because the application does not need this feature.
+		This change makes jmx an optional configuration. -->
+	<beans profile="jmx">
+		<bean id="methodExecutionPerformanceAspectManager"
+			class="cloud.altemista.fwk.core.performance.jmx.impl.PerformanceAspectManagerImpl">
+			<property name="performanceAspect" ref="methodExecutionPerformanceAspect" />
+			<property name="holder" ref="methodExecutionMeasuredTaskHolder" />
+		</bean>
+	</beans>
+
+
+	<!-- Imports the framework configuration files of every altemista-cloud monitoring module -->
+	<beans>
+		<import resource="classpath*:cloud/altemista/fwk/config/performance/cloud-altemistafwk-performance-*.xml" />
+	</beans>
+
+</beans>

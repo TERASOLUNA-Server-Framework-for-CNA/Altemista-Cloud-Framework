@@ -1,0 +1,40 @@
+<project xmlns="ws://maven.apache.org/POM/4.0.0" xmlns:xsi="ws://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="ws://maven.apache.org/POM/4.0.0 ws://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.it</groupId>
+		<artifactId>cloud-altemistafwk-it-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+
+	<groupId>cloud.altemista.fwk.integration</groupId>
+	<artifactId>cloud-altemistafwk-core-integration-websocket-it</artifactId>
+	<packaging>${packaging.type}</packaging>
+
+	<name>cloud-altemistafwk integration: Web Sockets Adapter integration tests </name>
+
+	<dependencies>
+		
+		<dependency>
+			<groupId>cloud.altemista.fwk.rest</groupId>
+			<artifactId>cloud-altemistafwk-common-rest</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<!-- (avoid wrong transitive exclusion resolution in non-test scope) -->
+				<exclusion>
+					<groupId>cloud.altemista.fwk.framework</groupId>
+					<artifactId>cloud-altemistafwk-common</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>cloud.altemista.fwk.integration</groupId>
+			<artifactId>cloud-altemistafwk-core-integration-websocket-conf</artifactId>
+		</dependency>
+
+	</dependencies>
+
+</project>

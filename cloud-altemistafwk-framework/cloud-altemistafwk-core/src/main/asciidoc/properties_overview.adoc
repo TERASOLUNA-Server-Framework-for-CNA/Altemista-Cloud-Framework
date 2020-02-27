@@ -1,0 +1,118 @@
+
+:fragment:
+
+////
+	Note: this fragment uses the _ifndef_ conditional preprocessor directive
+	to exclude advanced topics if _getting-started_ is defined
+////
+
+ifdef::getting-started[]
+Spring property management is set up out-of-the-box. Any `.properties` file located at the `config/properties` in the classpath will be automatically available to {framework} applications. Additionally, {framework} includes support for <<cloud-altemistafwk-core-properties-environment,execution environment-awareness>>.
+endif::getting-started[]
+
+ifndef::getting-started[]
+Spring property management is set up out-of-the-box. Any `.properties` file located at the `config/properties` in the classpath will be automatically available to {framework} applications. Additionally, {framework} includes support for <<cloud-altemistafwk-core-properties-environment,execution environment-awareness>> and <<cloud-altemistafwk-core-properties-external,external properties files>>.
+endif::getting-started[]
+
+This allows {framework} applications use configurable properties in XML-based configuration:
+
+[source,xml]
+.spring/my-application.xml
+----
+<bean id="..." class="...">
+    <property name="remoteUrl" value="${remote.system.url}" />
+</bean>
+----
+
+Or annotation based:
+
+[source]
+----
+@Component
+public class ExampleBean {
+
+	@Value("${remote.system.url}")
+	private String remoteUrl;
+	// (...)
+----
+
+Configurable properties can be programatically accessde through Spring `Environment` abstraction, as shown in the following example:
+
+[source]
+----
+include::{basedir}/cloud-altemistafwk-core/src/test/java/cloud/altemista/fwk/core/properties/EnvironmentAwarePropertiesTest.java[tags=example]
+----
+
+[[cloud-altemistafwk-core-properties-environment]]
+== Execution environment-aware properties
+
+{framework} support enviornment-aware configuration (also called multi-environment configuration). The same properties file can contain the configuration for different execution environments, and the application will use the proper values transparently.
+
+This allows using the same deployable in multiple execution environments, such as staging or production, without any modification.
+
+IMPORTANT: Do not confuse Spring http://docs.spring.io/spring/docs/current/spring-framework-reference/html/beans.html#beans-environment[environment abstraction] with {framework} execution environment awareness.
+
+Keys of the execution environment-aware properties are split in two parts. `<environment>.<key>=<value>`, as follows:
+
+* `<environment>` specifies the execution environment where the value is valid. The special value `"*"` acts as a wilcard to make the value valid for all the execution environments.
+* `<key>` is the actual key of the property the application will use. I.e.: this key is used as the Spring _placeholder_, without environment prefix, as shown in the previous section.
+
+An example execution environment-aware properties file:
+[source,properties]
+.config/properties/example.properties
+----
+*.jdbc.driverClassName=com.mysql.jdbc.Driver
+*.jdbc.url=jdbc:mysql://localhost:3306/altemista
+local.jdbc.username=admindev
+staging.jdbc.username=adminint
+production.jdbc.username=adminpro
+*.jdbc.password= admin
+----
+
+TIP: Even when a property does not require to be execution environment-aware, it is recommeded to prefix it with the wildcard prefix (`"*"`).
+
+When a key is defined more than once (e.g.: specific environment, wildcard prefix, and no prefix), conflics are resolved according the following decision table:
+
+[cols="2,2,2,4"]
+|===
+|Is `<key>` defined? |Is `*.<key>` defined? |Is `<environment>.<key>` defined? |Prevalent value
+
+|* |* |Yes |`<environment>.<key>` value
+
+|Yes |* |No |`<key>` value
+
+|No |Yes |No |`*.<key>` value
+
+|===
+
+The execution environment is set in the `environment` system property. To set this property, define it when launching the JVM that will run the application:
+
+[source,sh]
+----
+java ... -Denvironment=pro
+----
+
+If you are running the {framework} application from within the IDE, VM arguments can be modified inside menu:Run[Run configurations...] as shown in the following image:
+
+.Setting the execution environment from within the IDE
+image::cloud-altemistafwk-core/properties-environment.png[align="center"]
+
+NOTE: If no execution environment is defined, {framework} will default to `"local"` execution environment.
+
+ifndef::getting-started[]
+[[cloud-altemistafwk-core-properties-external]]
+== External properties files
+
+In adition to execution environment-aware properties and the default properties files locations, {framework} supports reading properties from a optional location, usually external to the application.
+
+These external properties always have higher priority than classpath properties, and are environment-aware as well.
+
+This can be achieved by setting a system property before the application starts. With the default configuration of the framework, the property is named `external.configuration.path`:
+
+[source,sh]
+----
+java ... -Dexternal.configuration.path=file:/var/my-application/config
+----
+
+TIP: This feature is particularly useful when sensitive values (such as password) are not know to the developers but to system administrators.
+endif::getting-started[]

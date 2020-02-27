@@ -1,0 +1,68 @@
+
+:fragment:
+
+The next section shows you how to use feign client between microservices.
+
+To explain this feature we will show the integration of a microservice _microservicetwo_ into another microservice _microserviceone_. The microservice _microserviceone_ will make a feign call to the _microservicewo_, receive the response and return the result.
+
+*Maven Dependency Management*
+[source,xml]
+.microserviceone/pom.xml
+----
+<dependencyManagement>
+  <dependencies>
+    ...
+    <dependency>
+      <groupId>com.mycompany</groupId>
+      <artifactId>microservicetwo-client</artifactId> <!--1-->
+      <version>1.0.0-SNAPSHOT</version>
+    </dependency>
+    ...
+  </dependencies>
+</dependencyManagement>
+----
+<1> The `microservicetwo-client` interface managed dependency.
+
+*Maven Dependency*
+[source,xml]
+.microserviceone/microserviceone-boot/pom.xml
+----
+<dependencies>
+  ...
+  <dependency>
+    <groupId>com.mycompany</groupId>
+    <artifactId>microservicetwo-client</artifactId> <!--1-->
+  </dependency>
+  ...
+</dependencies>
+----
+<1> The `microservicetwo-client` interface dependency.
+
+*@EnableFeignClients*
+[source,java]
+./microserviceone-boot/src/main/java/com/mycompany/microserviceone/microservice/MicroserviceApplication.java
+----
+package com.mycompany.microserviceone.microservice;
+
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import cloud.altemista.fwk.config.boot.CloudAltemistafwkApplicationBuilder;
+import cloud.altemista.fwk.config.microservice.CloudAltemistafwkMicroservice;
+import cloud.altemista.fwk.config.microservice.CloudAltemistafwkMicroserviceBuilder;
+
+import com.mycompany.microservicetwo.microservice.service.MicroserviceTwoExample;
+
+@CloudAltemistafwkMicroservice
+@EnableFeignClients(basePackageClasses = MicroserviceTwoExample.class) <!--1-->
+public class MicroserviceApplication extends CloudAltemistafwkMicroserviceBuilder {
+
+    public static void main(String[] args) {
+        configureApplication(new CloudAltemistafwkApplicationBuilder(), MicroserviceApplication.class).run(args);
+    }
+	
+}
+----
+<1> The `@EnableFeignClients` with the basePackageClasses of the client interfaces integrations.
+
+*Use*
+
+The use of the microservice client integration is shown in the next section <<microservice-service-implementation,Service implementation>>.

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition>
+
+<ui:repeat value="#{alertMessages.errors}" var="error">
+	<div class="alert alert-danger text-center alert-dismissible" role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		#{error}
+	</div>
+</ui:repeat>
+
+<ui:repeat value="#{alertMessages.warnings}" var="warn">
+	<div class="alert alert-warning text-center alert-dismissible" role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		#{warn}
+	</div>
+</ui:repeat>
+
+<ui:repeat value="#{alertMessages.infos}" var="info">
+	<div class="alert alert-info text-center alert-dismissible" role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		#{info}
+	</div>
+</ui:repeat>
+	
+</ui:composition>
+</html>

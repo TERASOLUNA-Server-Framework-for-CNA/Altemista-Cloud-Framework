@@ -1,0 +1,223 @@
+#
+# Module project types (e.g.: common, core, web, webapp)
+# @see ModuleProjectTypeDto.class
+#
+
+value: microservice
+versions: "[3.0.0.RELEASE,)"
+text: ACF microservices infrastructure nature
+description: |-
+  The application will be a Microservice application, packaged as a JAR file.
+  This nature is based on the Spring Boot nature implementation and is designed to manage the infrastructure features in a microservice architecture.
+artifact:
+  groupId: cloud.altemista.fwk.framework
+  artifactId: cloud-altemistafwk-microservice-infrastructure-conf
+aggregator: true
+sharedImplementationPriority: 20
+---
+
+value: microservice-application
+versions: "[3.0.0.RELEASE,)"
+text: ACF microservices application nature
+description: |-
+  The application will be a Microservice application, packaged as a JAR file.
+  This nature is based on the Spring Boot nature implementation and is designed to manage service features in a microservice architecture.
+artifact:
+  groupId: cloud.altemista.fwk.framework
+  artifactId: cloud-altemistafwk-microservice-application-conf
+aggregator: true
+sharedImplementationPriority: 20
+---
+
+
+value: webapp
+versions: "[3.0.0.RELEASE,)"
+text: ACF web application nature (WAR)
+description: |-
+  The application will be a deployable web application, packaged as a WAR file.
+  Bootstraps the Spring context in Spring Web MVC and provides convenient support for the Spring MVC controller programming model. Also starts serving static resources from both the web application directly and from the classpath (to allow the presentation layer to follow a modular design). 
+artifact:
+  groupId: cloud.altemista.fwk.framework
+  artifactId: cloud-altemistafwk-webapp-conf
+aggregator: true
+sharedImplementationPriority: 20
+---
+
+
+value: boot
+versions: "[3.0.0.RELEASE,)"
+text: ACF Spring Boot application nature
+description: |-
+  The application will be a stand-alone Spring Boot application, packaged as a JAR file.
+  This nature is intended to be a drop-in replacement of the web application nature, and therefore aims to provide the same default features: bootstrapping the TSF+ Spring context in Spring Web MVC and serving static resources.
+  However, it does not natively support the presentation layer modules.
+artifact:
+  groupId: cloud.altemista.fwk.framework
+  artifactId: cloud-altemistafwk-boot-conf
+aggregator: true
+sharedImplementationPriority: 20
+---
+
+value: web
+versions: "[3.0.0.RELEASE,)"
+text: ACF web nature
+description: >-
+  The TSF+ web nature provides a convenient support for the Spring MVC "@Controller" programming model
+  with some additional features already set up, such as support for internationalization and paging information.
+artifact:
+  groupId: cloud.altemista.fwk.framework
+  artifactId: cloud-altemistafwk-web-conf
+---
+
+value: common
+versions: "[3.0.0.RELEASE,)"
+text: ACF common nature
+description: |-
+  The common nature serves for the purpose of creating lightweight business module interfaces. This interfaces can be shared between business modules, projects or even to 3rd parties.
+  This nature can also be used to create utility projects.
+artifact:
+  groupId: cloud.altemista.fwk.framework
+  artifactId: cloud-altemistafwk-common
+---
+
+value: core
+versions: "[3.0.0.RELEASE,)"
+text: ACF Cloud core nature
+description: |-
+  The main nature of TSF+.
+  A core project will have, out-of-the-box, an already set up extensible Spring context over the principle of convention over configuration. A core project can start using some usual features, such as logging or environment-aware property management, out-of-the-box. In essence, a core project only has to care about adding its own beans.
+  The most common usage of this feature is to build the business module implementations. However, it can be used to build shared Spring-aware utility projects (i.e.: projects that declare utility beans, common aspects, etc.).
+artifact:
+  groupId: org.terasoluna.plus.framework
+  artifactId: terasoluna-plus-core
+---
+
+
+
+value: microservice
+versions: "[1.2.0.RELEASE,3.0.0.RELEASE)"
+text: TSF+ microservices infrastructure nature
+description: |-
+  The application will be a Microservice application, packaged as a JAR file.
+  This nature is based on the Spring Boot nature implementation and is designed to manage the infrastructure features in a microservice architecture.
+artifact:
+  groupId: org.terasoluna.plus.framework
+  artifactId: terasoluna-plus-microservice-infrastructure-conf
+aggregator: true
+sharedImplementationPriority: 20
+---
+
+value: microservice-application
+versions: "[1.2.0.RELEASE,3.0.0.RELEASE)"
+text: TSF+ microservices application nature
+description: |-
+  The application will be a Microservice application, packaged as a JAR file.
+  This nature is based on the Spring Boot nature implementation and is designed to manage service features in a microservice architecture.
+artifact:
+  groupId: org.terasoluna.plus.framework
+  artifactId: terasoluna-plus-microservice-application-conf
+aggregator: true
+sharedImplementationPriority: 20
+---
+
+value: webapp
+versions: "[1.1.0-RELEASE,3.0.0.RELEASE)"
+text: TSF+ web application nature (WAR)
+description: |-
+  The application will be a deployable web application, packaged as a WAR file.
+  Bootstraps the Spring context in Spring Web MVC and provides convenient support for the Spring MVC controller programming model. Also starts serving static resources from both the web application directly and from the classpath (to allow the presentation layer to follow a modular design). 
+artifact:
+  groupId: org.terasoluna.plus.framework
+  artifactId: terasoluna-plus-webapp-conf
+aggregator: true
+sharedImplementationPriority: 20
+---
+
+value: boot
+versions: "[1.1.0-RELEASE,3.0.0.RELEASE)"
+text: TSF+ Spring Boot application nature
+description: |-
+  The application will be a stand-alone Spring Boot application, packaged as a JAR file.
+  This nature is intended to be a drop-in replacement of the web application nature, and therefore aims to provide the same default features: bootstrapping the TSF+ Spring context in Spring Web MVC and serving static resources.
+  However, it does not natively support the presentation layer modules.
+artifact:
+  groupId: org.terasoluna.plus.framework
+  artifactId: terasoluna-plus-boot-conf
+aggregator: true
+sharedImplementationPriority: 20
+---
+
+value: empty
+text: TSF+ empty project
+description: >-
+  The empty aggregator project has the purpose of simplify the development of stand-alone utility classes
+  and modules that can be shared and used in multiple TSF+ applications.
+aggregator: true
+---
+
+value: web
+versions: "[,3.0.0.RELEASE)"
+text: TSF+ web nature
+description: >-
+  The TSF+ web nature provides a convenient support for the Spring MVC "@Controller" programming model
+  with some additional features already set up, such as support for internationalization and paging information.
+artifact:
+  groupId: org.terasoluna.plus.framework
+  artifactId: terasoluna-plus-web-conf
+---
+
+value: common
+versions: "[,3.0.0.RELEASE)"
+text: TSF+ common nature
+description: |-
+  The common nature serves for the purpose of creating lightweight business module interfaces. This interfaces can be shared between business modules, projects or even to 3rd parties.
+  This nature can also be used to create utility projects.
+artifact:
+  groupId: org.terasoluna.plus.framework
+  artifactId: terasoluna-plus-common
+---
+
+value: core
+versions: "[,3.0.0.RELEASE)"
+text: TSF+ core nature
+description: |-
+  The main nature of TSF+.
+  A core project will have, out-of-the-box, an already set up extensible Spring context over the principle of convention over configuration. A core project can start using some usual features, such as logging or environment-aware property management, out-of-the-box. In essence, a core project only has to care about adding its own beans.
+  The most common usage of this feature is to build the business module implementations. However, it can be used to build shared Spring-aware utility projects (i.e.: projects that declare utility beans, common aspects, etc.).
+artifact:
+  groupId: org.terasoluna.plus.framework
+  artifactId: terasoluna-plus-core
+---
+
+
+
+#
+# (versioned for description only) (1.0.x)
+#
+
+value: webapp
+versions: "[,1.1.0-RELEASE)"
+text: TSF+ web application nature (WAR)
+description: |-
+  The application will be a deployable web application, packaged as a WAR file.
+  The web application nature bootstraps the Spring context in Spring Web MVC at the "/app/*" mapping. It also starts serving static resources from both the web application directly, and from the classpath (to allow the presentation layer to follow a modular design).
+artifact:
+  groupId: org.terasoluna.plus.framework
+  artifactId: terasoluna-plus-webapp-conf
+aggregator: true
+sharedImplementationPriority: 20
+---
+
+value: boot
+versions: "[,1.1.0-RELEASE)"
+text: TSF+ Spring Boot application nature
+description: |-
+  The application will be a stand-alone Spring Boot application, packaged as a JAR file.
+  This nature is intended to be a replacement of the web application nature, although it actually uses a slightly different configuration and does not support the presentation layer features out-of-the-box.
+  This module uses the default Spring Boot configuration: the Spring context is bootstrapped at the "/*" mapping and static resources are served directly from the classpath.
+artifact:
+  groupId: org.terasoluna.plus.framework
+  artifactId: terasoluna-plus-boot-conf
+aggregator: true
+sharedImplementationPriority: 20
+---

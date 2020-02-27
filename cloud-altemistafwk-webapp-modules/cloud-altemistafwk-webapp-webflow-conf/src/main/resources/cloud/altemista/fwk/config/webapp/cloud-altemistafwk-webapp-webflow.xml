@@ -1,0 +1,50 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd">
+
+<!--tag::internals[]-->
+
+	<!-- Executes flows: the central entry point into the Spring Web Flow system -->
+	<webflow:flow-executor id="flowExecutor" />
+
+	<!-- The registry of executable flow definitions -->
+	<webflow:flow-registry id="flowRegistry"
+			flow-builder-services="flowBuilderServices"
+			base-path="/WEB-INF/flows"> <!--1-->
+		<webflow:flow-location-pattern value="/**/*-flow.xml" /> <!--1-->
+	</webflow:flow-registry>
+
+	<!-- Configures the Spring Web Flow JSF integration -->
+	<webflow:flow-builder-services id="flowBuilderServices" view-factory-creator="mvcViewFactoryCreator"/>
+	<bean id="mvcViewFactoryCreator"
+			class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+		<!-- e.g.: tiles or facelets view resolver -->
+		<property name="viewResolvers" ref="viewResolver"/> <!--2-->
+	</bean>
+
+	<!-- Enables FlowHandler URL mapping -->
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+		<property name="flowExecutor" ref="flowExecutor" />
+	</bean>
+	
+	<!-- Maps request paths to flows in the flowRegistry;
+		e.g. a path of /hotels/booking looks for a flow with id "hotels/booking" -->
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+		<property name="flowRegistry" ref="flowRegistry"/>
+		<property name="order" value="0"/>
+	</bean>
+	
+	<!-- A strategy for handling an exception
+		that occurs at runtime during an active flow execution -->
+	<bean id="flowExceptionHandler"
+			class="org.springframework.webflow.engine.support.TransitionExecutingFlowExecutionExceptionHandler"
+		/>
+
+<!--end::internals[]-->
+
+</beans>

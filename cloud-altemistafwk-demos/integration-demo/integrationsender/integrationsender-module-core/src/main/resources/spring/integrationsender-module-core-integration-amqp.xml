@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-amqp="http://www.springframework.org/schema/integration/amqp"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+	    http://www.springframework.org/schema/integration/amqp http://www.springframework.org/schema/integration/amqp/spring-integration-amqp.xsd
+		http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="com.mycompany.application.module.amqp.config" />
+
+	<!-- Begin RabbitMQ Infrastructure Configuration Example -->
+
+	<rabbit:connection-factory id="rabbitConnectionFactory"
+		host="${spring.integration.amqp.rabbitmq.host}" port="${spring.integration.amqp.rabbitmq.port}"
+		username="${spring.integration.amqp.rabbitmq.username}" password="${spring.integration.amqp.rabbitmq.password}" /> <!--1 -->
+
+	<rabbit:template id="rabbitTemplate"
+		connection-factory="rabbitConnectionFactory"
+		exchange="${spring.integration.amqp.rabbitmq.topic-exchange}" />
+
+	<rabbit:admin connection-factory="rabbitConnectionFactory" />
+
+	<rabbit:queue id="rabbitQueue"
+		name="${spring.integration.amqp.rabbitmq.queue}" />
+
+	<rabbit:topic-exchange id="rabbitExchange"
+		name="${spring.integration.amqp.rabbitmq.topic-exchange}">
+		<rabbit:bindings>
+			<rabbit:binding queue="rabbitQueue"
+				pattern="${spring.integration.amqp.rabbitmq.binding.pattern}" />
+		</rabbit:bindings>
+	</rabbit:topic-exchange>
+
+	<!-- End RabbitMQ Infrastructure Configuration Example -->
+</beans>

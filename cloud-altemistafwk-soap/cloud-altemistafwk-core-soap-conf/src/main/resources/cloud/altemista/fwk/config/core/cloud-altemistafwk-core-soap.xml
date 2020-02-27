@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Imports the framework configuration files of cloud-altemistafwk SOAP client modules -->
+	<import resource="classpath*:cloud/altemista/fwk/config/soap/cloud-altemistafwk-soap-*.xml" />
+
+</beans>

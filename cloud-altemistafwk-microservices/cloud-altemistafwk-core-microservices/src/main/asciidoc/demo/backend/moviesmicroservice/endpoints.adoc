@@ -1,0 +1,25 @@
+
+:fragment:
+
+At the end of this section the following REST enpoints will be published by this microservice. The microservice will publish the typical operations of a CRUD for create, read, update and delete a movie
+
+.Microservice AltemistaMoviesMovies Endpoints
+[cols="<30e,<50d,^20s",options="header"]
+|===
+   ^.^|*Operation* |*Endpoint* | *Method*        
+.2+^.^|*Get all Movies*
+   ^.^|\http://localhost:8765/altemistamoviesmovies/                     |[green]#GET#
+   2+^|image:cloud-altemistafwk-documentation/microservices/demo/moviesListAllMoviesEndpoint.png[align="center"]
+.2+^.^|*Get Movies By ID*
+   ^.^|\http://localhost:8765/altemistamoviesmovies/{id}                 |[green]#GET#
+   2+^|image:cloud-altemistafwk-documentation/microservices/demo/moviesGetMovieEndpoint.png[align="center"]
+.2+^.^|*Create Movie*
+   ^.^|\http://localhost:8765/altemistamoviesmovies/                     |[blue]#POST#
+   2+^|image:cloud-altemistafwk-documentation/microservices/demo/moviesCreateMovieEndpoint.png[align="center"]
+.2+^.^|*Update Movie*
+   ^.^|\http://localhost:8765/altemistamoviesmovies/{id}                 |[blue]#PUT#
+   2+^|image:cloud-altemistafwk-documentation/microservices/demo/moviesUpdateMovieEndpoint.png[align="center"]
+.2+^.^|*Delete Movie*
+   ^.^|\http://localhost:8765/altemistamoviesmovies/{id}                 |[red]#DELETE#
+   2+^|image:cloud-altemistafwk-documentation/microservices/demo/moviesDeleteMovieEndpoint.png[align="center"]
+|===

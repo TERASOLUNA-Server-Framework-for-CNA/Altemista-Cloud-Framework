@@ -1,0 +1,29 @@
+:doctype: book
+:sectnums:
+:nofooter:
+:title: {framework} Message Broker Demo
+= {title}
+:author: {author} <{email}>
+:revnumber: {project-version}
+
+////
+//	Asciidoctor i18n and configuration
+////
+
+:toc-title: Table of Contents
+:appendix-caption: Appendix
+
+:tabsize: 2
+
+////
+//	Main body
+////
+
+[[introduction]]
+= Introduction to {framework} Message Broker
+:chapter-introduction:
+:!chapter-number:
+include::{basedir}/cloud-altemistafwk-core-message/demo.adoc[]
+
+
+include::{basedir}/cloud-altemistafwk-documentation/footer.adoc[]

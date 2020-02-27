@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<dependencies>
+
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<!-- cloud-altemistafwk-core-batch-spring due usage of org.springframework.batch.* in the example -->
+			<groupId>cloud.altemista.fwk.batch</groupId>
+			<artifactId>cloud-altemistafwk-core-batch-spring</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.batch</groupId>
+			<artifactId>cloud-altemistafwk-core-batch-spring-conf</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- == End ACF framework == -->
+
+		<!-- == Begin in-memory database -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+		</dependency>
+		<!-- == End in-memory database -->
+		
+	</dependencies>
+
+</project>

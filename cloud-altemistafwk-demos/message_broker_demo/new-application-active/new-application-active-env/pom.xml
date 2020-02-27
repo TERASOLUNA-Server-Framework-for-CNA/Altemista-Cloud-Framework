@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.mycompany</groupId>
+    <artifactId>new-application-active</artifactId>
+    <version>3.0.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>new-application-active-env</artifactId>
+  <name>new-application-active shared environment project</name>
+  <dependencies>
+    <dependency>
+      <groupId>cloud.altemista.fwk.message</groupId>
+      <artifactId>cloud-altemistafwk-core-message-active-conf</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
+</project>

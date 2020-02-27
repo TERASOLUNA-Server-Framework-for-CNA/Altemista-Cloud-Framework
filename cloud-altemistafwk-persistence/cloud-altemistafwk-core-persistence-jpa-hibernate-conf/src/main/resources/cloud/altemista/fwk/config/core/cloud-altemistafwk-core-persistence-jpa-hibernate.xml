@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!--tag::internals[]-->
+	<!-- Sets up a shared JPA EntityManagerFactory in a Spring application context -->
+	<bean id="entityManagerFactory"
+			class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+			
+		<!-- Specify the JDBC datasource -->
+		<property name="dataSource" ref="jpaDataSource"/> <!--1-->
+		
+		<!-- Specify the adapter for the desired JPA provider -->
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+		
+		<!-- Use Spring-based scanning for entity classes instead of JPA's standard persistence.xml -->
+		<property name="packagesToScan" value="${persistence.jpa.packagesToScan}"/> <!--2-->
+	</bean>
+	
+	<!-- Binds a TransactionManager to the JPA EntityManager -->
+	<bean id="jpaTransactionManager"
+			class="org.springframework.orm.jpa.JpaTransactionManager">
+		
+		<constructor-arg ref="entityManagerFactory" />
+	</bean>
+	
+	<!-- Sets up the Hibernate JPA vendor adapter -->
+	<bean id="jpaVendorAdapter"
+			class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="database" value="${persistence.jpa.database:DEFAULT}" />
+		<property name="generateDdl" value="${persistence.jpa.generateDdl:false}" />
+		<property name="showSql" value="${persistence.jpa.showSql:false}" />
+	</bean>
+	<!--end::internals[]-->
+	
+	<!-- Exception translation bean post processor -->
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	
+ </beans>

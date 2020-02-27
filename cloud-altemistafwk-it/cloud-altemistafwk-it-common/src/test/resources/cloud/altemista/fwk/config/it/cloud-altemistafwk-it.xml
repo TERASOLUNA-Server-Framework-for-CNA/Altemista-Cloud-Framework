@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<!--
+		Builds the Spring Context for the Integration Tests (Junit side)
+	 -->
+
+	<!-- Activates the replacement of ${...​} placeholders -->
+	<context:property-placeholder />
+	
+	<context:annotation-config />
+	
+	<bean class="cloud.altemista.fwk.it.impl.DefaultItMappingResolver" />
+	
+	<!-- Provides the default ItRequestProvider -->
+	<bean class="cloud.altemista.fwk.it.impl.ClientHttpItRequestProvider" primary="true" />
+
+	<!-- Replaces the default ItRequestProvider with the SeleniumHQ-based one
+		when ItRequestProvider<WebDriverItRequest> is requested (i.e.: AbstractWebDriverIT) -->
+	<bean class="cloud.altemista.fwk.it.impl.HtmlUnitDriverItRequestProvider" />
+	
+	<!-- Imports the IT configuration files of the included modules (e.g.: cloud-altemistafwk-it-common-webapp -->
+	<import resource="classpath*:cloud/altemista/fwk/config/it/cloud-altemistafwk-it-*.xml" />
+
+</beans>

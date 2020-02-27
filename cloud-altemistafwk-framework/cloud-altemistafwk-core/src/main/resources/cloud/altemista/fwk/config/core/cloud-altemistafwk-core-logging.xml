@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	    http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- Exception Code Resolver. -->
+	<bean id="exceptionCodeResolver"
+			class="org.terasoluna.gfw.common.exception.SimpleMappingExceptionCodeResolver">
+		<property name="defaultExceptionCode" value="e.cloud.altemista.fwk.common.exception.default" />
+	</bean>
+
+	<!-- Exception Logger. -->
+	<bean id="exceptionLogger"
+			class="org.terasoluna.gfw.common.exception.ExceptionLogger">
+		<property name="exceptionCodeResolver" ref="exceptionCodeResolver" />
+	</bean>
+
+	<!-- interceptor bean. -->
+	<bean id="resultMessagesLoggingInterceptor"
+			class="org.terasoluna.gfw.common.exception.ResultMessagesLoggingInterceptor">
+		<property name="exceptionLogger" ref="exceptionLogger" />
+	</bean>
+
+	<!-- setting AOP. -->
+	<aop:config>
+		<aop:advisor
+			advice-ref="resultMessagesLoggingInterceptor"
+			pointcut="@within(org.springframework.stereotype.Service)" />
+	</aop:config>
+
+
+</beans>

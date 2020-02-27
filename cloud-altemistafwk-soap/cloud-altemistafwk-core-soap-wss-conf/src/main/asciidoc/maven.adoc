@@ -1,0 +1,20 @@
+
+:fragment:
+
+To manually install the _WS-Security for SOAP client_ feature in a Maven project, add the following dependencies to the `pom.xml` file:
+
+[source,xml]
+.pom.xml
+----
+<dependency>
+  <groupId>cloud.altemista.fwk.soap</groupId>
+  <artifactId>cloud-altemistafwk-core-soap-wss</artifactId> <!--1-->
+</dependency>
+<dependency>
+  <groupId>cloud.altemista.fwk.soap</groupId>
+  <artifactId>cloud-altemistafwk-core-soap-wss-conf</artifactId> <!--2-->
+  <scope>runtime</scope>
+</dependency>
+----
+<1> Feature classes.
+<2> WS-Security for SOAP client feature auto-discoverable configuration.

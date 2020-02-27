@@ -1,0 +1,39 @@
+
+:fragment:
+
+== Annotation driven authorization
+
+{framework} security module enables annotation driven security with both Spring Security and JSR-250 annotations.
+
+A method can be secured with Spring Security `@Secured` annotation as follows: 
+
+[source]
+----
+include::{basedir}/cloud-altemistafwk-core-security-conf/src/test/java/cloud/altemista/fwk/test/security/service/SecuredService.java[tags=class;secured]
+----
+<1> All users (even anonymously authenticated ones) are allowed invoke this method.
+<2> Only the users with the role `ROLE_ADMIN` are allowed invoke this method.
+
+https://www.jcp.org/en/jsr/detail?id=250[JSR 250: Common Annotations] can be used as well:
+ 
+[source]
+----
+include::{basedir}/cloud-altemistafwk-core-security-conf/src/test/java/cloud/altemista/fwk/test/security/service/SecuredService.java[tags=class;jsr250]
+----
+<1> All security roles are allowed to invoke this method.
+<2> Only the users with the role `ROLE_ADMIN` are allowed invoke this method.
+<3> No security roles are allowed to invoke this method.
+
+NOTE: Additional configuration is required ir oder to use JSR 250: Common Annotations. Please refer to the <<cloud-altemistafwk-core-security-conf-maven>> section.
+
+Expression-based annotations can also be used to allow more complex logic in the authorization mechanism:
+ 
+[source]
+.SecuredService.java
+----
+include::{basedir}/cloud-altemistafwk-core-security-conf/src/test/java/cloud/altemista/fwk/test/security/service/SecuredService.java[tags=class;expression]
+----
+<1> All authenticated users are allowed invoke this method.
+<2> Only the users with the role `ROLE_ADMIN` are allowed invoke this method.
+
+TIP: Cross-cutting security constraints across whole sets of methods and interfaces can be defined using pointcuts. For further information read the http://docs.spring.io/spring-security/site/docs/4.0.4.RELEASE/reference/htmlsingle/#ns-protect-pointcut[_Adding Security Pointcuts_] section of the to the http://docs.spring.io/spring-security/site/docs/current/reference/html/[Spring Security Reference]. 

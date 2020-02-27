@@ -1,0 +1,13 @@
+
+:fragment:
+
+The MyBatis-based implementation of the persistence feature includes the following configuration:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/core/cloud-altemistafwk-core-persistence-mybatis.xml
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-mybatis-conf/src/main/resources/cloud/altemista/fwk/config/core/cloud-altemistafwk-core-persistence-mybatis.xml[tags=internals]
+----
+<1> This MyBatis Configuration file is not provided by the framework (see the previous <<cloud-altemistafwk-core-persistence-mybatis-conf-configuration,configuration>> section).
+<2> The data source is to be provided by the application, as described in the <<cloud-altemistafwk-core-persistence-mybatis-conf-configuration,configuration>> section.
+<3> This comma-separated values, configured in the application side, specifies the packages that contains the mappers (the repositories).

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>cloud.altemista.fwk.framework</groupId>
+		<artifactId>cloud-altemistafwk-recommended-plugins</artifactId>
+		<version>${terasolunaPlusVersion}</version>
+		<relativePath />
+	</parent>
+	
+	<groupId>${groupId}</groupId>
+	<artifactId>${rootArtifactId}</artifactId>
+	<version>${version}</version>
+	<name>Application ${rootArtifactId}</name>
+	<packaging>pom</packaging>
+  
+	<properties>
+		<appShortId>${appShortId}</appShortId>
+		
+		<java.source.version>1.7</java.source.version>
+		<java.target.version>1.7</java.target.version>
+		
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+		
+			<!-- == Begin ACF framework == -->
+			<dependency>
+				<groupId>cloud.altemista.fwk.framework</groupId>
+				<artifactId>cloud-altemistafwk-bom</artifactId>
+				<version>${terasolunaPlusVersion}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- == End ACF framework == -->
+			
+			<!-- == Begin ${rootArtifactId} application == -->
+			<dependency>
+				<groupId>${groupId}</groupId>
+				<artifactId>${rootArtifactId}-env</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${groupId}</groupId>
+				<artifactId>${rootArtifactId}-webapp</artifactId>
+				<version>${version}</version>
+			</dependency>
+			<!-- == End ${rootArtifactId} application == -->
+			
+		</dependencies>
+	</dependencyManagement>
+	
+</project>

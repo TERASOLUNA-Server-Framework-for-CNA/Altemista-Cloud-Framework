@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aws-context="http://www.springframework.org/schema/cloud/aws/context"
+	xmlns:aws-mail="http://www.springframework.org/schema/cloud/aws/mail"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+				http://www.springframework.org/schema/cloud/aws/context
+		http://www.springframework.org/schema/cloud/aws/context/spring-cloud-aws-context-1.0.xsd
+		http://www.springframework.org/schema/cloud/aws/mail
+      http://www.springframework.org/schema/cloud/aws/mail/spring-cloud-aws-mail.xsd">
+
+		<context:component-scan base-package="com.mycompany.application.module.amazon" />
+	
+	<aws-context:context-credentials>
+		<aws-context:simple-credentials
+			access-key="#{systemEnvironment['AWS_ACCESS_KEY_ID'] }" secret-key="#{systemEnvironment['AWS_SECRET_ACCESS_KEY'] }" />
+	</aws-context:context-credentials>
+
+	<aws-context:context-region region="#{systemEnvironment['AWS_DEFAULT_REGION'] }" />
+
+	<aws-mail:mail-sender id="testSender" />
+
+</beans>

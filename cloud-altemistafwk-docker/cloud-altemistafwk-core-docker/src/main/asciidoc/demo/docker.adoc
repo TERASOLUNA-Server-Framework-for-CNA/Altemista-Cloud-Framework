@@ -1,0 +1,133 @@
+
+:fragment:
+
+In order to work with Docker, you will need to install it. Go to this https://docs.docker.com/install/[site^].
+We have created two examples to see how Docker works:
+
+=== Spring Boot Example 
+
+
+In this example , we will be able to run a docker container by a spring boot project which includes swagger and JPA features too. To see more information about how to dockerise your spring boot project by ACF go to https://terasoluna.everis.com/dev/TSFplus%20Reference%20Documentation.html#_docker_in_spring_boot_projects[here^] 
+
+
+=== Web application Example
+
+In this example , we will be able to run a docker container by a web application project which includes swagger feature too. To see more information about how to dockerise your web application project by ACF go to https://terasoluna.everis.com/dev/TSFplus%20Reference%20Documentation.html#_docker_in_web_application_projects[here^] .
+
+=== Microservice Example
+
+In this example , we will be able to run microservices and theirs infractures in docker containers. 
+
+==== Configuration
+
+Let´s see what we need before to run our docker application.
+
+===== Config Server
+
+include::{basedir}/cloud-altemistafwk-core-docker/demo/config_server.adoc[]
+
+===== Registry Server
+
+include::{basedir}/cloud-altemistafwk-core-docker/demo/registry.adoc[]
+
+===== Gateway Server
+
+include::{basedir}/cloud-altemistafwk-core-docker/demo/gateway.adoc[]
+
+===== Microservice
+
+include::{basedir}/cloud-altemistafwk-core-docker/demo/microservice.adoc[]
+
+==== Run Docker Compose
+
+Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration. Our docker-compose.yaml looks like:
+
+[source,yml]
+.docker-compose
+----
+version: '3.3'
+
+services:
+
+ eureka:
+  build: ./new-application-eureka/new-application-eureka-boot
+  image: eureka
+  ports:
+   - "8761:8761"
+  links: 
+    - config-server:config-server
+  tty:
+    true
+  restart:
+    unless-stopped
+  environment:
+    - CONFIG_HOST=config-server
+
+ config-server:
+  build: ./new-application-config/new-application-config-boot
+  image: config-server
+  ports:
+   - "8888:8888"
+  environment:
+    - REGISTRY_HOST=eureka
+    - CONFIG_HOST=config-server
+  tty:
+    true
+  restart:
+    unless-stopped
+
+ gateway:
+  build: ./new-application-gateway/new-application-gateway-boot
+  image: gateway
+  ports:
+   - "8765:8765"
+  environment:
+    - REGISTRY_HOST=eureka
+    - CONFIG_HOST=config-server
+  tty:
+    true
+  restart:
+    unless-stopped
+  links: 
+    - config-server:config-server
+  depends_on:
+    - config-server
+ micro:
+  build: ./new-application-micro/new-application-micro-boot
+  image: micro
+  ports:
+   - "9001:9001"
+  environment:
+    - REGISTRY_HOST=eureka
+    - CONFIG_HOST=config-server
+  tty:
+    true
+  restart:
+    unless-stopped    
+
+# "Windows Docker native"-specific configuration
+
+networks:
+ default:
+  external:
+   name: "nat"
+----
+
+IMPORTANT: If you want to know more about docker compose, go to https://docs.docker.com/compose/compose-file/[here^]
+
+===== Build image
+
+In order to run every image we configured previously, we can use the command "docker-compose build"
+
+
+===== Run docker compose
+
+We have to run the following commands:
+
+* `docker network create nat` to create the network we need for our example.
+* `docker-compose up -d config-server` we need to wait until the config server is running.
+* `docker-compose up -d` now we can start the rest of components.
+
+As result, we will have all the components registered in eureka, go to http://localhost:8761/ and you will see something like we have below:
+
+image::cloud-altemistafwk-documentation/docker/docker_eureka.png[align="center"]

@@ -1,0 +1,10 @@
+
+:fragment:
+
+The _WS-Security for SOAP client_ feature includes the following configuration:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/soap/cloud-altemistafwk-soap-wss.xml
+----
+include::{basedir}/cloud-altemistafwk-core-soap-wss-conf/src/main/resources/cloud/altemista/fwk/config/soap/cloud-altemistafwk-soap-wss.xml[tags=internals]
+----

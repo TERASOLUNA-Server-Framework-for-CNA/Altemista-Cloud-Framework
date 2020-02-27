@@ -1,0 +1,29 @@
+:doctype: book
+:sectnums:
+:nofooter:
+:title: {framework} Cloud Stream Demo
+= {title}
+:author: {author} <{email}>
+:revnumber: {project-version}
+
+////
+//	Asciidoctor i18n and configuration
+////
+
+:toc-title: Table of Contents
+:appendix-caption: Appendix
+
+:tabsize: 2
+
+////
+//	Main body
+////
+
+[[introduction]]
+= Introduction to {framework} Cloud Stream
+:chapter-introduction:
+:!chapter-number:
+include::{basedir}/cloud-altemistafwk-core-stream/demo.adoc[]
+
+
+include::{basedir}/cloud-altemistafwk-documentation/footer.adoc[]

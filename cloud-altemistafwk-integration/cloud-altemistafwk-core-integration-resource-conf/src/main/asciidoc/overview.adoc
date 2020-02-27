@@ -1,0 +1,6 @@
+
+:fragment:
+
+{framework} Integration Resource Feature is a polling adapter that creates a Message whose payload is a collection of Resource objects.
+
+{framework} Integration Resource Feature is based on https://docs.spring.io/spring-integration/docs/5.0.0.RELEASE/reference/html/resource.html[Spring Integration Resource Support^]

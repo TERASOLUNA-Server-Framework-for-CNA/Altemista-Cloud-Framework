@@ -1,0 +1,117 @@
+
+:fragment:
+
+////
+	Note: this fragment uses the _ifndef_ conditional preprocessor directive
+	to exclude advanced topics if _getting-started_ is defined
+////
+
+This feature offers out-of-the-box support for relational databases using http://projects.spring.io/spring-data-jpa/[Spring Data JPA] backed up by the _de facto_ standard http://hibernate.org/orm/[Hibernate ORM].
+
+It is recommended to get familiar with the next concepts:
+
+* *https://en.wikipedia.org/wiki/Object-relational_mapping[Object-relational mapping (O/RM)]*: programming technique that integrates object-oriented programming and relational datbases.
+
+* *https://en.wikipedia.org/wiki/Java_Persistence_API[Java Persistence API (JPA)]*: Java specification for accessing and persisting Java objects and classes in a relational database. To actually use JPA, a provider such as Hibernate ORM is needed.
+
+* *http://projects.spring.io/spring-data/[Spring Data]*: Spring-based programming model for data access. Spring Data JPA focuses on implementing JPA based repositories.
+
+== Entities and repositories
+
+To start persisting and retrieving an entity, both the _entity_ class and the _repository_ interface must be created.
+
+Entity classes are user defined classes whose instances can be stored in a database. By example:
+
+[source]
+.com.mycompany.application.module.model.Demo.java
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-jpa-hibernate-conf/src/test/java/com/mycompany/application/module/model/Demo.java[tags=example]
+----
+<1> The `@Entity` annotation specifies this class is an entity.
+<2> The `@Table` annotation specifies the table backing up this entity.
+<3> The `@Column` annotation specifies the mapped columns for the persistent properties and fields.
+<4> Primary key of the entity.
+
+Repository classes contains the actual functionality of storage, retrieval, and search behavior. When using Spring Data JPA, repositories are defined as follows:
+
+[source]
+.com.mycompany.application.module.repository.DemoRepository.java
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-jpa-hibernate-conf/src/test/java/com/mycompany/application/module/repository/DemoRepository.java[tags=example]
+----
+<1> By extending Spring Data `org.springframework.data.repository.Repository` marker interface, this class will be considered a repository. Typically, repositories will extend `CrudRepository`, that conveniently provides generic CRUD operations (_Create, Retrieve, Update, Delete_).
+<2> Spring Data allows to declare non-generic operations with defined queries, or by deriving store-specific queries from the method names, as shown in the example.
+
+TIP: Check the http://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories[Spring Data Repositories] chapter of the http://docs.spring.io/spring-data/jpa/docs/current/reference/html/[Spring Data JPA Reference Documentation] for a reference on all the capabilities of the Spring Data Repositories.
+
+TIP: For more information about how querys works in Spring Data, please check the http://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation[Official Documentation], specifically the http://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation[dedicated JPA section].
+
+{framework} provides most of the necessary infrastructure required by Spring Data to create instance of the repository interfaces. The required <<cloud-altemistafwk-core-persistence-jpa-hibernate-conf-configuration,configuration>> in the application side is also provided by the {framework} plug-in (or Maven archetype). So, in order to use the repository, simply autowire it where necessary:
+
+[source]
+.com.mycompany.application.module.service.DemoService.java
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-jpa-hibernate-conf/src/test/java/com/mycompany/application/module/service/DemoService.java[tags=example]
+----
+<1> Use `@Transactional` to declare the transaction boundaries.
+<2> Autowired repository instance.
+<3> Generic CRUD operations provided by `CrudRepository` interface.
+<4> Non-generic operations are derived by Spring Data.
+
+ifndef::getting-started[]
+[[cloud-altemistafwk-core-persistence-jpa-hibernate-conf-dynamic-quering]]
+== Dynamic querying
+
+The infrastructure provided by the {framework} also includes dynamic querying using http://www.querydsl.com/[Querydsl]. To include dynamic querying operations in a repository, extend `QueryDslPredicateExecutor`:
+
+[source]
+.com.mycompany.application.module.repository.DynamicQueryRepository.java
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-jpa-hibernate-conf/src/test/java/com/mycompany/application/module/repository/DynamicQueryRepository.java[tags=example]
+----
+
+TIP: A repository interface can implement (and usually will) multiple base interfaces, such as `CrudRepository` and `QueryDslPredicateExecutor`.
+
+Dynamic querying is achieved as follows:
+
+[source]
+.com.mycompany.application.module.service.DynamicQueryService.java
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-jpa-hibernate-conf/src/test/java/com/mycompany/application/module/service/DynamicQueryService.java[tags=example1]
+----
+<1> Construct the required `Predicate` arguments for the `QueryDslPredicateExecutor` methods from the Querydsl generated classes (`QDemo` in the example).
+<2> This part of the predicate will be always included: besides dynamic queries, Querydsl also provides type-safe queries.
+<3> These clauses will be included in the predicate depending on the values of `min` and `max`.
+
+[TIP]
+====
+By using an utility class, complex predicates can be encapsulated in methods to favor reusability, readability and, hence, maintainability:
+
+[source]
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-jpa-hibernate-conf/src/test/java/com/mycompany/application/module/service/DynamicQueryService.java[tags=example2]
+----
+<1> Use descriptive names for the methods.
+<2> Hide the implementation details of each specific criteria.
+
+Using this utility classes, services will end up being written as follows:
+
+[source]
+.DynamicQueryService.java
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-jpa-hibernate-conf/src/test/java/com/mycompany/application/module/service/DynamicQueryService.java[tags=example3]
+----
+====
+
+IMPORTANT: The <<cloud-altemistafwk-core-persistence-jpa-hibernate-conf-configuration-dynamic,Querydsl generator Maven plug-in>> must be configured to use this feature.
+endif::getting-started[]
+
+== Spring Data REST support
+
+http://projects.spring.io/spring-data-rest/[Spring Data REST] can be used on top of Spring Data JPA repositories to expose them as hypermedia-driven REST web services.
+
+Simply annotate the repositories to be exposed with the `@RepositoryRestResource` annotation.
+
+TIP: For further details on usage and configuration of Spring Data REST, please refer to the http://docs.spring.io/spring-data/rest/docs/2.6.0.RELEASE/reference/html/[Spring Data REST - Reference Documentation].
+
+IMPORTANT: The {framework} application must provide Spring Data REST support to use this feature. See the <<cloud-altemistafwk-core-persistence-jpa-hibernate-conf-maven,maven considerations>> section.

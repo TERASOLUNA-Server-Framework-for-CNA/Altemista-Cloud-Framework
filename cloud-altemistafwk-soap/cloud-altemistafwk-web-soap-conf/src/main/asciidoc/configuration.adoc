@@ -1,0 +1,24 @@
+
+:fragment:
+
+For the basic authentication, the default configuration simply aliases the main Spring Security `AuthenticationManager` of the application for the SOAP server to use it:
+
+[source,xml]
+.spring/new-application-security-env.xml
+----
+<alias alias="inboundwssAuthenticationManager" name="appAuthenticationManager" />
+----
+
+However, it is possible to declare a separate `AuthenticationManager` for the SOAP server:
+
+[source,xml]
+.spring/new-application-security-env.xml
+----
+<security:authentication-manager alias="inboundwssAuthenticationManager">
+  <security:authentication-provider>
+    <security:user-service>
+      <security:user name="wsuser" password="{noop}password" authorities="USER" />
+    </security:user-service>
+  </security:authentication-provider>
+</security:authentication-manager>
+----

@@ -1,0 +1,88 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.framework</groupId>
+		<artifactId>cloud-altemistafwk-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+
+	<groupId>cloud.altemista.fwk.it</groupId>
+	<artifactId>cloud-altemistafwk-it-common</artifactId>
+	<name>cloud-altemistafwk common: integration tests common utilities</name>
+	<description>ACF utility classes for integration tests definition and exeuction</description>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- == ACF integration tests: bill of materials == -->
+			<dependency>
+				<groupId>cloud.altemista.fwk.it</groupId>
+				<artifactId>cloud-altemistafwk-it-bom</artifactId>
+				<version>${cloud-altemistafwk.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+	
+		<!-- == Begin ACF framework == -->
+		<!-- (due to different exclusions on terasoluna-gfw-common, the order of 
+			these dependencies is important: web should appear before core or common) -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-web-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-core</artifactId>
+		</dependency>
+		<!-- == End ACF framework == -->
+		
+		<!-- == Begin test dependencies == -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- == End test dependencies == -->
+		
+		<!-- == Begin SeleniumHQ (test) == -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- == End SeleniumHQ == -->
+		
+	</dependencies>
+	
+	<build>
+		<plugins>
+		
+			<!-- This module also builds a test-jar -->
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+		</plugins>
+	</build>
+
+</project>

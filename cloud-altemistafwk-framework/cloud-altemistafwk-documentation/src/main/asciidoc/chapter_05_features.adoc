@@ -1,0 +1,1365 @@
+
+:fragment:
+
+////
+//  Asynchronous and scheduled executions
+////
+
+[[cloud-altemistafwk-core-async-conf]]
+== Asynchronous and scheduled executions
+include::{basedir}/cloud-altemistafwk-core-async-conf/overview.adoc[leveloffset=+1]
+
+=== Configuration
+include::{basedir}/cloud-altemistafwk-core-async-conf/configuration.adoc[leveloffset=+2]
+
+=== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-core-async-conf/plugin.adoc[leveloffset=+2]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-async-conf/maven.adoc[leveloffset=+2]
+
+[[cloud-altemistafwk-core-async-conf-internals]]
+=== Asynchronous and scheduled executions internals
+include::{basedir}/cloud-altemistafwk-core-async-conf/internals.adoc[leveloffset=+2]
+
+////
+//  Batch processing
+////
+
+== Batch processing
+include::{basedir}/cloud-altemistafwk-core-batch-spring-conf/overview.adoc[leveloffset=+1]
+
+[[cloud-altemistafwk-core-batch-spring-conf-configuration]]
+=== Configuration
+include::{basedir}/cloud-altemistafwk-core-batch-spring-conf/configuration.adoc[leveloffset=+2]
+
+=== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-core-batch-spring-conf/plugin.adoc[leveloffset=+2]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-batch-spring-conf/maven.adoc[leveloffset=+2]
+
+=== Batch processing internals
+include::{basedir}/cloud-altemistafwk-core-batch-spring-conf/internals.adoc[leveloffset=+2]
+
+////
+//	Business Process Management (BPM)
+////
+
+== Business Process Management (BPM)
+include::{basedir}/cloud-altemistafwk-core-workflow/overview.adoc[leveloffset=+1]
+
+=== Activiti-based implementation
+include::{basedir}/cloud-altemistafwk-core-workflow-activiti-conf/overview.adoc[leveloffset=+2]
+
+=== Configuration
+
+[[cloud-altemistafwk-core-workflow-activiti-conf-configuration]]
+==== Activiti-based implementation
+include::{basedir}/cloud-altemistafwk-core-workflow-activiti-conf/configuration.adoc[leveloffset=+3]
+
+=== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-core-workflow/plugin.adoc[leveloffset=+2]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-workflow/maven.adoc[leveloffset=+2]
+
+=== Activiti-based BPM internals
+include::{basedir}/cloud-altemistafwk-core-workflow-activiti-conf/internals.adoc[leveloffset=+2]
+
+////
+//  Business Rules Management (BRM)
+////
+
+== Business Rules Management (BRM)
+include::{basedir}/cloud-altemistafwk-core-rules-drools-conf/overview.adoc[leveloffset=+1]
+
+[[cloud-altemistafwk-core-rules-drools-conf-configuration]]
+=== Configuration
+include::{basedir}/cloud-altemistafwk-core-rules-drools-conf/configuration.adoc[leveloffset=+2]
+
+=== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-core-rules-drools-conf/plugin.adoc[leveloffset=+2]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-rules-drools-conf/maven.adoc[leveloffset=+2]
+
+=== Drools-based BRM internals
+include::{basedir}/cloud-altemistafwk-core-rules-drools-conf/internals.adoc[leveloffset=+2]
+
+////
+//  Cache
+////
+
+== Cache
+include::{basedir}/cloud-altemistafwk-core-cache/overview.adoc[leveloffset=+1]
+
+=== Spring-based implementation
+include::{basedir}/cloud-altemistafwk-core-cache-spring-conf/overview.adoc[leveloffset=+2]
+
+==== Configuration
+include::{basedir}/cloud-altemistafwk-core-cache-spring-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-core-cache-spring-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-cache-spring-conf/maven.adoc[leveloffset=+3]
+
+[[cloud-altemistafwk-core-cache-spring-conf-internals]]
+==== Spring-based cache internals
+include::{basedir}/cloud-altemistafwk-core-cache-spring-conf/internals.adoc[leveloffset=+3]
+
+=== Ehcache-based implementation
+include::{basedir}/cloud-altemistafwk-core-cache-ehcache-conf/overview.adoc[leveloffset=+2]
+
+[[cloud-altemistafwk-core-cache-ehcache-conf-configuration]]
+==== Configuration
+include::{basedir}/cloud-altemistafwk-core-cache-ehcache-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-core-cache-ehcache-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-cache-ehcache-conf/maven.adoc[leveloffset=+3]
+
+==== Ehcache-based cache internals
+include::{basedir}/cloud-altemistafwk-core-cache-ehcache-conf/internals.adoc[leveloffset=+3]
+
+=== Other technologies for cache
+include::{basedir}/cloud-altemistafwk-documentation/features_cache_others.adoc[leveloffset=+2]
+
+
+////
+//  Connectivity utilities
+////
+
+== Connectivity utilities
+include::{basedir}/cloud-altemistafwk-common-connection/overview.adoc[leveloffset=+1]
+
+=== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-common-connection/plugin.adoc[leveloffset=+2]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-common-connection/maven.adoc[leveloffset=+2]
+
+////
+//  Cryptography utilities
+////
+
+== Cryptography utilities
+include::{basedir}/cloud-altemistafwk-common-cryptography/overview.adoc[leveloffset=+1]
+
+[[cloud-altemistafwk-common-cryptography-java]]
+=== Java Runtime Environemnt (JRE) considerations
+include::{basedir}/cloud-altemistafwk-common-cryptography/java.adoc[leveloffset=+2]
+
+=== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-common-cryptography/plugin.adoc[leveloffset=+2]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-common-cryptography/maven.adoc[leveloffset=+2]
+
+////
+//  Mail server
+////
+
+== Mail server
+include::{basedir}/cloud-altemistafwk-core-mail-javamail-conf/overview.adoc[leveloffset=+1]
+
+=== Configuration
+include::{basedir}/cloud-altemistafwk-core-mail-javamail-conf/configuration.adoc[leveloffset=+2]
+
+=== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-core-mail-javamail-conf/plugin.adoc[leveloffset=+2]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-mail-javamail-conf/maven.adoc[leveloffset=+2]
+
+[[cloud-altemistafwk-core-mail-javamail-conf-internals]]
+=== Mail server internals
+include::{basedir}/cloud-altemistafwk-core-mail-javamail-conf/internals.adoc[leveloffset=+2]
+
+////
+//  Monitoring
+////
+
+== Monitoring
+include::{basedir}/cloud-altemistafwk-core-monitoring/overview.adoc[leveloffset=+1]
+
+include::{basedir}/cloud-altemistafwk-web-monitoring/overview.adoc[leveloffset=+1]
+
+[[cloud-altemistafwk-core-monitoring-configuration]]
+=== Configuration
+include::{basedir}/cloud-altemistafwk-core-monitoring/configuration.adoc[leveloffset=+2]
+
+=== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-core-monitoring/plugin.adoc[leveloffset=+2]
+
+include::{basedir}/cloud-altemistafwk-web-monitoring/plugin.adoc[leveloffset=+2]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-monitoring/maven.adoc[leveloffset=+2]
+
+include::{basedir}/cloud-altemistafwk-web-monitoring/maven.adoc[leveloffset=+2]
+
+////
+//  Performance
+////
+
+== Performance
+include::{basedir}/cloud-altemistafwk-app-performance-conf/overview.adoc[leveloffset=+1]
+
+[[cloud-altemistafwk-app-performance-conf-configuration]]
+=== Configuration
+include::{basedir}/cloud-altemistafwk-app-performance-conf/configuration.adoc[leveloffset=+2]
+
+=== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-app-performance-conf/plugin.adoc[leveloffset=+2]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-app-performance-conf/maven.adoc[leveloffset=+2]
+
+[[cloud-altemistafwk-app-performance-conf-internals]]
+=== Performance internals
+include::{basedir}/cloud-altemistafwk-app-performance-conf/internals.adoc[leveloffset=+2]
+
+////
+//  Persistence
+////
+
+== Persistence
+include::{basedir}/cloud-altemistafwk-documentation/features_persistence.adoc[]
+
+
+[[cloud-altemistafwk-core-persistence-jpa-hibernate-conf-overview]]
+=== Object-relational mapping (O/RM): Spring Data JPA
+include::{basedir}/cloud-altemistafwk-core-persistence-jpa-hibernate-conf/overview.adoc[leveloffset=+2]
+
+[[cloud-altemistafwk-core-persistence-jpa-hibernate-conf-configuration]]
+==== Configuration
+include::{basedir}/cloud-altemistafwk-core-persistence-jpa-hibernate-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-core-persistence-jpa-hibernate-conf/plugin.adoc[leveloffset=+3]
+
+[[cloud-altemistafwk-core-persistence-jpa-hibernate-conf-maven]]
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-persistence-jpa-hibernate-conf/maven.adoc[leveloffset=+3]
+
+[[cloud-altemistafwk-core-persistence-jpa-hibernate-conf-internals]]
+==== Spring Data JPA-based persistence internals
+include::{basedir}/cloud-altemistafwk-core-persistence-jpa-hibernate-conf/internals.adoc[leveloffset=+3]
+
+
+=== JDBC/SQL: MyBatis
+include::{basedir}/cloud-altemistafwk-core-persistence-mybatis-conf/overview.adoc[leveloffset=+2]
+
+[[cloud-altemistafwk-core-persistence-mybatis-conf-configuration]]
+==== Configuration
+include::{basedir}/cloud-altemistafwk-core-persistence-mybatis-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-core-persistence-mybatis-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-persistence-mybatis-conf/maven.adoc[leveloffset=+3]
+
+[[cloud-altemistafwk-core-persistence-mybatis-conf-internals]]
+==== MyBatis-based persistence internals
+include::{basedir}/cloud-altemistafwk-core-persistence-mybatis-conf/internals.adoc[leveloffset=+3]
+
+
+[[cloud-altemistafwk-core-persistence-mongodb-conf-overview]]
+=== NoSQL: MongoDB
+include::{basedir}/cloud-altemistafwk-core-persistence-mongodb-conf/overview.adoc[leveloffset=+2]
+
+[[cloud-altemistafwk-core-persistence-mongodb-conf-configuration]]
+==== Configuration
+include::{basedir}/cloud-altemistafwk-core-persistence-mongodb-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-core-persistence-mongodb-conf/plugin.adoc[leveloffset=+3]
+
+[[cloud-altemistafwk-core-persistence-mongodb-conf-maven]]
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-persistence-mongodb-conf/maven.adoc[leveloffset=+3]
+
+[[cloud-altemistafwk-core-persistence-mongodb-conf-internals]]
+==== Spring Data MongoDB-based persistence internals
+include::{basedir}/cloud-altemistafwk-core-persistence-mongodb-conf/internals.adoc[leveloffset=+3]
+
+////
+//  Presentation layer
+////
+
+[[presentation-layer]]
+== Presentation layer
+include::{basedir}/cloud-altemistafwk-documentation/features_presentation.adoc[leveloffset=+1]
+
+
+[[presentation-layer-common]]
+=== Common functionality
+include::{basedir}/cloud-altemistafwk-webapp-common-conf/overview.adoc[leveloffset=+2]
+
+==== Configuration
+include::{basedir}/cloud-altemistafwk-webapp-common-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-webapp-common-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-webapp-common-conf/maven.adoc[leveloffset=+3]
+
+==== Common presentation layer functionality internals
+include::{basedir}/cloud-altemistafwk-webapp-common-conf/internals.adoc[leveloffset=+3]
+
+
+[[presentation-layer-jsp]]
+=== JavaServer Pages (JSP)
+include::{basedir}/cloud-altemistafwk-webapp-jsp-conf/overview.adoc[leveloffset=+2]
+
+==== Configuration
+include::{basedir}/cloud-altemistafwk-webapp-jsp-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-webapp-jsp-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-webapp-jsp-conf/maven.adoc[leveloffset=+3]
+
+==== JavaServer Pages internals
+include::{basedir}/cloud-altemistafwk-webapp-jsp-conf/internals.adoc[leveloffset=+3]
+
+
+[[presentation-layer-tiles]]
+=== Apache Tiles
+include::{basedir}/cloud-altemistafwk-webapp-tiles-conf/overview.adoc[leveloffset=+2]
+
+==== Configuration
+include::{basedir}/cloud-altemistafwk-webapp-tiles-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-webapp-tiles-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-webapp-tiles-conf/maven.adoc[leveloffset=+3]
+
+==== Apache Tiles internals
+include::{basedir}/cloud-altemistafwk-webapp-tiles-conf/internals.adoc[leveloffset=+3]
+
+
+[[presentation-layer-jsf]]
+=== JavaServer Faces (JSF)
+include::{basedir}/cloud-altemistafwk-webapp-jsf-conf/overview.adoc[leveloffset=+2]
+
+[[cloud-altemistafwk-webapp-jsf-conf-configuration]]
+==== Configuration
+include::{basedir}/cloud-altemistafwk-webapp-jsf-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-webapp-jsf-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-webapp-jsf-conf/maven.adoc[leveloffset=+3]
+
+==== JavaServer Faces internals
+include::{basedir}/cloud-altemistafwk-webapp-jsf-conf/internals.adoc[leveloffset=+3]
+
+
+=== Spring Web Flow (SWF)
+include::{basedir}/cloud-altemistafwk-webapp-webflow-conf/overview.adoc[leveloffset=+2]
+
+==== Configuration
+include::{basedir}/cloud-altemistafwk-webapp-webflow-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-webapp-webflow-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-webapp-webflow-conf/maven.adoc[leveloffset=+3]
+
+==== Spring Web Flow internals
+include::{basedir}/cloud-altemistafwk-webapp-webflow-conf/internals.adoc[leveloffset=+3]
+
+
+// SWF+Tiles and SWF+JSF
+include::{basedir}/cloud-altemistafwk-documentation/features_presentation_swf_combinations.adoc[leveloffset=+1]
+
+
+[[presentation-layer-thymeleaf]]
+=== Thymeleaf
+include::{basedir}/cloud-altemistafwk-webapp-thymeleaf-conf/overview.adoc[leveloffset=+2]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-webapp-thymeleaf-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-webapp-thymeleaf-conf/maven.adoc[leveloffset=+3]
+
+==== Thymeleaf Pages internals
+include::{basedir}/cloud-altemistafwk-webapp-thymeleaf-conf/internals.adoc[leveloffset=+3]
+
+
+[[presentation-layer-other-technologies]]
+=== Other technologies for the presentation layer
+include::{basedir}/cloud-altemistafwk-documentation/features_presentation_others.adoc[leveloffset=+2]
+
+
+////
+//  Reporting
+////
+
+== Reporting
+include::{basedir}/cloud-altemistafwk-core-reporting-conf/overview.adoc[leveloffset=+1]
+
+=== JasperReports-based implementation
+include::{basedir}/cloud-altemistafwk-core-reporting-jasper-conf/overview.adoc[leveloffset=+2]
+
+=== Configuration
+include::{basedir}/cloud-altemistafwk-core-reporting-conf/configuration.adoc[leveloffset=+2]
+
+[[cloud-altemistafwk-core-reporting-jasper-conf-configuration]]
+==== JasperReports-based implementation
+include::{basedir}/cloud-altemistafwk-core-reporting-jasper-conf/configuration.adoc[leveloffset=+3]
+
+=== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-core-reporting-conf/plugin.adoc[leveloffset=+2]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-reporting-conf/maven.adoc[leveloffset=+2]
+
+[[cloud-altemistafwk-core-reporting-jasper-conf-internals]]
+=== JasperReports-based reporting internals
+include::{basedir}/cloud-altemistafwk-core-reporting-jasper-conf/internals.adoc[leveloffset=+2]
+
+////
+//  REST web services consumer / publisher
+////
+
+== RESTful services
+
+[[cloud-altemistafwk-common-rest]]
+=== RESTful services client
+include::{basedir}/cloud-altemistafwk-common-rest/overview.adoc[leveloffset=+2]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-common-rest/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-common-rest/maven.adoc[leveloffset=+3]
+
+=== RESTful services publisher (REST server)
+include::{basedir}/cloud-altemistafwk-documentation/features_rest_server.adoc[leveloffset=+2]
+
+
+////
+//  Security
+////
+
+== Security
+include::{basedir}/cloud-altemistafwk-app-security-conf/overview.adoc[leveloffset=+1]
+
+include::{basedir}/cloud-altemistafwk-web-security-conf/overview.adoc[leveloffset=+1]
+
+include::{basedir}/cloud-altemistafwk-core-security-conf/overview.adoc[leveloffset=+1]
+
+=== Configuration
+include::{basedir}/cloud-altemistafwk-app-security-conf/configuration.adoc[leveloffset=+2]
+
+include::{basedir}/cloud-altemistafwk-web-security-conf/configuration.adoc[leveloffset=+2]
+
+include::{basedir}/cloud-altemistafwk-core-security-conf/configuration.adoc[leveloffset=+2]
+
+=== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-app-security-conf/plugin.adoc[leveloffset=+2]
+
+include::{basedir}/cloud-altemistafwk-web-security-conf/plugin.adoc[leveloffset=+2]
+
+include::{basedir}/cloud-altemistafwk-core-security-conf/plugin.adoc[leveloffset=+2]
+
+=== Maven considerations
+
+==== Authentication
+include::{basedir}/cloud-altemistafwk-app-security-conf/maven.adoc[leveloffset=+3]
+
+==== HTTP security
+include::{basedir}/cloud-altemistafwk-web-security-conf/maven.adoc[leveloffset=+3]
+
+[[cloud-altemistafwk-core-security-conf-maven]]
+==== Annotation driven authorization
+include::{basedir}/cloud-altemistafwk-core-security-conf/maven.adoc[leveloffset=+3]
+
+=== Security internals
+
+==== Authentication
+include::{basedir}/cloud-altemistafwk-app-security-conf/internals.adoc[leveloffset=+3]
+
+==== HTTP security
+include::{basedir}/cloud-altemistafwk-web-security-conf/internals.adoc[leveloffset=+3]
+
+==== Annotation driven authorization
+include::{basedir}/cloud-altemistafwk-core-security-conf/internals.adoc[leveloffset=+3]
+
+
+
+////
+//  Security: OAuth 2.0
+////
+
+[[oauth2]]
+== Security: OAuth 2.0
+include::{basedir}/cloud-altemistafwk-app-oauth2-authzsrv-conf/oauth2-overview.adoc[leveloffset=+1]
+
+
+=== OAuth 2.0 Authorization server
+include::{basedir}/cloud-altemistafwk-app-oauth2-authzsrv-conf/overview.adoc[leveloffset=+2]
+
+==== Configuration
+include::{basedir}/cloud-altemistafwk-app-oauth2-authzsrv-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-app-oauth2-authzsrv-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-app-oauth2-authzsrv-conf/maven.adoc[leveloffset=+3]
+
+==== Authorization server internals
+include::{basedir}/cloud-altemistafwk-app-oauth2-authzsrv-conf/internals.adoc[leveloffset=+3]
+
+
+=== OAuth 2.0 Resource server
+include::{basedir}/cloud-altemistafwk-app-oauth2-ressrv-conf/overview.adoc[leveloffset=+2]
+
+[[cloud-altemistafwk-app-oauth2-ressrv-conf-configuration]]
+==== Configuration
+include::{basedir}/cloud-altemistafwk-app-oauth2-ressrv-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-app-oauth2-ressrv-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-app-oauth2-ressrv-conf/maven.adoc[leveloffset=+3]
+
+==== Resource server internals
+include::{basedir}/cloud-altemistafwk-app-oauth2-ressrv-conf/internals.adoc[leveloffset=+3]
+
+
+[[cloud-altemistafwk-app-oauth2-client-conf]]
+=== OAuth 2.0 Client
+
+In Java scenarios, the preferred way to implement an OAuth 2.0 client is using `OAuth2RestTemplate`, an implementation of Spring `RestTemplate` capable of making OAuth2-authenticated REST requests. Any Java client (and, in particular, a {framework} business-tier service implementation), can invoke an OAuth 2.0 Resource Server through an `OAuth2RestTemplate` object as follows:
+
+.com.mycompany.application.module.service.impl.ExampleServiceImpl.java
+[source]
+----
+@Autowired
+private OAuth2RestTemplate restTemplate; // <1>
+
+ResponseEntity<String> response = restOperations.getForEntity(url, String.class); //<2>
+----
+<1> Inject the declared `OAuth2RestTemplate` object. The declaration can be of any of the following types: `RestOperations`, `OAuth2RestOperations`, `RestTemplate` or `OAuth2RestTemplate`.
+<2> Use as any other `RestTemplate` object.
+
+According the decision chart for the different <<cloud-altemistafwk-security-auth2srv-conf-oauth2-overview-grants,OAuth 2.0 grant types>>, each grant type covers a different scenario; hence each grant type client is addressed to a different situation. Hence, {framework} only provides native ways of declaring the `OAuth2RestTemplate` instance for _Authorization Code Grant_ and _Client Credentials Grant_ flows.
+
+==== Authorization Code Grant
+
+The type of authorization Authorization Code Grant is used as soon as the client is a web server, and most likely any {framework} application invoking an OAuth 2.0 Resource Server will use this grant type.
+
+===== Configuration
+include::{basedir}/cloud-altemistafwk-app-oauth2-client-conf/configuration.adoc[leveloffset=+4]
+
+===== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-app-oauth2-client-conf/plugin.adoc[leveloffset=+4]
+
+===== Maven considerations
+include::{basedir}/cloud-altemistafwk-app-oauth2-client-conf/maven.adoc[leveloffset=+4]
+
+===== OAuth 2.0 Client internals
+include::{basedir}/cloud-altemistafwk-app-oauth2-client-conf/internals.adoc[leveloffset=+4]
+
+==== Client Credentials Grant
+
+The type of authorization Client Credentials Grant is used for machine-to-machine authorization (e.g. an scheduled task where there is no end-user involved).
+
+===== Configuration
+include::{basedir}/cloud-altemistafwk-core-oauth2-conf/configuration.adoc[leveloffset=+4]
+
+===== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-core-oauth2-conf/plugin.adoc[leveloffset=+4]
+
+===== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-oauth2-conf/maven.adoc[leveloffset=+4]
+
+
+=== Other OAuth 2.0 Clients
+include::{basedir}/cloud-altemistafwk-documentation/features_oauth2client_others.adoc[leveloffset=+2]
+
+////
+//  Security: JWT OAuth 2.0
+////
+
+[[jwt]]
+== Security: JWT Over OAuth 2.0
+include::{basedir}/cloud-altemistafwk-core-jwt-conf/jwt-overview.adoc[leveloffset=+1]
+
+
+=== JWT OAuth 2.0 Authorization server
+include::{basedir}/cloud-altemistafwk-app-jwt-authzsrv-conf/overview.adoc[leveloffset=+2]
+
+==== Configuration
+include::{basedir}/cloud-altemistafwk-app-jwt-authzsrv-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-app-jwt-authzsrv-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-app-jwt-authzsrv-conf/maven.adoc[leveloffset=+3]
+
+==== Authorization server internals
+include::{basedir}/cloud-altemistafwk-app-jwt-authzsrv-conf/internals.adoc[leveloffset=+3]
+
+==== Custom Claim generation
+include::{basedir}/cloud-altemistafwk-app-jwt-authzsrv-conf/customToken.adoc[leveloffset=+3]
+
+
+=== JWT OAuth 2.0 Resource server
+include::{basedir}/cloud-altemistafwk-app-jwt-ressrv-conf/overview.adoc[leveloffset=+2]
+
+[[cloud-altemistafwk-app-jwt-ressrv-conf-configuration]]
+==== Configurationn
+include::{basedir}/cloud-altemistafwk-app-jwt-ressrv-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-app-jwt-ressrv-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-app-jwt-ressrv-conf/maven.adoc[leveloffset=+3]
+
+==== Resource server internals
+include::{basedir}/cloud-altemistafwk-app-jwt-ressrv-conf/internals.adoc[leveloffset=+3]
+
+==== Token and Custom Claim access
+include::{basedir}/cloud-altemistafwk-app-jwt-ressrv-conf/customToken.adoc[leveloffset=+3]
+////
+//	SOAP web service interface / consumer / publisher
+////
+
+== SOAP web service
+
+
+[[cloud-altemistafwk-common-soap-conf]]
+=== SOAP web service interface
+include::{basedir}/cloud-altemistafwk-common-soap-conf/overview.adoc[leveloffset=+2]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-common-soap-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-common-soap-conf/maven.adoc[leveloffset=+3]
+
+[[cloud-altemistafwk-common-soap-conf-consumer]]
+=== SOAP web service consumer (SOAP client)
+include::{basedir}/cloud-altemistafwk-core-soap-conf/overview.adoc[leveloffset=+2]
+
+==== Configuration
+include::{basedir}/cloud-altemistafwk-core-soap-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considrations
+include::{basedir}/cloud-altemistafwk-core-soap-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-soap-conf/maven.adoc[leveloffset=+3]
+
+
+=== WS-Security for SOAP client
+include::{basedir}/cloud-altemistafwk-core-soap-wss-conf/overview.adoc[leveloffset=+2]
+
+==== Configuration
+include::{basedir}/cloud-altemistafwk-core-soap-wss-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-core-soap-wss-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-soap-wss-conf/maven.adoc[leveloffset=+3]
+
+==== WS-Security for SOAP client internals
+include::{basedir}/cloud-altemistafwk-core-soap-wss-conf/internals.adoc[leveloffset=+3]
+
+[[cloud-altemistafwk-common-soap-conf-publisher]]
+=== SOAP web service publisher (SOAP server)
+include::{basedir}/cloud-altemistafwk-web-soap-conf/overview.adoc[leveloffset=+2]
+
+==== Configuration
+include::{basedir}/cloud-altemistafwk-web-soap-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-web-soap-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-web-soap-conf/maven.adoc[leveloffset=+3]
+
+==== SOAP server internals
+include::{basedir}/cloud-altemistafwk-web-soap-conf/internals.adoc[leveloffset=+3]
+
+
+=== WS-Security for SOAP server
+include::{basedir}/cloud-altemistafwk-web-soap-wss-conf/overview.adoc[leveloffset=+2]
+
+[[cloud-altemistafwk-web-soap-wss-conf-configuration]]
+==== Configuration
+include::{basedir}/cloud-altemistafwk-web-soap-wss-conf/configuration.adoc[leveloffset=+3]
+
+==== Plug-in considerations
+include::{basedir}/cloud-altemistafwk-web-soap-wss-conf/plugin.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-web-soap-wss-conf/maven.adoc[leveloffset=+3]
+
+==== WS-Security for SOAP server internals
+include::{basedir}/cloud-altemistafwk-web-soap-wss-conf/internals.adoc[leveloffset=+3]
+
+
+////
+// Microservices
+////
+
+== Microservices
+
+[[microservices-infrastructure-feature]]
+=== Microservice Infrastructure
+include::{basedir}/cloud-altemistafwk-core-microservices/overview.adoc[leveloffset=+2]
+
+[[cloud-altemistafwk-core-microservices-config]]
+==== Configuration Server
+include::{basedir}/cloud-altemistafwk-core-microservices-config-conf/overview.adoc[leveloffset=+3]
+
+[[cloud-altemistafwk-core-microservices-config-git]]
+===== GIT Repository Configuration
+include::{basedir}/cloud-altemistafwk-core-microservices-config-conf/configuration_git.adoc[leveloffset=+4]
+
+[[cloud-altemistafwk-core-microservices-config-filesystem]]
+===== Filesystem Configuration
+include::{basedir}/cloud-altemistafwk-core-microservices-config-conf/configuration_filesystem.adoc[leveloffset=+4]
+
+===== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-microservices-config-conf/maven.adoc[leveloffset=+3]
+
+===== Eureka Discovery Client considerations
+include::{basedir}/cloud-altemistafwk-core-microservices-config-conf/spring_cloud_client.adoc[leveloffset=+3]
+
+===== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-microservices-config-conf/plugin.adoc[leveloffset=+3]
+
+==== Registry Server
+include::{basedir}/cloud-altemistafwk-core-microservices-registry-conf/overview.adoc[leveloffset=+3]
+
+===== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-microservices-registry-conf/maven.adoc[leveloffset=+3]
+
+===== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-microservices-registry-conf/plugin.adoc[leveloffset=+3]
+
+===== Spring Cloud Eureka Dashboard
+include::{basedir}/cloud-altemistafwk-core-microservices-registry-conf/dashboard.adoc[leveloffset=+3]
+
+==== Gateway Server
+include::{basedir}/cloud-altemistafwk-core-microservices-gateway-conf/overview.adoc[leveloffset=+3]
+
+===== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-microservices-gateway-conf/maven.adoc[leveloffset=+3]
+
+===== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-microservices-gateway-conf/plugin.adoc[leveloffset=+3]
+
+===== Gateway endpoint
+include::{basedir}/cloud-altemistafwk-core-microservices-gateway-conf/endpoint.adoc[leveloffset=+3]
+
+===== Gateway over Rest Template
+include::{basedir}/cloud-altemistafwk-core-microservices-gateway-conf/resttemplate.adoc[leveloffset=+3]
+
+===== Hystrix and Ribbon timeouts default properties
+include::{basedir}/cloud-altemistafwk-core-microservices-gateway-conf/defaultproperties.adoc[leveloffset=+3]
+
+===== Internals
+
+====== Oauth 2.0 Authentication Filter
+include::{basedir}/cloud-altemistafwk-core-microservices-gateway-conf/internals.adoc[leveloffset=+3]
+
+==== Monitoring Server
+include::{basedir}/cloud-altemistafwk-core-microservices-monitoring-conf/overview.adoc[leveloffset=+3]
+
+===== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-microservices-monitoring-conf/maven.adoc[leveloffset=+3]
+
+===== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-microservices-monitoring-conf/plugin.adoc[leveloffset=+3]
+
+===== Monitoring Server Dashboard
+include::{basedir}/cloud-altemistafwk-core-microservices-monitoring-conf/dashboard.adoc[leveloffset=+3]
+
+[[microservice-infrastructure-zipkin]]
+==== Zipkin Server
+include::{basedir}/cloud-altemistafwk-core-microservices-zipkin-conf/overview.adoc[leveloffset=+3]
+
+===== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-microservices-zipkin-conf/maven.adoc[leveloffset=+3]
+
+===== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-microservices-zipkin-conf/plugin.adoc[leveloffset=+3]
+
+===== Zipkin Dashboard
+include::{basedir}/cloud-altemistafwk-core-microservices-zipkin-conf/dashboard.adoc[leveloffset=+3]
+
+===== Service Zipkin Endpoint Configuration
+include::{basedir}/cloud-altemistafwk-core-microservices-zipkin-conf/service_endpoint_configuration.adoc[leveloffset=+3]
+
+
+
+=== Microservice Application
+
+[[microservice-application-sleuth]]
+==== Sleuth feature
+include::{basedir}/cloud-altemistafwk-core-microservices-sleuth-conf/overview.adoc[leveloffset=+3]
+
+===== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-microservices-sleuth-conf/maven.adoc[leveloffset=+3]
+
+===== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-microservices-sleuth-conf/plugin.adoc[leveloffset=+3]
+
+==== Circuit Breaker / Hystrix / Turbine feature
+include::{basedir}/cloud-altemistafwk-core-microservices-hystrix-conf/overview.adoc[leveloffset=+2]
+
+===== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-microservices-hystrix-conf/maven.adoc[leveloffset=+3]
+
+===== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-microservices-hystrix-conf/plugin.adoc[leveloffset=+3]
+
+===== HystrixCommand implementation
+include::{basedir}/cloud-altemistafwk-core-microservices-hystrix-conf/hystrix_command.adoc[leveloffset=+3]
+
+////
+// Integration
+////
+
+== Integration
+//
+[[integration-overview]]
+=== Overview
+include::{basedir}/cloud-altemistafwk-core-integration/overview.adoc[leveloffset=+3]
+
+[[integration-amqp-feature]]
+=== Integration AMQP feature
+include::{basedir}/cloud-altemistafwk-core-integration-amqp-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-integration-amqp-conf/maven.adoc[leveloffset=+3]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-integration-amqp-conf/plugin.adoc[leveloffset=+3]
+
+[[rabbit-mq-infrastructure]]
+==== RabbitMQ Infrastructure configuration example
+include::{basedir}/cloud-altemistafwk-core-integration-amqp-conf/rabbitmq.adoc[leveloffset=+3]
+
+==== Sender implementation example
+include::{basedir}/cloud-altemistafwk-core-integration-amqp-conf/sender.adoc[leveloffset=+3]
+
+==== Listener implementation example
+include::{basedir}/cloud-altemistafwk-core-integration-amqp-conf/listener.adoc[leveloffset=+3]
+
+[[integration-file-feature]]
+=== Integration File feature
+include::{basedir}/cloud-altemistafwk-core-integration-file-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-integration-file-conf/maven.adoc[leveloffset=+3]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-integration-file-conf/plugin.adoc[leveloffset=+3]
+
+==== Inbound and Outbound Channel Adapters Example
+include::{basedir}/cloud-altemistafwk-core-integration-file-conf/inbound_outbound.adoc[leveloffset=+3]
+
+[[integration-ftp-feature]]
+=== Integration FTP feature
+include::{basedir}/cloud-altemistafwk-core-integration-ftp-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-integration-ftp-conf/maven.adoc[leveloffset=+3]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-integration-ftp-conf/plugin.adoc[leveloffset=+3]
+
+==== Inbound and Outbound Channel Adapters Example
+include::{basedir}/cloud-altemistafwk-core-integration-ftp-conf/inbound_outbound.adoc[leveloffset=+3]
+
+[[integration-http-feature]]
+=== Integration HTTP feature
+include::{basedir}/cloud-altemistafwk-core-integration-http-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-integration-http-conf/maven.adoc[leveloffset=+3]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-integration-http-conf/plugin.adoc[leveloffset=+3]
+
+==== Outbound Gateway Example
+include::{basedir}/cloud-altemistafwk-core-integration-http-conf/outbound_gateway.adoc[leveloffset=+3]
+
+[[integration-jms-feature]]
+=== Integration JMS feature
+include::{basedir}/cloud-altemistafwk-core-integration-jms-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-integration-jms-conf/maven.adoc[leveloffset=+3]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-integration-jms-conf/plugin.adoc[leveloffset=+3]
+
+==== Channel Adapter Example
+include::{basedir}/cloud-altemistafwk-core-integration-jms-conf/channel_adapter.adoc[leveloffset=+3]
+
+[[integration-jmx-feature]]
+=== Integration JMX feature
+include::{basedir}/cloud-altemistafwk-core-integration-jmx-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-integration-jmx-conf/maven.adoc[leveloffset=+3]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-integration-jmx-conf/plugin.adoc[leveloffset=+3]
+
+[[integration-jpa-feature]]
+=== Integration JPA feature
+include::{basedir}/cloud-altemistafwk-core-integration-jpa-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-integration-jpa-conf/maven.adoc[leveloffset=+3]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-integration-jpa-conf/plugin.adoc[leveloffset=+3]
+
+[[integration-mail-feature]]
+=== Integration MAIL feature
+include::{basedir}/cloud-altemistafwk-core-integration-mail-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-integration-mail-conf/maven.adoc[leveloffset=+3]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-integration-mail-conf/plugin.adoc[leveloffset=+3]
+
+==== Mail IMAP Channel Adapter Example
+include::{basedir}/cloud-altemistafwk-core-integration-mail-conf/imap_example.adoc[leveloffset=+3]
+
+[[integration-mqtt-feature]]
+=== Integration MQTT feature
+include::{basedir}/cloud-altemistafwk-core-integration-mqtt-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-integration-mqtt-conf/maven.adoc[leveloffset=+3]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-integration-mqtt-conf/plugin.adoc[leveloffset=+3]
+
+==== MQTT Outbound Gateway with Spring Integration Annotations Example
+include::{basedir}/cloud-altemistafwk-core-integration-mqtt-conf/mqtt_annotation_example.adoc[leveloffset=+3]
+
+[[integration-resource-feature]]
+=== Integration Resource feature
+include::{basedir}/cloud-altemistafwk-core-integration-resource-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-integration-resource-conf/maven.adoc[leveloffset=+3]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-integration-resource-conf/plugin.adoc[leveloffset=+3]
+
+==== Resource Inbound Channel Adapter Example
+include::{basedir}/cloud-altemistafwk-core-integration-resource-conf/resource_example.adoc[leveloffset=+3]
+
+[[integration-rmi-feature]]
+=== Integration RMI feature
+include::{basedir}/cloud-altemistafwk-core-integration-rmi-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-integration-rmi-conf/maven.adoc[leveloffset=+3]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-integration-rmi-conf/plugin.adoc[leveloffset=+3]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-integration-rmi-conf/rmi_example.adoc[leveloffset=+3]
+
+[[integration-sftp-feature]]
+=== Integration SFTP feature
+include::{basedir}/cloud-altemistafwk-core-integration-sftp-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-integration-sftp-conf/maven.adoc[leveloffset=+3]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-integration-sftp-conf/plugin.adoc[leveloffset=+3]
+
+==== SFTP Examples
+include::{basedir}/cloud-altemistafwk-core-integration-sftp-conf/sftp_examples.adoc[leveloffset=+3]
+
+[[integration-ip-feature]]
+=== Integration TCP and UDP feature
+include::{basedir}/cloud-altemistafwk-core-integration-ip-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-integration-ip-conf/maven.adoc[leveloffset=+3]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-integration-ip-conf/plugin.adoc[leveloffset=+3]
+
+==== Gateway example
+include::{basedir}/cloud-altemistafwk-core-integration-ip-conf/ip_example.adoc[leveloffset=+3]
+
+[[integration-ws-feature]]
+=== Integration WebServices feature
+include::{basedir}/cloud-altemistafwk-core-integration-ws-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-integration-ws-conf/maven.adoc[leveloffset=+3]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-integration-ws-conf/plugin.adoc[leveloffset=+3]
+
+==== Web Service throw Gateway Example
+include::{basedir}/cloud-altemistafwk-core-integration-ws-conf/ws_example.adoc[leveloffset=+3]
+
+[[integration-websocket-feature]]
+=== Integration Web Sockets feature
+include::{basedir}/cloud-altemistafwk-core-integration-websocket-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-integration-websocket-conf/maven.adoc[leveloffset=+3]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-integration-websocket-conf/plugin.adoc[leveloffset=+3]
+
+==== Web Sockets on Direct Channel Example
+include::{basedir}/cloud-altemistafwk-core-integration-websocket-conf/websockets_example.adoc[leveloffset=+3]
+
+////
+// Swagger
+////
+
+== Swagger
+//
+[[swagger-overview]]
+=== OpenAPI
+include::{basedir}/cloud-altemistafwk-core-swagger/open_api.adoc[leveloffset=+3]
+
+=== Swagger Definition
+include::{basedir}/cloud-altemistafwk-core-swagger/swagger_definition.adoc[leveloffset=+3]
+
+===== Top-down approach
+include::{basedir}/cloud-altemistafwk-core-swagger/top_down.adoc[leveloffset=+3]
+
+====== Creating The Source Code
+include::{basedir}/cloud-altemistafwk-core-swagger/swagger_codegen.adoc[leveloffset=+3]
+
+====== Verification
+include::{basedir}/cloud-altemistafwk-core-swagger/verification_top.adoc[leveloffset=+3]
+
+===== Bottom-up approach
+include::{basedir}/cloud-altemistafwk-core-swagger/bottom_up.adoc[leveloffset=+3]
+
+====== Verification
+include::{basedir}/cloud-altemistafwk-core-swagger/verification_bottom.adoc[leveloffset=+3]
+
+===== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-swagger/plugin.adoc[leveloffset=+3]
+
+===== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-swagger/maven.adoc[leveloffset=+3]
+
+=== Set Up Swagger without Spring Boot
+include::{basedir}/cloud-altemistafwk-core-swagger/swagger_without_spring_boot.adoc[leveloffset=+3]
+
+=== Considerations with Spring Security
+include::{basedir}/cloud-altemistafwk-core-swagger/swagger_spring_security.adoc[leveloffset=+3]
+
+== Message Broker
+
+=== Overview
+include::{basedir}/cloud-altemistafwk-core-message/overview.adoc[leveloffset=+2]
+
+=== One To One
+include::{basedir}/cloud-altemistafwk-core-message/one_to_one.adoc[leveloffset=+3]
+
+=== Publish/Subscribe
+include::{basedir}/cloud-altemistafwk-core-message/publish_subscribe.adoc[leveloffset=+3]
+
+=== ActiveMQ
+include::{basedir}/cloud-altemistafwk-core-message-active/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-message-active-conf/maven.adoc[leveloffset=+4]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-message-active-conf/plugin.adoc[leveloffset=+4]
+
+[[active-mq-configuration]]
+==== ActiveMQ Infractructure configuration
+include::{basedir}/cloud-altemistafwk-core-message-active-conf/configuration.adoc[leveloffset=+4]
+
+==== ActiveMQ One To One Implementation Example
+include::{basedir}/cloud-altemistafwk-core-message-active-conf/example_one.adoc[leveloffset=+4]
+
+==== ActiveMQ Publish/Subscribe Implementation Example
+include::{basedir}/cloud-altemistafwk-core-message-active-conf/example_publish.adoc[leveloffset=+4]
+
+=== RabbitMQ
+include::{basedir}/cloud-altemistafwk-core-message-rabbit/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-message-rabbit-conf/maven.adoc[leveloffset=+4]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-message-rabbit-conf/plugin.adoc[leveloffset=+4]
+
+[[rabbit-mq-configuration]]
+==== RabbitMQ Infractructure configuration
+include::{basedir}/cloud-altemistafwk-core-message-rabbit-conf/configuration.adoc[leveloffset=+4]
+
+==== RabbitMQ One To One Implementation Example
+include::{basedir}/cloud-altemistafwk-core-message-rabbit-conf/example_one.adoc[leveloffset=+4]
+
+==== RabbitMQ Publish/Subscribe Implementation Example
+include::{basedir}/cloud-altemistafwk-core-message-rabbit-conf/example_publish.adoc[leveloffset=+4]
+
+== Docker
+
+=== Overview
+include::{basedir}/cloud-altemistafwk-core-docker/overview.adoc[leveloffset=+2]
+
+=== Docker in spring boot projects
+include::{basedir}/cloud-altemistafwk-core-docker/overview_boot.adoc[leveloffset=+2]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-docker/plugin_boot.adoc[leveloffset=+3]
+
+[[push-image]]
+==== Push your image to a local repository
+include::{basedir}/cloud-altemistafwk-core-docker/push_boot.adoc[leveloffset=+3]
+
+=== Docker in web application projects
+include::{basedir}/cloud-altemistafwk-core-docker/overview_web.adoc[leveloffset=+2]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-docker/plugin_web.adoc[leveloffset=+3]
+
+==== Push your image to a local repository
+include::{basedir}/cloud-altemistafwk-core-docker/push_web.adoc[leveloffset=+3]
+
+=== Docker in microservices projects
+include::{basedir}/cloud-altemistafwk-core-docker/overview_micro.adoc[leveloffset=+2]
+
+== Spring Cloud Stream
+
+=== Overview
+include::{basedir}/cloud-altemistafwk-core-stream/overview.adoc[leveloffset=+2]
+
+=== Binders
+include::{basedir}/cloud-altemistafwk-core-stream/binders.adoc[leveloffset=+2]
+
+[[kafka-stream]]
+=== Kafka
+include::{basedir}/cloud-altemistafwk-core-stream-kafka/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-stream-kafka-conf/maven.adoc[leveloffset=+4]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-stream-kafka-conf/plugin.adoc[leveloffset=+4]
+
+[[kafka-configuration]]
+==== Kafka configuration
+include::{basedir}/cloud-altemistafwk-core-stream-kafka-conf/configuration.adoc[leveloffset=+4]
+
+[[rabbit-stream]]
+=== RabbitMQ
+include::{basedir}/cloud-altemistafwk-core-stream-rabbit/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-stream-rabbit-conf/maven.adoc[leveloffset=+4]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-stream-rabbit-conf/plugin.adoc[leveloffset=+4]
+
+[[rabbit-mq-cloud-configuration]]
+==== RabbitMQ configuration
+include::{basedir}/cloud-altemistafwk-core-stream-rabbit-conf/configuration.adoc[leveloffset=+4]
+
+=== Spring Cloud Stream Example
+include::{basedir}/cloud-altemistafwk-core-stream/example.adoc[leveloffset=+3]
+
+=== Consumer Groups
+include::{basedir}/cloud-altemistafwk-core-stream/groups.adoc[leveloffset=+3]
+
+=== Error Handling
+include::{basedir}/cloud-altemistafwk-core-stream/handling.adoc[leveloffset=+3]
+
+== Spring Cloud Bus
+
+=== Overview
+include::{basedir}/cloud-altemistafwk-core-microservices-bus-conf/overview.adoc[leveloffset=+2]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-microservices-bus-conf/maven.adoc[leveloffset=+2]
+
+=== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-microservices-bus-conf/plugin.adoc[leveloffset=+2]
+
+=== Spring Cloud Bus Example
+include::{basedir}/cloud-altemistafwk-core-microservices-bus-conf/example.adoc[leveloffset=+2]
+
+== Altemista
+
+=== Overview
+include::{basedir}/cloud-altemistafwk-core-altemista/overview.adoc[leveloffset=+2]
+
+=== Basic Concepts
+include::{basedir}/cloud-altemistafwk-core-altemista/basic_concepts.adoc[leveloffset=+2]
+
+=== Access Altemista
+include::{basedir}/cloud-altemistafwk-core-altemista/deploy_altemista.adoc[leveloffset=+2]
+
+[[push-openshift-registry]]
+=== Push Image Openshift Registry
+include::{basedir}/cloud-altemistafwk-core-altemista/push_image.adoc[leveloffset=+2]
+
+=== Deploy Image From External Registry
+include::{basedir}/cloud-altemistafwk-core-altemista/external_altemista.adoc[leveloffset=+2]
+
+[[image-from-openshift-registry]]
+=== Deploy Image From Openshift Registry
+include::{basedir}/cloud-altemistafwk-core-altemista/openshift_altemista.adoc[leveloffset=+2]
+
+=== Deploy From File
+include::{basedir}/cloud-altemistafwk-core-altemista/deploy_file.adoc[leveloffset=+2]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-altemista/plugin.adoc[leveloffset=+3]
+
+=== Deploy Image From Command Line
+include::{basedir}/cloud-altemistafwk-core-altemista/deploy_command_line.adoc[leveloffset=+2]
+
+=== ACF template
+include::{basedir}/cloud-altemistafwk-core-altemista/template.adoc[leveloffset=+2]
+
+== Amazon Web Services
+include::{basedir}/cloud-altemistafwk-core-amazon/overview.adoc[leveloffset=+2]
+
+=== Amazon Simple Storage Service
+include::{basedir}/cloud-altemistafwk-core-amazon-s3-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-amazon-s3-conf/maven.adoc[leveloffset=+4]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-amazon-s3-conf/plugin.adoc[leveloffset=+4]
+
+=== Amazon Simple Queue Service
+include::{basedir}/cloud-altemistafwk-core-amazon-sqs-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-amazon-sqs-conf/maven.adoc[leveloffset=+4]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-amazon-sqs-conf/plugin.adoc[leveloffset=+4]
+
+=== Amazon Simple Email Service
+include::{basedir}/cloud-altemistafwk-core-amazon-ses-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-amazon-ses-conf/maven.adoc[leveloffset=+4]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-amazon-ses-conf/plugin.adoc[leveloffset=+4]
+
+=== Amazon Relational Database Service
+include::{basedir}/cloud-altemistafwk-core-amazon-rds-conf/overview.adoc[leveloffset=+3]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-amazon-rds-conf/maven.adoc[leveloffset=+4]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-amazon-rds-conf/plugin.adoc[leveloffset=+4]
+
+
+////
+// Azure
+////
+
+== Azure
+include::{basedir}/cloud-altemistafwk-core-azure/overview.adoc[leveloffset=+2]
+
+=== Azure Active Directory
+include::{basedir}/cloud-altemistafwk-core-azure-active-directory-conf/overview.adoc[leveloffset=+3]
+
+==== Active Directory configuration
+include::{basedir}/cloud-altemistafwk-core-azure-active-directory-conf/configuration.adoc[leveloffset=+4]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-azure-active-directory-conf/maven.adoc[leveloffset=+4]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-azure-active-directory-conf/plugin.adoc[leveloffset=+4]
+
+=== Azure Key Vault
+include::{basedir}/cloud-altemistafwk-core-azure-key-vault-conf/overview.adoc[leveloffset=+3]
+
+==== Key Vault configuration
+include::{basedir}/cloud-altemistafwk-core-azure-key-vault-conf/configuration.adoc[leveloffset=+4]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-azure-key-vault-conf/maven.adoc[leveloffset=+4]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-azure-key-vault-conf/plugin.adoc[leveloffset=+4]
+
+=== Azure Storage
+include::{basedir}/cloud-altemistafwk-core-azure-storage-conf/overview.adoc[leveloffset=+3]
+
+==== Azure Storage configuration
+include::{basedir}/cloud-altemistafwk-core-azure-storage-conf/configuration.adoc[leveloffset=+4]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-azure-storage-conf/maven.adoc[leveloffset=+4]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-azure-storage-conf/plugin.adoc[leveloffset=+4]
+
+=== Azure Service Bus
+include::{basedir}/cloud-altemistafwk-core-azure-support-bus-conf/overview.adoc[leveloffset=+3]
+
+==== Service Bus configuration
+include::{basedir}/cloud-altemistafwk-core-azure-support-bus-conf/configuration.adoc[leveloffset=+4]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-azure-support-bus-conf/maven.adoc[leveloffset=+4]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-azure-support-bus-conf/plugin.adoc[leveloffset=+4]
+
+=== Azure Cosmos Db
+include::{basedir}/cloud-altemistafwk-core-azure-support-cosmos-conf/overview.adoc[leveloffset=+3]
+
+==== Cosmos Db configuration
+include::{basedir}/cloud-altemistafwk-core-azure-support-cosmos-conf/configuration.adoc[leveloffset=+4]
+
+==== Maven considerations
+include::{basedir}/cloud-altemistafwk-core-azure-support-cosmos-conf/maven.adoc[leveloffset=+4]
+
+==== Plugin considerations
+include::{basedir}/cloud-altemistafwk-core-azure-support-cosmos-conf/plugin.adoc[leveloffset=+4]

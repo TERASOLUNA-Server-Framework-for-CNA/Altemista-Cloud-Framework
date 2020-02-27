@@ -1,0 +1,8 @@
+
+:fragment:
+
+Due the version upgrade of ALTEMISTA Cloud Framework for Java (5.x) (and, therefore, the version upgrade of Spring IO Platform), the dependencies with the _groupId_ `com.mysema.querydsl` have been deprecated in favour of `com.querydsl`.
+
+Consequently, {framework} applications using the <<cloud-altemistafwk-core-persistence-jpa-hibernate-conf-dynamic-quering,Querydsl-based dynamic querying>> mechanism of <<cloud-altemistafwk-core-persistence-jpa-hibernate-conf-overview,Spring Data JPA-based persistence>> feature must update their imports from the packages starting with `com.mysema.query.types.{asterisk}` to the packages `com.querydsl.core.types.{asterisk}` (e.g.: `com.querydsl.core.types.Predicate`).
+
+Additionally, {framework} applications using the <<cloud-altemistafwk-core-persistence-jpa-hibernate-conf-configuration-dynamic,Querydsl generator Maven plug-in>> should update the processor to be `<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>` (instead of the previous one `com.mysema.query.apt.jpa.JPAAnnotationProcessor`).

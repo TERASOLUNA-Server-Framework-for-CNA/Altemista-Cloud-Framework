@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry exported="true" kind="lib" path="lib/cloud-altemistafwk-plugin-config.jar" sourcepath="/cloud-altemistafwk-plugin-config"/>
+	<classpathentry exported="true" kind="lib" path="lib/cloud-altemistafwk-plugin-core.jar" sourcepath="/cloud-altemistafwk-plugin-core"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-io.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-lang3.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/yamlbeans.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/cloud-altemistafwk-plugin-config/target/cloud-altemistafwk-plugin-config-3.0.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/cloud-altemistafwk-plugin-core/target/cloud-altemistafwk-plugin-core-3.0.0.RELEASE.jar"/>
+	<classpathentry kind="output" path="lib/classes"/>
+</classpath>

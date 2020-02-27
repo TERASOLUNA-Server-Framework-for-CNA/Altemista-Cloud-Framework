@@ -1,0 +1,12 @@
+
+:fragment:
+
+NOTE: Despit the name of the module, it is autodiscovered by the implicit _web_ nature, so it can be used with both web applications and Spring Boot-based applications.
+
+The module configures the aforementioned <<cloud-altemistafwk-webapp-common-conf-interceptors,interceptors>> as follows:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/web/cloud-altemistafwk-web-common.xml
+----
+include::{basedir}/cloud-altemistafwk-webapp-common-conf/src/main/resources/cloud/altemista/fwk/config/web/cloud-altemistafwk-web-common.xml[tags=internals]
+----

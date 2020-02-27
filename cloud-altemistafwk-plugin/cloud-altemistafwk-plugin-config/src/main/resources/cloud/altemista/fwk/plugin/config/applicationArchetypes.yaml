@@ -1,0 +1,140 @@
+#
+# Maven archetype coordinates for new applications, depending on the aggregator project types (e.g.: webapp)
+# @see OptionWithArtifactDto.class
+#
+
+
+#
+# (3.0.x)
+#
+
+value: webapp
+versions: "[3.0.0.RELEASE,)"
+artifact:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-webapp-archetype
+  version: 3.0.0.RELEASE
+---
+
+value: boot
+versions: "[3.0.0.RELEASE,)"
+artifact:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-boot-archetype
+  version: 3.0.0.RELEASE
+---
+
+value: microservice-application
+versions: "[3.0.0.RELEASE,)"
+artifact:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-microservice-application-archetype
+  version: 3.0.0.RELEASE
+  
+---
+
+value: microservice
+versions: "[3.0.0.RELEASE,)"
+artifact:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-microservice-infrastructure-archetype
+  version: 3.0.0.RELEASE
+---
+
+value: empty
+versions: "[3.0.0.RELEASE,)"
+artifact:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-empty-archetype
+  version: 3.0.0.RELEASE
+---
+
+
+#
+# (2.0.x)
+#
+
+value: boot
+versions: "[2.0.0.RELEASE,3.0.0.RELEASE)"
+artifact:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-boot-archetype
+  version: 2.0.0.RELEASE
+---
+
+value: microservice-application
+versions: "[2.0.0.RELEASE,3.0.0.RELEASE)"
+artifact:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-microservice-application-archetype
+  version: 2.0.0.RELEASE
+  
+---
+
+#
+# (1.2.x)
+#
+
+value: microservice
+versions: "[1.2.0.RELEASE,3.0.0.RELEASE)"
+artifact:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-microservice-infrastructure-archetype
+  version: 1.2.0.RELEASE
+---
+
+value: microservice-application
+versions: "[1.2.0.RELEASE,2.0.0-SNAPSHOT)"
+artifact:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-microservice-application-archetype
+  version: 1.2.0.RELEASE
+---
+
+#
+# (1.1.x)
+#
+
+value: webapp
+versions: "[1.1.0-RELEASE,3.0.0.RELEASE)"
+artifact:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-webapp-archetype
+  version: 1.1.0-RELEASE
+---
+
+value: boot
+versions: "[1.1.0-RELEASE,2.0.0.RELEASE)"
+artifact:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-boot-archetype
+  version: 1.1.0-RELEASE
+---
+
+value: empty
+versions: "[1.0.0.RELEASE,3.0.0.RELEASE)"
+artifact:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-empty-archetype
+  version: 1.0.0.RELEASE
+---
+
+#
+# (1.0.x)
+#
+
+value: webapp
+versions: "[,1.1.0-RELEASE)"
+artifact:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-webapp-archetype
+  version: 1.0.0.RELEASE
+---
+
+value: boot
+versions: "[,1.1.0-RELEASE)"
+artifact:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-boot-archetype
+  version: 1.0.0.RELEASE
+---

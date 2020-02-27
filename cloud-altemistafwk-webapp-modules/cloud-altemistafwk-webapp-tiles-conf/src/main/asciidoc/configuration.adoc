@@ -1,0 +1,18 @@
+
+:fragment:
+
+The Apache Tiles feature is configured out-of-the-box. An application using this feature is only required to properly declare and define the views and templates.
+
+////
+A configuration example of SystemExceptionResolver with mapping to tiles error pages.
+
+[source,xml]
+.spring/app-context-jsp.xml
+----
+include::{basedir}/cloud-altemistafwk-webapp-tiles-conf/src/test/resources/spring/app-context-jsp-example.xml[]
+----
+<1> Map exception types to tile pages.
+<2> Map status codes to tile pages
+
+TIP: More info of SystemExceptionResolver settings in http://terasolunaorg.github.io/guideline/{terasoluna-version}/en/ArchitectureInDetail/ExceptionHandling.html#id63
+////

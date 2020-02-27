@@ -1,0 +1,87 @@
+
+:fragment:
+
+{framework} applications are not limited to the presentation layer technologies offered by the {framework}. It is possible to use other presentation layer technologies.
+
+This section explains how to set up one of these alternative presentation layer technologies in a {framework} application.
+
+NOTE: Please note that these presentation layer technologies are not integrated in the life cycle of the framework. Therefore, they have not been exhaustively tested. Additionally, as their dependencies are not managed by the {framework}, the plug-in can not detect them, and there may be unexpected behaviour if other presentation technologies are installed on top of a manually set up presentation technology.
+
+== ZK
+
+https://www.zkoss.org/[ZK] is a UI framework, written in Java, that enables the creation of graphical user interfaces for web applications. ZK uses a component-based server-centric approach and does not follow the standard request-response mechanism.
+
+In order to integrate ZK in a {framework} web application, append the required dependency in the `pom.xml` file of the web application aggregator project:
+
+[source,xml]
+.new-application-webapp/pom.xml
+----
+<dependency>
+	<groupId>org.zkoss.zk</groupId>
+	<artifactId>zk</artifactId>
+	<version>7.0.3</version>
+</dependency>
+----
+
+ZK uses the Servlet 3.0 web fragment mechanism. In a {framework} application, it is necessary to specify the correct order for loading ZK web-fragment:
+
+[source,xml]
+.WEB-INF/web.xml
+----
+<absolute-ordering>
+	<name>cloudAltemistafwkWebapp</name>
+	<name>zk</name>
+	<name>zkCustom</name><!--1-->
+	<others/>
+</absolute-ordering>
+----
+<1> Optional.
+
+If the application wants to customize ZK, create an additional web fragment that will be loaded after the main ZK web fragment.
+
+[source,xml]
+.new-application-zk-config/src/main/resources/META-INF/web-fragment.xml
+----
+<web-fragment version="3.0"
+		xmlns="http://java.sun.com/xml/ns/javaee"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:web="http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"
+		xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd">
+
+	<name>zkCustom</name><!--1-->
+
+	<servlet>
+		<description>The asynchronous update engine for ZK</description>
+		<servlet-name>DHtmlUpdateServlet</servlet-name>
+		<servlet-class>org.zkoss.zk.au.http.DHtmlUpdateServlet</servlet-class>
+		<init-param>
+			<param-name>extension0</param-name>
+			<param-value>/upload=xxxx</param-value>
+		</init-param>
+	</servlet>
+
+	<!-- ... -->
+</web-fragment>
+----
+<1> Use the same name as in the `<absolute-ordering>` section of the `web.xml` file.
+
+In addition, the ZK configuration project (the customization web fragment) can be used for additional ZK configuration, as shown in this example:
+
+[source,xml]
+.new-application-zk-config/src/main/resources/metainfo/zk/zk.xml
+----
+<zk>
+	<config-name>customZkConfiguration</config-name>
+
+	<log>
+		<log-base>org.zkoss</log-base>
+	</log>
+
+	<library-property>
+		<name>org.zkoss.zul.Button.mold</name>
+		<value>trendy</value>
+	</library-property>
+
+	<!-- ... -->
+</zk>
+----

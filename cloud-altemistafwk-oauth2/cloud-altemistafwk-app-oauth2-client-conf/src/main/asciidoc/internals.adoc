@@ -1,0 +1,10 @@
+
+:fragment:
+
+The _OAuth 2.0 Client application_ feature decalres the aforementioned `OAuth2ClientContextFilter` instance as follows:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/app/cloud-altemistafwk-app-oauth2-client.xml
+----
+include::{basedir}/cloud-altemistafwk-app-oauth2-client-conf/src/main/resources/cloud/altemista/fwk/config/app/cloud-altemistafwk-app-oauth2-client.xml[tags=internals]
+----

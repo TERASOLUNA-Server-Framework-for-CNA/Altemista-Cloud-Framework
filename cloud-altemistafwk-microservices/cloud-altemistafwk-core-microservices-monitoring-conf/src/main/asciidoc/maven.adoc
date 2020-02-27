@@ -1,0 +1,24 @@
+
+:fragment:
+
+To manually install the {framework} Monitoring Server feature, add the following dependencies to the pom.xml file of the aggregator boot project of your application:
+
+[source,xml]
+.new-application-boot/pom.xml
+----
+<dependency>
+	<groupId>cloud.altemista.fwk.microservices</groupId>
+	<artifactId>cloud-altemistafwk-core-microservices-monitoring-conf</artifactId><!--1-->
+</dependency>
+----
+<1> Monitoring Server feature dependencies and auto-discoverable configuration.
+
+The {framework} `CloudAltemistafwkMicroserviceMonitoring` class has the next annotations to configure the application as a {framework} Monitoring Server
+
+[source,java]
+----
+include::{basedir}/cloud-altemistafwk-core-microservices-monitoring-conf/src/main/java/cloud/altemista/fwk/config/microservice/monitoring/CloudAltemistafwkMicroserviceMonitoring.java[tags=annotation]
+----
+<1> The `@EnableHystrixDashboard` annotation is used to enable Hystrix Dasboard 
+<2> The `@EnableCloudDashboard` annotation is used to enable Cloud Dashboard
+<3> The `@EnableTurbine` annotation is used to enable Turbine as a Server

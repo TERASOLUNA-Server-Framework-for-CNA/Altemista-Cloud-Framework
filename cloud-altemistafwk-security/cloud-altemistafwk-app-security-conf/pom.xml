@@ -1,0 +1,39 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.framework</groupId>
+		<artifactId>cloud-altemistafwk-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+	<groupId>cloud.altemista.fwk.security</groupId>
+	<artifactId>cloud-altemistafwk-app-security-conf</artifactId>
+	<name>cloud-altemistafwk security: authentication CONF</name>
+
+	<dependencies>
+
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-common</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- == End ACF framework == -->
+		
+		<!-- == Begin Terasoluna Server Framework for Java == -->
+		<dependency>
+			<groupId>org.terasoluna.gfw</groupId>
+			<artifactId>terasoluna-gfw-security-core-dependencies</artifactId>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.terasoluna.gfw</groupId>
+			<artifactId>terasoluna-gfw-security-web</artifactId>
+		</dependency>
+		<!-- == End Terasoluna Server Framework for Java == -->
+		
+	</dependencies>
+
+</project>

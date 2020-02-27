@@ -1,0 +1,28 @@
+
+:fragment:
+
+At the end of this section the following REST enpoints will be published by this microservice. The microservice will publish the typical operations of a CRUD for create, read, update and delete a recommendation
+
+.Microservice AltemistaMoviesRecommendations Endpoints
+[cols="<30e,<50d,^20s",options="header"]
+|===
+   ^.^|*Operation* |*Endpoint* | *Method*        
+.2+^.^|*Get all Recommendations*
+   ^.^|\http://localhost:8765/altemistamoviesrecommendations/                     |[green]#GET#
+   2+^|image:cloud-altemistafwk-documentation/microservices/demo/recommendationsListAllRecommendationsEndpoint.png[align="center"]
+.2+^.^|*Get Recommendations By ID*
+   ^.^|\http://localhost:8765/altemistamoviesrecommendations/{id}                 |[green]#GET#
+   2+^|image:cloud-altemistafwk-documentation/microservices/demo/recommendationsGetRecommendationEndpoint.png[align="center"]
+.2+^.^|*Create Recommendation*
+   ^.^|\http://localhost:8765/altemistamoviesrecommendations/                     |[blue]#POST#
+   2+^|image:cloud-altemistafwk-documentation/microservices/demo/recommendationsCreateRecommendationEndpoint.png[align="center"]
+.2+^.^|*Update Recommendation*
+   ^.^|\http://localhost:8765/altemistamoviesrecommendations/{id}                 |[blue]#PUT#
+   2+^|image:cloud-altemistafwk-documentation/microservices/demo/recommendationsUpdateRecommendationEndpoint.png[align="center"]
+.2+^.^|*Delete Recommendation*
+   ^.^|\http://localhost:8765/altemistamoviesrecommendations/{id}                 |[red]#DELETE#
+   2+^|image:cloud-altemistafwk-documentation/microservices/demo/recommendationsDeleteRecommendationEndpoint.png[align="center"]
+.2+^.^|*Find By User ID*
+   ^.^|\http://localhost:8765/altemistamoviesrecommendations/findByUserID/{id}    |[green]#GET#
+   2+^|image:cloud-altemistafwk-documentation/microservices/demo/recommendationsFindByUserIDEndpoint.png[align="center"]
+|=== 

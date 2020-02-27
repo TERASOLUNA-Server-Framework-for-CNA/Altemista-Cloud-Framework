@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+	
+	<!-- BasicAuthRestTemplate that forwards the authentication -->
+	<bean id="forwardedCredentialsBasicAuthRestTemplate" class="cloud.altemista.fwk.core.rest.security.BasicAuthRestTemplate"
+			scope="prototype">
+			
+		<!-- Scoped proxy bean so it can be injected in singleton beans such as typical controllers or services -->
+		<aop:scoped-proxy />
+		
+		<!-- The user credentials that will be forwarded -->
+		<constructor-arg ref="forwardedSecurityCredentials" />
+	</bean>
+	
+	<!-- DigestAuthRestTemplate that forwards the authentication -->
+	<bean id="forwardedCredentialsDigestAuthRestTemplate" class="cloud.altemista.fwk.core.rest.security.DigestAuthRestTemplate"
+			scope="prototype">
+	
+		<!-- Scoped proxy bean so it can be injected in singleton beans such as typical controllers or services -->
+		<aop:scoped-proxy />
+		
+		<!-- The user credentials that will be forwarded -->
+		<constructor-arg ref="forwardedSecurityCredentials" />
+	</bean>
+	
+</beans>

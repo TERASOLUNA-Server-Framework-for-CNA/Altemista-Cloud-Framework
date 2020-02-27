@@ -1,0 +1,26 @@
+
+:fragment:
+
+To manually install this feature, add the following dependencies to the `pom.xml` file of a business tier implementation project:
+
+[source,xml]
+.new-application-module-core/pom.xml
+----
+<dependency>
+    <groupId>cloud.altemista.fwk.security</groupId>
+    <artifactId>cloud-altemistafwk-core-security-conf</artifactId> <!--1-->
+</dependency>
+----
+<1> Annotation driven authorization feature auto-discoverable configuration.
+
+In order to support https://www.jcp.org/en/jsr/detail?id=250[JSR 250: Common Annotations] it is required to include the following dependency to the `pom.xml` file:
+
+[source,xml]
+.new-application-module-core/pom.xml
+----
+<dependency>
+	<groupId>javax.annotation</groupId>
+	<artifactId>jsr250-api</artifactId>
+	<scope>provided</scope>
+</dependency>
+----

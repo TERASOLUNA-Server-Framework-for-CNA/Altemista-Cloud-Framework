@@ -1,0 +1,7 @@
+
+:fragment:
+
+IMPORTANT: In AltemistaMoviesUsers must be enable the Hystrix feature for the fallback example method implementation.
+
+.Adding {framework} Hystrix Feature
+image::cloud-altemistafwk-documentation/microservices/demo/08.UsersHystryxFeature.png[align="center"]

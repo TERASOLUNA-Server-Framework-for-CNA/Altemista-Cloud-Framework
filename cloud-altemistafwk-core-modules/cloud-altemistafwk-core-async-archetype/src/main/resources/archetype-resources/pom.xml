@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<dependencies>
+
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.async</groupId>
+			<artifactId>cloud-altemistafwk-core-async</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.async</groupId>
+			<artifactId>cloud-altemistafwk-core-async-conf</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- == End ACF framework == -->
+		
+	</dependencies>
+
+</project>

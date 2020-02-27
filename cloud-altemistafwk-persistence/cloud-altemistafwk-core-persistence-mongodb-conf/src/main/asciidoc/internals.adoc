@@ -1,0 +1,46 @@
+
+:fragments:
+
+The MongoDB persistence feature includes the following configuration:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/core/cloud-altemistafwk-core-persistence-mongodb.xml
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-mongodb-conf/src/main/resources/cloud/altemista/fwk/config/core/cloud-altemistafwk-core-persistence-mongodb.xml[tags=internals]
+----
+
+////
+The `mongoServer` bean defines the connection details (host and port) using the properties `persistence.mongo.host` and  `persistence.mongo.port` defined by the application. In case they do not exist, uses a default connection using
+`127.0.0.1:27017`.
+
+The bean `mongo` defines an instance of the `MongoClient` class which manage the connections between the application and the MongoDB database. It uses the `mongoServer` configuration as well as a bean called `mongoCredentials` which by default is empty but can be overwritten to set the credentials required. These bean is a list of strings with each credential in the format defined by Spring Data MongoDB: `username:password@database` 
+
+By default, the `mongo` bean uses the default options (timeout, connections per host, max wait time, etc). If you want to use a specific configuration options, you will need to to override all the `mongo` bean to provide the required options in the constructor. These options, are an instance of the class `MongoClientOptions` provided by Spring Data MongoDB. Please, refer to the http://docs.spring.io/autorepo/docs/spring-data-mongodb/1.4.2.RELEASE/reference/html/mongo.core.html#mongo.mongo-db-factory-xml[official documentation] to know the options available.
+
+We recommend to follow an approximation similar to the following given when a custom options are required:
+
+[source]
+.com/mycompany/application/module/util/MongoOptionsBuilder.java
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-mongodb-conf/src/test/java/com/mycompany/application/module/service/MongoOptionsBuilderExample.java[tags=example]
+}
+----
+
+[source,xml,options="nowrap"]
+./application/src/main/resources/spring/application-module-core-persistence-mongodb.xml
+----
+	<bean id="mongo" class="com.mongodb.MongoClient">
+		<constructor-arg name="addr" ref="mongoServer" />
+ 		<constructor-arg name="credentialsList" ref="mongoCredentials" />
+ 		<constructor-arg name="options" ref="mongoOptions" />
+	</bean>
+	
+	<bean id="mongoOptions" class="com.mycompany.application.module.service.MongoOptionsBuilder" factory-method="init" />
+----
+
+Finally, the `mongoTemplate` bean will be the interface used by the application to execute operations against the database. By default, the module provides one configured to use the database defined by the application in the property `persistence.mongo.database`. Please, notice that one `mongoTemplate` has to be defined for each database the application wants to use.
+
+If you need more information, please refer to the official documentation:
+
+* http://docs.spring.io/autorepo/docs/spring-data-mongodb/1.4.2.RELEASE/reference/html/mongo.core.html
+////

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!--tag::methodExecutionPerformanceAspect[] -->
+	<!-- Activates the performance aspect -->
+	<aop:config>
+		<aop:aspect ref="methodExecutionPerformanceAspect"> <!--1-->
+			<aop:pointcut id="applicationMethod" expression="
+					within(com.mycompany.application..*)
+					and !within(com.mycompany.application.controller..*)" /> <!--2-->
+			<aop:around pointcut-ref="applicationMethod" method="invoke" />
+		</aop:aspect>
+	</aop:config>
+	<!--end::methodExecutionPerformanceAspect[] -->
+
+	<!--tag::methodExecutionWithLog[] -->
+	<!-- Overrides the storage to include the logging wrapper -->
+	<bean id="methodExecutionMeasuresStorage"
+		class="cloud.altemista.fwk.core.performance.impl.LogMeasuresStorageWrapperImpl"> <!--1-->
+
+		<!-- The actual storage -->
+		<property name="target"> <!--2-->
+			<bean
+				class="cloud.altemista.fwk.core.performance.impl.LongestMeasuresStorageImpl" />
+		</property>
+
+		<!-- Example customization -->
+		<property name="loggerName" value="example.peformance.log" /> <!--3-->
+	</bean>
+	<!--end::methodExecutionWithLog[] -->
+
+
+</beans>

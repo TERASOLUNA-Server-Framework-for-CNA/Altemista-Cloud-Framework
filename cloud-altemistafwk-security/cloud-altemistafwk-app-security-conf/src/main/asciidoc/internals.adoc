@@ -1,0 +1,17 @@
+
+:fragment:
+
+For the servlet part, the _web fragment_ of the {framework} security feature provides a hook into the Spring Security web infrastructure as follows:
+
+[source,xml,options="nowrap"]
+.cloud-altemistafwk-app-security-conf/src/main/resources/META-INF/web-fragment.xml
+----
+include::{basedir}/cloud-altemistafwk-app-security-conf/src/main/resources/META-INF/web-fragment.xml[tags=internals]
+----
+
+For reference (and ordering purposes if required), this web fragment is named cloudAltemistaWebappSecurity:
+[source,xml,options="nowrap"]
+.cloud-altemistafwk-app-security-conf/src/main/resources/META-INF/web-fragment.xml
+----
+<name>cloudAltemistaWebappSecurity</name>
+----

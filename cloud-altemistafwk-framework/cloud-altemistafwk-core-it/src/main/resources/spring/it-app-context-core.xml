@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Message Source bundles definition -->
+	<bean name="webCodeList" id="CL_I18N" class="cloud.altemista.fwk.core.i18n.PropertiesI18nCodeList">
+		<property name="basenames">
+			<list>
+				<value>config.i18n.</value>
+			</list>
+		</property>
+		<property name="defaultLocale" value="${application.defaultLocale:en}"/>
+		<property name="cacheSeconds" value="-1"/>
+		<property name="fallbackToSystemLocale" value="false"/>
+	</bean> 
+
+</beans>

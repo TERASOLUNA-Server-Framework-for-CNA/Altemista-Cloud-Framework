@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.framework</groupId>
+		<artifactId>cloud-altemistafwk-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+	<groupId>cloud.altemista.fwk.jwt</groupId>
+	<artifactId>cloud-altemistafwk-core-jwt-conf</artifactId>
+	<name>cloud-altemistafwk security: JWT over OAuth2 Java Client CONF</name>
+
+	<dependencies>
+
+		<!-- == Begin Spring Security OAuth JWT == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.oauth2</groupId>
+			<artifactId>cloud-altemistafwk-core-oauth2-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-jwt</artifactId>
+		</dependency>
+		<!-- == End Spring Security OAuth == -->
+		
+	</dependencies>
+
+</project>

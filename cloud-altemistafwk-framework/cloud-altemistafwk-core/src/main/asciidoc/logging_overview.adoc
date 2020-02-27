@@ -1,0 +1,89 @@
+
+:fragment:
+
+{framework} uses https://www.slf4j.org/[Simple Logging Facade for Java (SLF4J)] as the logging interface and https://logback.qos.ch/[Logback] as the implementation.
+
+Of course, {framework} applications are encouraged to also use this logging feature for:
+
+* the execution flow of the application for auditing and control purposes,
+
+* easy detection and location of technical errors,
+
+* incorrect inputs or unusual situations in the business logic.
+
+Logging cpability is provided by `org.slf4j.Logger` instances:
+
+[source]
+----
+include::{basedir}/cloud-altemistafwk-core/src/test/java/cloud/altemista/fwk/core/logging/LoggerExample.java[tags=definition]
+----
+<1> Usually, the `Logger` instance is declared `private static final` or simply `private final`. For further information on both approaches, read the https://www.slf4j.org/faq.html#declared_static[_Should Logger members of a class be declared as static?_] question in the https://www.slf4j.org/faq.html[SLF4J FAQ].
+<2> Usually, the parameter for the method `LoggerFactory.getLogger` wil be the class that is using the logger. For specific purposes, such as logging separately an specific process, it is possible to use an explicit category name.
+
+[TIP]
+====
+To easily declare the logger in your classes by simply typing `log` followed by kbd:[Ctrl + Space], create a Java editor template in Eclipse (menu:Window[Preferences > Java > Editor > Templates]) and use the following template pattern:
+
+[source]
+----
+/** The SLF4J Logger instance. */
+private static final ${loggerType:newType(org.slf4j.Logger)} LOGGER =
+    ${logFactoryType:newType(org.slf4j.LoggerFactory)}.getLogger(${enclosing_type}.class);
+----
+====
+
+Actual logging is done by invoking a method according the desired level:
+
+[source]
+----
+include::{basedir}/cloud-altemistafwk-core/src/test/java/cloud/altemista/fwk/core/logging/LoggerExample.java[tags=basic]
+----
+<1> For writing a log, you just need to invoke the method that correspond to the desire level of logging.
+<2> If the log would be heavy (for example `toString()` of a complex object), we recommend you to verify
+that the desire level of logging is available.
+<3> In case of logs of level _warning_ and _error_ is possible (and recommended) to include the original
+exception as input parameter. It allows the _stack trace_ of the exception was shown, giving us more
+information than the same information as part of the message.
+
+WARNING: Do not use neither `System.out.println`, `System.err.println`, `e.printStackTrace()` nor other
+operations that directly writes in the console output (standard or error). Always use the logger instead.
+
+The are different ways to format the written logs for show relevant information or fit to specific needs.
+Following, we show the four most common ways of doing this:
+
+[source]
+----
+include::{basedir}/cloud-altemistafwk-core/src/test/java/cloud/altemista/fwk/core/logging/LoggerExample.java[tags=advanced]
+----
+<1> Basic Java concatenation. Internally, it uses StringBuilder and `String.valueOf(obj)` for replacing
+the object values. It is the easiest way and generally enough.
+<2> `String.format` allows us more control over the result string but can cause execution
+errors if the object format found unexpected types (for example, when we change a definition entity)
+The syntax of the string is available in the Javadoc of `java.util.Formatter` class.
+<3> `java.text.MessageFormat` is a different option to `String.format`, more powerful and with
+a different syntax (Check its Javadoc).
+<4> The own SLF4J formatter uses `org.slf4j.helpers.MessageFormatter` for formatting. It is the
+most efficient option because it does not perform the string formatting or the conversion to String
+if it is not required (for example, if the level is not active).
+
+TIP: Do not include in the message redundant information already covered by the logger configuration, such as: class name, method name, current timestamp, etc.
+
+////
+Design recommendations of the log policy:
+
+* _error_ level for captured exceptions that includes treatment. If the exception will be
+just re-launched, you should delegate the log writing to the treatment layer, avoiding to
+show the log multiple times in the log file.
+* _warning_ level for exceptions captured until the application recovery. There will be a
+treatment and an alternative flow; an exceptional execution but not an application failure.
+* _info_ level for inform about high level operations and process that allow to know what the
+application is doing. For example, "User {} has removed the {} report". Depending the application,
+some notifications could have the _warning_ level: unauthorized accesses, etc.
+* _debug_ level. It allows to trace the internal execution of one process: input, important points,
+value of parameters, etc. It allows us an easy detection and debug of errors.
+
+TIP: Generally, the active levels change between environments, minimizing the log amount but
+maintaining the importance.
+In a production level, where we are looking for reduce the amount of logs, the active level will
+be _warning_ or even _error_, so the low level logs will not be written.
+////

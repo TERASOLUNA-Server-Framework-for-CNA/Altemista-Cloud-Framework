@@ -1,0 +1,109 @@
+
+:fragment:
+
+The framework sets up most of the required infrastructure of an OAuth 2.0 Authorization Server. Namely, the application is required to provide the client details, the end-user details, and a login page.
+
+== Client details
+
+For the client details, applications are required to provide a `ClientDetailsService` bean named `oauth2ClientDetailsService`. This bean will define the clients, their scopes, and their authorized grant types. This bean will be used by the framework to secure the token endpoints, so only a registered client can access those endpoints.
+
+The simplest configuration is to declare an in-memory client details service as follows:
+
+.spring/new-application-oauth2srv.xml
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:oauth2="http://www.springframework.org/schema/security/oauth2"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security/oauth2
+		http://www.springframework.org/schema/security/spring-security-oauth2.xsd"><!--1-->
+
+	<oauth2:client-details-service id="oauth2ClientDetailsService"><!--2-->
+
+		<oauth2:client
+				client-id="example" secret="wpwzJGUU"
+				scope="foo" authorized-grant-types="authorization_code,refresh_token"
+		/><!--3-->
+
+		<oauth2:client ... /><!--4-->
+
+	</oauth2:client-details-service>
+
+</beans>
+----
+<1> Include the `oauth2` schema.
+<2> The `oauth2:client-details-service` element declares an in-memory client details service.
+<3> This example declares a client identified by `example`, with the scope `foo`, and authorized to use the `authorization_code` and the `refresh_token` grants.
+<4> Define as many clients as required.
+
+For the authorized grant types, the following values are accepted:
+
+* `client_credentials`: client credentials grant.
+
+* `authorization_code`: authorization code grant, usually combined with `refresh_token` for the refresh token grant.
+
+* `password`: resource owner password grant, usually combined with `refresh_token` for the refresh token grant.
+
+* `implicit`: implicit grant.
+
+TIP: For further information on the existing client details service implementations (e.g.: `JdbcClientDetailsService` for a JDBC-based implemenation, etc.), please refer to the http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/Security/OAuth.html#implementation-of-authorization-server[Implementation of authorization server] chapter of the http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/index.html[TERASOLUNA Server Framework for Java (5.x) Development Guideline], or the _Configuring Client Details_ chapter of the https://projects.spring.io/spring-security-oauth/docs/oauth2.html[OAuth 2 Developers Guide] of Spring Security OAuth.
+
+== End-users
+
+The end-users information is used in the flows that include a login page (authorization code and implicit grants), and in the resouce owner password credentials Grant. This information is ignored in the client credentials grant. However, the framework provides infrastructure to support all the grants; therefore the application is always required to provide the end-users information.
+
+The end-users information is provided using a Spring Security authentication manager named `oauth2UsersAuthenticationManager`. This authentication manager can be built as described in the <<cloud-altemistafwk-app-security-conf-configuration-authentication>> section, or can be an alias to an existing authentication manager:
+
+[source,xml]
+.spring/my-application-security-authentication-env.xml
+----
+<alias alias="oauth2UsersAuthenticationManager" name="appAuthenticationManager" /> <!--1-->
+----
+<1> Aliases the existing authentication manager `appAuthenticationManager` as the authentication manager to be used by the OAuth 2.0 Authorization Server feature.
+
+TIP: Please note that the default configuration provided by the _Security: authentication_ feature archetype already provides the alias required for the _OAuth 2.0 Authorization Server_ feature.
+
+[[cloud-altemistafwk-app-oauth2-authzsrv-conf-configuration-login]]
+== Login page (HTTP security)
+
+If any of the clients supports any of the flows using the authorization endpoint (i.e. authorization code and implicit grants), the application is required to provide a login page through Spring Security. The simplest way to achieve this is as follows:
+
+[source,xml]
+.spring/my-application-webapp-security-http-oauth2-authzsrv.xml
+----
+<security:http authentication-manager-ref="oauth2UsersAuthenticationManager"><!--1-->
+	<security:form-login /><!--2-->
+	<security:http-basic />
+	<security:logout />
+	
+	<security:intercept-url pattern="/**" access="permitAll" /><!--3-->
+</security:http>
+----
+<1> Usually, a stand-alone authorization server will use the `oauth2UsersAuthenticationManager` authentication manager.
+<2> Generates a login page at the `/login` mapping.
+<3> There is no need to secure any mapping; this `<security:http>` element simply wants to provide a login page.
+
+WARNING: *Do not* secure the `/oauth/authorize` endpoint. If that endpoint is secured (e.g. access is set to `authenticated`), wrong requests to `/oauth/authorize` that should return a 400 or a 404 error will be mistakenly redirected to the login page.
+
+CAUTION: Please be aware of the loading order of the different `<security:http>` elements. Namely, if the application has the _Security: authentication_ feature installed, please merge the contents of `my-application-webapp-security-http.xml` and `my-application-webapp-security-http-oauth2srv.xml` configuration files to avoid conflicting `<security:http>` elements.
+
+TIP: Please note that the default configuration provided by the _Security: authentication_ feature archetype is already compatible with the _OAuth 2.0 Authorization Server_ feature.
+
+== Enforcing SSL
+
+In addition to running the OAuth 2.0 Authorization Server in a secure container, {framework} allows the restriction of the token endpoints to HTTPS only:
+
+[source,xml]
+.config/properties/new-application-webapp-oauth2-authzsrv.properties
+----
+# Flag to enforce SSL for the token endpoint
+# (please use "https" for production, and "any" for development purposes only)
+production.oauth2.authorizationServer.requiresChannel=https #<1>
+*.oauth2.authorizationServer.requiresChannel=any #<2>
+----
+<1> Always force SSL for the token endpoint in productions environments using the `https` value.
+<2> The `any` or `http` values should only be used for development purposes only.

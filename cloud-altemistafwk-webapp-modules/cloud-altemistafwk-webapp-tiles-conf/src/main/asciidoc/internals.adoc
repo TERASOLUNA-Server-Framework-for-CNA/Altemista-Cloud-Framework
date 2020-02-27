@@ -1,0 +1,18 @@
+
+:fragment:
+
+The module configures the `TilesViewResolver` and `TilesConfigurer` to scan and resolve the definitions found on:
+
+* `classpath:tiles/{asterisk}{asterisk}/{asterisk}.xml`, allowing reusable Tiles definitions in modules.
+* `/WEB-INF/tiles/{asterisk}{asterisk}/{asterisk}.xml`, extending the default `/WEB-INF/tiles.xml` to allow
+multiple files. This favors separation of, by example, templates from views.
+
+In addition, it sets up a controller to manage the different errors that can befall in the application.
+
+There are more details in the configuration file:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/webapp/cloud-altemistafwk-webapp-tiles.xml
+----
+include::{basedir}/cloud-altemistafwk-webapp-tiles-conf/src/main/resources/cloud/altemista/fwk/config/webapp/cloud-altemistafwk-webapp-tiles.xml[tags=internals]
+----

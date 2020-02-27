@@ -1,0 +1,44 @@
+<assembly>
+	<id>asciidoc</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<fileSets>
+	
+		<!-- AsciiDoc files to /asciidoc/{project.name}/ -->
+		<fileSet>
+			<directory>src/main/asciidoc</directory>
+			<outputDirectory>./asciidoc/${project.artifactId}</outputDirectory>
+			<excludes>
+				<exclude>**/images</exclude>
+				<exclude>**/images/**/*</exclude>
+			</excludes>
+			<useDefaultExcludes>true</useDefaultExcludes>
+		</fileSet>
+		
+		<!-- AsciiDoc images to /images/{project.name}/ -->
+		<fileSet>
+			<directory>src/main/asciidoc/images</directory>
+			<outputDirectory>./images/${project.artifactId}</outputDirectory>
+			<useDefaultExcludes>true</useDefaultExcludes>
+		</fileSet>
+		
+		<!-- Source and resource files to /asciidoc/{project.name}/src/main and /asciidoc/{project.name}/src/test -->
+		<fileSet>
+			<directory>src/main</directory>
+			<outputDirectory>./asciidoc/${project.artifactId}/src/main</outputDirectory>
+			<excludes>
+				<exclude>**/asciidoc</exclude>
+				<exclude>**/asciidoc/**/*</exclude>
+			</excludes>
+			<useDefaultExcludes>true</useDefaultExcludes>
+		</fileSet>
+		<fileSet>
+			<directory>src/test</directory>
+			<outputDirectory>./asciidoc/${project.artifactId}/src/test</outputDirectory>
+			<useDefaultExcludes>true</useDefaultExcludes>
+		</fileSet>
+		
+	</fileSets>
+</assembly>

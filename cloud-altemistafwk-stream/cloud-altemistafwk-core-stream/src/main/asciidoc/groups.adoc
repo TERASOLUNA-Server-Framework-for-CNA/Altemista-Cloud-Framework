@@ -1,0 +1,20 @@
+
+:fragment:
+
+When running multiple instances of our application, every time there is a new message in an input channel, all subscribers will be notified.
+
+Most of the time, we need the message to be processed only once. Spring Cloud Stream implements this behavior via consumer groups. If we want these instances to share the processing load and only one should get each message. In the listener, we add a single line to our configuration file. This tells Spring Cloud Stream that all the instances form a single consumer group that share work. We will have to add manually this file.
+
+[source,properties]
+.new-application-boot/application.properties
+----
+#adds consumer group processing
+spring.cloud.stream.bindings.<channelName>.group=<groupName>
+----
+
+
+After starting up each listener, we see a different setup in RabbitMQ. What you see is a single, named queue, but as much as “consumers” of the queue as we run up.
+
+image::cloud-altemistafwk-documentation/stream/groups.png[align="center"]
+
+All groups that subscribe to a given destination receive a copy of published data, but only one member of each group receives a given message from that destination. If you want more information, please go to this https://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/#consumer-groups[site^]

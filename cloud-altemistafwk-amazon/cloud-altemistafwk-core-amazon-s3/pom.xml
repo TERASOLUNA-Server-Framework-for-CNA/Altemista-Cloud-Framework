@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.framework</groupId>
+		<artifactId>cloud-altemistafwk-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+
+	<groupId>cloud.altemista.fwk.amazon</groupId>
+	<artifactId>cloud-altemistafwk-core-amazon-s3</artifactId>
+
+	<name>cloud-altemistafwk messsage s3</name>
+	<description>Core of the amazon s3 module</description>
+
+	<dependencies>
+
+		<!-- == Begin ACF dependencies == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-core</artifactId>
+		</dependency>
+		<!-- == End ACF dependencies == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.amazon</groupId>
+			<artifactId>cloud-altemistafwk-core-amazon</artifactId>
+		</dependency>
+	</dependencies>
+
+
+</project>

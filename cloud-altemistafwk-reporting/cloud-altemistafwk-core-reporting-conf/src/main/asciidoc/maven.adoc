@@ -1,0 +1,31 @@
+
+:fragment:
+
+To manually install the <<cloud-altemistafwk-core-reporting-conf-overview-generating,report builder>> feature, add the following dependencies to the `pom.xml` file of a business tier implementation project:
+
+[source,xml]
+.new-application-module-core/pom.xml
+----
+<dependency>
+	<groupId>cloud.altemista.fwk.reporting</groupId>
+	<artifactId>cloud-altemistafwk-core-reporting</artifactId> <!--1-->
+</dependency>
+<dependency>
+	<groupId>cloud.altemista.fwk.reporting</groupId>
+	<artifactId>cloud-altemistafwk-core-reporting-jasper-conf</artifactId> <!--2-->
+	<scope>provided</scope>
+</dependency>
+----
+<1> Feature classes.
+<2> Feature auto-discoverable configuration of the JasperReports-based implementation.
+
+To manually install the <<cloud-altemistafwk-core-reporting-conf-overview-serving,report server>> feature, add the following dependency to the `pom.xml` file of a web tier implementation project:
+
+[source,xml]
+.new-application-module-web/pom.xml
+----
+<dependency>
+	<groupId>cloud.altemista.fwk.reporting</groupId>
+	<artifactId>cloud-altemistafwk-web-reporting</artifactId>
+</dependency>
+----

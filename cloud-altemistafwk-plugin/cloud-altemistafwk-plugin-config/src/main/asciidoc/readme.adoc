@@ -1,0 +1,47 @@
+== Naming convention
+
+* *Application*: the whole application; the multi-module maven project
+** <packaging>pom</packaging>
+** Multi-module maven project
+** Contains the managed dependency to the ACF bom
+** Contains the aggregator project and the module project
+
+* *Application project*: the actual projects of the application
+** <packaging>jar</packaging>
+** One of them will be the aggregator project of the application; the rest of them will be module projects of the application
+
+* *Aggregator project*: the project whose target is the actual application. i.e.: `webapp` projects
+** Actually, only `webapp` type is supported (and, thus, `<packaging>war<packaging>`)
+** Compile dependencies to the module projects: `web` (and `common`?)
+** Runtime dependencies to the module projects: `core`
+** _May_ contain runtime dependencies to `*-conf`
+
+* *Module project*: the rest of the application projects. i.e.: `common`, `core` and `web` projects
+** Compile dependencies to the proper type: `cloud-altemistafwk-common/core/web`
+
+* *Busines module*: logical aggrupation of module projects for the same business logic
+
+* *Feature*: framework module that can be added to any application project (e.g.: workflow)
+** Compile dependencies, usually to the _common interfaces_ projects of each framework module
+
+* *Feature implementation*: each concrete implementation of a feature (e.g.: workflow-activiti)
+** Runtime dependencies usually
+** Can be added to the module project, to the aggregator project, or skipped (e.g.: to share the configuration if more than one business module uses the same feature)
+
+[cols="2,2,2,4"]
+|===
+| | | |Maven structure
+
+.7+^|Application	|		<|Application (project)	|`reminders` 
+
+		.2+^|Busines module	^|Module project		|......`reminders-common`
+
+							^|Module project		|......`reminders-core`
+
+		|					>|Features(s)			|............`core-persitence, core-security`
+
+		|					^|Aggregator project	|......`reminders-webapp`
+
+		|					>|Shared feature impl.	|............`core-persistence-jpa-conf`
+
+|===

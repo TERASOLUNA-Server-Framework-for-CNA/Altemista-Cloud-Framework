@@ -1,0 +1,65 @@
+
+:fragment:
+
+To manually install the Hibernate ORM-based implementation of the persistence feature, add the following dependencies to the `pom.xml` file of a business tier implementation project:
+
+[source,xml]
+.new-application-module-core/pom.xml
+----
+<dependency>
+	<groupId>cloud.altemista.fwk.persistence</groupId>
+	<artifactId>cloud-altemistafwk-core-persistence-jpa-hibernate-conf</artifactId> <!--1-->
+</dependency>
+----
+<1> Auto-discoverable implementation and configuration of the Hibernate ORM-based implementation of the persistence feature.
+
+[[cloud-altemistafwk-core-persistence-jpa-hibernate-conf-configuration-dynamic]]
+== Dynamic querying support
+
+To support dynamic queries with Querydsl (i.e.: to create the necessary query class for each entity), the Querydsl generator Maven plug-in must be configured as follows:
+
+[source,xml]
+.my-application-module-core/pom.xml
+----
+<plugin>
+  <groupId>com.mysema.maven</groupId>
+  <artifactId>apt-maven-plugin</artifactId>
+  <executions>
+    <execution>
+      <goals>
+        <goal>process</goal>
+      </goals>
+      <configuration>
+        <outputDirectory>target/generated-sources/java</outputDirectory>
+        <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+----
+
+== Spring Data REST support
+
+Spring Data REST annotations, such as `@RepositoryRestResource`, are supported by default with the following optional dependency, added by the partial archetype or the plug-in:
+
+[source,xml]
+.my-application-module-core/pom.xml
+----
+<dependency>
+  <groupId>org.springframework.data</groupId>
+  <artifactId>spring-data-rest-core</artifactId>
+  <scope>provided</scope>
+  <optional>true</optional>
+</dependency>
+----
+
+But in order to actually support Spring Data REST in the {framework} application, the following dependency must be included in the aggregator project (either web application or Spring Boot-based application):
+
+[source,xml]
+.new-application-webapp/pom.xml or new-application-boot/pom.xml
+----
+<dependency>
+	<groupId>org.springframework.data</groupId>
+	<artifactId>spring-data-rest-webmvc</artifactId>
+</dependency>
+----

@@ -1,0 +1,10 @@
+
+:fragment:
+
+This modules simply sets up the view resolver as follows:
+
+[source,xml,options="nowrap"]
+.cloud-altemistafwk-webapp-thymeleaf-conf/src/main/resources/cloud/altemista/fwk/config/webapp/cloud-altemistafwk-webapp-thymeleaf.xml
+----
+include::{basedir}//cloud-altemistafwk-webapp-thymeleaf-conf/src/main/resources/cloud/altemista/fwk/config/webapp/cloud-altemistafwk-webapp-thymeleaf.xml[tags=internals]
+----

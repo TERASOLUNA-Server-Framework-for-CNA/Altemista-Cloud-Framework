@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.it</groupId>
+		<artifactId>cloud-altemistafwk-it-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	
+	<groupId>cloud.altemista.fwk.workflow</groupId>
+	<artifactId>cloud-altemistafwk-core-workflow-activiti-it</artifactId>
+	<packaging>${packaging.type}</packaging>
+	
+	<name>cloud-altemistafwk workflow integration tests (Activiti implementation)</name>
+	<description>Integration tests for the ACF workflow module with Activiti implementation</description>
+
+	<dependencies>
+	
+		<!-- == Begin ACF module to be tested == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.workflow</groupId>
+			<artifactId>cloud-altemistafwk-core-workflow-activiti-conf</artifactId>
+		</dependency>
+		<!-- == End ACF module to be tested == -->
+
+		<!-- == Begin additional ACF modules == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.security</groupId>
+			<artifactId>cloud-altemistafwk-core-security-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.security</groupId>
+			<artifactId>cloud-altemistafwk-web-security</artifactId>
+		</dependency>
+		<!-- == End additional ACF modules == -->
+
+		<!-- == Begin in-memory database == -->
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+		</dependency>
+		<!-- == End in-memory database == -->
+
+	</dependencies>
+	
+</project>

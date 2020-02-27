@@ -1,0 +1,242 @@
+
+:fragment:
+
+////
+	Note: this fragment uses the _ifndef_ conditional preprocessor directive
+	to exclude advanced topics if _getting-started_ is defined
+////
+
+The recommended design of {framework} based applications is both layered and modular, enforced by the use of the {framework} development environment.
+
+This design allows for distributed development, with the different pieces being built by different teams. Also provides the ability of transitioning easily between different deployment approachs such as monolithic, service oriented, distributed, etc.
+
+ifdef::getting-started[]
+The next section walks through the logical structure of {framework} application using a theoretical example, followed by an overview of the different parts.
+endif::getting-started[]
+
+ifndef::getting-started[]
+In order to establish a set of common terms, this chapter starts identifying the parts of a {framework} application from the technical point of view. The next section walks through the logical structure of {framework} application using a theoretical example. Finally, with the common terms and the structure clear enough, there is an overview of the different parts.
+endif::getting-started[]
+
+ifndef::getting-started[]
+== Technical structure
+
+Technically speaking, {framework} applications are multi-module Maven projects.
+
+The main project of the application, the top-level POM, will be the parent POM of all the submodules that compose the application. In this guide, this project will be referred to as the _application project_ or, simply, the _application_. The packaging of this project will be `pom`.
+
+The submodule responsible for combining all the submodules into one deployable application will be referred to as the _aggregator project_ of the application. If you think of a web application, this is the project that will actually package the `war`, and consequently its packaging will be `war`. However, different aggregator types have different packaging types (e.g.: in a Spring Boot-based application the packaging of the aggregator project can be `jar` as well).
+
+In most of the aggregator types, there will be a submodule containing the configuration shared by the different parts of the application. This submodule will be referred to as the _shared environment project_, _shared configuration project_ or _environment project_. Its packaging will be `jar`.
+
+Each one of the submodules that are neither the aggregator project nor the environment project will be referred to as the _module projects_ or sometimes simply _projects_. The packaging of these projects will be `jar`.
+
+In most cases, module projects will work together in logical groups called _business modules_.
+
+In summary, an application is composed of one or more business modules (each of them composed of module projects), a shared environment project and an aggregator project that generates the deployable application.
+
+With this setup, it should be noticeable that the business modules are both independent from both the choosen deployment mechanism and the environment configuration. This reduces the impact that changes have on the application when moving between environments. This also allows redefinitions and changes of the deployment strategy (e.g.: from distributed to monolithic) without changes in the business modules.
+
+NOTE: This recommended structure is enforced when using the {framework} plug-in to create applications. Not following it can cause the application to be no longer detected as a {framework} application by the plug-in. Therefore, the plug-in will not be able to install new features into that application.
+endif::getting-started[]
+
+[[applications-logical-structure]]
+== Logical structure
+
+In this example, we will have a theoretical car garage named "Cars". The business has two parts: the main business of repairing cars, and a little shop where you can buy car accesories and arrange dates for the repairs.
+
+We are going to design a web application for this car garage. Besides the evident "shop" and "repairs" business modules, we will include a "parts" business module for managing the inventory the car parts required by the garage. Each of these business modules can be developed independently from the others.
+
+The "Cars" application looks as follows:
+
+.High level structure of the example {framework} application
+image::cloud-altemistafwk-documentation/applications/structure_1.png[align="center"]
+
+Now is time to decide which {framework} features are required in each business module. Each business module can have a different set of features.
+
+The aggregator project of the web application is responsible of the presentation layer, so it will include one of the available presentation features (such as Apache Tiles or Java Server Faces) to built the web application front-end.
+
+In this example, the shop will have a database to store the car accesories information, price and availability, the customers information and the invoices. It will also include the REST server feature to expose a REST API besides the front-end. The car repairs will embed a workflow engine to guide the repairing processes. And finally the car parts business module will have a separate database to manage the inventory of car parts.
+
+.{framework} application business modules with selected features
+image::cloud-altemistafwk-documentation/applications/structure_2.png[align="center"]
+
+The internal structure of a business module is a small set of projects with different _natures_.
+
+Typically, a business module will have an interface project named _common_ (with not just actual Java interface, but the module model, exceptions, etc.), a _core_ project providing an implementation for the services declared in the interface project. A business module can also have a _web_ project containing the web boundary of the business module, such as the REST API in the example, or simply to keep its own ``@Controller``s organised.
+
+When one business module depends on another, the dependency will be to the public interface of the later. This design enforces effective layer separation, reducing the visibility of each project to the classes and resources it actually needs. The resulting code has better decoupling, is less prone to error, and therefore will be more maintainable.
+
+.Project-level structure of the example {framework} application
+image::cloud-altemistafwk-documentation/applications/structure_3.png[align="center"]
+
+ifndef::getting-started[]
+[[applications-toplevel]]
+== Top-level project
+
+The top-level project contains the first references of the application to {framework}.
+
+The Maven parent of the top-level project of a {framework} application is the _recommended plugins_ artifact of {framework}. By doing this, the majority of the Maven plugins required by the application will have a sensible default version and configuration. By exmaple, the Java source and target versions are set to 1.7 and the build and report encodings are set to UTF-8.
+
+The other reference from the top-level project is the {framework} BOM (acronym for _bill of materials_). This managed dependency is coherent set of {framework} and third-party dependency versions. This set of dependencies inherits from http://platform.spring.io/platform/[Spring IO platform] and http://terasolunaorg.github.io/index_en.html[TERASOLUNA Server Framework for Java].
+
+If your {framework} application uses additional third-party dependencies, we strongly recommend to declare their versions in the dependency management section of this top-level project.
+
+TIP: Even if your Maven project is not a {framework} application, you can still use {framework} recommended plugins and/or bill of materials to delegate the version management. See the <<environment-maven-toplevel>> section for details.
+endif::getting-started[]
+
+[[applications-natures]]
+== Module project natures
+
+We have previously mentioned the concept of _natures_. The nature of a business module project is an indicator of the purpose of the project and the reponsabilities the project is going to have. In {framework}, the nature of a project will also filter which {framework} features that can be installed on that project.
+
+From the technical point of view, the nature of a project is determined by the presence of a Maven dependency to one of the {framework} main projects.
+
+NOTE: Being Maven dependencies after all, it is possible for a project to have two or more natures by adding the proper dependencies manually. However, the plug-in does not support this kind of projects and can behave erratically.
+
+Succinctly, the module project natures are:
+
+_web_ nature::
+
+The {framework} web nature denotes a web boundary defined as MVC controllers, REST API, web services, etc
+
+_common_ nature::
+
+The _common_ nature serves for the purpose of creating lightweight business module interfaces. This interfaces can be shared between business modules, projects or even to 3rd parties.
++
+This nature can also be used to create utility projects.
+
+_core_ nature::
+
+The main nature of {framework}. A _core_ project will have, out-of-the-box, an already set up extensible Spring context  over the principle of https://en.wikipedia.org/wiki/Convention_over_configuration[convention over configuration]. A _core_ project can start using some usual features, such as logging or environment-aware property management, out-of-the-box. In essence, a _core_ project only has to care about adding its own beans.
++
+The most common usage of this feature is to build the business module implementations. However, it can be used to build shared Spring-aware utility projects (i.e.: projects that declare utility beans, common aspects, etc.). 
+
+[[applications-business-module-types]]
+== Business module types
+
+As previously stated, module projects work together in logical groups called business modules. Despite this grouping being purely logical, the plug-in offers a set of conveniente predefined business module types. This types define the set of module projects, a coherent naming scheme for them, and also include the proper dependencies within the business module projects.
+
+The plug-in offers the following business module types:
+
+Business module (web and business tier)::
+
+Creates a complete set of projects for the business module: interface and implementation (_common_ and _core_) for the business tier, and a _web_ project in the web tier to define the web boundary of the module: MVC controllers, REST API, web services, etc.
++
+In order to be used, this type of business module usually exposes its web boundary, which delegates to its own business module. Its business tier implementation can be stand-alone, or invoke other business tier modules.
+
+.Business module (web and business tier)
+image::cloud-altemistafwk-documentation/applications/business_module_web_and_business_tier.png[align="center"]
+
+Business tier only module::
+
+Creates a set of projects for a business module that belongs to the business tier only (i.e.: it is internal to the application and has no web boundary). This business module is composed of interface and implementation (_common_ and _core_ projects).
+
+.Business tier only module
+image::cloud-altemistafwk-documentation/applications/business_tier_only_module.png[align="center"]
+
+Web tier only module::
+
+Creates a set of projects for a web tier only business module. This business module type is intended for publishing REST APIs, SOAP web services, etc.
++
+In this type of business module, the interface is usually a remote-usable interface (such as a web service interface), and the web boundary is the actual implementation of that interface, which will probably invoke other business modules.
+
+.Web tier only module
+image::cloud-altemistafwk-documentation/applications/web_tier_only_module.png[align="center"]
+
+Microservice client interface::
+
+Creates a microservice client interface. This is used to define the interface of a microservice to use in the integrations. This module creates a default interface with the @FeignClient annotation. 
+ifndef::getting-started[]
++
+This module should only be created on a <<microservice-application-nature,{framework} Microservice Application>>.
+
+Stand-alone web part::
+
+Creates a single _web_ module project to define a web boundary: MVC controllers, REST API, web services, etc. This can be useful to create a common web boundary for the entire application or to extend an existing business module.
+
+Stand-alone interface::
+
+Creates a single lightweight _common_ module project intended to be used as a business module interface. For example, to define the business module without actually implementing it.
+
+Stand-alone implementation::
+
+Creates a single _core_ module project intended to be used as a business module implementation. For example, to provide an alternative implementation to an existing business module.
+
+Lightweight utility project::
+
+Creates a single lightweight _common_ module project intended to be used as a shared utility project. This business module type is the same as a "stand-alone interface", but with a different naming schema, more reprensentative of the purpose of this module.
+
+Spring-based utility project::
+
+Creates a single _core_ module project intended to be used as a shared utility project. This project will be aware of the Spring context and, hence, will support framework features. Use this business module type to declare application-wide Spring beans or services, or utility classes that depend on framework features such as logging or environment-aware configuration properties.
+endif::getting-started[]
+
+[[applications-application-types]]
+== Application types
+
+The type of application is given by the nature of the aggregator project. In fact, when using the plug-in, this nature is choosen at the moment of creating the new application and may affect the global structure of the application (e.g.: having a shared environment project or not).
+
+IMPORTANT: The plug-in does not support the creation of additional aggregator projects in an existing application. However, it is possible to create a new application and copy the existing business modules into the new application. The existing configuration in the shared environment project and the code in the previous aggregator project should be manually migrated.
+
+At the moment, the aggregator project can have any of the following natures:
+
+Web application nature::
+
+The application will be a deployable web application, packaged as a WAR file.
++
+The web application nature bootstraps the Spring context in Spring Web MVC at the `/*` mapping. The Spring MVC _@Controller_ programming model receives some additional features already set up, such as support for internationalization and paging information.
++
+It also starts serving static resources from both the web application directly and from the classpath (to allow the presentation layer to follow a modular design), including http://www.webjars.org[WebJars] support.
+
+Spring Boot application nature::
+
+The application will be a stand-alone Spring Boot application, packaged as a JAR file.
++
+This nature is intended to be a replacement of the web application nature, although it actually uses a slightly different configuration and does not support the presentation layer features out-of-the-box.
++
+This module uses the default Spring Boot configuration: the Spring context is bootstrapped as the `/*` mapping and static resources are served directly from the classpath.
+
+Microservice infrastructure nature::
+
+The application will be a stand-alone Spring Boot application, packaged as a JAR file.
++
+This nature is used to develop Spring Cloud infrastructure projects.
++
+This module uses the default Spring Boot configuration: the Spring context is bootstrapped as the `/*` mapping and static resources are served directly from the classpath.
+
+Microservice application nature::
+
+The application will be a stand-alone Spring Boot application, packaged as a JAR file.
++
+This nature is used to develop microservices with his business logic.
++
+This module uses the default Spring Boot configuration: the Spring context is bootstrapped as the `/*` mapping and static resources are served directly from the classpath.
+
+ifndef::getting-started[]
+_empty_ aggregator project::
+
+Not strictly a nature, the empty aggregator project has the purpose of simplify the development of stand-alone utility classes and modules that can be shared and used in multiple {framework} applications.
+endif::getting-started[]
+
+[[applications-features]]
+== Features
+
+{framework} features can be installed in module projects, and can be seen as a Maven dependency to one of the {framework} feature. Some application-wide features, such as security or performance, are installed on the aggregator project.
+
+
+The plug-in will automatically determine which features can be installed in the selected module project depending on its nature. This enforces layer separation and decoupling. By example, database features can not be installed in web tier module projects.
+
+The plug-in also defines some requirements and incompatibilities amongst features to ensure certain coherence. By example, to install the _JDBC performanace_ feature, the core _performance_ feature must have been installed first.
+
+== Shared environment project
+
+ifdef::getting-started[]
+Depending on the application type, but in most of them, there will be a submodule containing the configuration shared by the different parts of the application. This submodule is usually referred to as the _shared environment project_, _shared configuration project_ or, simply, _environment project_.
+endif::getting-started[]
+
+Usually, installing a feature in a module project includes the dependency to the feature interface only. The concrete implementation of the feature and its configuration is installed in the shared environment project. This allows different business modules to use the same feature with only one configuration. By example, if two separate business modules install the database feature, both will consume from the same datasource that will be configured in the shared environment project.
+
+This shared environment project also enforces separation of concerns, decoupling the features of the business modules from their configuration as much as possible. This way, business modules gain reusability, as they can be shared or moved between applications with different configurations.
+
+It also tries to isolate the uage of the features from the actual implementation provider.

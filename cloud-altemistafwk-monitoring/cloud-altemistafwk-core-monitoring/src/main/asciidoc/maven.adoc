@@ -1,0 +1,14 @@
+
+:fragment:
+
+To manually install the monitoring service-related capabilities, add the following dependencies to the `pom.xml` file of a business tier implementation project:
+
+[source,xml]
+.new-application-module-core/pom.xml
+----
+<dependency>
+	<groupId>cloud.altemista.fwk.monitoring</groupId>
+	<artifactId>cloud-altemistafwk-core-monitoring</artifactId> <!--1-->
+</dependency>
+----
+<1> Feature classes.

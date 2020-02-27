@@ -1,0 +1,69 @@
+
+:fragment:
+
+On the next example you can see how to configure Integration TCP Client to send a message to a channel and .
+
+[source,xml,options="nowrap"]
+./my-application-module-core/src/main/resources/spring/my-application-module-core-integration-ip.xml
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:ip="http://www.springframework.org/schema/integration/ip"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/ip
+			http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd">
+			
+	<integration:gateway id="gateway"
+				 service-interface="cloud.altemista.fwk.test.integration.ip.IntegrationIPSimpleGateway"
+				 default-request-channel="input"/> <!--1-->
+
+	<ip:tcp-connection-factory id="client"
+								   type="client"
+								   host="localhost"
+								   port="#{crLfServer.port}"
+								   single-use="true"
+								   so-timeout="10000"/> <!--2-->
+
+	<integration:channel id="input"/> <!--3-->
+
+	<ip:tcp-outbound-gateway id="outGateway"
+								 request-channel="input"
+								 reply-channel="clientBytes2StringChannel"
+								 connection-factory="client"
+								 request-timeout="10000"
+								 reply-timeout="10000"/> <!--4-->
+
+	<integration:object-to-string-transformer id="clientBytes2String"
+									  input-channel="clientBytes2StringChannel"/> <!--5-->
+
+</beans>
+----
+<1> *Integration Gateway* for make request throwught the Request Channel.
+<2> *Integration IP TCP Connection Factory* with TCP connection parameters.
+<3> *Integration Channel*  
+<4> *Integration IP TCP Outbound Gateway* for send the channel message to a transformer.
+<5> *Integartion Object To String Transformer* for read the message on a channel.
+
+The next code show how you can make a call over the gateway.
+
+[source,java,options="nowrap"]
+----
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@Autowired
+	private IntegrationIPSimpleGateway gateway;
+
+	public void testGateway() {
+		String result = gateway.send("Hello world!");
+		logger.info(" ===> testGateway result: " + result);
+		assertEquals("echo:Hello world!", result);
+	}
+----
+

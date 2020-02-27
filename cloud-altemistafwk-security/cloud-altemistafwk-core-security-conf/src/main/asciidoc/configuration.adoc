@@ -1,0 +1,6 @@
+
+:fragment:
+
+== Annotation driven authorization
+
+The security feature of the framework provides all the necessary infrastructure to support annotation driven authorization.

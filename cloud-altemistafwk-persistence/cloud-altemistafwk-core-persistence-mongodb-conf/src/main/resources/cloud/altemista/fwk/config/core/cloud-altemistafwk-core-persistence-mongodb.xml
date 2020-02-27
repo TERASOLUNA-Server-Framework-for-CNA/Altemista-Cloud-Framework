@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
+
+
+	<!--tag::internals[] -->
+	<!-- Sets up the MongoDB client -->
+	<mongo:mongo-client host="${persistence.mongo.host:127.0.0.1}" port="${persistence.mongo.port:27017}" />
+
+	<!-- Sets up the primary implementation of MongoOperations
+		(required by Spring Data MongoDB) -->
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg ref="mongoClient" />
+		<constructor-arg name="databaseName" value="${persistence.mongo.database:DEFAULT}" />
+	</bean>
+	<!--end::internals[] -->
+	<!-- Exception translation bean post processor -->
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<beans profile="jmx">
+		<mongo:jmx />
+	</beans>
+
+</beans>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.demo</groupId>
+		<artifactId>AltemistaMoviesConfig</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+	</parent>
+	
+	<artifactId>AltemistaMoviesConfig-boot</artifactId>
+	<name>AltemistaMoviesConfig Microservice aggregator project</name>
+	
+	<dependencies>
+
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-microservice-infrastructure-conf</artifactId>
+		</dependency>
+		<!-- == End ACF framework == -->
+
+		<!-- == Begin AltemistaMoviesConfig application == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.demo</groupId>
+			<artifactId>AltemistaMoviesConfig-env</artifactId>
+		</dependency>
+		<dependency>
+      <groupId>cloud.altemista.fwk.microservices</groupId>
+      <artifactId>cloud-altemistafwk-core-microservices-config-conf</artifactId>
+    </dependency>
+		<!-- == End AltemistaMoviesConfig application == -->
+
+	</dependencies>
+	
+	<build>
+		<plugins>
+		
+			<!-- == Spring Boot Maven plugin == -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- == Spring Boot Maven plugin == -->
+			
+		</plugins>
+	</build>
+	
+	<properties />
+
+</project>

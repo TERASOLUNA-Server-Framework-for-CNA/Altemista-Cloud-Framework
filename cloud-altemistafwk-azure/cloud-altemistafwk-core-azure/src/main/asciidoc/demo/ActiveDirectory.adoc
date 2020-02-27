@@ -1,0 +1,154 @@
+
+:fragment:
+
+For more information about Azure Active Directory go to this https://docs.microsoft.com/es-es/azure/active-directory/fundamentals/[link].
+
+[IMPORTANT]
+To create a Azure Active Directory application you need create a app registration in a Azure Console. For more information click urlsvn[here] .
+
+In a boot module add the Azure Active Directory feature.
+
+image::cloud-altemistafwk-documentation/azure/adFeature.png[align="center"]
+
+Create a package to controller and add this controller.
+[source,java,options="nowrap"]
+/src/main/java/.com.mycompany.application.controller.HelloController
+
+----
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HelloController {
+
+	@PreAuthorize("hasRole('group2')")
+	@RequestMapping("/api/hello")
+	public String helloWorlwd() {
+		return "Hello World!";
+	}
+
+	@PreAuthorize("hasRole('group1')")
+	@RequestMapping(value = "/api/findAll", method = RequestMethod.GET, produces = "application/json")
+	public List<Employee> helloWorld() {
+		List<Employee> employees = new ArrayList<>();
+
+		for (int i = 0; i < 4; i++) {
+			Employee employee = new Employee(i, "name" + i, "function" + i);
+			employees.add(employee);
+		}
+		System.out.println(employees);
+
+		return employees;
+	}
+
+----
+
+NOTE: The group name that you specify for the `@PreAuthorize("hasRole('')")` method must contain one of the groups that you specified in the `azure.activedirectory.active-directory-groups` field of your .properties file.
+
+
+Check that in the configuration ...boot.xml this reading the controller package.
+----
+<context:component-scan base-package="com.mycompany.application.controller" />
+----
+
+
+Add the values for your Azure Active Directory using values; for example:
+[source,properties,options="nowrap"]
+./my-application-env/src/main/resources/config/properties/yournameapp-env.properties
+
+----
+#
+# Azure Active Directory File Feature Properties
+#
+
+#Contains a list of Active Directory groups to use for authorization.
+*.azure.activedirectory.active-directory-groups=group1, group2
+
+#Contains the Application ID from your app registration that you completed earlier.
+*.azure.activedirectory.clientId=iiiiiiii-iiii-iiii-iiii-iiiiiiiiiiii 
+
+#Contains the Value from your app registration key that you completed earlier.
+*.azure.activedirectory.clientSecret=pppppppp-pppp-pppp-pppp-pppppppppppp 
+
+----
+
+Create a simple entity class.
+[source,java,options="nowrap"]
+/src/main/java/.com.mycompany.application.Employee
+
+----
+
+public class Employee {
+
+	int id;
+	String name;
+	String function;
+	
+	public Employee(int id, String name, String function) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.function = function;
+	}
+	
+	// Generate Getters and Setters.
+	
+}
+
+----
+
+
+By default, ACF adds WebSecurityConfig.class, and you can modify the matchers to secure the application to your needs.
+
+[source,java,options="nowrap"]
+/src/main/java/.com.mycompany.application.boot.WebSecutityConfig
+----
+http.authorizeRequests().antMatchers("/home").permitAll();
+http.authorizeRequests().antMatchers("/api/**").authenticated();	
+----
+
+
+Now if you start the boot application you can send by postman and test the application.
+
+Next, set up and configure Postman to obtain an Azure Active Directory token. Afterwards, make an authenticated HTTP request to Azure Digital Twins using the acquired token:
+1 Verify that your Authorization URL is correct. It should take the format:
+`https://login.microsoftonline.com/YOUR_AZURE_TENANT/oauth2/authorize?resource=YOUR_APP_CLIENTID`
+
+2 Select the Authorization tab, select OAuth 2.0, and then select Get New Access Token.
+
+image::cloud-altemistafwk-documentation/azure/post1.png[align="center"]
+
+.Get New Access Token.
+[options="header,footer"]
+|=======================
+|Number | Field       		  |Value
+|1      |Grant Type   		  |Implicit
+|2      |Callback URL 		  |`http://localhost:8080/login/oauth2/code/azure`
+|3      |Auth URL     		  |Use the Authorization URL from step 1.
+|4      |Client ID    		  |Use the Application ID for the Azure Active Directory app.
+|5      |Scope        		  |Leave blank
+|6      |State        		  |Leave blank
+|7      |Client Authentication|Send as Basic Auth header
+|=======================
+
+3 The client should now appear as:
+
+image::cloud-altemistafwk-documentation/azure/post2.png[align="center"]
+
+NOTE: If you receive the error message "OAuth 2 couldn’t be completed," try the following:
+Close Postman, and reopen it and try again.
+
+Once we have received the token, we will copy it, change the type of authorization to * Bearer token * and paste the token.
+Send get _http://localhost:8080/api/findAll_ and the result should be:
+
+image::cloud-altemistafwk-documentation/azure/post3.png[align="center"]
+
+IMPORTANT: Be careful when you paste the token because if you leave a white space at the end the error of _Could not get any response
+There was an error connecting to http://localhost:8080/api/findAll._
+
+
+

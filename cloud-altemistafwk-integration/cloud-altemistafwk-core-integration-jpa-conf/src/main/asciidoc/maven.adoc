@@ -1,0 +1,44 @@
+
+:fragment:
+
+To manually install the {framework} Integration MAIL feature, add the following dependencies to the pom.xml file of a core project of your application:
+
+[source,xml,options="nowrap"]
+./my-application-module-core/pom.xml
+----
+<dependency>
+    <groupId>cloud.altemista.fwk.integration</groupId>
+    <artifactId>cloud-altemistafwk-core-integration-jpa-conf</artifactId> <!--1-->
+</dependency>
+----
+<1> {framework} Integration JPA feature dependencies.
+
+[source,xml,options="nowrap"]
+./my-application-module-core/src/main/resources/spring/my-application-module-core-integration-jpa.xml
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+	xmlns:int-jpa="http://www.springframework.org/schema/integration/jpa"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/util 
+			http://www.springframework.org/schema/util/spring-util.xsd
+			http://www.springframework.org/schema/jdbc 
+			http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+			http://www.springframework.org/schema/integration/jpa 
+			http://www.springframework.org/schema/integration/jpa/spring-integration-jpa.xsd">
+
+	<context:component-scan base-package="${package}.${appShortId}.${businessShortId}.jpa.config" /><!--1-->
+
+</beans>
+----
+<1> *OPTIONAL*: Component scan configuration classes package if needed.

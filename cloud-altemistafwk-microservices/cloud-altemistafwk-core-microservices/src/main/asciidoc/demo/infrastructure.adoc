@@ -1,0 +1,67 @@
+
+:fragment:
+
+First of all we will create all the projects for the microservice infrastructure. We can choose a directory in the file system for all the projects. Then we can create an aggregator to group all the projects as modules.
+
+For each service, it is necesary to create a new *"ALTEMISTA Cloud Framework ({framework}) application"*. Choose a GroupID (shared by all microservices) and the names for services. In this sample we chose _"cloud.altemista.fwk.demo"_ as the groupID and _"AltemistaMoviesRegistry"_, _"AltemistaMoviesConfig"_ and _"AltemistaMoviesGateway"_ for the applications name.
+
+.New Application
+image::cloud-altemistafwk-documentation/microservices/demo/01.ArchetypeInfra01.png[align="center"]
+
+.Infrastructure services. {framework} microservices infrastructure nature projects
+[options="header"]
+|===
+^.^|Server                                    |Application name / ArtifactId |App. short ID            |GroupID                  |Reference documentation
+^.^|<<config-server-demo,Config Server>>      |AltemistaMoviesConfig        |altemistamoviesconfig   |cloud.altemista.fwk.demo |<<ACF Reference Documentation.adoc#cloud-altemistafwk-core-microservices-config,Config Server>>
+^.^|<<registry-server-demo,Registry Server>>  |AltemistaMoviesRegistry      |altemistamoviesregistry |cloud.altemista.fwk.demo |<<ACF Reference Documentation.adoc#_registry_server,Registry Server>>
+^.^|<<gateway-server-demo,Gateway Server>>    |AltemistaMoviesGateway       |altemistamoviesgateway  |cloud.altemista.fwk.demo |<<ACF Reference Documentation.adoc#_gateway_server,Gateway Server>>
+|===
+
+On the next Screen ensure that the Aggregator type is *"{framework} microservices infrastructure nature"*.
+
+.Aggregator Type
+image::cloud-altemistafwk-documentation/microservices/demo/01.ArchetypeInfra.png[align="center"]
+
+Finish the service without any bussines module.
+
+[[registry-server-demo]]
+=== Registry Server
+
+Over the Boot project add a new *"ALTEMISTA Cloud Framework ({framework}) Feature"* and choose the *"Microservice Infrastructure Registry Server"*.
+
+.Registry Server feature type
+image::cloud-altemistafwk-documentation/microservices/demo/02.Registry.png[align="center"]
+
+NOTE: For more information you can follow this link: <<ACF Reference Documentation.adoc#_registry_server,{framework} Registry Server Reference Documentation>>
+
+[[config-server-demo]]
+=== Config Server
+
+Also on this case, we add the *"ALTEMISTA Cloud Framework ({framework}) Feature"* choosing the *"Microservice Infrastructure Config Server"*.
+
+.Config Server feature type
+image::cloud-altemistafwk-documentation/microservices/demo/03.Config.png[align="center"]
+
+We want to use filesystem configuration, so click on finish.
+
+NOTE: For more information you can follow this link: <<ACF Reference Documentation.adoc#cloud-altemistafwk-core-microservices-config,{framework} Config Server Reference Documentation>>
+
+[[gateway-server-demo]]
+=== Gateway
+
+Finally create the gateway adding the the *"ALTEMISTA Cloud Framework ({framework}) Feature"* by the *"Microservice Infrastructure Gateway"*.
+
+.Gateway feature type
+image::cloud-altemistafwk-documentation/microservices/demo/04.Gateway.png[align="center"]
+
+NOTE: For more information you can follow this link: <<ACF Reference Documentation.adoc#_gateway_server,{framework} Gateway Server Reference Documentation>>
+
+//=== [Optional] clean workspace
+//
+//[TIP]
+//====
+//You can assign workings sets to maintain a clean workspace. Using "assign workspace" from the pop-up menu of a project and choosing the workings sets as top level elements.
+//====
+//
+//.A clean desktop
+//image::cloud-altemistafwk-documentation/microservices/demo/05.WorkingSets.png[align="center"]

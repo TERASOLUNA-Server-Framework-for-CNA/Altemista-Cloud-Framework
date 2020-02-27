@@ -1,0 +1,12 @@
+
+:fragment:
+
+In addition to the <<natures-common-utilities,utility classes of the common nature>>, the core nature also includes a set of utility classes.
+
+Here is a brief description of some of those classes. For further details and a complete list, please refer to the Javadoc.
+
+`ApplicationContextUtil`::
+Utility class to give static access to the ApplicationContext; also offers convenience delegated methods to various `ApplicationContext.getBean()`.
+
+`EnvironmentUtil`::
+ Utility class for environment dependent files, properties and system properties.

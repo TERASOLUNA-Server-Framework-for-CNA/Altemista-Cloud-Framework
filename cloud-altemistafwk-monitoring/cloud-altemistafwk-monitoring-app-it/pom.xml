@@ -1,0 +1,181 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.it</groupId>
+		<artifactId>cloud-altemistafwk-it-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+
+	<groupId>cloud.altemista.fwk.monitoring</groupId>
+	<artifactId>cloud-altemistafwk-monitoring-app-it</artifactId>
+	<packaging>${packaging.type}</packaging>
+
+	<name>cloud-altemistafwk monitoring integration tests</name>
+	<description>Integration tests for the ACF monitoring module</description>
+
+	<properties>
+		<!-- == Embedded MongoDB versions == -->
+		<embedmongo-maven-plugin.version>0.3.4</embedmongo-maven-plugin.version>
+		<embedmongo-process.version>1.50.2</embedmongo-process.version>
+		<!--
+			Either version (2.6.x, 3.0.x, 3.2.x) can be used as MongoDB in the application,
+			but the Maven plugin / embedded MongoDB seems to fail on Java 32bit with 3.2.x versions
+			so the 3.0.x branch is used for the integration tests
+			
+			<embedmongo-mongo.version>2.6.12</embedmongo-mongo.version>
+			<embedmongo-mongo.version>3.0.12</embedmongo-mongo.version>
+			<embedmongo-mongo.version>3.2.8</embedmongo-mongo.version>
+		-->
+		<embedmongo-mongo.version>3.0.12</embedmongo-mongo.version>
+	</properties>
+	
+	<dependencies>
+
+		<!-- == Begin ACF module to be tested == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.monitoring</groupId>
+			<artifactId>cloud-altemistafwk-core-monitoring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.monitoring</groupId>
+			<artifactId>cloud-altemistafwk-web-monitoring</artifactId>
+		</dependency>
+		<!-- == End ACF module to be tested == -->
+
+		<!-- == Begin optional Spring Framework and other libraries == -->
+	    <dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+   		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ldap</groupId>
+			<artifactId>spring-ldap-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbutils</groupId>
+			<artifactId>commons-dbutils</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<!-- == End optional Spring Framework and other libraries == -->
+		
+		<!-- == Begin other libraries == -->
+		<dependency>
+			<!-- for <jdbc:embedded-database> -->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+		</dependency>
+		<!-- == End other libraries == -->
+
+	</dependencies>
+	
+		<build>
+		<plugins>
+
+			<!-- == Begin In-memory MongoDB configuration == -->
+			<plugin>
+				<groupId>com.github.joelittlejohn.embedmongo</groupId>
+				<artifactId>embedmongo-maven-plugin</artifactId>
+				<version>${embedmongo-maven-plugin.version}</version>
+				
+				<dependencies>
+					<dependency>
+						<groupId>de.flapdoodle.embed</groupId>
+						<artifactId>de.flapdoodle.embed.process</artifactId>
+						<version>${embedmongo-process.version}</version>
+					</dependency>
+				</dependencies>
+				
+				<executions>
+					<execution>
+						<id>embedded-mongo-start</id>
+						<goals>
+							<goal>start</goal>
+						</goals>
+						<configuration>
+							<version>${embedmongo-mongo.version}</version>
+							<!-- default is 27017 -->
+							<port>37017</port>
+							<bindIp>127.0.0.1</bindIp>
+							<logging>file</logging>
+							<logFile>${project.build.directory}/embed-mongodb.log</logFile>
+						</configuration>
+					</execution>
+					
+					<execution>
+						<id>embedded-mongo-scripts</id>
+						<goals>
+							<goal>mongo-scripts</goal>
+						</goals>
+						<phase>pre-integration-test</phase>
+						<configuration>
+							<scriptsDirectory>${project.basedir}/src/test/resources/scripts</scriptsDirectory>
+							<databaseName>test</databaseName>
+						</configuration>
+					</execution>
+					
+					<execution>
+						<id>stop</id>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+						<phase>post-integration-test</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- == End In-memory MongoDB configuration == -->
+
+		</plugins>
+	</build>
+
+	<profiles>
+	
+		<!-- The tomcat-run execution must be after embedded-mongo-start and embedded-mongo-scripts -->
+		<profile>
+			<id>tomcat-environment</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.tomcat.maven</groupId>
+						<artifactId>${tomcat-maven-plugin.artifactId}</artifactId>
+						<version>${tomcat-maven-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>tomcat-run</id>
+								<phase>pre-integration-test</phase>
+							</execution>
+							<execution>
+								<id>tomcat-shutdown</id>
+								<phase>post-integration-test</phase>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+	</profiles>
+
+</project>

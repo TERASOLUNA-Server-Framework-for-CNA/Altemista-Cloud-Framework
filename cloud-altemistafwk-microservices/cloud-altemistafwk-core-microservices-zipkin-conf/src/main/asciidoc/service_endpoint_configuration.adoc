@@ -1,0 +1,12 @@
+
+:fragment:
+
+To configure the endpoint of the {framework} Zipkin Server in the services you have to add the next property in the service properties file or if you use the <<cloud-altemistafwk-core-microservices-config,{framework} Configuration Server Infrastructure feature>> you can add this property in the application.properties to share between all services.
+
+[source, properties]
+./application.properties
+----
+# Zipkin
+spring.zipkin.baseUrl = http://localhost:9411/ <!--1-->
+----
+<1> The {framework} Zipkin Server endpoint URL

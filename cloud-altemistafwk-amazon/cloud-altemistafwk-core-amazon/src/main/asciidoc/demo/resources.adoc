@@ -1,0 +1,14 @@
+
+:fragment:
+
+You can see the demonstration code here: 
+
+https://steps.everis.com/svn/ARCHEVERIS/cloud-altemistafwk/tasks/v1.5.x_feat_amazon/cloud-altemistafwk-demos/amazon-demo[AmazonExample^].
+
+Or you can download the demonstration codes here: 
+
+* link:resources/cloud-altemistafwk-documentation/acf-amazon-rds.zip[AmazonRDSApp].
+* link:resources/cloud-altemistafwk-documentation/acf-amazon-s3.zip[AmazonS3App].
+* link:resources/cloud-altemistafwk-documentation/acf-amazon-ses.zip[AmazonSESApp].
+* link:resources/cloud-altemistafwk-documentation/acf-amazon-sqs.zip[AmazonSQSApp].
+

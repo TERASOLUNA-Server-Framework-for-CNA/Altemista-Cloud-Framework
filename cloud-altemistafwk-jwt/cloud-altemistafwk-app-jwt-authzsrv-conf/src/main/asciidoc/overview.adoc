@@ -1,0 +1,7 @@
+
+:fragment:
+
+The *JWT over OAuth 2.0 Authorization Server* feature augments an existing {framework} web application or Spring Boot-based {framework} application with OAuth 2.0 authorization server feature in order to serve _JWT_ tokens. I.e. the OAuth Tokens will be JWT instead of mere identifiers.
+
+This feature uses http://projects.spring.io/spring-security-oauth/docs/oauth2.html#jwt-tokens[Spring Security JWT] and provides an out-of-the-box configuration that generates JWT Tokens.
+

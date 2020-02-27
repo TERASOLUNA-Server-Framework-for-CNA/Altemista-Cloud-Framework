@@ -1,0 +1,231 @@
+
+:fragment:
+
+https://oauth.net/2/[OAuth 2.0] is a _de facto_ standard protocol for authorization.
+
+OAuth 2.0 provides to client applications a _secure delegated access_ to server resources on behalf of a resource owner (the end-user). It also specifies a process for resource owners to authorize third-party access to their server resources without sharing their credentials. OAuth 2.0 essentially allows access tokens to be issued to third-party clients by an authorization server through HTTP, with the approval of the resource owner. The third party then uses the access token to access the protected resources hosted by the resource server.
+
+TIP: Please refer to the http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/[TERASOLUNA Server Framework for Java (5.x) Development Guideline] for a visual representation of the http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/Security/OAuth.html#protocol-flow[OAuth 2.0 protocol flow].
+
+== Roles and scopes
+
+OAuth 2.0 defines a series of _roles_ for users and applications:
+
+Resouce owner::
+
+The person or application that owns the data or resources to be accessed. The most common scenario is that the resource owner is a person (the end user) but could also be an application.
+
+Resource server::
+
+The server hosting the protected data or resources. For example, a secured API. Access to these resources is restricted to requests having a proper _access token_.
+
+Client::
+
+The client application request access to the protected resources. For example, a front-end application consuming the secured API. Clients can obtain a valid _access token_ using different flows.
+
+Authorization server::
+
+The server that authorizes the client to access resources from the resource server. The authorization server and the resource server can be the same server, but it is not required. The authorization server provides and validates _access tokens_.
+
+IMPORTANT: Please do not confuse OAuth 2.0 roles (meaning function or position) with security roles (meaning permissions). In OAuth 2.0, permissions are held by _scopes_.
+
+Scope::
+
+Specifies the access rights (such as read, write permissions etc.) for the protected resources.
+
+[[cloud-altemistafwk-security-auth2srv-conf-oauth2-overview-grants]]
+== Grant types
+
+OAuth 2.0 defines four grant types. Each grant type defines a flow for third-party clients to obtain access tokens. An authorization server can support any of these grant types at the same time. Choosing which ones are to be supported depends on the nature of the clients according the following decision chart:
+
+.OAuth 2.0 flow decision chart
+image:cloud-altemistafwk-app-oauth2-authzsrv-conf/flow_decision_chart.png[align="center"]
+
+. The first decision point is if the client is the resource owner. This is the case of machine-to-machine authorization; there is no end-user involved (e.g. an scheduled task). In this case, the *client credentials grant* is to be used.
+
+. If the client application is executing server-side, the safest flow is the *authorization code grant*, because the access token is kept within the network and does not go through the end-user's web browser.
+
+. If the end-user has logged in the client application (e.g. the client application has a login form), and this information is used by the client application to request the access token to the authorization server, the *resource owner password credentials grant* can be used. In this case the client must be trusted, as the end-user credentials are being managed by the client application. The most usual sceneario for this flow is when both applications (client and resource server) are developed by the same authority.
+
+. If the client is a Single Page Application (SPA), executing client-side in the end-user web browser, the *implicit grant* should be used, which asks directly for the access token. Is intended for SPAs because of its efficiency (reduces the number of round trips to the authorization server). However, the access token is exposed on the client side, making this type of authorization the least secure, to be used only when no other type of authorization is available.
+
+. Otherwise, the client is a native application and the _authorization code grant_ should be used.
+
+This section describes the flow of each grant type from the techcnical point of view.
+
+TIP: The visually inclined may prefer to read the http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/Security/OAuth.html#authorization-grant[authorization grant] section of the http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/[TERASOLUNA Server Framework for Java (5.x) Development Guideline].
+
+=== Client Credentials Grant
+
+The type of authorization _Client Credentials Grant_ is used when the client is himself the resource owner; there is no authorization to obtain from the end-user. This is the case of machine-to-machine authorization (e.g. an scheduled task where there is no end-user involved).
+
+To obtain the access token, the client makes a call to the authorization server:
+
+[source,http]
+----
+POST http://{authorizationserver}/oauth/token?grant_type=client_credentials #<1>
+Authorization: Basic {client}:{secret} #<2>
+----
+<1> The client will make a POST request to the token endpoint specifying the `client_credentials` grant.
+<2> The token endpoint is secured to authenticated clients, so the _authorization_ header will carry the client credentials. The client must be authorized to use the `client_credentials` grant in the authorization server.
+
+The response body for this request will contain the access token in JSON format:
+[source,json]
+----
+{
+	"access_token":"835382af-c921-49a2-bb21-039d7b9578cf",
+	"token_type":"bearer",
+	"expires_in":43199,
+	"scope":"EXAMPLE"
+}
+----
+
+The client can then access the protected resource on the resource server using the access token:
+
+[source,http]
+----
+GET http://{resourceserver}/example
+Authorization: Bearer 835382af-c921-49a2-bb21-039d7b9578cf
+----
+
+[[cloud-altemistafwk-app-oauth2-authzsrv-conf-authorization-code-grant]]
+=== Authorization Code Grant
+
+The type of authorization _Authorization Code Grant_ is used as soon as the client is a web server. Allows the retrieval of a long-lived access token since it can be renewed with a refresh token. This is the safer flow because the access token is not passed on the user's side (web browser).
+
+To obtain the access token, the client redirects the end-user to the authorization endpoint of the authorization server:
+
+[source,http]
+----
+GET http://{authorizationserver}/oauth/authorize \
+		?response_type=code&client_id={clientid} \ #<1>
+		&redirect_uri=http://{client}/callback #<2>
+----
+<1> The end-user's web browser will make a GET request to the authorization endpoint specifying the `code` response type and the client ID.
+<2> The redirect URI is also mandatory and will identify the client endpoint that will receive the authorization code.
+
+If the end-user is not authenticated in the authorization server yet, the authorization endpoint will `302 Redirect` to the login page.
+
+NOTE: Internally, the Spring Security OAuth2 authorization endpoint is throwing an `InsufficientAuthenticationException`, handled by Spring Security to redirect to `/login` and return the login page. This is *not* the usual Spring Security redirection; the authorization endpoint is *not* secured by Spring Security.
+
+After the end-user fulfils and submits the login form (i.e. `POST /login {"username":..., "password":...}`), OAuth2 will `302 Redirect` again to the _OAuth Approval_ page where the end-user can auhtorize or deny the client the access to the protected resources.
+
+If the end-user authorizes (i.e. `POST /oauth/authorize {"user_oauth_approval":true}`), OAuth2 will `302 Redirect` again to the redirect URI (the endpoint of the client) with the authorization code within the query string:
+
+[source,http]
+----
+GET http://{client}/callback?code=Y25Zro
+----
+
+The client will then exchange this authorization code for the access token as follows:
+
+[source,http]
+----
+POST http://{authorizationserver}/oauth/token?grant_type=authorization_code&code=Y25Zro \ #<1>
+		&client_id={client}&client_secret={secret} \
+		&redirect_uri=http://{client}/callback #<2>
+Authorization: Basic {client}:{secret} #<3>
+----
+<1> The client will make a POST request to the token endpoint specifying the `authorization_code` grant and providing the authorization code.
+<2> The redirect URI is validated by the token endpoint and must be the same used to obtain the authorization code. 
+<3> The token endpoint is secured to authenticated clients, so the _authorization_ header will carry the client credentials. The client must be authorized to use the `authorization_code` grant in the authorization server, and optionally can also have the `refresh_token` grant.
+
+The response body for this request will contain the access token in JSON format:
+[source,json]
+----
+{
+	"access_token":"dbda969f-2ea6-41fe-a3cd-59f466b5598a",
+	"token_type":"bearer",
+	"refresh_token":"f6b42343-dfb2-4966-b0fb-943722018965",
+	"expires_in":43199,
+	"scope":"EXAMPLE"
+}
+----
+
+CAUTION: Please note that, while this type of authorization uses a proper query string (starting with '`?`'), the type of authorization <<cloud-altemistafwk-app-oauth2-authzsrv-conf-implicit-grant>>, which is similar to this, uses the fragment identifier (starting with '`#`' -hash-) as if it were a query string.
+
+The client can then access the protected resource on the resource server using the access token:
+
+[source,http]
+----
+GET http://{resourceserver}/example
+Authorization: Bearer dbda969f-2ea6-41fe-a3cd-59f466b5598a
+----
+
+=== Resource Owner Password Credentials Grant
+
+In the type of authorization _Resource Owner Password Credentials Grant_ the credentials (and thus the password) are sent to the client and then to the authorization server. It is therefore imperative that there is absolute trust between these two entities. It is mainly used when the client has been developed by the same authority as the authorization server.
+
+To obtain the access token, the client makes a call to the authorization server:
+
+[source,http]
+----
+POST http://{authorizationserver}/oauth/token?grant_type=password \ #<1>
+		&username={username}&password={password} #<2>
+Authorization: Basic {client}:{secret} #<3>
+----
+<1> The client will make a POST request to the token endpoint specifying the `password` grant.
+<2> The end-user credentials.
+<3> The token endpoint is secured to authenticated clients, so the _authorization_ header will carry the client credentials. The client must be authorized to use the `password` grant in the authorization server, and optionally can also have the `refresh_token` grant.
+
+The response body for this request will contain the access token in JSON format:
+[source,json]
+----
+{
+	"access_token":"d4ac4302-1ab2-416c-ba2e-976443f3936c",
+	"token_type":"bearer",
+	"refresh_token":"f6111f5f-7738-4b9f-bb5d-e5273fe98a6c",
+	"expires_in":43199,
+	"scope":"EXAMPLE"
+}
+----
+
+The client can then access the protected resource on the resource server using the access token:
+
+[source,http]
+----
+GET http://{resourceserver}/example
+Authorization: Bearer d4ac4302-1ab2-416c-ba2e-976443f3936c
+----
+
+[[cloud-altemistafwk-app-oauth2-authzsrv-conf-implicit-grant]]
+=== Implicit Grant
+
+The type of authorization _Implicit Grant_ typically used when the client is running in a browser using a scripting language such as Javascript. This grant type does not allow the issuance of a refresh token. This type of authorization should only be used if no other type of authorization is available. Indeed, it is the least secure because the access token is exposed (and therefore vulnerable) on the client side.
+
+To obtain the access token, the client redirects the end-user to the authorization endpoint of the authorization server:
+
+[source,http]
+----
+GET http://{authorizationserver}/oauth/authorize \
+		?response_type=code&client_id={clientid} \ #<1>
+		&redirect_uri=http://{client}/callback #<2>
+----
+<1> The end-user's web browser will make a GET request to the authorization endpoint specifying the `token` response type and the client ID.
+<2> The redirect URI is also mandatory and will identify the client endpoint that will receive the access_token.
+
+If the end-user is not authenticated in the authorization server yet, the authorization endpoint will `302 Redirect` to the login page.
+
+NOTE: Internally, the Spring Security OAuth2 authorization endpoint is throwing an `InsufficientAuthenticationException`, handled by Spring Security to redirect to `/login` and return the login page. This is *not* the usual Spring Security redirection; the authorization endpoint is *not* secured by Spring Security.
+
+After the end-user fulfils and submits the login form (i.e. `POST /login {"username":..., "password":...}`), OAuth2 will `302 Redirect` again to the _OAuth Approval_ page where the end-user can auhtorize or deny the client the access to the protected resources.
+
+If the end-user authorizes (i.e. `POST /oauth/authorize {"user_oauth_approval":true}`), OAuth2 will `302 Redirect` again to the redirect URI (the endpoint of the client) with the access token within the fragment identifier as if it were a query string:
+
+[source,http]
+----
+GET http://{client}/callback \
+		#access_token=8dadbedb-eedc-4f92-b90a-d65519404242 \
+		&token_type=bearer \
+		&expires_in=43200 \
+----
+
+CAUTION: Please note that, while this type of authorization uses the fragment identifier (starting with '`#`' -hash-) as if it were a query string, the type of authorization <<cloud-altemistafwk-app-oauth2-authzsrv-conf-authorization-code-grant>>, which is similar to this, uses a proper query string (starting with '`?`').
+
+The client can then access the protected resource on the resource server using the access token:
+
+[source,http]
+----
+GET http://{resourceserver}/example
+Authorization: Bearer 8dadbedb-eedc-4f92-b90a-d65519404242
+----

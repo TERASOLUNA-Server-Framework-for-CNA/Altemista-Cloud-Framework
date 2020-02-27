@@ -1,0 +1,79 @@
+
+:fragment:
+
+The configuration that we could need in a properties file:
+[source,properties]
+.config/properties/application-rabbit-env.properties
+----
+*.spring.cloud.stream.binders.rabbit1.type=rabbit	#<1>
+*.spring.cloud.stream.binders.rabbit1.environment.spring.rabbitmq.host=localhost	#<2>
+*.spring.cloud.stream.binders.rabbit1.environment.spring.rabbitmq.port=5672	#<3>
+*.spring.cloud.stream.binders.rabbit1.environment.spring.rabbitmq.username=guest	#<4>
+*.spring.cloud.stream.binders.rabbit1.environment.spring.rabbitmq.password=guest	#<5>
+----
+<1> Property to specify the binder to use.
+<2> Configuration of the host of the rabbit server to connect to.
+<3> Configuration of the port of the rabbit server to connect to.
+<4> Configuration of the user of the rabbit server to connect to.
+<5> Configuration of the pass of the rabbit server to connect to.
+
+[IMPORTANT]
+====
+These values are by default but it could be different if you configured rabbit with other values .
+====
+
+If we configure a producer, we need to create the file application.properties or application.yml manually if it does not exist.
+[source,properties]
+.resources/application.properties
+----
+spring.cloud.stream.bindings.output.destination=greetings	#<1>
+spring.cloud.stream.bindings.output.contentType= application/json 	#<2>
+----
+
+<1> Rabbit topic we use for outbound streams in our code.
+<2> The contentType property tells Spring Cloud Stream to send our message objects as Strings in the streams.
+
+[source,yml]
+.resources/application.yml
+----
+spring:
+  cloud:
+    stream:
+      rabbit:
+      bindings:
+        greetings-out:
+          destination: greetings	#<1>
+          contentType: application/json	#<2>
+	
+----
+
+<1> Rabbit topic we use for outbound streams in our code.
+<2> The contentType property tells Spring Cloud Stream to send our message objects as Strings in the streams.
+
+If we configure a listener, we need to create the file application.properties or application.yml manually if it does not exist.
+[source,properties]
+.resources/application.properties
+----
+spring.cloud.stream.bindings.input.destination=greetings	#<1>
+spring.cloud.stream.bindings.input.contentType= application/json		#<2>
+----
+
+<1> Rabbit topic we use for inbound streams in our code.
+<2> The contentType property tells Spring Cloud Stream to receive our message objects as Strings in the streams.
+
+[source,yml]
+.resources/application.yml
+----
+spring:
+  cloud:
+    stream:
+      rabbit:
+      bindings:
+        greetings-in:
+          destination: greetings	#<1>
+          contentType: application/json	#<2>
+	
+----
+
+<1> Rabbit topic we use for inbound streams in our code.
+<2> The contentType property tells Spring Cloud Stream to recieve our message objects as Strings in the streams.

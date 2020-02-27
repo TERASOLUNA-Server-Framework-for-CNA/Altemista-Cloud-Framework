@@ -1,0 +1,268 @@
+
+:fragment:
+
+[discrete]
+== 2.0.0.RELEASE (released)
+
+Major upgrade of ACF where the new main version libs are:
+
+.version libraries
+[options="header"]
+|===
+^.^|Name Library ^.^|Previous Version ^.^|New Version
+
+^.^|Spring boot
+^.^|1.4.3.RELEASE ^.^|2.0.4.RELEASE
+
+^.^|Spring Core
+^.^|4.3.5.RELEASE ^.^|5.0.8.RELEASE
+
+^.^|Spring Cloud Dependencies
+^.^|Camden.SR7 ^.^|Finchley.SR1
+
+^.^|Spring Security
+^.^|4.1.4.RELEASE ^.^|5.0.7.RELEASE
+
+^.^|Spring Data
+^.^|1.12.6.RELEASE ^.^|2.0.9.RELEASE
+
+^.^|Spring Integration
+^.^|4.3.6.RELEASE ^.^|5.0.7.RELEASE
+
+^.^|Spring AMQP
+^.^|1.6.6.RELEASE ^.^|2.0.5.RELEASE
+
+^.^|Hibernate Core
+^.^|5.0.11.Final ^.^|5.2.17.Final
+
+^.^|Jasperreports
+^.^|6.3.1 ^.^|6.5.1
+
+^.^|ActiveMQ
+^.^|5.4.2 ^.^|5.5.1
+
+^.^|Commons Code
+^.^|1.6 ^.^|1.11
+
+^.^|Azure Spring Boot
+^.^|0.1.4 ^.^|2.0.4
+
+^.^|Azure Spring Boot Service Bus
+^.^|0.2.3 ^.^|2.1.6
+
+^.^|Azure Key Vault
+^.^|0.2.4 ^.^|2.1.6
+
+^.^|Spring Cloud AWS
+^.^|1.0.0.RELEASE ^.^|2.0.0.RELEASE
+
+^.^|Thymeleaf
+^.^|2.1.5.RELEASE ^.^|3.0.11.RELEASE
+
+|===
+
+  
+[discrete]
+== 1.5.0.RELEASE (released)
+
+* New features:
+
+  ** Amazon Web Services
+    *** Simple Storage Service
+    *** Simple Queue Service
+    *** Simple Email Service
+    *** Relational Database SErvice
+  
+  ** Azure
+    *** Azure Active Directory
+    *** Azure Key Vault
+    *** Azure Storage
+    *** Azure Service Bus
+    *** Azure Cosmos DB
+    
+  ** Thymeleaf
+    *** In spring boot projects
+    *** In web application projects
+	
+* Runtime architecture fixes and improvements:
+
+  ** TSFPLUS-22: Add documentation for Default configuration for CORS support.
+    
+  ** TSFPLUS-133: Errors in Altemista feature.
+  
+  ** TSFPLUS-134: web business module in microservice archetype
+  
+  ** TSFPLUS-154: ZK version is not specified.
+
+[discrete]
+== 1.4.0.RELEASE (released)
+
+* New features:
+
+  ** Docker
+    *** Spring boot project with Docker
+    *** Web application project with Docker
+  
+  ** Spring Cloud Stream
+    *** Kafka broker
+    *** RabbitMQ broker
+    *** Spring Cloud Bus
+    
+  ** Openshift
+    *** Altemista
+	
+* Runtime architecture fixes and improvements:
+
+  ** TSFPLUS-52: Unable to load 'javax.el.ExpressionFactory' executing test.
+  
+  ** TSFPLUS-69: Spring Integration JPA already added.
+  
+  ** TSFPLUS-72: Can't configure Spring i18n functiionality
+  
+  ** TSFPLUS-96: web business module in microservice archetype
+  
+  ** TSFPLUS-115: Some link errors in the documentation
+
+[discrete]
+== 1.3.0.RELEASE (released)
+
+* New features:
+
+  ** Spring Integration
+    *** Integration AMQP Feature
+    *** Integration File Feature
+    *** Integration FTP Feature
+    *** Integration HTTP Feature
+    *** Integration JMS Feature
+    *** Integration JMX Feature
+    *** Integration JPA Feature
+    *** Integration Mail Feature
+    *** Integration MQTT Feature
+    *** Integration Resource Feature
+    *** Integration RMI Feature
+    *** Integration Integration SFTP Feature
+    *** Integration Integration TCP and UDP Feature
+    *** Integration Web Sockets Feature
+  
+  ** Api Documentation
+    *** Swagger
+    
+ ** Message Broker
+    *** ActiveMQ
+    *** RabbitMQ
+  
+[discrete]
+== 1.2.0.RELEASE (released)
+
+* New features:
+
+  ** Microservice infrastructure nature projects
+    *** Configuration server feature
+    *** Registry server feature
+    *** Gateway server feature
+    *** Zipkin server features
+  
+  ** Microservice application nature projects
+    *** Sleuth feature
+	
+* Runtime architecture fixes and improvements:
+
+  ** TSFPLUS-38: Fix SOAP publisher / consumer features in the same project.
+  
+  ** TSFPLUS-21: Documentation: Parameter types allowed in batch processing.
+  
+  ** TSFPLUS-45: Errors in `reminders-jpa-jsf` demo application
+
+[discrete]  
+== 1.1.1 (unreleased)
+
+* Runtime architecture fixes and improvements:
+
+  ** TSFPLUS-61: DefaultMessageSourceImpl doesnt allow to load several messages files within same basename  
+
+[discrete]
+== 1.1.0-RELEASE (released)
+
+* Runtime architecture fixes and improvements:
+
+  ** TSFPLUS-8: Upgrade TERASOLUNA Server Framework for Java (5.x) version to 5.3.0.RELEASE
+
+  ** TSFPLUS-17: WebJars support out-of-the-box
+
+  ** TSFPLUS-18: Environment-aware properties
+    *** Reworked feature in a less aggresive manner in order to improve Spring Boot compatibility
+
+  ** TSFPLUS-24: Decouple presentation layer-related features from the _web application_ nature
+    *** Spring MVC dispatcher servlet mapping moved from `/app/{asterisk}` to `/` in web applications
+    *** Presentation layer-related functionality extracted to features and decoupled from the _web application_ nature
+
+  ** TSFPLUS-32: OAuth 2.0 support and integration
+  
+  ** TSFPLUS-35: JWT Support
+
+[discrete]
+== 1.0.1.RELEASE (unreleased)
+
+* Runtime architecture fixes and improvements:
+
+  ** TSFPLUS-1: Changing the locale of the application
+    *** The mechanisms for changing the locale of the application are now properly documented
+    *** The custom configuration of `LocaleChangeInterceptor` has been removed in order to use the default parameter name (instead of a custom one)
+    *** The `BrowserLocaleFilter` class has been removed
+
+  ** TSFPLUS-2: Undocumented utilities for unit and integration tests
+    *** Added _Testing {framework} applications_ chapter in _{framework} Reference Documentation_
+
+  ** TSFPLUS-3: `-env` files are not being moved if the feature is self-implemented
+
+  ** TSFPLUS-4: Formatting issues in logs when using the performance feature
+
+  ** TSFPLUS-5: Undocumented `<security:logout />`
+
+  ** TSFPLUS-6: Investigate warnings in logs when using JSF
+
+  ** TSFPLUS-7: Upgrade TERASOLUNA Server Framework for Java (5.x) version to 5.2.1.RELEASE
+
+  ** TSFPLUS-9: Undocumented utility classes
+
+  ** TSFPLUS-10: Error starting application with BPM feature (Activiti-based implementation)
+    *** Restored missing folder in the Maven archetype for the Activiti-based implementation
+
+  ** TSFPLUS-11: Errors in `reminders-mybatis-tiles` demo application
+
+  ** TSFPLUS-12: Errors in `reminders-jpa-jsf` demo application
+
+  ** TSFPLUS-14: _Shared environment project_ documentation unclear
+    *** Added dedicated section in _{framework} applictions_ chapter
+
+  ** TSFPLUS-26: Mismatching property name between mail feature and archetype
+  
+  ** TSFPLUS-27: Detected problem loading rules in JARs files
+	*** Fixed loading rules form a classpath within a JAR file
+  
+  ** TSFPLUS-34: projectName-application in logback.xml
+    *** Fixed logback project name in archetypes
+
+  ** TSFPLUS-37: Issue with content type in Jasper Report servic
+    *** Fixed content type of Powerpoint and Word in DefaultJasperExporterPolicyImpl file
+  
+  
+* Development architecture fixes and improvements:
+* Compatibility improvements
+
+  ** Integration tests in _Apache Tomcat 8.5.x_
+
+  ** TSFPLUS-16: `AbstractWebDriverIT#navigateAndLogin()` is causing some integration tests to be skipped
+
+* Documentation improvements:
+
+  ** Improvements in _ACF Developers Guide_
+    *** Added _{framework} Subversion (SVN)_ section
+    *** Added _Application lifecycle management (ALM)_ section
+
+  ** TSFPLUS-20: Javadoc artifacts were not being generated nor deployed
+
+[discrete]
+== 1.0.0.RELEASE (2017-03-15)
+
+First public release.

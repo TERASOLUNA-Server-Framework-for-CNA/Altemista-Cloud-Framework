@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.build</groupId>
+		<artifactId>cloud-altemistafwk-build</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	
+	<artifactId>cloud-altemistafwk-integration</artifactId>
+	<packaging>pom</packaging>
+
+	<name>cloud-altemistafwk * Spring Integration build script</name>
+	<description>Convenience pom.xml for building the ACF Spring Integration modules</description>
+
+	<profiles>
+
+		<!-- == Builds ACF framework == -->
+		<profile>
+			<id>framework</id>
+			<modules>
+				<module>cloud-altemistafwk-core-integration</module>
+				<module>cloud-altemistafwk-core-integration-amqp-conf</module>
+				<module>cloud-altemistafwk-core-integration-amqp-archetype</module>
+				<module>cloud-altemistafwk-core-integration-file-conf</module>
+				<module>cloud-altemistafwk-core-integration-file-archetype</module>
+				<module>cloud-altemistafwk-core-integration-ftp-conf</module>
+				<module>cloud-altemistafwk-core-integration-ftp-archetype</module>
+				<module>cloud-altemistafwk-core-integration-http-conf</module>
+				<module>cloud-altemistafwk-core-integration-http-archetype</module>
+				<module>cloud-altemistafwk-core-integration-jms-conf</module>
+				<module>cloud-altemistafwk-core-integration-jms-archetype</module>
+				<module>cloud-altemistafwk-core-integration-jmx-conf</module>
+				<module>cloud-altemistafwk-core-integration-jmx-archetype</module>
+				<module>cloud-altemistafwk-core-integration-jpa-conf</module>
+				<module>cloud-altemistafwk-core-integration-jpa-archetype</module>
+				<module>cloud-altemistafwk-core-integration-mail-conf</module>
+				<module>cloud-altemistafwk-core-integration-mail-archetype</module>
+				<module>cloud-altemistafwk-core-integration-mqtt-conf</module>
+				<module>cloud-altemistafwk-core-integration-mqtt-archetype</module>
+				<module>cloud-altemistafwk-core-integration-resource-conf</module>
+				<module>cloud-altemistafwk-core-integration-resource-archetype</module>
+				<module>cloud-altemistafwk-core-integration-rmi-conf</module>
+				<module>cloud-altemistafwk-core-integration-rmi-archetype</module>
+				<module>cloud-altemistafwk-core-integration-sftp-conf</module>
+				<module>cloud-altemistafwk-core-integration-sftp-archetype</module>
+				<module>cloud-altemistafwk-core-integration-ip-conf</module>
+				<module>cloud-altemistafwk-core-integration-ip-archetype</module>
+				<module>cloud-altemistafwk-core-integration-ws-conf</module>
+				<module>cloud-altemistafwk-core-integration-ws-archetype</module>
+				<module>cloud-altemistafwk-core-integration-websocket-conf</module>
+				<module>cloud-altemistafwk-core-integration-websocket-archetype</module>
+			</modules>
+		</profile>
+
+		<!-- == Builds and run ACF integration tests == -->
+		<profile>
+			<id>run-it</id>
+			<modules>
+				<module>cloud-altemistafwk-core-integration-http-it</module>
+				<module>cloud-altemistafwk-core-integration-mqtt-it</module>
+				<module>cloud-altemistafwk-core-integration-ws-it</module>
+				<module>cloud-altemistafwk-core-integration-websocket-it</module>
+			</modules>
+		</profile>
+
+	</profiles>
+	
+</project>

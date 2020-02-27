@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.build</groupId>
+		<artifactId>cloud-altemistafwk-build</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	
+	<artifactId>cloud-altemistafwk-soap</artifactId>
+	<packaging>pom</packaging>
+
+	<name>cloud-altemistafwk * SOAP build script</name>
+	<description>Convenience pom.xml for building the ACF SOAP module</description>
+
+	<profiles>
+
+		<!-- == Builds ACF framework == -->
+		<profile>
+			<id>framework</id>
+			<modules>
+				<module>cloud-altemistafwk-common-soap-conf</module>
+				<module>cloud-altemistafwk-common-soap-archetype</module>
+				<module>cloud-altemistafwk-core-soap</module>
+				<module>cloud-altemistafwk-core-soap-conf</module>
+				<module>cloud-altemistafwk-core-soap-wss</module>
+				<module>cloud-altemistafwk-core-soap-wss-conf</module>
+				<module>cloud-altemistafwk-core-soap-wss-archetype</module>
+				<module>cloud-altemistafwk-web-soap</module>
+				<module>cloud-altemistafwk-web-soap-conf</module>
+				<module>cloud-altemistafwk-web-soap-archetype</module>
+				<module>cloud-altemistafwk-web-soap-wss</module>
+				<module>cloud-altemistafwk-web-soap-wss-conf</module>
+				<module>cloud-altemistafwk-web-soap-wss-archetype</module>
+			</modules>
+		</profile>
+
+		<!-- == Builds and run ACF integration tests == -->
+		<profile>
+			<id>run-it</id>
+			<modules>
+				<module>cloud-altemistafwk-soap-it</module>
+				<module>cloud-altemistafwk-soap-wss-it</module>
+			</modules>
+		</profile>
+
+	</profiles>
+
+</project>

@@ -1,0 +1,14 @@
+
+:fragment:
+
+The Hibernate ORM-based implementation of the persistence feature includes the following configuration:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/core/cloud-altemistafwk-core-persistence-jpa-hibernate.xml
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-jpa-hibernate-conf/src/main/resources/cloud/altemista/fwk/config/core/cloud-altemistafwk-core-persistence-jpa-hibernate.xml[tags=internals]
+----
+<1> The data source is to be provided by the application, as described in the <<cloud-altemistafwk-core-persistence-jpa-hibernate-conf-configuration,configuration>> section.
+<2> This comma-separated values, configured in the application side, specifies the packages that contains the entities (the `@Entity` annotated classes).
+
+Advanced configurations will usually require the application to override the `entityManagerFactory` bean.

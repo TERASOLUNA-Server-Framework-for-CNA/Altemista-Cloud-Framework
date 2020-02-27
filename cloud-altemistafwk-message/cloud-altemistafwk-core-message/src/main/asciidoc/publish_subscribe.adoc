@@ -1,0 +1,25 @@
+
+:fragment:
+
+Publish/Subscribe is a messaging pattern that aims to decouple the sending (Publisher) and receiving (Subscriber) party.The benefits can be summarized to Loose Coupling, the decoupling of publisher and subscriber, as well as Scalability through the parallel nature of the publisher and subscriber components.
+
+
+== Main Components
+
+=== Message
+This is the object we want to send. In ActiveMQ we can send any Object but in RabbitMQ, the messages are simply streams of bytes, You can send whatever you want in these messages, so you should pick a serializer to convert your objects into byte streams of XML or JSON or whatever you prefer.
+
+=== Publisher
+The publisher is the one who creates messages.
+
+=== Topic
+The Topic receives the message and it is the one who will send the message to the subscribers
+
+=== Subscriber
+The subscriber gets the message from the Topic
+
+
+image::cloud-altemistafwk-documentation/messageBroker/publish_subscribe.png[align="center"]
+
+
+

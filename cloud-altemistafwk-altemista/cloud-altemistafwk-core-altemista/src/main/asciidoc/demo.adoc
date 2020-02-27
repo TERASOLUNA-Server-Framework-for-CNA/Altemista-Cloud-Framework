@@ -1,0 +1,33 @@
+
+:fragment:
+
+*ALTEMISTA Cloud Framework* ({framework}) provides the features to build a docker application into Altemista.
+
+On this tutorial we will deploy ACF applications with {framework} version from {project-version} in Altemista.
+
+For more information click in this https://terasoluna.everis.com/dev/TSFplus%20Reference%20Documentation.html#_altemista[link^]
+
+
+== Before starting
+
+include::{basedir}/cloud-altemistafwk-core-altemista/demo/start.adoc[]
+
+== Access Altemista and OC login
+
+include::{basedir}/cloud-altemistafwk-core-altemista/demo/access.adoc[]
+
+== Deploy ACF application from an external registry
+
+include::{basedir}/cloud-altemistafwk-core-altemista/demo/external.adoc[]
+
+== Deploy ACF application from an internal image
+
+include::{basedir}/cloud-altemistafwk-core-altemista/demo/internal.adoc[]
+
+== Deploy ACF from yaml file
+
+include::{basedir}/cloud-altemistafwk-core-altemista/demo/import.adoc[]
+
+== Deploy ACF with MYSQL template
+
+include::{basedir}/cloud-altemistafwk-core-altemista/demo/mysql.adoc[]

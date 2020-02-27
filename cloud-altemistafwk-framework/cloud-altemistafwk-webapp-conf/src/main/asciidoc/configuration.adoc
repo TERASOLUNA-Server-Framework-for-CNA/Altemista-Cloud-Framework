@@ -1,0 +1,16 @@
+
+:fragment:
+
+A {framework} web application can be configured as any other web application by means of the deployment descriptor file.
+
+Being a Servlet 3.0 (https://jcp.org/en/jsr/detail?id=315[JSR 315: Java Servlet 3.0 Specification]) application, this deployment descriptor (`WEB-INF/web.xml`) will look rather empty (the configuration will be typically done by the web fragments). Usually, the only element will be the optional `display-name` element that specifies the Web application display name (a short name that can be displayed by GUI tools):
+
+[source,xml]
+.WEB-INF/web.xml
+----
+<display-name>my web application</display-name>
+----
+
+TIP: For a complete reference, read the _Deployment descriptor_ chapter of the https://jcp.org/en/jsr/detail?id=315[JSR 315: Java Servlet 3.0 Specification].
+
+CAUTION: The `welcome-file-list` element of the deployment descriptor to set up a welcome page is discouraged in {framework} applications. To customize the welcome page of a {framework} application, please read the <<cloud-altemistafwk-webapp-common-conf-welcomepage,welcome page>> section.

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+	
+	<!-- All states of the flow are defined within this element.
+		The first state defined becomes the flow's starting point -->
+	
+	<!-- Use the var element to declare a flow variable -->
+	<var name="exampleModel" class="${groupId}.${appShortId}.webapp.model.Example" />
+	
+	<!-- Use the view-state element to define a step of the flow that renders a view -->
+	<view-state id="example-view-state" model="exampleModel" view="webflow-example-step1">
+		<!-- Use the transition element to handle events that occur within a state -->
+		<transition on="submit" to="example-end-state" />
+	</view-state>
+
+	<!-- Use the end-state element to define a flow outcome -->
+	<end-state id="example-end-state" view="webflow-example-step2">
+		<on-entry>
+			<evaluate expression="webflowExampleService.exampleMethod(exampleModel)" result="flowScope.exampleVariable" />
+		</on-entry>
+	</end-state>
+
+</flow>

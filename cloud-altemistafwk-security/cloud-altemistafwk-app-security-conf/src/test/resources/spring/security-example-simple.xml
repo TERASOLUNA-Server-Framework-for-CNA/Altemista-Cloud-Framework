@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!--tag::authentication[] -->
+	<!-- Creates the necessary authentication-manager -->
+	<security:authentication-manager id="appAuthenticationManager"> <!--1 -->
+		<security:authentication-provider>
+			<security:user-service id="appUserDetailsService"> <!--2 -->
+				<!-- Password is prefixed with {noop} to indicate to DelegatingPasswordEncoder 
+					that NoOpPasswordEncoder should be used. This is not safe for production, 
+					but makes reading in samples easier. Normally passwords should be hashed 
+					using BCrypt -->
+				<security:user name="user" password="{noop}password"
+					authorities="USER" />
+				<security:user name="admin" password="{noop}password"
+					authorities="USER,ADMIN" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+	<!--end::authentication[] -->
+
+	<!--tag::http[] -->
+	<!-- Enables web security with a minimal configuration -->
+	<security:http authentication-manager-ref="appAuthenticationManager"> <!--1 -->
+		<security:form-login /> <!--2 -->
+		<security:http-basic /> <!--3 -->
+		<security:logout /> <!--4 -->
+
+		<security:intercept-url pattern="/secure/**"
+			access="authenticated" /> <!--5 -->
+		<security:intercept-url pattern="/**" access="permitAll" />
+	</security:http>
+	<!--end::http[] -->
+
+</beans>

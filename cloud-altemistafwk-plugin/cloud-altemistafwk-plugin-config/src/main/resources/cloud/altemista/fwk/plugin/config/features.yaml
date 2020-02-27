@@ -1,0 +1,4848 @@
+#
+# Module project features (e.g.: core-persistence-jpa, core-workflow)
+# @see FeatureDto.class and FeatureImplementationDto.class
+#
+
+
+#
+# AWS(Amazon Web Services)
+#
+
+
+value: amazon-s3
+versions: "[1.5.0.RELEASE,3.0.0.RELEASE)"
+text: Amazon Web Services S3(Simple Storage Services)
+description: >-
+  This feature allows to manage file in the cloud by using AWS .
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-amazon-s3-archetype
+  version: 1.5.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.amazon
+  artifactId: terasoluna-plus-core-amazon-s3-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: amazon-s3
+versions: "[3.0.0.RELEASE,)"
+text: Amazon Web Services S3(Simple Storage Services)
+description: >-
+  This feature allows to manage file in the cloud by using AWS .
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-amazon-s3-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.amazon
+  artifactId: cloud-altemistafwk-core-amazon-s3-conf
+selfImplemented: true
+---
+
+value: amazon-ses
+versions: "[1.5.0.RELEASE,3.0.0.RELEASE)"
+text: Amazon Web Services SES(Simple Email Services)
+description: >-
+  This feature allows to send emails by using AWS .
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-amazon-ses-archetype
+  version: 1.5.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.amazon
+  artifactId: terasoluna-plus-core-amazon-ses-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: amazon-ses
+versions: "[3.0.0.RELEASE,)"
+text: Amazon Web Services SES(Simple Email Services)
+description: >-
+  This feature allows to send emails by using AWS .
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-amazon-ses-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.amazon
+  artifactId: cloud-altemistafwk-core-amazon-ses-conf
+selfImplemented: true
+---
+
+value: amazon-sqs
+versions: "[1.5.0.RELEASE,3.0.0.RELEASE)"
+text: Amazon Web Services SQS(Simple Queueing Services)
+description: >-
+  This feature allows to send messages by using AWS .
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-amazon-sqs-archetype
+  version: 1.5.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.amazon
+  artifactId: terasoluna-plus-core-amazon-sqs-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: amazon-sqs
+versions: "[3.0.0.RELEASE,)"
+text: Amazon Web Services SQS(Simple Queueing Services)
+description: >-
+  This feature allows to send messages by using AWS .
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-amazon-sqs-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.amazon
+  artifactId: cloud-altemistafwk-core-amazon-sqs-conf
+selfImplemented: true
+---
+
+value: amazon-rds
+versions: "[1.5.0.RELEASE,3.0.0.RELEASE)"
+text: Amazon Web Services RDS(Relation Database Services)
+description: >-
+  This feature allows to manage database by using AWS .
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-amazon-rds-archetype
+  version: 1.5.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.amazon
+  artifactId: terasoluna-plus-core-amazon-rds-conf
+selfImplemented: true
+---
+
+
+#
+# Asynchronous and scheduled executions
+#
+
+value: core-async
+versions: "[,3.0.0.RELEASE)"
+text: Asynchronous and scheduled executions
+description: >-
+  This feature augments a core project to support asynchronous task execution and scheduling
+  by using Spring Framework "@Async" and "@Scheduled" annotations on methods.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+dependencies:
+- groupId: org.terasoluna.plus.async
+  artifactId: terasoluna-plus-core-async
+implementations:
+- value: core-async-spring
+  text: Default implementation (Spring Framework)
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-async-archetype
+    version: 1.0.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.async
+    artifactId: terasoluna-plus-core-async-conf
+    scope: runtime
+---
+
+value: core-async
+versions: "[3.0.0.RELEASE,)"
+text: Asynchronous and scheduled executions
+description: >-
+  This feature augments a core project to support asynchronous task execution and scheduling
+  by using Spring Framework "@Async" and "@Scheduled" annotations on methods.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+dependencies:
+- groupId: cloud.altemista.fwk.async
+  artifactId: cloud-altemistafwk-core-async
+implementations:
+- value: core-async-spring
+  text: Default implementation (Spring Framework)
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-async-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.async
+    artifactId: cloud-altemistafwk-core-async-conf
+    scope: runtime
+---
+
+#
+# Azure
+#
+
+value: boot-azure-support-bus
+versions: "[1.5.0.RELEASE,3.0.0.RELEASE)"
+text: Azure Service Bus
+description: >-
+   Auto-configuration support for Azure Service Bus.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf
+archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-azure-support-bus-archetype
+    version: 1.5.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.azure
+  artifactId: terasoluna-plus-core-azure-support-bus-conf
+selfImplemented: true
+---  
+
+# Since Altemista
+
+value: boot-azure-support-bus
+versions: "[3.0.0.RELEASE,)"
+text: Azure Service Bus
+description: >-
+   Auto-configuration support for Azure Service Bus.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-boot-conf
+archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-azure-support-bus-archetype
+    version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.azure
+  artifactId: cloud-altemistafwk-core-azure-support-bus-conf
+selfImplemented: true
+---  
+    
+    
+value: core-azure-support-cosmos
+versions: "[1.5.0.RELEASE,3.0.0.RELEASE)"
+text: Azure Cosmos Db
+description: >-
+   Auto-configuration support for Azure Cosmos Db.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core 
+incompatibilities:
+- groupId: org.terasoluna.plus.persistence
+  artifactId: terasoluna-plus-core-persistence-mybatis-conf
+- groupId: org.terasoluna.plus.persistence
+  artifactId: terasoluna-plus-core-persistence-mongodb-conf
+- groupId: org.terasoluna.plus.persistence
+  artifactId: terasoluna-plus-core-persistence-jpa-conf
+dependencies:
+- groupId: org.terasoluna.plus.azure
+  artifactId: terasoluna-plus-core-azure-support-cosmos-conf
+implementations:
+- value: core-azure-support-cosmos
+  text: Azure Cosmos Db implementation
+  description: >-
+    The provided implementation Azure Cosmos Db.
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-azure-support-cosmos-archetype
+    version: 1.5.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.azure
+    artifactId: terasoluna-plus-core-azure-support-cosmos-conf
+    scope: runtime
+---
+
+
+# Since Altemista    
+    
+value: core-azure-support-cosmos
+versions: "[3.0.0.RELEASE,)"
+text: Azure Cosmos Db
+description: >-
+   Auto-configuration support for Azure Cosmos Db.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: cloud-altemistafwk-core 
+incompatibilities:
+- groupId: cloud.altemista.fwk.persistence
+  artifactId: cloud-altemistafwk-core-persistence-mybatis-conf
+- groupId: cloud.altemista.fwk.persistence
+  artifactId: cloud-altemistafwk-core-persistence-mongodb-conf
+- groupId: cloud.altemista.fwk.persistence
+  artifactId: cloud-altemistafwk-core-persistence-jpa-conf
+dependencies:
+- groupId: cloud.altemista.fwk.azure
+  artifactId: cloud-altemistafwk-core-azure-support-cosmos-conf
+implementations:
+- value: core-azure-support-cosmos
+  text: Azure Cosmos Db implementation
+  description: >-
+    The provided implementation Azure Cosmos Db.
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-azure-support-cosmos-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.azure
+    artifactId: cloud-altemistafwk-core-azure-support-cosmos-conf
+    scope: runtime
+---
+    
+value: boot-azure-active-directory
+versions: "[1.5.0.RELEASE,3.0.0.RELEASE)"
+text: Azure Active Directory 
+description: >-
+    Auto-configuration support Azure Active Directory.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf   
+archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-azure-active-directory-archetype
+    version: 1.5.0.RELEASE
+dependencies:
+  - groupId: org.terasoluna.plus.azure
+    artifactId: terasoluna-plus-core-azure-active-directory-conf
+selfImplemented: true
+---  
+  
+# Since Altemista  
+    
+value: boot-azure-active-directory
+versions: "[3.0.0.RELEASE,)"
+text: Azure Active Directory 
+description: >-
+    Auto-configuration support Azure Active Directory.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-boot-conf   
+archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-azure-active-directory-archetype
+    version: 3.0.0.RELEASE
+dependencies:
+  - groupId: cloud.altemista.fwk.azure
+    artifactId: cloud-altemistafwk-core-azure-active-directory-conf
+selfImplemented: true
+---  
+   
+value: boot-azure-key-vault
+versions: "[1.5.0.RELEASE,3.0.0.RELEASE)"
+text: Azure Key Vault 
+description: >-
+    Auto-configuration support Azure Key Vault.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf 
+archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-azure-key-vault-archetype
+    version: 1.5.0.RELEASE
+dependencies:
+  - groupId: org.terasoluna.plus.azure
+    artifactId: terasoluna-plus-core-azure-key-vault-conf
+selfImplemented: true
+---  
+
+# Since Altemista  
+  
+value: boot-azure-key-vault
+versions: "[3.0.0.RELEASE,)"
+text: Azure Key Vault 
+description: >-
+    Auto-configuration support Azure Key Vault.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-boot-conf 
+archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-azure-key-vault-archetype
+    version: 3.0.0.RELEASE
+dependencies:
+  - groupId: cloud.altemista.fwk.azure
+    artifactId: cloud-altemistafwk-core-azure-key-vault-conf
+selfImplemented: true
+---    
+
+
+value: boot-azure-storage
+versions: "[1.5.0.RELEASE,3.0.0.RELEASE)"
+text: Azure Storage 
+description: >-
+    Auto-configuration support Azure Storage.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf     
+archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-azure-storage-archetype
+    version: 1.5.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.azure
+  artifactId: terasoluna-plus-core-azure-storage-conf
+selfImplemented: true
+---
+
+# Since Altemista  
+
+value: boot-azure-storage
+versions: "[3.0.0.RELEASE,)"
+text: Azure Storage 
+description: >-
+    Auto-configuration support Azure Storage.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-boot-conf     
+archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-azure-storage-archetype
+    version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.azure
+  artifactId: cloud-altemistafwk-core-azure-storage-conf
+selfImplemented: true
+---
+
+#
+# Batch processing
+#
+
+value: core-batch
+versions: "[,3.0.0.RELEASE)"
+text: Batch processing
+description: |-
+  This feature allows processing large volumes of records.
+  A typical batch process generally reads a large number of records from a database, file, or queue, processes the data in some fashion, and then writes back data in a modified form.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+dependencies:
+- groupId: org.terasoluna.plus.batch
+  artifactId: terasoluna-plus-core-batch
+implementations:
+- value: core-batch-spring
+  text: Default implementation (Spring Batch)
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-batch-spring-archetype
+    version: 1.0.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.batch
+    artifactId: terasoluna-plus-core-batch-spring-conf
+    scope: runtime
+---
+
+# Since Altemista
+
+value: core-batch
+versions: "[3.0.0.RELEASE,)"
+text: Batch processing
+description: |-
+  This feature allows processing large volumes of records.
+  A typical batch process generally reads a large number of records from a database, file, or queue, processes the data in some fashion, and then writes back data in a modified form.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+dependencies:
+- groupId: cloud.altemista.fwk.batch
+  artifactId: cloud-altemistafwk-core-batch
+implementations:
+- value: core-batch-spring
+  text: Default implementation (Spring Batch)
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-batch-spring-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.batch
+    artifactId: cloud-altemistafwk-core-batch-spring-conf
+    scope: runtime
+---
+
+
+#
+# Business Process Management (BPM)
+#
+
+value: core-workflow
+versions: "[,3.0.0.RELEASE)"
+text: Business Process Management (BPM)
+description: >-
+  This feature embeds a Business Process Management (BPM),
+  or more precisely a workflow engine, into a TSF+ application.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+dependencies:
+- groupId: org.terasoluna.plus.workflow
+  artifactId: terasoluna-plus-core-workflow
+implementations:
+- value: core-workflow-activiti
+  versions: "(,1.0.0.RELEASE]"
+  text: Activiti BPM Platform-based implementation
+  description: >-
+    The provided implementation embeds Activiti BPM Platform in the application.
+    The process definitions can be written in the standard Business Process Model And Notation (BPMN) version 2.0
+    and any datasource can be used to persist the process instances, tasks and variables.
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-workflow-activiti-archetype
+    version: 1.0.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.workflow
+    artifactId: terasoluna-plus-core-workflow-activiti-conf
+    scope: runtime
+  - groupId: org.springframework
+    artifactId: spring-jdbc
+    scope: runtime
+  - groupId: org.hsqldb
+    artifactId: hsqldb
+    scope: runtime
+- value: core-workflow-activiti
+  versions: "[1.0.1-RELEASE,3.0.0.RELEASE)"
+  text: Activiti BPM Platform-based implementation
+  description: >-
+    The provided implementation embeds Activiti BPM Platform in the application.
+    The process definitions can be written in the standard Business Process Model And Notation (BPMN) version 2.0
+    and any datasource can be used to persist the process instances, tasks and variables.
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-workflow-activiti-archetype
+    version: 1.0.1-RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.workflow
+    artifactId: terasoluna-plus-core-workflow-activiti-conf
+    scope: runtime
+  - groupId: org.springframework
+    artifactId: spring-jdbc
+    scope: runtime
+  - groupId: org.hsqldb
+    artifactId: hsqldb
+    scope: runtime
+---
+
+value: core-workflow
+versions: "[3.0.0.RELEASE,)"
+text: Business Process Management (BPM)
+description: >-
+  This feature embeds a Business Process Management (BPM),
+  or more precisely a workflow engine, into a TSF+ application.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+dependencies:
+- groupId: cloud.altemista.fwk.workflow
+  artifactId: cloud-altemistafwk-core-workflow
+implementations:
+- value: core-workflow-activiti
+  text: Activiti BPM Platform-based implementation
+  description: >-
+    The provided implementation embeds Activiti BPM Platform in the application.
+    The process definitions can be written in the standard Business Process Model And Notation (BPMN) version 2.0
+    and any datasource can be used to persist the process instances, tasks and variables.
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-workflow-activiti-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.workflow
+    artifactId: cloud-altemistafwk-core-workflow-activiti-conf
+    scope: runtime
+  - groupId: org.springframework
+    artifactId: spring-jdbc
+    scope: runtime
+  - groupId: org.hsqldb
+    artifactId: hsqldb
+    scope: runtime
+---
+
+
+#
+# Business Rules Management (BRM)
+#
+
+value: core-rules
+versions: "[,3.0.0.RELEASE)"
+text: Business Rules Management (BRM)
+description: |-
+  This feature embeds a Business Rule Management System (BRMS), also known as business rules engine, into your application.
+  A business rules engine is a great tool for efficient decision making because it can make decisions based on thousands of facts quickly, reliably, and repeatedly. Business rules are grouped in rule sets and can be executed through execution sessions.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+dependencies:
+- groupId: org.terasoluna.plus.rules
+  artifactId: terasoluna-plus-core-rules
+implementations:
+- value: core-rules-drools
+  text: Drools-based implementation
+  description: |-
+    When using Drools, the business rules are defined in Drools Rule Language (DRL) files.
+    The rules can be declared in the classpath, in the local filesystem,
+    or in a Centralised Knowledge Repository, such a Maven repository, Guvnor or Drools Workbench.
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-rules-drools-archetype
+    version: 1.0.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.rules
+    artifactId: terasoluna-plus-core-rules-drools-conf
+    scope: runtime
+---
+
+value: core-rules
+versions: "[3.0.0.RELEASE,)"
+text: Business Rules Management (BRM)
+description: |-
+  This feature embeds a Business Rule Management System (BRMS), also known as business rules engine, into your application.
+  A business rules engine is a great tool for efficient decision making because it can make decisions based on thousands of facts quickly, reliably, and repeatedly. Business rules are grouped in rule sets and can be executed through execution sessions.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+dependencies:
+- groupId: cloud.altemista.fwk.rules
+  artifactId: cloud-altemistafwk-core-rules
+implementations:
+- value: core-rules-drools
+  text: Drools-based implementation
+  description: |-
+    When using Drools, the business rules are defined in Drools Rule Language (DRL) files.
+    The rules can be declared in the classpath, in the local filesystem,
+    or in a Centralised Knowledge Repository, such a Maven repository, Guvnor or Drools Workbench.
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-rules-drools-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.rules
+    artifactId: cloud-altemistafwk-core-rules-drools-conf
+    scope: runtime
+---
+
+
+#
+# Cache
+#
+
+value: core-cache
+versions: "[,3.0.0.RELEASE)"
+text: Cache
+description: >-
+  This feature allows applying caching to Java methods,
+  reducing thus the number of executions based on the information available in the cache.
+  Expensive methods (whether CPU or IO bound) can be executed only once for a given set of parameters
+  and the result reused without having to actually execute the method again.
+  The caching logic is applied transparently without any interference to the invoker.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+dependencies:
+- groupId: org.terasoluna.plus.cache
+  artifactId: terasoluna-plus-core-cache
+implementations:
+- value: core-cache-spring
+  text: Spring-based  implementation
+  description: >-
+    The Spring-based implementation of the cache module
+    sets up a simple cache manager that can be useful in development stages or for simple projects.
+  dependencies:
+  - groupId: org.terasoluna.plus.cache
+    artifactId: terasoluna-plus-core-cache-spring-conf
+    scope: runtime
+- value: core-cache-ehcache
+  text: Ehcache-based implementation
+  description: >-
+    The Ehcache-based implementation of the cache module still relies on Spring, but uses Ehcache as the cache manager.
+    Ehcache is a widely used open source distributed cache for general purpose caching.
+    Ehcache scales from in-process caching,
+    all the way to mixed in-process/out-of-process deployments with terabyte-sized caches.
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-cache-ehcache-archetype
+    version: 1.0.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.cache
+    artifactId: terasoluna-plus-core-cache-ehcache-conf
+    scope: runtime
+---
+
+# Since Altemista
+
+value: core-cache
+versions: "[3.0.0.RELEASE,)"
+text: Cache
+description: >-
+  This feature allows applying caching to Java methods,
+  reducing thus the number of executions based on the information available in the cache.
+  Expensive methods (whether CPU or IO bound) can be executed only once for a given set of parameters
+  and the result reused without having to actually execute the method again.
+  The caching logic is applied transparently without any interference to the invoker.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+dependencies:
+- groupId: cloud.altemista.fwk.cache
+  artifactId: cloud-altemistafwk-core-cache
+implementations:
+- value: core-cache-spring
+  text: Spring-based  implementation
+  description: >-
+    The Spring-based implementation of the cache module
+    sets up a simple cache manager that can be useful in development stages or for simple projects.
+  dependencies:
+  - groupId: cloud.altemista.fwk.cache
+    artifactId: cloud-altemistafwk-core-cache-spring-conf
+    scope: runtime
+- value: core-cache-ehcache
+  text: Ehcache-based implementation
+  description: >-
+    The Ehcache-based implementation of the cache module still relies on Spring, but uses Ehcache as the cache manager.
+    Ehcache is a widely used open source distributed cache for general purpose caching.
+    Ehcache scales from in-process caching,
+    all the way to mixed in-process/out-of-process deployments with terabyte-sized caches.
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-cache-ehcache-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.cache
+    artifactId: cloud-altemistafwk-core-cache-ehcache-conf
+    scope: runtime
+---
+
+
+#
+# Connectivity utilities
+#
+
+value: common-connection
+versions: "[,3.0.0.RELEASE)"
+text: Connectivity utilities
+description: >-
+  The connectivity utilities fulfil common connectivity-related requirements,
+  such as conectivity over Secure Sockets Layer (SSL), setting up a proxy, etc.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-common
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core # (can also be installed in core projects)
+dependencies:
+- groupId: org.terasoluna.plus.connection
+  artifactId: terasoluna-plus-common-connection
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: common-connection
+versions: "[3.0.0.RELEASE,)"
+text: Connectivity utilities
+description: >-
+  The connectivity utilities fulfil common connectivity-related requirements,
+  such as conectivity over Secure Sockets Layer (SSL), setting up a proxy, etc.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-common
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core # (can also be installed in core projects)
+dependencies:
+- groupId: cloud.altemista.fwk.connection
+  artifactId: cloud-altemistafwk-common-connection
+selfImplemented: true
+---
+
+
+#
+# Cryptography utilities
+#
+
+value: common-cryptography
+versions: "[,3.0.0.RELEASE)"
+text: Cryptography utilities
+description: |-
+  The Crypto Module of Spring Security provides support for symmetric encryption and decryption using Advanced Encryption Standard (AES).
+  Asymmetric encryption and decryption using RSA is also supported through the non-official Spring Security RSA.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-common
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core # (can also be installed in core projects)
+dependencies:
+- groupId: org.terasoluna.plus.cryptography
+  artifactId: terasoluna-plus-common-cryptography
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: common-cryptography
+versions: "[3.0.0.RELEASE,)"
+text: Cryptography utilities
+description: |-
+  The Crypto Module of Spring Security provides support for symmetric encryption and decryption using Advanced Encryption Standard (AES).
+  Asymmetric encryption and decryption using RSA is also supported through the non-official Spring Security RSA.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-common
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core # (can also be installed in core projects)
+dependencies:
+- groupId: cloud.altemista.fwk.cryptography
+  artifactId: cloud-altemistafwk-common-cryptography
+selfImplemented: true
+---
+
+#
+# Integration features
+#
+
+value: integration-amqp
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Integration AMQP Adapter
+description: >-
+  Spring Integration AMQP Adapter for receiving and sending messages using the Advanced Message Queuing Protocol (AMQP).
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-integration-amqp-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.integration
+  artifactId: terasoluna-plus-core-integration-amqp-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: integration-amqp
+versions: "[3.0.0.RELEASE,)"
+text: Integration AMQP Adapter
+description: >-
+  Spring Integration AMQP Adapter for receiving and sending messages using the Advanced Message Queuing Protocol (AMQP).
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-integration-amqp-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.integration
+  artifactId: cloud-altemistafwk-core-integration-amqp-conf
+selfImplemented: true
+---
+
+value: integration-file
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Integration File Adapter
+description: >-
+  Spring Integration's File support extends the Spring Integration Core with a dedicated vocabulary to deal with reading, writing, and transforming files.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-integration-file-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.integration
+  artifactId: terasoluna-plus-core-integration-file-conf
+selfImplemented: true
+---
+
+
+# Since Altemista
+
+value: integration-file
+versions: "[3.0.0.RELEASE,)"
+text: Integration File Adapter
+description: >-
+  Spring Integration's File support extends the Spring Integration Core with a dedicated vocabulary to deal with reading, writing, and transforming files.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-integration-file-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.integration
+  artifactId: cloud-altemistafwk-core-integration-file-conf
+selfImplemented: true
+---
+
+value: integration-ftp
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Integration FTP Adapter
+description: >-
+  Integration FTP Adapter support for file transfer operations via FTP and FTPS.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-integration-ftp-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.integration
+  artifactId: terasoluna-plus-core-integration-ftp-conf
+selfImplemented: true
+---
+
+
+# Since Altemista
+
+
+value: integration-ftp
+versions: "[3.0.0.RELEASE,)"
+text: Integration FTP Adapter
+description: >-
+  Integration FTP Adapter support for file transfer operations via FTP and FTPS.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-integration-ftp-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.integration
+  artifactId: cloud-altemistafwk-core-integration-ftp-conf
+selfImplemented: true
+---
+
+value: integration-http
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Integration HTTP Adapter
+description: >-
+  The HTTP support allows for the execution of HTTP requests and the processing of inbound HTTP requests.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-integration-http-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.integration
+  artifactId: terasoluna-plus-core-integration-http-conf
+selfImplemented: true
+---
+
+
+# Since Altemista
+
+value: integration-http
+versions: "[3.0.0.RELEASE,)"
+text: Integration HTTP Adapter
+description: >-
+  The HTTP support allows for the execution of HTTP requests and the processing of inbound HTTP requests.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-integration-http-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.integration
+  artifactId: cloud-altemistafwk-core-integration-http-conf
+selfImplemented: true
+---
+
+value: integration-jms
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Integration JMS Adapter
+description: >-
+  Spring Integration Provides Channel Adapters for receiving and sending JMS messages. 
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-integration-jms-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.integration
+  artifactId: terasoluna-plus-core-integration-jms-conf
+selfImplemented: true
+---
+
+
+# Since Altemista
+
+value: integration-jms
+versions: "[3.0.0.RELEASE,)"
+text: Integration JMS Adapter
+description: >-
+  Spring Integration Provides Channel Adapters for receiving and sending JMS messages. 
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-integration-jms-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.integration
+  artifactId: cloud-altemistafwk-core-integration-jms-conf
+selfImplemented: true
+---
+
+value: integration-jmx
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Integration JMX Adapter
+description: >-
+  Spring Integration provides Channel Adapters for receiving and publishing JMX Notifications. 
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-integration-jmx-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.integration
+  artifactId: terasoluna-plus-core-integration-jmx-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: integration-jmx
+versions: "[3.0.0.RELEASE,)"
+text: Integration JMX Adapter
+description: >-
+  Spring Integration provides Channel Adapters for receiving and publishing JMX Notifications. 
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-integration-jmx-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.integration
+  artifactId: cloud-altemistafwk-core-integration-jmx-conf
+selfImplemented: true
+---
+
+value: integration-jpa
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Integration JPA Adapter
+description: >-
+  Spring Integration provides support JPA
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-integration-jpa-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.integration
+  artifactId: terasoluna-plus-core-integration-jpa-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: integration-jpa
+versions: "[3.0.0.RELEASE,)"
+text: Integration JPA Adapter
+description: >-
+  Spring Integration provides support JPA
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-integration-jpa-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.integration
+  artifactId: cloud-altemistafwk-core-integration-jpa-conf
+selfImplemented: true
+---
+
+value: integration-mail
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Integration MAIL Adapter
+description: >-
+  Spring Integration provides support for outbound email with the MailSendingMessageHandler. 
+  It delegates to a configured instance of Spring’s JavaMailSender 
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-integration-mail-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.integration
+  artifactId: terasoluna-plus-core-integration-mail-conf
+selfImplemented: true
+---
+
+
+# Since Altemista
+
+value: integration-mail
+versions: "[3.0.0.RELEASE,)"
+text: Integration MAIL Adapter
+description: >-
+  Spring Integration provides support for outbound email with the MailSendingMessageHandler. 
+  It delegates to a configured instance of Spring’s JavaMailSender 
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-integration-mail-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.integration
+  artifactId: cloud-altemistafwk-core-integration-mail-conf
+selfImplemented: true
+---
+
+value: integration-mqtt
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Integration MQTT Adapter
+description: >-
+  Spring Integration provides inbound and outbound channel adapters supporting the MQ Telemetry Transport (MQTT) protocol. 
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-integration-mqtt-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.integration
+  artifactId: terasoluna-plus-core-integration-mqtt-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: integration-mqtt
+versions: "[3.0.0.RELEASE,)"
+text: Integration MQTT Adapter
+description: >-
+  Spring Integration provides inbound and outbound channel adapters supporting the MQ Telemetry Transport (MQTT) protocol. 
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-integration-mqtt-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.integration
+  artifactId: cloud-altemistafwk-core-integration-mqtt-conf
+selfImplemented: true
+---
+
+value: integration-resource
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Integration Resource Adapter
+description: >-
+  The Resource Inbound Channel Adapter is a polling adapter that creates a Message whose payload is a collection of Resource objects.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-integration-resource-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.integration
+  artifactId: terasoluna-plus-core-integration-resource-conf
+selfImplemented: true
+---
+
+
+# Since Altemista
+
+value: integration-resource
+versions: "[3.0.0.RELEASE,)"
+text: Integration Resource Adapter
+description: >-
+  The Resource Inbound Channel Adapter is a polling adapter that creates a Message whose payload is a collection of Resource objects.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-integration-resource-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.integration
+  artifactId: cloud-altemistafwk-core-integration-resource-conf
+selfImplemented: true
+---
+
+value: integration-rmi
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Integration RMI Adapter
+description: >-
+  Spring Integration provides inbound and outbound channel adapters supporting the RMI protocol. 
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-integration-rmi-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.integration
+  artifactId: terasoluna-plus-core-integration-rmi-conf
+selfImplemented: true
+---
+
+
+# Since Altemista
+
+value: integration-rmi
+versions: "[3.0.0.RELEASE,)"
+text: Integration RMI Adapter
+description: >-
+  Spring Integration provides inbound and outbound channel adapters supporting the RMI protocol. 
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-integration-rmi-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.integration
+  artifactId: cloud-altemistafwk-core-integration-rmi-conf
+selfImplemented: true
+---
+
+value: integration-sftp
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Integration SFTP Adapter
+description: >-
+  Integration SFTP Adapter support for file transfer operations via SFTP.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-integration-sftp-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.integration
+  artifactId: terasoluna-plus-core-integration-sftp-conf
+selfImplemented: true
+---
+
+
+# Since Altemista
+
+value: integration-sftp
+versions: "[3.0.0.RELEASE,)"
+text: Integration SFTP Adapter
+description: >-
+  Integration SFTP Adapter support for file transfer operations via SFTP.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-integration-sftp-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.integration
+  artifactId: cloud-altemistafwk-core-integration-sftp-conf
+selfImplemented: true
+---
+
+value: integration-ip
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Integration IP Adapter
+description: >-
+  Spring Integration provides Channel Adapters for receiving and sending messages over internet protocols.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-integration-ip-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.integration
+  artifactId: terasoluna-plus-core-integration-ip-conf
+selfImplemented: true
+---
+
+
+# Since Altemista
+
+value: integration-ip
+versions: "[3.0.0.RELEASE,)"
+text: Integration IP Adapter
+description: >-
+  Spring Integration provides Channel Adapters for receiving and sending messages over internet protocols.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-integration-ip-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.integration
+  artifactId: cloud-altemistafwk-core-integration-ip-conf
+selfImplemented: true
+---
+
+value: integration-ws
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Integration WebServices Adapter
+description: >-
+  Spring Integration provides Channel Adapters for receiving and sending messages over WebServices.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-integration-ws-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.integration
+  artifactId: terasoluna-plus-core-integration-ws-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+
+value: integration-ws
+versions: "[3.0.0.RELEASE,)"
+text: Integration WebServices Adapter
+description: >-
+  Spring Integration provides Channel Adapters for receiving and sending messages over WebServices.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-integration-ws-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.integration
+  artifactId: cloud-altemistafwk-core-integration-ws-conf
+selfImplemented: true
+---
+
+value: integration-websocket
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Integration Web Sockets Adapter
+description: >-
+  Spring Integration provides Channel Adapters for receiving and sending messages over Web Sockets.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-integration-websocket-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.integration
+  artifactId: terasoluna-plus-core-integration-websocket-conf
+selfImplemented: true
+---
+
+
+# Since Altemista
+
+value: integration-websocket
+versions: "[3.0.0.RELEASE,)"
+text: Integration Web Sockets Adapter
+description: >-
+  Spring Integration provides Channel Adapters for receiving and sending messages over Web Sockets.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-integration-websocket-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.integration
+  artifactId: cloud-altemistafwk-core-integration-websocket-conf
+selfImplemented: true
+---
+
+#
+# Mail server
+#
+
+value: core-mail
+versions: "[,3.0.0.RELEASE)"
+text: Mail server
+description: >-
+  The mail server feature provides the ability of sending emails from the application with ease,
+  using the Simple Mail Transport Protocol (SMTP), and both synchronously or asynchronously.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+dependencies:
+- groupId: org.terasoluna.plus.mail
+  artifactId: terasoluna-plus-core-mail
+additionalProperties:
+- value: mailServer # terasoluna.plus.mail.config.host
+  text: Mail server host
+  defaultValue: localhost
+- value: mailServerPort # terasoluna.plus.mail.config.port
+  text: Mail server port
+  defaultValue: 25
+implementations:
+- value: core-mail-javamail
+  text: Default implementation (JavaMail API and Spring Framework e-mail library) 
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-mail-javamail-archetype
+    version: 1.0.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.mail
+    artifactId: terasoluna-plus-core-mail-javamail-conf
+    scope: runtime
+---
+
+
+value: core-mail
+versions: "[3.0.0.RELEASE,)"
+text: Mail server
+description: >-
+  The mail server feature provides the ability of sending emails from the application with ease,
+  using the Simple Mail Transport Protocol (SMTP), and both synchronously or asynchronously.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+dependencies:
+- groupId: cloud.altemista.fwk.mail
+  artifactId: cloud-altemistafwk-core-mail
+additionalProperties:
+- value: mailServer # terasoluna.plus.mail.config.host
+  text: Mail server host
+  defaultValue: localhost
+- value: mailServerPort # terasoluna.plus.mail.config.port
+  text: Mail server port
+  defaultValue: 25
+implementations:
+- value: core-mail-javamail
+  text: Default implementation (JavaMail API and Spring Framework e-mail library) 
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-mail-javamail-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.mail
+    artifactId: cloud-altemistafwk-core-mail-javamail-conf
+    scope: runtime
+---
+
+#
+# Message Broker
+#
+
+
+value: core-message
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Message Broker
+description: >-
+  Message Broker provide the ability of sending messages between some systems who want to be communicated 
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+dependencies:
+- groupId: org.terasoluna.plus.message
+  artifactId: terasoluna-plus-core-message
+implementations:
+- value: core-message-apache
+  text: ActiveMQ implementation
+  description: >-
+    The provided implementation of ActiveMQ
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-message-active-archetype
+    version: 1.3.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.message
+    artifactId: terasoluna-plus-core-message-active-conf
+    scope: runtime
+- value: core-message-rabbit
+  text: RabbitMQ implementation
+  description: >-
+    The provided implementation of RabbitMQ
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-message-rabbit-archetype
+    version: 1.3.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.message
+    artifactId: terasoluna-plus-core-message-rabbit-conf
+    scope: runtime
+---
+
+# Since Altemista
+
+value: core-message
+versions: "[3.0.0.RELEASE,)"
+text: Message Broker
+description: >-
+  Message Broker provide the ability of sending messages between some systems who want to be communicated 
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+dependencies:
+- groupId: cloud.altemista.fwk.message
+  artifactId: cloud-altemistafwk-core-message
+implementations:
+- value: core-message-apache
+  text: ActiveMQ implementation
+  description: >-
+    The provided implementation of ActiveMQ
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-message-active-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.message
+    artifactId: cloud-altemistafwk-core-message-active-conf
+    scope: runtime
+- value: core-message-rabbit
+  text: RabbitMQ implementation
+  description: >-
+    The provided implementation of RabbitMQ
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-message-rabbit-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.message
+    artifactId: cloud-altemistafwk-core-message-rabbit-conf
+    scope: runtime
+---
+
+
+#
+# Monitoring
+#
+
+value: core-monitoring
+versions: "[,3.0.0.RELEASE)"
+text: Monitoring
+description: >-
+  The monitoring feature allows the definition of indicators to register information about different resources,
+  such as databases or remote services.
+  The executions register the status of the resource, the execution time, how long took the execution,
+  and can be extended to include custom information fields or messages, according the needs of the application.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-monitoring-archetype
+  version: 1.0.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.monitoring
+  artifactId: terasoluna-plus-core-monitoring
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: core-monitoring
+versions: "[3.0.0.RELEASE,)"
+text: Monitoring
+description: >-
+  The monitoring feature allows the definition of indicators to register information about different resources,
+  such as databases or remote services.
+  The executions register the status of the resource, the execution time, how long took the execution,
+  and can be extended to include custom information fields or messages, according the needs of the application.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-monitoring-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.monitoring
+  artifactId: cloud-altemistafwk-core-monitoring
+selfImplemented: true
+---
+
+value: web-monitoring
+versions: "[,3.0.0.RELEASE)"
+text: Monitoring (web tier)
+description: >-
+  The web-tier monitoring feature allows applications to expose existing monitoring services
+  as a "helath" REST API.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-web-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-web-monitoring-archetype
+  version: 1.0.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.monitoring
+  artifactId: terasoluna-plus-web-monitoring
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: web-monitoring
+versions: "[3.0.0.RELEASE,)"
+text: Monitoring (web tier)
+description: >-
+  The web-tier monitoring feature allows applications to expose existing monitoring services
+  as a "helath" REST API.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-web-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-web-monitoring-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.monitoring
+  artifactId: cloud-altemistafwk-web-monitoring
+selfImplemented: true
+---
+
+
+#
+# Performance
+#
+
+value: app-performance
+versions: "[,3.0.0.RELEASE)"
+text: Performance
+description: >-
+  The performance module offers the possibilty of measure the performance of an application
+  in a non-intrusive, configurable and extensible manner.
+  With this module, by example, is it possible to determine at any stage of development
+  which queries to the database are taking longer than expected.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-microservice-infrastructure-conf
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-microservice-application-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-app-performance-archetype
+  version: 1.0.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.performance
+  artifactId: terasoluna-plus-app-performance-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: app-performance
+versions: "[3.0.0.RELEASE,)"
+text: Performance
+description: >-
+  The performance module offers the possibilty of measure the performance of an application
+  in a non-intrusive, configurable and extensible manner.
+  With this module, by example, is it possible to determine at any stage of development
+  which queries to the database are taking longer than expected.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-webapp-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-boot-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-microservice-infrastructure-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-microservice-application-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-app-performance-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.performance
+  artifactId: cloud-altemistafwk-app-performance-conf
+selfImplemented: true
+---
+
+value: boot-altemista
+versions: "[1.4.0.RELEASE,3.0.0.RELEASE)"
+text: Altemista
+description: |-
+  Altemista is a cloud platform for continuous productivity by using openshift platform.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf
+  - groupId:  org.terasoluna.plus.docker
+    artifactId: terasoluna-plus-core-docker-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-altemista-archetype
+  version: 1.4.0.RELEASE
+dependencies:
+- groupId:  org.terasoluna.plus.altemista
+  artifactId: terasoluna-plus-core-altemista-conf
+additionalProperties:
+- value: imageName
+  text: Image Name
+  defaultValue: boot-test  
+- value: deploymentName
+  text: Deployment Name
+  defaultValue: deployment-example  
+- value: serviceName
+  text: Service Name
+  defaultValue: service-example  
+- value: routeName
+  text: Route Name
+  defaultValue: route-example  
+- value: volume
+  text: Volume Name
+  defaultValue: nfs-claim  
+selfImplemented: true
+---
+
+
+value: boot-altemista
+versions: "[3.0.0.RELEASE,)"
+text: Altemista
+description: |-
+  Altemista is a cloud platform for continuous productivity by using openshift platform.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-boot-conf
+  - groupId:  cloud.altemista.fwk.docker
+    artifactId: cloud-altemistafwk-core-docker-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-altemista-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId:  cloud.altemista.fwk.altemista
+  artifactId: cloud-altemistafwk-core-altemista-conf
+additionalProperties:
+- value: imageName
+  text: Image Name
+  defaultValue: boot-test  
+- value: deploymentName
+  text: Deployment Name
+  defaultValue: deployment-example  
+- value: serviceName
+  text: Service Name
+  defaultValue: service-example  
+- value: routeName
+  text: Route Name
+  defaultValue: route-example  
+- value: volume
+  text: Volume Name
+  defaultValue: nfs-claim  
+selfImplemented: true
+---
+
+value: app-performance-jdbc
+versions: "[,3.0.0.RELEASE)"
+text: JDBC performance
+description: >-
+  When using a relational database through a datasource,
+  registers the queries executed and the size of their result sets, and measures the execution times.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+  - groupId: org.terasoluna.plus.performance
+    artifactId: terasoluna-plus-app-performance-conf
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf
+  - groupId: org.terasoluna.plus.performance
+    artifactId: terasoluna-plus-app-performance-conf
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-microservice-application-conf
+  - groupId: org.terasoluna.plus.performance
+    artifactId: terasoluna-plus-app-performance-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-app-performance-jdbc-archetype
+  version: 1.0.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.performance
+  artifactId: terasoluna-plus-app-performance-jdbc-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: app-performance-jdbc
+versions: "[3.0.0.RELEASE,)"
+text: JDBC performance
+description: >-
+  When using a relational database through a datasource,
+  registers the queries executed and the size of their result sets, and measures the execution times.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-webapp-conf
+  - groupId: cloud.altemista.fwk.performance
+    artifactId: cloud-altemistafwk-app-performance-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-boot-conf
+  - groupId: cloud.altemista.fwk.performance
+    artifactId: cloud-altemistafwk-app-performance-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-microservice-application-conf
+  - groupId: cloud.altemista.fwk.performance
+    artifactId: cloud-altemistafwk-app-performance-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-app-performance-jdbc-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.performance
+  artifactId: cloud-altemistafwk-app-performance-jdbc-conf
+selfImplemented: true
+---
+
+value: app-performance-web
+versions: "[,3.0.0.RELEASE)"
+text: Web performance
+description: >-
+  At the web layer, measures the time taken to perform each request to the application.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+  - groupId: org.terasoluna.plus.performance
+    artifactId: terasoluna-plus-app-performance-conf
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf
+  - groupId: org.terasoluna.plus.performance
+    artifactId: terasoluna-plus-app-performance-conf
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-microservice-application-conf
+  - groupId: org.terasoluna.plus.performance
+    artifactId: terasoluna-plus-app-performance-conf
+dependencies:
+- groupId: org.terasoluna.plus.performance
+  artifactId: terasoluna-plus-app-performance-web-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: app-performance-web
+versions: "[3.0.0.RELEASE,)"
+text: Web performance
+description: >-
+  At the web layer, measures the time taken to perform each request to the application.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-webapp-conf
+  - groupId: cloud.altemista.fwk.performance
+    artifactId: cloud-altemistafwk-app-performance-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-boot-conf
+  - groupId: cloud.altemista.fwk.performance
+    artifactId: cloud-altemistafwk-app-performance-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-microservice-application-conf
+  - groupId: cloud.altemista.fwk.performance
+    artifactId: cloud-altemistafwk-app-performance-conf
+dependencies:
+- groupId: cloud.altemista.fwk.performance
+  artifactId: cloud-altemistafwk-app-performance-web-conf
+selfImplemented: true
+---
+
+
+#
+# Persistence: Object-relational mapping (O/RM): Spring Data JPA
+#
+
+value: core-persistence-orm
+versions: "[,3.0.0.RELEASE)"
+text: "Persistence: Object-relational mapping (O/RM)"
+description: >-
+  This feature offers out-of-the-box support for relational databases using Object-relational mapping (O/RM),
+  a programming technique that integrates object-oriented programming and relational datbases.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+incompatibilities:
+- groupId: org.terasoluna.plus.persistence
+  artifactId: terasoluna-plus-core-persistence-mybatis-conf
+- groupId: org.terasoluna.plus.persistence
+  artifactId: terasoluna-plus-core-persistence-mongodb-conf
+dependencies:
+- groupId: org.terasoluna.plus.persistence
+  artifactId: terasoluna-plus-core-persistence-jpa-hibernate-conf
+  scope: provided
+implementations:
+- value: core-persistence-jpa
+  text: Spring Data JPA-based implementation with Hibernate O/RM
+  description: >-
+    This implementation supports relational databases
+    using Spring Data JPA backed up by the de facto standard Hibernate ORM.
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-persistence-jpa-hibernate-archetype
+    version: 1.4.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.persistence
+    artifactId: terasoluna-plus-core-persistence-jpa-hibernate-conf
+    scope: runtime
+  - groupId: org.springframework
+    artifactId: spring-jdbc
+    scope: runtime
+  - groupId: org.hsqldb
+    artifactId: hsqldb
+    scope: runtime
+---
+
+value: core-persistence-orm
+versions: "[3.0.0.RELEASE,)"
+text: "Persistence: Object-relational mapping (O/RM)"
+description: >-
+  This feature offers out-of-the-box support for relational databases using Object-relational mapping (O/RM),
+  a programming technique that integrates object-oriented programming and relational datbases.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+incompatibilities:
+- groupId: cloud.altemista.fwk.persistence
+  artifactId: cloud-altemistafwk-core-persistence-mybatis-conf
+- groupId: cloud.altemista.fwk.persistence
+  artifactId: cloud-altemistafwk-core-persistence-mongodb-conf
+dependencies:
+- groupId: cloud.altemista.fwk.persistence
+  artifactId: cloud-altemistafwk-core-persistence-jpa-hibernate-conf
+  scope: provided
+implementations:
+- value: core-persistence-jpa
+  text: Spring Data JPA-based implementation with Hibernate O/RM
+  description: >-
+    This implementation supports relational databases
+    using Spring Data JPA backed up by the de facto standard Hibernate ORM.
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-persistence-jpa-hibernate-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.persistence
+    artifactId: cloud-altemistafwk-core-persistence-jpa-hibernate-conf
+    scope: runtime
+  - groupId: org.springframework
+    artifactId: spring-jdbc
+    scope: runtime
+  - groupId: org.hsqldb
+    artifactId: hsqldb
+    scope: runtime
+---
+
+
+#
+# Persistence: JDBC/SQL: MyBatis
+#
+
+value: core-persistence-sql
+versions: "[,3.0.0.RELEASE)"
+text: "Persistence: JDBC/SQL"
+description: >-
+  This feature offers out-of-the-box support for relational databases using SQL statements.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+incompatibilities:
+- groupId: org.terasoluna.plus.persistence
+  artifactId: terasoluna-plus-core-persistence-jpa-hibernate-conf
+- groupId: org.terasoluna.plus.persistence
+  artifactId: terasoluna-plus-core-persistence-mongodb-conf
+dependencies:
+- groupId: org.terasoluna.plus.persistence
+  artifactId: terasoluna-plus-core-persistence-mybatis-conf
+  scope: provided
+implementations:
+- value: core-persistence-mybatis
+  text: MyBatis-based implementation
+  description: |-
+    This feature offers out-of-the-box support for relational databases using SQL statemens through the MyBatis framework.
+    MyBatis, unlike O/RM frameworks, does not map Java objects to database tables but Java methods to SQL statements. This allows to easily use all the database functionality like stored procedures, views, queries of any complexity and vendor proprietary features.
+    As there is no 1:1 model to tables relationship, favors working with legacy or de-normalized databases, or to obtain full control of SQL execution.
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-persistence-mybatis-archetype
+    version: 1.0.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.persistence
+    artifactId: terasoluna-plus-core-persistence-mybatis-conf
+    scope: runtime
+  - groupId: org.springframework
+    artifactId: spring-jdbc
+    scope: runtime
+  - groupId: org.hsqldb
+    artifactId: hsqldb
+    scope: runtime
+---
+
+
+value: core-persistence-sql
+versions: "[3.0.0.RELEASE,)"
+text: "Persistence: JDBC/SQL"
+description: >-
+  This feature offers out-of-the-box support for relational databases using SQL statements.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+incompatibilities:
+- groupId: cloud.altemista.fwk.persistence
+  artifactId: cloud-altemistafwk-core-persistence-jpa-hibernate-conf
+- groupId: cloud.altemista.fwk.persistence
+  artifactId: cloud-altemistafwk-core-persistence-mongodb-conf
+dependencies:
+- groupId: cloud.altemista.fwk.persistence
+  artifactId: cloud-altemistafwk-core-persistence-mybatis-conf
+  scope: provided
+implementations:
+- value: core-persistence-mybatis
+  text: MyBatis-based implementation
+  description: |-
+    This feature offers out-of-the-box support for relational databases using SQL statemens through the MyBatis framework.
+    MyBatis, unlike O/RM frameworks, does not map Java objects to database tables but Java methods to SQL statements. This allows to easily use all the database functionality like stored procedures, views, queries of any complexity and vendor proprietary features.
+    As there is no 1:1 model to tables relationship, favors working with legacy or de-normalized databases, or to obtain full control of SQL execution.
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-persistence-mybatis-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.persistence
+    artifactId: cloud-altemistafwk-core-persistence-mybatis-conf
+    scope: runtime
+  - groupId: org.springframework
+    artifactId: spring-jdbc
+    scope: runtime
+  - groupId: org.hsqldb
+    artifactId: hsqldb
+    scope: runtime
+---
+
+
+#
+# Persistence: NoSQL: MongoDB
+#
+
+value: core-persistence-nosql
+versions: "[,3.0.0.RELEASE)"
+text: "Persistence: NoSQL"
+description: >-
+  This feature offers support for non-relational, document-oriented, databases.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+incompatibilities:
+- groupId: org.terasoluna.plus.persistence
+  artifactId: terasoluna-plus-core-persistence-mybatis-conf
+- groupId: org.terasoluna.plus.persistence
+  artifactId: terasoluna-plus-core-persistence-jpa-hibernate-conf
+dependencies:
+- groupId: org.terasoluna.plus.persistence
+  artifactId: terasoluna-plus-core-persistence-mongodb-conf
+  scope: provided
+additionalProperties:
+- value: mongodbHost
+  text: MongoDB database server host
+  defaultValue: localhost
+- value: mongodbPort
+  text: MongoDB database server port
+  defaultValue: 27017
+- value: mongodbDatabase
+  text: MongoDB database name
+  defaultValue: dummy
+implementations:
+- value: core-persistence-mongodb
+  text: Spring Data MongoDB-based implementation
+  description: >-
+    This implementation offers out-of-the-box support
+    for non-relational MondoDB document-oriented databases using Spring Data MongoDB.
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-persistence-mongodb-archetype
+    version: 1.0.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.persistence
+    artifactId: terasoluna-plus-core-persistence-mongodb-conf
+    scope: runtime
+---
+
+
+value: core-persistence-nosql
+versions: "[3.0.0.RELEASE,)"
+text: "Persistence: NoSQL"
+description: >-
+  This feature offers support for non-relational, document-oriented, databases.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+incompatibilities:
+- groupId: cloud.altemista.fwk.persistence
+  artifactId: cloud-altemistafwk-core-persistence-mybatis-conf
+- groupId: cloud.altemista.fwk.persistence
+  artifactId: cloud-altemistafwk-core-persistence-jpa-hibernate-conf
+dependencies:
+- groupId: cloud.altemista.fwk.persistence
+  artifactId: cloud-altemistafwk-core-persistence-mongodb-conf
+  scope: provided
+additionalProperties:
+- value: mongodbHost
+  text: MongoDB database server host
+  defaultValue: localhost
+- value: mongodbPort
+  text: MongoDB database server port
+  defaultValue: 27017
+- value: mongodbDatabase
+  text: MongoDB database name
+  defaultValue: dummy
+implementations:
+- value: core-persistence-mongodb
+  text: Spring Data MongoDB-based implementation
+  description: >-
+    This implementation offers out-of-the-box support
+    for non-relational MondoDB document-oriented databases using Spring Data MongoDB.
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-persistence-mongodb-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.persistence
+    artifactId: cloud-altemistafwk-core-persistence-mongodb-conf
+    scope: runtime
+---
+
+
+#
+# Common presentation layer functionality
+#
+
+value: webapp-common
+versions: "[1.1.0-RELEASE,3.0.0.RELEASE)" # (1.1.x onwards)
+text: Common presentation layer functionality
+description: |-
+  Features, such as internationalization support, common to any server-side presentation layer technology, and shared for both web applications and Spring Boot-based applications.
+  These features are automatically embedded in the different presentation layer features provided by the TSF+. However, this feature can be used as a stand-alone feature when setting up alternative presentation layer technologies.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-microservice-application-conf
+dependencies:
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-common-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: webapp-common
+versions: "[3.0.0.RELEASE,)" # (3.0.x onwards)
+text: Common presentation layer functionality
+description: |-
+  Features, such as internationalization support, common to any server-side presentation layer technology, and shared for both web applications and Spring Boot-based applications.
+  These features are automatically embedded in the different presentation layer features provided by the TSF+. However, this feature can be used as a stand-alone feature when setting up alternative presentation layer technologies.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-webapp-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-boot-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-microservice-application-conf
+dependencies:
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-common-conf
+selfImplemented: true
+---
+
+
+#
+# Presentation layer: JavaServer Pages (JSP) 
+#
+
+value: webapp-jsp
+versions: "[1.1.0-RELEASE,3.0.0.RELEASE)" # (1.1.x onwards)
+text: "Presentation layer: JavaServer Pages (JSP)"
+description: >-
+  Sets up the view resolver to resolve view names to JavaServer Pages (JSP) from the folder /WEB-INF/jsp.
+  I.e.: a view named example will be rendered using /WEB-INF/jsp/example.jsp file
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+incompatibilities:
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-jsf-conf
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-thymeleaf-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-webapp-jsp-archetype
+  version: 1.1.0-RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-jsp-conf
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-common-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: webapp-jsp
+versions: "[3.0.0.RELEASE,)" # (1.1.x onwards)
+text: "Presentation layer: JavaServer Pages (JSP)"
+description: >-
+  Sets up the view resolver to resolve view names to JavaServer Pages (JSP) from the folder /WEB-INF/jsp.
+  I.e.: a view named example will be rendered using /WEB-INF/jsp/example.jsp file
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-webapp-conf
+incompatibilities:
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-jsf-conf
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-thymeleaf-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-webapp-jsp-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-jsp-conf
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-common-conf
+selfImplemented: true
+---
+
+
+#
+# Presentation layer: Spring Web Flow (SWF)
+#
+
+value: webapp-webflow
+versions: "[,1.1.0-RELEASE)" # (1.0.x)
+text: "Presentation layer: Spring Web Flow (SWF)"
+description: >-
+  Spring Web Flow allows implementing the "flows" of a web application,
+  that encapsulate a sequence of steps with defined and controlled navigation.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-webapp-webflow-archetype
+  version: 1.0.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-webflow-conf
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-common-conf
+selfImplemented: true
+---
+
+value: webapp-webflow
+versions: "[1.1.0-RELEASE,3.0.0.RELEASE)" # (1.1.x onwards)
+text: "Presentation layer: Spring Web Flow (SWF)"
+description: >-
+  Spring Web Flow allows implementing the "flows" of a web application,
+  that encapsulate a sequence of steps with defined and controlled navigation.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-webapp-webflow-archetype
+  version: 1.1.0-RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-webflow-conf
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-common-conf
+selfImplemented: true
+---
+
+
+# Since Altemista
+
+value: webapp-webflow
+versions: "[3.0.0.RELEASE,)" # (1.1.x onwards)
+text: "Presentation layer: Spring Web Flow (SWF)"
+description: >-
+  Spring Web Flow allows implementing the "flows" of a web application,
+  that encapsulate a sequence of steps with defined and controlled navigation.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-webapp-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-webapp-webflow-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-webflow-conf
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-common-conf
+selfImplemented: true
+---
+
+
+#
+# Presentation layer: Apache Tiles 
+#
+
+value: webapp-tiles
+versions: "[,1.1.0-RELEASE)" # (1.0.x)
+text: "Presentation layer: Apache Tiles"
+description: |-
+  Apache Tiles is a template composition framework built to simplify the development of web application user interfaces by defining page fragments which can be assembled into complete pages.
+  Using this module you can easily enhance your views with different templates. The default configuration includes jQuery2 and Bootstrap 3 configured and ready to use in your templates.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+incompatibilities:
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-jsf-conf
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-thymeleaf-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-webapp-tiles-archetype
+  version: 1.0.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-tiles-conf
+selfImplemented: true
+---
+
+value: webapp-tiles
+versions: "[1.1.0-RELEASE,3.0.0.RELEASE)" # (1.1.x onwards)
+text: "Presentation layer: Apache Tiles"
+description: |-
+  Apache Tiles is a template composition framework built to simplify the development of web application user interfaces by defining page fragments which can be assembled into complete pages.
+  Using this module you can easily enhance your views with different templates. The default configuration includes jQuery2 and Bootstrap 3 configured and ready to use in your templates.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+incompatibilities:
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-jsf-conf
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-thymeleaf-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-webapp-tiles-archetype
+  version: 1.1.0-RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-tiles-conf
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-jsp-conf
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-common-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: webapp-tiles
+versions: "[3.0.0.RELEASE,)" # (1.1.x onwards)
+text: "Presentation layer: Apache Tiles"
+description: |-
+  Apache Tiles is a template composition framework built to simplify the development of web application user interfaces by defining page fragments which can be assembled into complete pages.
+  Using this module you can easily enhance your views with different templates. The default configuration includes jQuery2 and Bootstrap 3 configured and ready to use in your templates.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-webapp-conf
+incompatibilities:
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-jsf-conf
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-thymeleaf-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-webapp-tiles-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-tiles-conf
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-jsp-conf
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-common-conf
+selfImplemented: true
+---
+
+
+#
+# Presentation layer: JavaServer Faces (JSF)
+#
+
+value: webapp-jsf
+versions: "[,1.1.0-RELEASE)" # (1.0.x)
+text: "Presentation layer: JavaServer Faces (JSF)"
+description: >-
+  JavaServer Faces (JSF) is a Java specification for building component-based user interfaces for web applications,
+  with Facelets as its default templating system.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+incompatibilities:
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-tiles-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-webapp-jsf-archetype
+  version: 1.0.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-jsf-conf
+selfImplemented: true
+---
+
+value: webapp-jsf
+versions: "[1.1.0-RELEASE,3.0.0.RELEASE)" # (1.1.x onwards)
+text: "Presentation layer: JavaServer Faces (JSF)"
+description: >-
+  JavaServer Faces (JSF) is a Java specification for building component-based user interfaces for web applications,
+  with Facelets as its default templating system.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+incompatibilities:
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-jsp-conf
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-thymeleaf-conf
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-tiles-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-webapp-jsf-archetype
+  version: 1.1.0-RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-jsf-conf
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-common-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: webapp-jsf
+versions: "[3.0.0.RELEASE,)" # (1.1.x onwards)
+text: "Presentation layer: JavaServer Faces (JSF)"
+description: >-
+  JavaServer Faces (JSF) is a Java specification for building component-based user interfaces for web applications,
+  with Facelets as its default templating system.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-webapp-conf
+incompatibilities:
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-jsp-conf
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-thymeleaf-conf
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-tiles-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-webapp-jsf-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-jsf-conf
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-common-conf
+selfImplemented: true
+---
+
+#
+# Thymeleaf 
+#
+
+value: webapp-thymeleaf
+versions: "[1.5.0.RELEASE,3.0.0.RELEASE)" # (1.1.x onwards)
+text: "Presentation layer: Thymeleaf"
+description: >-
+  Thymeleaf is a Java XML/XHTML/HTML5 template engine that can work both in web (servlet-based) and non-web environments.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+incompatibilities:
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-jsp-conf
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-jsf-conf
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-tiles-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-webapp-thymeleaf-archetype
+  version: 1.5.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-thymeleaf-conf
+- groupId: org.terasoluna.plus.webapp.modules
+  artifactId: terasoluna-plus-webapp-common-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: webapp-thymeleaf
+versions: "[3.0.0.RELEASE,)" # (1.1.x onwards)
+text: "Presentation layer: Thymeleaf"
+description: >-
+  Thymeleaf is a Java XML/XHTML/HTML5 template engine that can work both in web (servlet-based) and non-web environments.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-webapp-conf
+incompatibilities:
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-jsp-conf
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-jsf-conf
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-tiles-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-webapp-thymeleaf-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-thymeleaf-conf
+- groupId: cloud.altemista.fwk.webapp.modules
+  artifactId: cloud-altemistafwk-webapp-common-conf
+selfImplemented: true
+---
+
+#
+# Reporting
+#
+
+value: core-reporting
+versions: "[,3.0.0.RELEASE)"
+text: Reporting
+description: |-
+  The reporting module provides functionality to create and export reports.
+  Supported formats, such as PDF or Microsoft Excel, will depend on the implementation provider.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+dependencies:
+- groupId: org.terasoluna.plus.reporting
+  artifactId: terasoluna-plus-core-reporting
+implementations:
+- value: core-reporting-jasper
+  text: JasperReports-based implementation
+  description: >-
+    JasperReports-based implementation of the reporting feature that supports:
+    CSV, HTML, Microsoft Excel, Word, PowerPoint, Microsoft Office OOXML Spreadsheet, PDF, RTF, text file and XML.
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-reporting-jasper-archetype
+    version: 1.0.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.reporting
+    artifactId: terasoluna-plus-core-reporting-jasper-conf
+    scope: runtime
+---
+
+
+value: core-reporting
+versions: "[3.0.0.RELEASE,)"
+text: Reporting
+description: |-
+  The reporting module provides functionality to create and export reports.
+  Supported formats, such as PDF or Microsoft Excel, will depend on the implementation provider.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+dependencies:
+- groupId: cloud.altemista.fwk.reporting
+  artifactId: cloud-altemistafwk-core-reporting
+implementations:
+- value: core-reporting-jasper
+  text: JasperReports-based implementation
+  description: >-
+    JasperReports-based implementation of the reporting feature that supports:
+    CSV, HTML, Microsoft Excel, Word, PowerPoint, Microsoft Office OOXML Spreadsheet, PDF, RTF, text file and XML.
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-reporting-jasper-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.reporting
+    artifactId: cloud-altemistafwk-core-reporting-jasper-conf
+    scope: runtime
+---
+
+value: web-reporting
+versions: "[,3.0.0.RELEASE)"
+text: Reporting (web tier)
+description: |-
+  The most common use case for the reporting module is to serve the reports for being downloaded.
+  The web part of the reporting module eases the implementaion of Spring MVC controllers that serve reports either inline or as a download, regardless the reporting module implementation. 
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-web-conf
+dependencies:
+- groupId: org.terasoluna.plus.reporting
+  artifactId: terasoluna-plus-web-reporting
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: web-reporting
+versions: "[3.0.0.RELEASE,)"
+text: Reporting (web tier)
+description: |-
+  The most common use case for the reporting module is to serve the reports for being downloaded.
+  The web part of the reporting module eases the implementaion of Spring MVC controllers that serve reports either inline or as a download, regardless the reporting module implementation. 
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-web-conf
+dependencies:
+- groupId: cloud.altemista.fwk.reporting
+  artifactId: cloud-altemistafwk-web-reporting
+selfImplemented: true
+---
+
+
+#
+# RESTful services
+#
+
+value: core-rest
+versions: "[,3.0.0.RELEASE)"
+text: RESTful services client
+description: >-
+  This feature alows accessing RESTful services on the client, with Basic Authentication and Digest Authentication.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+dependencies:
+- groupId: org.terasoluna.plus.rest
+  artifactId: terasoluna-plus-common-rest
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: core-rest
+versions: "[3.0.0.RELEASE,)"
+text: RESTful services client
+description: >-
+  This feature alows accessing RESTful services on the client, with Basic Authentication and Digest Authentication.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+dependencies:
+- groupId: cloud.altemista.fwk.rest
+  artifactId: cloud-altemistafwk-common-rest
+selfImplemented: true
+---
+
+
+#
+# Security
+#
+
+value: core-security
+versions: "[,3.0.0.RELEASE)"
+text: "Security: Authorization (business tier)"
+description: |-
+  This feature favors the integration of security in your TSF+ application using Spring Security.
+  Authorization defines the security to allow or disallow the invocation of classes, mehtods and application URIs depending on the roles of the current user.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+dependencies:
+- groupId: org.terasoluna.plus.security
+  artifactId: terasoluna-plus-core-security-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: core-security
+versions: "[3.0.0.RELEASE,)"
+text: "Security: Authorization (business tier)"
+description: |-
+  This feature favors the integration of security in your TSF+ application using Spring Security.
+  Authorization defines the security to allow or disallow the invocation of classes, mehtods and application URIs depending on the roles of the current user.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+dependencies:
+- groupId: cloud.altemista.fwk.security
+  artifactId: cloud-altemistafwk-core-security-conf
+selfImplemented: true
+---
+
+value: web-security
+versions: "[,3.0.0.RELEASE)"
+text: "Security: Authorization (web tier: HTTP security)"
+description: |-
+  This feature favors the integration of security in your TSF+ application using Spring Security.
+  Authentication defines where the existing users and their roles are stored, and provides the users the ability to be authenticated in the application (i.e.: how the log-in is done).
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-web-conf
+dependencies:
+- groupId: org.terasoluna.plus.security
+  artifactId: terasoluna-plus-web-security-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: web-security
+versions: "[3.0.0.RELEASE,)"
+text: "Security: Authorization (web tier: HTTP security)"
+description: |-
+  This feature favors the integration of security in your TSF+ application using Spring Security.
+  Authentication defines where the existing users and their roles are stored, and provides the users the ability to be authenticated in the application (i.e.: how the log-in is done).
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-web-conf
+dependencies:
+- groupId: cloud.altemista.fwk.security
+  artifactId: cloud-altemistafwk-web-security-conf
+selfImplemented: true
+---
+
+value: webapp-security
+versions: "[,1.1.0-RELEASE)" # (1.0.x)
+text: "Security: Authentication"
+description: |-
+  This feature favors the integration of security in your TSF+ application using Spring Security.
+  Authentication defines where the existing users and their roles are stored, and provides the users the ability to be authenticated in the application (i.e.: how the log-in is done).
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-webapp-security-archetype
+  version: 1.0.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.security
+  artifactId: terasoluna-plus-app-security-conf
+selfImplemented: true
+---
+
+value: boot-security
+versions: "[,1.1.0-RELEASE)" # (1.0.x)
+text: "Security: Authentication"
+description: |-
+  This feature favors the integration of security in your TSF+ application using Spring Security.
+  Authentication defines where the existing users and their roles are stored, and provides the users the ability to be authenticated in the application (i.e.: how the log-in is done).
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-boot-security-archetype
+  version: 1.0.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.security
+  artifactId: terasoluna-plus-app-security-conf
+selfImplemented: true
+---
+
+value: app-security
+versions: "[1.1.0-RELEASE,3.0.0.RELEASE)" # (1.1.x onwards)
+text: "Security: Authentication"
+description: |-
+  This feature favors the integration of security in your TSF+ application using Spring Security.
+  Authentication defines where the existing users and their roles are stored, and provides the users the ability to be authenticated in the application (i.e.: how the log-in is done).
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf
+- requirements:
+  - groupId: org.terasoluna.plus.microservices
+    artifactId: terasoluna-plus-microservice-application-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-app-security-archetype
+  version: 1.1.0-RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.security
+  artifactId: terasoluna-plus-app-security-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: app-security
+versions: "[3.0.0.RELEASE,)" # (1.1.x onwards)
+text: "Security: Authentication"
+description: |-
+  This feature favors the integration of security in your TSF+ application using Spring Security.
+  Authentication defines where the existing users and their roles are stored, and provides the users the ability to be authenticated in the application (i.e.: how the log-in is done).
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-webapp-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-boot-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.microservices
+    artifactId: cloud-altemistafwk-microservice-application-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-app-security-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.security
+  artifactId: cloud-altemistafwk-app-security-conf
+selfImplemented: true
+---
+
+#
+# Docker webapp
+#
+
+value: webapp-docker
+versions: "[1.4.0.RELEASE,3.0.0.RELEASE)"
+text: Docker
+description: |-
+  Dockerize your web application
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-webapp-docker-archetype
+  version: 1.4.0.RELEASE
+dependencies:
+- groupId:  org.terasoluna.plus.docker
+  artifactId: terasoluna-plus-webapp-docker-conf
+additionalProperties:
+- value: imageName
+  text: Image Name
+  defaultValue: webapp-test
+selfImplemented: true
+---
+
+
+# Since Altemista
+
+value: webapp-docker
+versions: "[3.0.0.RELEASE,)"
+text: Docker
+description: |-
+  Dockerize your web application
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-webapp-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-webapp-docker-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId:  cloud.altemista.fwk.docker
+  artifactId: cloud-altemistafwk-webapp-docker-conf
+additionalProperties:
+- value: imageName
+  text: Image Name
+  defaultValue: webapp-test
+selfImplemented: true
+---
+
+
+value: webapp-swagger
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Swagger API Rest
+description: |-
+  Swagger UI provides a display framework that reads the OpenAPI specification document and generates an interactive documentation website
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-webapp-swagger-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId:  org.terasoluna.plus.swagger
+  artifactId: terasoluna-plus-webapp-swagger-conf
+selfImplemented: true
+---
+
+
+# Since Altemista
+
+value: webapp-swagger
+versions: "[3.0.0.RELEASE,)"
+text: Swagger API Rest
+description: |-
+  Swagger UI provides a display framework that reads the OpenAPI specification document and generates an interactive documentation website
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-webapp-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-webapp-swagger-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId:  cloud.altemista.fwk.swagger
+  artifactId: cloud-altemistafwk-webapp-swagger-conf
+selfImplemented: true
+---
+
+#
+# Security: OAuth 2.0
+#
+
+value: common-oauth2
+versions: "[1.1.0-RELEASE,3.0.0.RELEASE)" # (1.1.x onwards)
+text: "Security: OAuth2 Java Client"
+description: >-
+  Allows the application to do machine-to-machine authorization using OAuth 2.0 Client Credentials Grant.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-oauth2-archetype
+  version: 1.1.0-RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.oauth2
+  artifactId: terasoluna-plus-core-oauth2-conf
+additionalProperties:
+- value: clientId
+  text: Client ID
+  description: The client ID
+  defaultValue: client
+- value: clientSecret
+  text: Secret
+  description: The client secret (password)
+  defaultValue: secret
+- value: scope
+  text: Scope
+  description: Comma-separted list of string specifying the scope of the access to the resource 
+  defaultValue: SCOPE
+- value: accessTokenEndpointUri
+  text: Access token endpoint
+  description: The URI to the token endpoint of the remote OAuth 2.0 Authentication Server 
+  defaultValue: http://localhost:8080/oauth/check_token
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: common-oauth2
+versions: "[3.0.0.RELEASE,)" # (3.0.x onwards)
+text: "Security: OAuth2 Java Client"
+description: >-
+  Allows the application to do machine-to-machine authorization using OAuth 2.0 Client Credentials Grant.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-oauth2-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.oauth2
+  artifactId: cloud-altemistafwk-core-oauth2-conf
+additionalProperties:
+- value: clientId
+  text: Client ID
+  description: The client ID
+  defaultValue: client
+- value: clientSecret
+  text: Secret
+  description: The client secret (password)
+  defaultValue: secret
+- value: scope
+  text: Scope
+  description: Comma-separted list of string specifying the scope of the access to the resource 
+  defaultValue: SCOPE
+- value: accessTokenEndpointUri
+  text: Access token endpoint
+  description: The URI to the token endpoint of the remote OAuth 2.0 Authentication Server 
+  defaultValue: http://localhost:8080/oauth/check_token
+selfImplemented: true
+---
+
+value: app-oauth2-client
+versions: "[1.1.0-RELEASE,3.0.0.RELEASE)" # (1.1.x onwards)
+text: "Security: OAuth2 Client application (Authorization Code Grant)"
+description: |-
+  The OAuth 2.0 Client application feature augments an existing TSF+ application to be an OAuth 2.0 Client.
+  Being a application executed server-side, the Authorization Code Grant flow is use to keep the access token within the network without going through the end-user's web browser.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-microservice-application-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-app-oauth2-client-archetype
+  version: 1.1.0-RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.oauth2
+  artifactId: terasoluna-plus-app-oauth2-client-conf
+additionalProperties:
+- value: clientPattern
+  text: Client pattern
+  description: URL pattern of the mappings of the OAuth 2.0 client
+  defaultValue: /*
+- value: clientId
+  text: Client ID
+  description: The client ID
+  defaultValue: client
+- value: clientSecret
+  text: Secret
+  description: The client secret (password)
+  defaultValue: secret
+- value: scope
+  text: Scope
+  description: Comma-separted list of string specifying the scope of the access to the resource 
+  defaultValue: SCOPE
+- value: accessTokenEndpointUri
+  text: Access token endpoint
+  description: The URI to the token endpoint of the remote OAuth 2.0 Authentication Server 
+  defaultValue: http://localhost:8080/oauth/check_token
+- value: authorizationEndpointUri
+  text: User authorization endpoint
+  description: The URI to which the user will be redirected if an authorization code is needed to be granted 
+  defaultValue: http://localhost:8080/oauth/authorize
+- value: redirectUri
+  text: Redirect uri
+  description: Pre-established URI to which they will redirect users after users authorize an access token 
+  defaultValue: http://localhost:8080/
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: app-oauth2-client
+versions: "[3.0.0.RELEASE,)" # (3.0.x onwards)
+text: "Security: OAuth2 Client application (Authorization Code Grant)"
+description: |-
+  The OAuth 2.0 Client application feature augments an existing TSF+ application to be an OAuth 2.0 Client.
+  Being a application executed server-side, the Authorization Code Grant flow is use to keep the access token within the network without going through the end-user's web browser.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-webapp-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-boot-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-microservice-application-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-app-oauth2-client-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.oauth2
+  artifactId: cloud-altemistafwk-app-oauth2-client-conf
+additionalProperties:
+- value: clientPattern
+  text: Client pattern
+  description: URL pattern of the mappings of the OAuth 2.0 client
+  defaultValue: /*
+- value: clientId
+  text: Client ID
+  description: The client ID
+  defaultValue: client
+- value: clientSecret
+  text: Secret
+  description: The client secret (password)
+  defaultValue: secret
+- value: scope
+  text: Scope
+  description: Comma-separted list of string specifying the scope of the access to the resource 
+  defaultValue: SCOPE
+- value: accessTokenEndpointUri
+  text: Access token endpoint
+  description: The URI to the token endpoint of the remote OAuth 2.0 Authentication Server 
+  defaultValue: http://localhost:8080/oauth/check_token
+- value: authorizationEndpointUri
+  text: User authorization endpoint
+  description: The URI to which the user will be redirected if an authorization code is needed to be granted 
+  defaultValue: http://localhost:8080/oauth/authorize
+- value: redirectUri
+  text: Redirect uri
+  description: Pre-established URI to which they will redirect users after users authorize an access token 
+  defaultValue: http://localhost:8080/
+selfImplemented: true
+---
+
+value: app-oauth2-ressrv
+versions: "[1.1.0-RELEASE,3.0.0.RELEASE)" # (1.1.x onwards)
+text: "Security: OAuth2 Resource Server"
+description: >-
+  The OAuth 2.0 Resource Server feature augments an existing TSF+ application to integrate an OAuth 2.0 Resource Server.
+  I.e. the application can secure certain endpoints (resources) using an OAuth 2.0 Authorization Server for authentication.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-microservice-application-conf
+- requirements:
+  - groupId: org.terasoluna.plus.microservices
+    artifactId: terasoluna-plus-core-microservices-gateway-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-app-oauth2-ressrv-archetype
+  version: 1.1.0-RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.oauth2
+  artifactId: terasoluna-plus-app-oauth2-ressrv-conf
+additionalProperties:
+- value: resourceId
+  text: Resource ID
+  description: Identifier of this application as an OAuth 2.0 resource server
+  defaultValue: application-resource
+- value: resourceServerPattern
+  text: Resource mapping
+  description: Ant-style pattern of the mappings of the actual OAuth 2.0 resources
+  defaultValue: /api/**
+- value: clientId
+  text: Client ID
+  description: The client ID
+  defaultValue: client
+- value: clientSecret
+  text: Secret
+  description: The client secret (password)
+  defaultValue: secret
+- value: checkTokenEndpointUrl
+  text: Check token endpoint
+  description: URL of the token endpoint of the remote OAuth 2.0 Authentication Server 
+  defaultValue: http://localhost:8080/oauth/check_token
+selfImplemented: true
+---
+
+# Since Altemista
+
+
+value: app-oauth2-ressrv
+versions: "[3.0.0.RELEASE,)" # (3.0.x onwards)
+text: "Security: OAuth2 Resource Server"
+description: >-
+  The OAuth 2.0 Resource Server feature augments an existing TSF+ application to integrate an OAuth 2.0 Resource Server.
+  I.e. the application can secure certain endpoints (resources) using an OAuth 2.0 Authorization Server for authentication.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-webapp-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-boot-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-microservice-application-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.microservices
+    artifactId: cloud-altemistafwk-core-microservices-gateway-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-app-oauth2-ressrv-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.oauth2
+  artifactId: cloud-altemistafwk-app-oauth2-ressrv-conf
+additionalProperties:
+- value: resourceId
+  text: Resource ID
+  description: Identifier of this application as an OAuth 2.0 resource server
+  defaultValue: application-resource
+- value: resourceServerPattern
+  text: Resource mapping
+  description: Ant-style pattern of the mappings of the actual OAuth 2.0 resources
+  defaultValue: /api/**
+- value: clientId
+  text: Client ID
+  description: The client ID
+  defaultValue: client
+- value: clientSecret
+  text: Secret
+  description: The client secret (password)
+  defaultValue: secret
+- value: checkTokenEndpointUrl
+  text: Check token endpoint
+  description: URL of the token endpoint of the remote OAuth 2.0 Authentication Server 
+  defaultValue: http://localhost:8080/oauth/check_token
+selfImplemented: true
+---
+
+value: app-oauth2-authzsrv
+versions: "[1.1.0-RELEASE,3.0.0.RELEASE)" # (1.1.x onwards)
+text: "Security: OAuth2 Authorization Server"
+description: >-
+  The OAuth 2.0 Authorization Server feature augments an existing TSF+ application to be an OAuth 2.0 Authorization Server.
+  I.e. the application will publish endpoints for authorization and token requests.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-webapp-conf
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-microservice-application-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-app-oauth2-authzsrv-archetype
+  version: 1.1.0-RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.oauth2
+  artifactId: terasoluna-plus-app-oauth2-authzsrv-conf
+additionalProperties:
+- value: clientId
+  text: Client ID
+  description: The client ID for the initial client
+  defaultValue: client
+- value: clientSecret
+  text: Secret
+  description: The client secret (password)
+  defaultValue: secret
+- value: clientScope
+  text: Scopes
+  description: Comma separated scopes of this client
+  defaultValue: SCOPE
+- value: clientAuthorizedGrantTypes
+  text: Grant types
+  description: Comma separated grant types for which this client is authorized
+  defaultValue: authorization_code,implicit,client_credentials,password,refresh_token
+selfImplemented: true
+---
+
+# Since Altemista
+
+
+value: app-oauth2-authzsrv
+versions: "[3.0.0.RELEASE,)" # (3.0.x onwards)
+text: "Security: OAuth2 Authorization Server"
+description: >-
+  The OAuth 2.0 Authorization Server feature augments an existing TSF+ application to be an OAuth 2.0 Authorization Server.
+  I.e. the application will publish endpoints for authorization and token requests.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-webapp-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-boot-conf
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-microservice-application-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-app-oauth2-authzsrv-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.oauth2
+  artifactId: cloud-altemistafwk-app-oauth2-authzsrv-conf
+additionalProperties:
+- value: clientId
+  text: Client ID
+  description: The client ID for the initial client
+  defaultValue: client
+- value: clientSecret
+  text: Secret
+  description: The client secret (password)
+  defaultValue: secret
+- value: clientScope
+  text: Scopes
+  description: Comma separated scopes of this client
+  defaultValue: SCOPE
+- value: clientAuthorizedGrantTypes
+  text: Grant types
+  description: Comma separated grant types for which this client is authorized
+  defaultValue: authorization_code,implicit,client_credentials,password,refresh_token
+selfImplemented: true
+---
+
+#
+# JWT over Oauth2
+#
+
+value: app-jwt-authzsrv
+versions: "[1.1.0-RELEASE,3.0.0.RELEASE)" # (1.1.x onwards)
+text: "Security: JWT over OAuth2 Authorization Server"
+description: >-
+  The JWT over OAuth 2.0 Authorization Server feature augments an existing TSF+ application with OAuth 2.0 Authorization Server to deliver JWT tokens.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.oauth2
+    artifactId: terasoluna-plus-app-oauth2-authzsrv-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-app-jwt-authzsrv-archetype
+  version: 1.1.0-RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.jwt
+  artifactId: terasoluna-plus-app-jwt-authzsrv-conf
+additionalProperties:
+- value: clientSecret
+  text: Secret
+  description: The client secret (password)
+  defaultValue: secret
+selfImplemented: true
+---
+
+
+# Since Altemista
+
+value: app-jwt-authzsrv
+versions: "[3.0.0.RELEASE,)" # (3.0.x onwards)
+text: "Security: JWT over OAuth2 Authorization Server"
+description: >-
+  The JWT over OAuth 2.0 Authorization Server feature augments an existing TSF+ application with OAuth 2.0 Authorization Server to deliver JWT tokens.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.oauth2
+    artifactId: cloud-altemistafwk-app-oauth2-authzsrv-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-app-jwt-authzsrv-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.jwt
+  artifactId: cloud-altemistafwk-app-jwt-authzsrv-conf
+additionalProperties:
+- value: clientSecret
+  text: Secret
+  description: The client secret (password)
+  defaultValue: secret
+selfImplemented: true
+---
+
+value: apRELEASEssrv
+versions: "[1.1.0-RELEASE,3.0.0.RELEASE)" # (1.1.x onwards)
+text: "Security: JWT over OAuth2 Resource Server"
+description: >-
+  The JWT over OAuth 2.0 Resource Server feature augments an existing TSF+ application with OAuth 2.0 Resource Server to use JWT tokens.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.oauth2
+    artifactId: terasoluna-plus-app-oauth2-ressrv-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-app-jwt-ressrv-archetype
+  version: 1.1.0-RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.jwt
+  artifactId: terasoluna-plus-app-jwt-ressrv-conf
+additionalProperties:
+- value: clientSecret
+  text: Secret
+  description: The client secret (password)
+  defaultValue: secret
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: apRELEASEssrv
+versions: "[3.0.0.RELEASE,)" # (3.0.x onwards)
+text: "Security: JWT over OAuth2 Resource Server"
+description: >-
+  The JWT over OAuth 2.0 Resource Server feature augments an existing TSF+ application with OAuth 2.0 Resource Server to use JWT tokens.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.oauth2
+    artifactId: cloud-altemistafwk-app-oauth2-ressrv-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-app-jwt-ressrv-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.jwt
+  artifactId: cloud-altemistafwk-app-jwt-ressrv-conf
+additionalProperties:
+- value: clientSecret
+  text: Secret
+  description: The client secret (password)
+  defaultValue: secret
+selfImplemented: true
+---
+
+#
+# Docker boot
+#
+
+value: boot-docker
+versions: "[1.4.0.RELEASE,3.0.0.RELEASE)"
+text: Docker
+description: |-
+  Dockerize your spring boot application
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-docker-archetype
+  version: 1.4.0.RELEASE
+dependencies:
+- groupId:  org.terasoluna.plus.docker
+  artifactId: terasoluna-plus-core-docker-conf
+additionalProperties:
+- value: imageName
+  text: Image Name
+  defaultValue: boot-test
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: boot-docker
+versions: "[3.0.0.RELEASE,)"
+text: Docker
+description: |-
+  Dockerize your spring boot application
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-boot-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-docker-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId:  cloud.altemista.fwk.docker
+  artifactId: cloud-altemistafwk-core-docker-conf
+additionalProperties:
+- value: imageName
+  text: Image Name
+  defaultValue: boot-test
+selfImplemented: true
+---
+
+#
+# Swagger
+#
+
+value: boot-swagger
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Swagger API Rest
+description: |-
+  Swagger UI provides a display framework that reads the OpenAPI specification document and generates an interactive documentation website
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-swagger-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId:  org.terasoluna.plus.swagger
+  artifactId: terasoluna-plus-core-swagger-conf
+selfImplemented: true
+---
+
+
+
+value: boot-swagger
+versions: "[3.0.0.RELEASE,)"
+text: Swagger API Rest
+description: |-
+  Swagger UI provides a display framework that reads the OpenAPI specification document and generates an interactive documentation website
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-boot-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-swagger-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId:  cloud.altemista.fwk.swagger
+  artifactId: cloud-altemistafwk-core-swagger-conf
+selfImplemented: true
+---
+
+value: web-swagger
+versions: "[1.3.0.RELEASE,3.0.0.RELEASE)"
+text: Swagger API Rest
+description: |-
+  Swagger UI provides a display framework that reads the OpenAPI specification document and generates an interactive documentation website
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-web-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-swagger-web-archetype
+  version: 1.3.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.swagger
+  artifactId: terasoluna-plus-core-swagger-web-conf  
+selfImplemented: true
+---
+
+
+# Since Altemista
+
+value: web-swagger
+versions: "[3.0.0.RELEASE,)"
+text: Swagger API Rest
+description: |-
+  Swagger UI provides a display framework that reads the OpenAPI specification document and generates an interactive documentation website
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-web-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-swagger-web-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.swagger
+  artifactId: cloud-altemistafwk-core-swagger-web-conf  
+selfImplemented: true
+---
+#
+# SOAP web service
+#
+
+value: common-soap
+versions: "[,3.0.0.RELEASE)"
+text: SOAP web service interface
+description: |-
+  The SOAP web service interface allows a project to define the web service interface using JAX-WS (Java API for XML Web Service) standard annotations: @WebService, @WebMethod, etc.
+  You can start with either the Java code of the web service interface (contract last development style) or with the WSDL contract and generate the necessary Java code from it (contract first development style), depending on what was shared by the web service owner.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-common
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-web-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-common-soap-archetype
+  version: 1.0.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.soap
+  artifactId: terasoluna-plus-common-soap-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: common-soap
+versions: "[3.0.0.RELEASE,)"
+text: SOAP web service interface
+description: |-
+  The SOAP web service interface allows a project to define the web service interface using JAX-WS (Java API for XML Web Service) standard annotations: @WebService, @WebMethod, etc.
+  You can start with either the Java code of the web service interface (contract last development style) or with the WSDL contract and generate the necessary Java code from it (contract first development style), depending on what was shared by the web service owner.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-common
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-web-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-common-soap-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.soap
+  artifactId: cloud-altemistafwk-common-soap-conf
+selfImplemented: true
+---
+
+value: core-soap
+versions: "[,3.0.0.RELEASE)"
+text: SOAP web service consumer (SOAP client)
+description: |-
+  The SOAP web service consumer (SOAP client) provides the ability of consuming a SOAP-based web service using Spring Remoting.
+  This module is compatible with JAX-WS 2.1 and 2.2 and supports basic authentication only.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+dependencies:
+- groupId: org.terasoluna.plus.soap
+  artifactId: terasoluna-plus-core-soap
+- groupId: org.terasoluna.plus.soap
+  artifactId: terasoluna-plus-core-soap-conf
+  scope: runtime
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: core-soap
+versions: "[3.0.0.RELEASE,)"
+text: SOAP web service consumer (SOAP client)
+description: |-
+  The SOAP web service consumer (SOAP client) provides the ability of consuming a SOAP-based web service using Spring Remoting.
+  This module is compatible with JAX-WS 2.1 and 2.2 and supports basic authentication only.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+dependencies:
+- groupId: cloud.altemista.fwk.soap
+  artifactId: cloud-altemistafwk-core-soap
+- groupId: cloud.altemista.fwk.soap
+  artifactId: cloud-altemistafwk-core-soap-conf
+  scope: runtime
+selfImplemented: true
+---
+
+value: core-soap-wss
+versions: "[,3.0.0.RELEASE)"
+text: Outgoing WS-Security for SOAP client
+description: >-
+  The WS-Security for SOAP client feature augments the SOAP web service consumer feature to support outgoing WS-Security.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-core
+#  - groupId: org.terasoluna.plus.security
+#    artifactId: terasoluna-plus-core-security-conf
+  - groupId: org.terasoluna.plus.soap
+    artifactId: terasoluna-plus-core-soap
+dependencies:
+- groupId: org.terasoluna.plus.soap
+  artifactId: terasoluna-plus-core-soap-wss
+implementations:
+- value: core-soap-wss
+  text: Default implementation (Spring Security-based outgoing WS-Security support for Apache CXF-based SOAP client)
+  description: >-
+    This implementation defines some classes to simplify the implementation of outgoing WS-Security,
+    and integrates some Apache CXF features with Spring Remoting
+    (namely, web service features related with WS-Security) and Spring Security.
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-soap-wss-archetype
+    version: 1.0.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.soap
+    artifactId: terasoluna-plus-core-soap-wss-conf
+    scope: runtime
+---
+
+
+value: core-soap-wss
+versions: "[3.0.0.RELEASE,)"
+text: Outgoing WS-Security for SOAP client
+description: >-
+  The WS-Security for SOAP client feature augments the SOAP web service consumer feature to support outgoing WS-Security.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-core
+#  - groupId: cloud.altemista.fwk.security
+#    artifactId: cloud-altemistafwk-core-security-conf
+  - groupId: cloud.altemista.fwk.soap
+    artifactId: cloud-altemistafwk-core-soap
+dependencies:
+- groupId: cloud.altemista.fwk.soap
+  artifactId: cloud-altemistafwk-core-soap-wss
+implementations:
+- value: core-soap-wss
+  text: Default implementation (Spring Security-based outgoing WS-Security support for Apache CXF-based SOAP client)
+  description: >-
+    This implementation defines some classes to simplify the implementation of outgoing WS-Security,
+    and integrates some Apache CXF features with Spring Remoting
+    (namely, web service features related with WS-Security) and Spring Security.
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-soap-wss-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.soap
+    artifactId: cloud-altemistafwk-core-soap-wss-conf
+    scope: runtime
+---
+
+value: web-soap
+versions: "[,3.0.0.RELEASE)"
+text: SOAP web service publisher (SOAP server)
+description: |-
+  The SOAP web service publisher (SOAP server) feature provides the ability of publishing SOAP-based web services.
+  This feature does not make any assumption on how the SOAP web service interfaces are defined, hence supports both contract first and contract last development style.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-web-conf
+dependencies:
+- groupId: org.terasoluna.plus.soap
+  artifactId: terasoluna-plus-web-soap
+implementations:
+- value: web-soap
+  text: Default implementation (Apache CXF-based SOAP server)
+  description: |-
+    This implementation sets up Apache CXF to publish SOAP-based web services.
+    This feature is compatible with JAX-WS 2.1 and 2.2 and supports basic authentication using Spring Security.
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-web-soap-archetype
+    version: 1.0.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.soap
+    artifactId: terasoluna-plus-web-soap-conf
+    scope: runtime
+---
+
+value: web-soap
+versions: "[3.0.0.RELEASE,)"
+text: SOAP web service publisher (SOAP server)
+description: |-
+  The SOAP web service publisher (SOAP server) feature provides the ability of publishing SOAP-based web services.
+  This feature does not make any assumption on how the SOAP web service interfaces are defined, hence supports both contract first and contract last development style.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-web-conf
+dependencies:
+- groupId: cloud.altemista.fwk.soap
+  artifactId: cloud-altemistafwk-web-soap
+implementations:
+- value: web-soap
+  text: Default implementation (Apache CXF-based SOAP server)
+  description: |-
+    This implementation sets up Apache CXF to publish SOAP-based web services.
+    This feature is compatible with JAX-WS 2.1 and 2.2 and supports basic authentication using Spring Security.
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-web-soap-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.soap
+    artifactId: cloud-altemistafwk-web-soap-conf
+    scope: runtime
+---
+
+value: web-soap-wss
+versions: "[,3.0.0.RELEASE)"
+text: Inbound WS-Security for SOAP server
+description: >-
+  The WS-Security for SOAP server feature augments the SOAP web service publisher feature
+  to support Spring Security-based inbound WS-Security.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-web-conf
+  - groupId: org.terasoluna.plus.security
+    artifactId: terasoluna-plus-web-security-conf
+  - groupId: org.terasoluna.plus.soap
+    artifactId: terasoluna-plus-web-soap
+dependencies:
+- groupId: org.terasoluna.plus.soap
+  artifactId: terasoluna-plus-web-soap-wss
+implementations:
+- value: web-soap-wss
+  text: Default implementation (Spring Security-based inbound WS-Security for Apache CXF-based SOAP server)
+  description: >-
+    This implementation overrides the Apache CXF bus configuration to add inbound WS-Security
+    in a configurable manner and automatically integrated with Spring Security.
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-web-soap-wss-archetype
+    version: 1.0.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.soap
+    artifactId: terasoluna-plus-web-soap-wss-conf
+    scope: runtime
+---
+
+value: web-soap-wss
+versions: "[3.0.0.RELEASE,)"
+text: Inbound WS-Security for SOAP server
+description: >-
+  The WS-Security for SOAP server feature augments the SOAP web service publisher feature
+  to support Spring Security-based inbound WS-Security.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-web-conf
+  - groupId: cloud.altemista.fwk.security
+    artifactId: terasolunacloud.altemista.fwkconf
+  - groupId: cloud.altemista.fwk.soap
+    artifactId: cloud-altemistafwk-web-soap
+dependencies:
+- groupId: cloud.altemista.fwk.soap
+  artifactId: cloud-altemistafwk-web-soap-wss
+implementations:
+- value: web-soap-wss
+  text: Default implementation (Spring Security-based inbound WS-Security for Apache CXF-based SOAP server)
+  description: >-
+    This implementation overrides the Apache CXF bus configuration to add inbound WS-Security
+    in a configurable manner and automatically integrated with Spring Security.
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-web-soap-wss-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.soap
+    artifactId: cloud-altemistafwk-web-soap-wss-conf
+    scope: runtime
+---
+
+
+
+
+#
+# Stream
+#
+
+value: boot-stream
+versions: "[1.4.0.RELEASE,3.0.0.RELEASE)"
+text: Spring Cloud Stream
+description: |-
+  Spring Cloud Stream is a framework built upon Spring Boot for building message-driven microservices.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf
+dependencies:
+- groupId: org.terasoluna.plus.stream
+  artifactId: terasoluna-plus-core-stream
+implementations:
+- value: core-stream-kafka
+  text: Kafka implementation
+  description: >-
+    The provided implementation of Kafka
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-stream-kafka-archetype
+    version: 1.4.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.stream
+    artifactId: terasoluna-plus-core-stream-kafka-conf
+- value: core-stream-rabbit
+  text: RabbitMQ implementation
+  description: >-
+    The provided implementation of RabbitMQ
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-stream-rabbit-archetype
+    version: 1.4.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.stream
+    artifactId: terasoluna-plus-core-stream-rabbit-conf
+---
+
+# Since Altemista
+
+value: boot-stream
+versions: "[3.0.0.RELEASE,)"
+text: Spring Cloud Stream
+description: |-
+  Spring Cloud Stream is a framework built upon Spring Boot for building message-driven microservices.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-boot-conf
+dependencies:
+- groupId: cloud.altemista.fwk.stream
+  artifactId: cloud-altemistafwk-core-stream
+implementations:
+- value: core-stream-kafka
+  text: Kafka implementation
+  description: >-
+    The provided implementation of Kafka
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-stream-kafka-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.stream
+    artifactId: cloud-altemistafwk-core-stream-kafka-conf
+- value: core-stream-rabbit
+  text: RabbitMQ implementation
+  description: >-
+    The provided implementation of RabbitMQ
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-stream-rabbit-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.stream
+    artifactId: cloud-altemistafwk-core-stream-rabbit-conf
+---
+
+#
+# Stream
+#
+
+value: micro-stream
+versions: "[1.4.0.RELEASE,3.0.0.RELEASE)"
+text: Spring Cloud Stream
+description: |-
+  Stream Cloud Stream provides a display framework that reads the OpenAPI specification document and generates an interactive documentation website
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-microservice-application-conf
+dependencies:
+- groupId: org.terasoluna.plus.stream
+  artifactId: terasoluna-plus-core-stream
+implementations:
+- value: core-stream-kafka
+  text: Kafka implementation
+  description: >-
+    The provided implementation of Kafka
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-stream-kafka-archetype
+    version: 1.4.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.stream
+    artifactId: terasoluna-plus-core-stream-kafka-conf
+    scope: runtime
+- value: core-stream-rabbit
+  text: RabbitMQ implementation
+  description: >-
+    The provided implementation of RabbitMQ
+  archetype:
+    groupId: org.terasoluna.plus.archetype
+    artifactId: terasoluna-plus-core-stream-rabbit-archetype
+    version: 1.4.0.RELEASE
+  dependencies:
+  - groupId: org.terasoluna.plus.stream
+    artifactId: terasoluna-plus-core-stream-rabbit-conf
+    scope: runtime
+---
+
+# Since Altemista
+
+value: micro-stream
+versions: "[3.0.0.RELEASE,)"
+text: Spring Cloud Stream
+description: |-
+  Stream Cloud Stream provides a display framework that reads the OpenAPI specification document and generates an interactive documentation website
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-microservice-application-conf
+dependencies:
+- groupId: cloud.altemista.fwk.stream
+  artifactId: cloud-altemistafwk-core-stream
+implementations:
+- value: core-stream-kafka
+  text: Kafka implementation
+  description: >-
+    The provided implementation of Kafka
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-stream-kafka-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.stream
+    artifactId: cloud-altemistafwk-core-stream-kafka-conf
+    scope: runtime
+- value: core-stream-rabbit
+  text: RabbitMQ implementation
+  description: >-
+    The provided implementation of RabbitMQ
+  archetype:
+    groupId: cloud.altemista.fwk.archetype
+    artifactId: cloud-altemistafwk-core-stream-rabbit-archetype
+    version: 3.0.0.RELEASE
+  dependencies:
+  - groupId: cloud.altemista.fwk.stream
+    artifactId: cloud-altemistafwk-core-stream-rabbit-conf
+    scope: runtime
+---
+
+value: microservice-infrastructure-registry
+versions: "[1.2.0.RELEASE,3.0.0.RELEASE)" # (1.2.x onwards)
+text: "Microservice infrastructure: Registry Server"
+description: >-
+  Registry server is a REST (Representational State Transfer) based service that is 
+  used for locating services for the purpose of load balancing and failover of middle-tier servers. This service is the Eureka server.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-microservice-infrastructure-conf
+incompatibilities:
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-gateway-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-config-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-monitoring-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-service-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-zipkin-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-microservices-registry-archetype
+  version: 1.2.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-registry-conf
+selfImplemented: true
+additionalProperties:
+- value: configServerURL
+  text: Config Server URL
+  description: The Config Server URL
+  defaultValue: http://localhost:8888
+---
+
+# Since Altemista
+
+value: microservice-infrastructure-registry
+versions: "[3.0.0.RELEASE,)" # (3.0.x onwards)
+text: "Microservice infrastructure: Registry Server"
+description: >-
+  Registry server is a REST (Representational State Transfer) based service that is 
+  used for locating services for the purpose of load balancing and failover of middle-tier servers. This service is the Eureka server.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-microservice-infrastructure-conf
+incompatibilities:
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-gateway-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-config-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-monitoring-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-service-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-zipkin-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-microservices-registry-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-registry-conf
+selfImplemented: true
+additionalProperties:
+- value: configServerURL
+  text: Config Server URL
+  description: The Config Server URL
+  defaultValue: http://localhost:8888
+---
+
+value: microservice-infrastructure-monitoring
+versions: "[1.2.0.RELEASE,3.0.0.RELEASE)" # (1.2.x onwards)
+text: "Microservice infrastructure: Monitoring Server"
+description: >-
+  Hystrix monitoring server is a latency and fault tolerance library designed to isolate points 
+  of access to remote systems, services and 3rd party libraries, stop cascading failure and enable 
+  resilience in complex distributed systems where failure is inevitable.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-microservice-infrastructure-conf
+incompatibilities:
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-registry-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-gateway-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-config-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-service-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-zipkin-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-microservices-monitoring-archetype
+  version: 1.2.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-monitoring-conf
+selfImplemented: true
+additionalProperties:
+- value: configServerURL
+  text: Config Server URL
+  description: The Config Server URL
+  defaultValue: http://localhost:8888
+---
+
+
+# Since Altemista
+
+value: microservice-infrastructure-monitoring
+versions: "[3.0.0.RELEASE,)" # (3.0.x onwards)
+text: "Microservice infrastructure: Monitoring Server"
+description: >-
+  Hystrix monitoring server is a latency and fault tolerance library designed to isolate points 
+  of access to remote systems, services and 3rd party libraries, stop cascading failure and enable 
+  resilience in complex distributed systems where failure is inevitable.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-microservice-infrastructure-conf
+incompatibilities:
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-registry-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-gateway-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-config-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-service-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-zipkin-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-microservices-monitoring-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-monitoring-conf
+selfImplemented: true
+additionalProperties:
+- value: configServerURL
+  text: Config Server URL
+  description: The Config Server URL
+  defaultValue: http://localhost:8888
+---
+
+value: microservice-infrastructure-gateway
+versions: "[1.2.0.RELEASE,3.0.0.RELEASE)" # (1.2.x onwards)
+text: "Microservice infrastructure: Gateway Server"
+description: >-
+  Gateway server is an edge service that provides dynamic routing, monitoring, resiliency, security, and more.
+  Zuul is the front door for all requests from devices and web sites to an application backend. 
+  As an edge service application, Zuul is built to enable dynamic routing, monitoring, resiliency and security
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-microservice-infrastructure-conf
+incompatibilities:
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-registry-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-config-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-monitoring-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-service-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-zipkin-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-microservices-gateway-archetype
+  version: 1.2.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-gateway-conf
+selfImplemented: true
+additionalProperties:
+- value: configServerURL
+  text: Config Server URL
+  description: The Config Server URL
+  defaultValue: http://localhost:8888
+---
+
+# Since Altemista
+
+value: microservice-infrastructure-gateway
+versions: "[3.0.0.RELEASE,)" # (3.0.x onwards)
+text: "Microservice infrastructure: Gateway Server"
+description: >-
+  Gateway server is an edge service that provides dynamic routing, monitoring, resiliency, security, and more.
+  Zuul is the front door for all requests from devices and web sites to an application backend. 
+  As an edge service application, Zuul is built to enable dynamic routing, monitoring, resiliency and security
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-microservice-infrastructure-conf
+incompatibilities:
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-registry-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-config-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-monitoring-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-service-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-zipkin-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-microservices-gateway-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-gateway-conf
+selfImplemented: true
+additionalProperties:
+- value: configServerURL
+  text: Config Server URL
+  description: The Config Server URL
+  defaultValue: http://localhost:8888
+---
+
+value: microservice-infrastructure-config
+versions: "[1.2.0.RELEASE,2.0.0-SNAPSHOT)" # (1.2.x onwards)
+text: "Microservice infrastructure: Config Server"
+description: >-
+  Spring Cloud Config provides server and client-side support for externalized configuration in a distributed system. 
+  With the Config Server you have a central place to manage external properties for applications across all environments. 
+  The concepts on both client and server map identically to the Spring Environment and PropertySource abstractions, 
+  so they fit very well with Spring applications, but can be used with any application running in any language.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-microservice-infrastructure-conf
+incompatibilities:
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-registry-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-gateway-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-monitoring-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-service-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-zipkin-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-microservices-config-archetype
+  version: 1.2.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-config-conf
+additionalProperties:
+- value: nativeSearchLocation
+  text: Filesystem path
+  description: The filesystem path where is the environment configuration files.
+  defaultValue: classpath:/config/localconfig
+- value: gitRepository
+  text: Git Repository Configuration
+  description: If it's selected allows to configure a GIT repository to store the global configuration. If it isn't selected the configuration is over a filesystem path.
+  activatedControls: gituri,gitusername,gitpassword
+  deactivatedControls: nativeSearchLocation
+  defaultValue: false
+- value: gituri
+  text: GIT URI
+  description: The GIT URL location
+  defaultValue: 
+- value: gitusername
+  text: GIT Username
+  description: The GIT Username
+  defaultValue: 
+  optional: true
+- value: gitpassword
+  text: GIT Password
+  description: The GIT Password
+  defaultValue: 
+  optional: true
+- value: discoveryClientActive
+  text: Discovery Client Active
+  description: If is active, the Spring Cloud Configuration Server will be instanciate in the Eureka Server
+  activatedControls: eurekaUrl
+  defaultValue: false
+- value: eurekaUrl
+  text: Eureka default zone URL
+  description: The Eureka default zone url
+  defaultValue: http://localhost:8761/eureka/
+selfImplemented: true
+---
+
+value: microservice-infrastructure-config
+versions: "[2.0.0-SNAPSHOT,3.0.0.RELEASE)" # (1.2.x onwards)
+text: "Microservice infrastructure: Config Server"
+description: >-
+  Spring Cloud Config provides server and client-side support for externalized configuration in a distributed system. 
+  With the Config Server you have a central place to manage external properties for applications across all environments. 
+  The concepts on both client and server map identically to the Spring Environment and PropertySource abstractions, 
+  so they fit very well with Spring applications, but can be used with any application running in any language.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-microservice-infrastructure-conf
+incompatibilities:
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-registry-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-gateway-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-monitoring-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-service-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-zipkin-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-microservices-config-archetype
+  version: 2.0.0-SNAPSHOT
+dependencies:
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-config-conf
+additionalProperties:
+- value: nativeSearchLocation
+  text: Filesystem path
+  description: The filesystem path where is the environment configuration files.
+  defaultValue: classpath:/config/localconfig
+- value: gitRepository
+  text: Git Repository Configuration
+  description: If it's selected allows to configure a GIT repository to store the global configuration. If it isn't selected the configuration is over a filesystem path.
+  activatedControls: gituri,gitusername,gitpassword
+  deactivatedControls: nativeSearchLocation
+  defaultValue: false
+- value: gituri
+  text: GIT URI
+  description: The GIT URL location
+  defaultValue: 
+- value: gitusername
+  text: GIT Username
+  description: The GIT Username
+  defaultValue: 
+  optional: true
+- value: gitpassword
+  text: GIT Password
+  description: The GIT Password
+  defaultValue: 
+  optional: true
+- value: discoveryClientActive
+  text: Discovery Client Active
+  description: If is active, the Spring Cloud Configuration Server will be instanciate in the Eureka Server
+  activatedControls: eurekaUrl
+  defaultValue: false
+- value: eurekaUrl
+  text: Eureka default zone URL
+  description: The Eureka default zone url
+  defaultValue: http://localhost:8761/eureka/
+selfImplemented: true
+---
+
+
+# Since Altemista
+
+value: microservice-infrastructure-config
+versions: "[3.0.0.RELEASE,)" # (3.0.x onwards)
+text: "Microservice infrastructure: Config Server"
+description: >-
+  Spring Cloud Config provides server and client-side support for externalized configuration in a distributed system. 
+  With the Config Server you have a central place to manage external properties for applications across all environments. 
+  The concepts on both client and server map identically to the Spring Environment and PropertySource abstractions, 
+  so they fit very well with Spring applications, but can be used with any application running in any language.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-microservice-infrastructure-conf
+incompatibilities:
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-registry-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-gateway-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-monitoring-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-service-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-zipkin-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-microservices-config-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-config-conf
+additionalProperties:
+- value: nativeSearchLocation
+  text: Filesystem path
+  description: The filesystem path where is the environment configuration files.
+  defaultValue: classpath:/config/localconfig
+- value: gitRepository
+  text: Git Repository Configuration
+  description: If it's selected allows to configure a GIT repository to store the global configuration. If it isn't selected the configuration is over a filesystem path.
+  activatedControls: gituri,gitusername,gitpassword
+  deactivatedControls: nativeSearchLocation
+  defaultValue: false
+- value: gituri
+  text: GIT URI
+  description: The GIT URL location
+  defaultValue: 
+- value: gitusername
+  text: GIT Username
+  description: The GIT Username
+  defaultValue: 
+  optional: true
+- value: gitpassword
+  text: GIT Password
+  description: The GIT Password
+  defaultValue: 
+  optional: true
+- value: discoveryClientActive
+  text: Discovery Client Active
+  description: If is active, the Spring Cloud Configuration Server will be instanciate in the Eureka Server
+  activatedControls: eurekaUrl
+  defaultValue: false
+- value: eurekaUrl
+  text: Eureka default zone URL
+  description: The Eureka default zone url
+  defaultValue: http://localhost:8761/eureka/
+selfImplemented: true
+---
+
+value: microservice-infrastructure-zipkin
+versions: "[1.2.0.RELEASE,3.0.0.RELEASE)" # (1.2.x onwards)
+text: "Microservice infrastructure: Zipkin Server"
+description: >-
+  Zipkin is an open source project that provides mechanisms for sending, receiving, storing, and visualizing 
+  traces. This allows us to correlate activity between servers and get a much clearer picture of exactly
+  what is happening in our services.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-microservice-infrastructure-conf
+incompatibilities:
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-registry-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-gateway-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-config-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-monitoring-conf
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-service-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-microservices-zipkin-archetype
+  version: 1.2.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-zipkin-conf
+selfImplemented: true
+additionalProperties:
+- value: configServerURL
+  text: Config Server URL
+  description: The Config Server URL
+  defaultValue: http://localhost:8888
+---
+
+# Since Altemista
+
+value: microservice-infrastructure-zipkin
+versions: "[3.0.0.RELEASE,)" # (3.0.x onwards)
+text: "Microservice infrastructure: Zipkin Server"
+description: >-
+  Zipkin is an open source project that provides mechanisms for sending, receiving, storing, and visualizing 
+  traces. This allows us to correlate activity between servers and get a much clearer picture of exactly
+  what is happening in our services.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-microservice-infrastructure-conf
+incompatibilities:
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-registry-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-gateway-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-config-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-monitoring-conf
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-service-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-microservices-zipkin-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-zipkin-conf
+selfImplemented: true
+additionalProperties:
+- value: configServerURL
+  text: Config Server URL
+  description: The Config Server URL
+  defaultValue: http://localhost:8888
+---
+
+value: microservice-hystrix
+versions: "[1.2.0.RELEASE,3.0.0.RELEASE)" # (1.2.x onwards)
+text: Circuit Breaker / Hystrix / Turbine
+description: >-
+  The Hystrix application feature Hystrix enable a latency and fault tolerance library designed to isolate points of access to remote systems, 
+  services and 3rd party libraries, stop cascading failure and enable resilience in complex distributed systems where failure is inevitable.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.microservices
+    artifactId: terasoluna-plus-core-microservices-service-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-microservices-hystrix-archetype
+  version: 1.2.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-hystrix-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: microservice-hystrix
+versions: "[3.0.0.RELEASE,)" # (1.2.x onwards)
+text: Circuit Breaker / Hystrix / Turbine
+description: >-
+  The Hystrix application feature Hystrix enable a latency and fault tolerance library designed to isolate points of access to remote systems, 
+  services and 3rd party libraries, stop cascading failure and enable resilience in complex distributed systems where failure is inevitable.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.microservices
+    artifactId: cloud-altemistafwk-core-microservices-service-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-microservices-hystrix-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-hystrix-conf
+selfImplemented: true
+---
+
+value: microservice-sleuth
+versions: "[1.2.0.RELEASE,3.0.0.RELEASE)" # (1.2.x onwards)
+text: Sleuth
+description: >-
+  Spring Cloud Sleuth implements a distributed tracing solution for Spring Cloud, borrowing heavily from Dapper, 
+  Zipkin and HTrace. For most users Sleuth should be invisible, and all your interactions with external systems 
+  should be instrumented automatically. You can capture data simply in logs, or by sending it to a remote 
+  collector service.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-microservice-application-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-microservices-sleuth-archetype
+  version: 1.2.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-sleuth-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: microservice-sleuth
+versions: "[3.0.0.RELEASE,)" # (1.2.x onwards)
+text: Sleuth
+description: >-
+  Spring Cloud Sleuth implements a distributed tracing solution for Spring Cloud, borrowing heavily from Dapper, 
+  Zipkin and HTrace. For most users Sleuth should be invisible, and all your interactions with external systems 
+  should be instrumented automatically. You can capture data simply in logs, or by sending it to a remote 
+  collector service.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-microservice-application-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-microservices-sleuth-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-sleuth-conf
+selfImplemented: true
+---
+
+value: microservice-bus
+versions: "[1.4.0.RELEASE,2.0.0-SNAPSHOT)" # (1.4.x onwards)
+text: Spring Cloud Bus
+description: >-
+  Spring Cloud Bus can be used to broadcast state changes (e.g. configuration changes) or other management instructions.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-common    
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-microservices-bus-archetype
+  version: 1.4.0.RELEASE
+dependencies:
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-bus-conf
+selfImplemented: true
+---
+
+value: microservice-bus
+versions: "[2.0.0-SNAPSHOT,3.0.0.RELEASE)" # (1.4.x onwards)
+text: Spring Cloud Bus
+description: >-
+  Spring Cloud Bus can be used to broadcast state changes (e.g. configuration changes) or other management instructions.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-common    
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-microservices-bus-archetype
+  version: 2.0.0-SNAPSHOT
+dependencies:
+- groupId: org.terasoluna.plus.microservices
+  artifactId: terasoluna-plus-core-microservices-bus-conf
+selfImplemented: true
+---
+
+# Since Altemista
+
+value: microservice-bus
+versions: "[3.0.0.RELEASE,)" # (1.4.x onwards)
+text: Spring Cloud Bus
+description: >-
+  Spring Cloud Bus can be used to broadcast state changes (e.g. configuration changes) or other management instructions.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-common    
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-microservices-bus-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId: cloud.altemista.fwk.microservices
+  artifactId: cloud-altemistafwk-core-microservices-bus-conf
+selfImplemented: true
+---
+
+#
+# Thymeleaf
+#
+
+value: boot-thymeleaf
+versions: "[1.5.0.RELEASE,3.0.0.RELEASE)"
+text: Thymeleaf
+description: |-
+  Thymeleaf is a Java XML/XHTML/HTML5 template engine that can work both in web (servlet-based) and non-web environments.
+requirementSets:
+- requirements:
+  - groupId: org.terasoluna.plus.framework
+    artifactId: terasoluna-plus-boot-conf
+archetype:
+  groupId: org.terasoluna.plus.archetype
+  artifactId: terasoluna-plus-core-thymeleaf-archetype
+  version: 1.5.0.RELEASE
+dependencies:
+- groupId:  org.terasoluna.plus.thymeleaf
+  artifactId: terasoluna-plus-core-thymeleaf-conf
+selfImplemented: true
+
+# Since Altemista
+
+value: boot-thymeleaf
+versions: "[3.0.0.RELEASE,)"
+text: Thymeleaf
+description: |-
+  Thymeleaf is a Java XML/XHTML/HTML5 template engine that can work both in web (servlet-based) and non-web environments.
+requirementSets:
+- requirements:
+  - groupId: cloud.altemista.fwk.framework
+    artifactId: cloud-altemistafwk-boot-conf
+archetype:
+  groupId: cloud.altemista.fwk.archetype
+  artifactId: cloud-altemistafwk-core-thymeleaf-archetype
+  version: 3.0.0.RELEASE
+dependencies:
+- groupId:  cloud.altemista.fwk.thymeleaf
+  artifactId: cloud-altemistafwk-core-thymeleaf-conf
+selfImplemented: true
+

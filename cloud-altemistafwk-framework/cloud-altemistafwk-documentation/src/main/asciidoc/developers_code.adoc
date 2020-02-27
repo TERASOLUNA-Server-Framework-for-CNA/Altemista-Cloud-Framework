@@ -1,0 +1,121 @@
+
+:fragment:
+
+== Packaging and naming conventions
+
+All packages of the framework start by `org.altemista.cloud`:
+
+* `cloud.altemista.fwk.common` contains _common_ nature related classes.
++
+Expected subpackages: `<feature>.exception` for `CommonException` and its children, `<feature>.model` for business model, and `<feature>.util` for utility classes.
+
+* `cloud.altemista.fwk.core` contains _core_ nature related classes.
++
+Expected subpackages: `<feature>.exception` for `CoreException` and feature exceptions, `<feature>.bean` for Spring beans, `<feature>.service` for interfaces to the services of the features, and `<feature>.util` for utility classes.
+
+* `cloud.altemista.fwk.web` contains _web_ nature related classes.
++
+Expected subpackages: `<feature>.exception` for `WebException` and web-tier feature exceptions, and `<feature>.filter` for JAVA EE filters.
+
+* `cloud.altemista.fwk.webapp` contains _webapp_ nature related classes.
+
+This does not only apply to Java classes, but to properties and configuration files:
+
+* `cloud.altemista.fwk.i18n` for internationalization messages, usually with the name `<artifactId>-messages.properties` (e.g.: `cloud-altemistafwk-common-messages.properties`).
+
+* `cloud.altemista.fwk.config` for auto-discoverable configuration files (see <<natures-core-internals,_core_ configuration of the framework>> for an explanation on the auto-discovery mechanism of {framework}).
++
+Expected subpackages and files: `core`, `web`, `webapp`, and `boot` for the auto-discoverable configuration of each nature related features.
++
+Also, it is expected to found `<feature>` subpackages the auto-discoverable configuration of implementation providers of an specific feature.
+
+Please refer to the code of existing features to find examples of this packaging schema. Also, note that this packaging convention is not strict, and can be changed _ad-hoc_ to favor readability and API discoverability (e.g.: extracting service interfaces to the base package).
+
+== Developing a new feature
+
+A new {framework} feature will usually be a new set of Maven projects following a predefined structure.
+
+The parent `pom.xml` of the new feature will be as follows:
+
+[source,xml]
+.cloud-altemistafwk-newfeature/pom.xml
+----
+<project ...>
+	
+	<parent>
+		<groupId>cloud.altemista.fwk.build</groupId>
+		<artifactId>cloud-altemistafwk-build</artifactId> <!--1-->
+		<version>1.0.0.RELEASE</version>
+		<relativePath>..</relativePath>
+	</parent>
+	
+	<artifactId>cloud-altemistafwk-newfeature</artifactId> <!--2-->
+	<packaging>pom</packaging>
+
+	<name>cloud-altemistafwk * newfeature build script</name> <!--3-->
+	
+	<profiles>
+		<!-- == Builds ACF framework == -->
+		<profile>
+			<id>framework</id>
+			<modules>
+				<module>cloud-altemistafwk-core-newfeature</module>
+				<module>cloud-altemistafwk-core-newfeature-conf</module>
+				<module>cloud-altemistafwk-core-newfeature-archetype</module> <!--4-->
+			</modules>
+		</profile>
+		
+		<!-- == Builds and run ACF integration tests == -->
+		<profile>
+			<id>run-it</id>
+			<modules>
+				<module>cloud-altemistafwk-core-newfeature-it</module> <!--5-->
+			</modules>
+		</profile>
+	</profiles> 
+
+</project>
+----
+<1> Use the {framework} build script as the local parent of the build script of the new feature.
+<2> The name of the build script of the new feature will follow the convention `cloud-altemistafwk-<feature name>`.
+<3> The build script of the new feature is simply a build script. It contains neither code nor configuration.
+<4> The actual projects containing the code, the configuration and the archetypes will be specified as `<modules>` in the `framework` profile.
+<5> The projects containing the integration tests will be specified as `<modules>` in the `run-it` profile.
+
+=== Simple feature project structure
+
+Depending on the type of feature, the set of projects to implement it will be quite different. To set a starting point, a typical feature will be composed of four projects:
+
+* `cloud-altemistafwk-<nature>-<feature>` will contain the feature classes of the new feature for projects with the specified nature. In the previous example, the feature is installed on _core_ projects. This project will be added as a _compile_ dependency to the business module project that uses the feature, and will likely be used by the plug-in to detect the feature as installed.
++
+Please note that the nature in the project name is orientative; some features can be installed in more than one nature (e.g.: `cloud-altemistafwk-common-connection` can be installed in both _common_ and _core_ projects). In that case, prefer the less restrictive nature for naming the feature.
++
+In addition to the usual natures, the fake _app_ nature can be used to indicate a feature that is to be installed on the aggregator project (e.g.: `cloud-altemistafwk-app-performance` can be installed in both _webapp_ and _boot_ projects).
+
+* `cloud-altemistafwk-<nature>-<feature>-conf` will contain the auto-discoverable configuration of the new feature and the unit test that depend on the Spring context. This project is likely to be added as a _runtime_ dependency of the shared environment project.
+
+* `cloud-altemistafwk-<nature>-<feature>-archetype` will be the partial archetype containing the dependencies and the minimal configuration files to install the feature.
+
+* `cloud-altemistafwk-<nature>-<feature>-it` will contain the integration tests of the feature.
+
+=== Feature and implementation project structure
+
+When creating a feature with a clear separation between the interface and the implementation (e.g.: the BPM feature), the naming of the projects is usually as follows:
+
+* `cloud-altemistafwk-<nature>-<feature>` for the interface.
+
+* `cloud-altemistafwk-<nature>-<feature>-<implementation>` for the classes of a concrete implementation.
+
+* `cloud-altemistafwk-<nature>-<feature>-<implementation>-conf` for the auto-discoverable configuration of the concrete implementation.
+
+* `cloud-altemistafwk-<nature>-<feature>-<implementation>-archetype` for the partial archetype to install the concrete implementation.
+
+=== Tiered feature project structure
+
+When creating a feature that applies to both business and web tier (e.g.: the monitoring feature), it is not unusual to have a _common_ project to communicate both tiers of the feature. Despite the name, this does not imply that the feature is available for _common_ nature projects.
+
+* `cloud-altemistafwk-common-<feature>` for the interface between the web-tier and the business-tier of the feature. Usually, the web-tier will consume the interface and the business-tier will implement it.
+
+=== Including the new feature in {framework} plug-in
+
+Please refer to the <<cloud-altemistafwk-documentation-developers-plugin-configuration-features,plug-in features configuration>> section.

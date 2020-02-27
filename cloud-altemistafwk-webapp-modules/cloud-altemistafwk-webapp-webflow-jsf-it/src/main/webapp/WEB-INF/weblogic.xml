@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wls:weblogic-web-app xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-web-app" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/1.7/weblogic-web-app.xsd">
+
+	<!-- The container-descriptor element specifies a list of parameters that affect the behavior of the Web application. -->
+	<wls:container-descriptor>
+	
+		<!-- The prefer-web-inf-classes element, if set to true,
+			will cause classes located in the WEB-INF directory of a Web application to be loaded
+			in preference to classes loaded in the application or system classloader. The default value is false.
+			Note: Shown here as an alternative to <wls:prefer-application-packages> -->
+		<wls:prefer-web-inf-classes>false</wls:prefer-web-inf-classes>
+	
+		<!-- The prefer-application-packages element specifies a list of packages for classes
+			that must always be loaded from the application.
+			Note: can not be specified when prefer-web-inf-classes is turned on -->
+		<wls:prefer-application-packages>
+		
+			<!-- Jackson 2 -->
+			<wls:package-name>com.fasterxml.jackson.*</wls:package-name>
+			
+		</wls:prefer-application-packages>
+		
+	</wls:container-descriptor>
+	
+</wls:weblogic-web-app>

@@ -1,0 +1,6 @@
+
+:fragment:
+
+You can see the demonstration code here: https://steps.everis.com/svn/ARCHEVERIS/cloud-altemistafwk/trunk/cloud-altemistafwk-demos/swagger-demo[SwaggerExample^].
+
+Or you can download the demonstration code here: link:resources/cloud-altemistafwk-documentation/acf-swagger-demo.zip[AltemistaSwaggerApp].

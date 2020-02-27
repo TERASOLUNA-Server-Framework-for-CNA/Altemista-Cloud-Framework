@@ -1,0 +1,27 @@
+
+:fragment:
+
+Once the server is started you can access the URL http://localhost:2222 in a web browser to view the Monitoring Dashboard.
+
+image::cloud-altemistafwk-documentation/microservices/monitoring_server_dashboard_01.png[align="center"]
+image::cloud-altemistafwk-documentation/microservices/monitoring_server_dashboard_02.png[align="center"]
+image::cloud-altemistafwk-documentation/microservices/monitoring_server_dashboard_03.png[align="center"]
+image::cloud-altemistafwk-documentation/microservices/monitoring_server_dashboard_04.png[align="center"]
+
+You can access the URL http://localhost:2222/hystrix in a web browser to view the Hystrix Dashboard
+
+image::cloud-altemistafwk-documentation/microservices/hystrix_server_dashboard_01.png[align="center"]
+image::cloud-altemistafwk-documentation/microservices/hystrix_server_dashboard_02.png[align="center"]
+
+In the Monitoring Dashboard you can see the list of registered microservices and you can see environment data by service.
+
+{framework} plugin sets by default the registry server port to 2222. This default port can be changed in the _aplication-monitoring-env.properties_ file
+
+[source,properties]
+./aplication-env/src/main/resources/config/properties/aplication-monitoring-env.properties
+----
+# Monitoring properties
+*.server.port=${PORT:2222}
+----
+
+IMPORTANT: The PORT environment variable can be used to set the application port without change the default port.

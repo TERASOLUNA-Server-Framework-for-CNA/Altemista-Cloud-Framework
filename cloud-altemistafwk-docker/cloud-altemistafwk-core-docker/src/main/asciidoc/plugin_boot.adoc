@@ -1,0 +1,12 @@
+
+:fragment:
+
+{framework} Docker feature has to be added in a [application]-boot module in a Spring Boot application nature.
+
+image::cloud-altemistafwk-documentation/docker/docker_boot.png[align="center"]
+
+In the next screenshot, you can type the image name that you will use to build and run it.
+
+image::cloud-altemistafwk-documentation/docker/docker_boot_image.png[align="center"]
+
+

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- The different security namespace configurations: -->
+
+	<!-- Digest security -->
+	<security:http pattern="/security/digest/**" entry-point-ref="digestEntryPoint" use-expressions="true">
+		<security:intercept-url pattern="/**" access="isAuthenticated()" />
+		<security:custom-filter ref="digestFilter" after="BASIC_AUTH_FILTER" />
+	</security:http>
+
+	<!-- Basic and no security -->
+	<security:http use-expressions="true">
+	
+		<security:intercept-url pattern="/security/basic/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/security/no/**" access="permitAll" />
+		<security:intercept-url pattern="/security/**" access="denyAll" />
+		
+		<security:intercept-url pattern="/**" access="permitAll" />
+		
+		<security:custom-filter ref="forwardSecurityCredentialsFilter" before="FORM_LOGIN_FILTER"/>
+		<security:form-login />
+		<security:http-basic />
+	</security:http>
+
+		
+	<bean id="digestEntryPoint" class="org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint">
+		<property name="realmName" value="Realm via Digest Authentication" />
+		<property name="key" value="acegi" />
+	</bean>
+
+	<bean id="digestFilter" class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter">
+		<property name="userDetailsService" ref="userService" />
+		<property name="authenticationEntryPoint" ref="digestEntryPoint" />
+	</bean>
+
+
+	<!-- Creates the necessary authentication-manager -->
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service id="userService">
+				<security:user name="user" password="{noop}user"
+					authorities="USER" />
+				<security:user name="admin" password="{noop}admin"
+					authorities="USER,ADMIN" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+</beans>

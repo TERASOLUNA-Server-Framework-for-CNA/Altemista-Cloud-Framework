@@ -1,0 +1,24 @@
+
+:fragment:
+
+There are some minor functionalities that are commonly required by the majority of the applications. {framework} already provides convenience classes that can be used to cover those functionalities.
+
+Here is a brief description of some of those classes. For further details and a complete list, please refer to the Javadoc.
+
+`ContentType`::
+Specific content types (also known as media type or MIME type) and extensions usually associated to files of those specific types.
+
+`ContentReadable` and `ContentWritable`::
+Common interfaces for elements that offer content or that support writing content (with specific content type).
++
+There are several implementations available out-of-the-box, such as `ByteArrayContentReadable` (backed by an in-memory byte array), `ResourceContentReadable` (backed by a Spring Resource), and `StreamContentReadable` and `StreamContentWritable` (backed by `InputStream` and `OutputStream`).
++
+Other {framework} natures or features include additional implementations, such as <<HttpServletResponseWritable,`HttpServletResponseWritable`>> (provided by the _web_ nature).
+
+`TempFileOutputStream` and `TempMixedOutputStream`::
+``OutputStream``s implementations that also implement `InputStreamSource`, meaning that they can be used as _write once read many_ (WORM) buffers.
++
+The buffers are backed up by a temporary file. In the latter, the buffer is initially backed up by an in-memory byte array and the temperary file will be created only if the content exceeds the buffer size.
+
+`ResourceUtil`::
+Utility methods for resolving resource locations to files in the file system.

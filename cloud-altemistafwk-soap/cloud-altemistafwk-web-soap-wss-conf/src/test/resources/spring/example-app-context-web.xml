@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:cxf="http://cxf.apache.org/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+
+	<!-- tag::example[] -->
+	<!-- Example of Authentication Manager for Spring Security -->
+	<!-- Your implementation should use the same id to be correctly read by 
+		the module -->
+	<security:authentication-manager id="wsAuthenticationManager">
+		<security:authentication-provider>
+			<security:user-service id="userDetailsService">
+				<security:user name="anonymous" password="anonymous"
+					authorities="ROLE_ANY" />
+				<security:user name="admin" password="*password@0"
+					authorities="ROLE_ADMIN" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+	<!-- end::example[] -->
+
+
+	<!-- You can override the module configuration for the bus -->
+	<!-- <cxf:bus> <cxf:features> <cxf:logging /> </cxf:features> </cxf:bus> -->
+
+</beans>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.framework</groupId>
+		<artifactId>cloud-altemistafwk-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+
+	<groupId>cloud.altemista.fwk.microservices</groupId>
+	<artifactId>cloud-altemistafwk-core-microservices-sleuth-conf</artifactId>
+
+	<name>cloud-altemistafwk Microservices Sleuth CONF</name>
+	<description>cloud-altemistafwk Microservices Sleuth CONF</description>
+
+	<dependencies>
+
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-microservice-conf</artifactId>
+		</dependency>
+		<!-- == End ACF framework == -->
+
+		<!-- == Begin Spring Cloud Dependencies == -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-sleuth-zipkin</artifactId>
+		</dependency>
+		<!-- == End Spring Cloud Dependencies == -->
+
+	</dependencies>
+
+</project>

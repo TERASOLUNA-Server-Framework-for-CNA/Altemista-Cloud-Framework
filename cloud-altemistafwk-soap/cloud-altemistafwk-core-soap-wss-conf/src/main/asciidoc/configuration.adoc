@@ -1,0 +1,39 @@
+
+:fragment:
+
+The configuration of the out-of-the-box Spring Security-aware WS-Security feature can be entirely done through a properties file:
+[source,properties]
+.config/properties/application-soap-out-wss-env.properties
+----
+*.soap.wss.outgoing.enabled=false #<1>
+*.soap.wss.outgoing.action= #<2>
+*.soap.wss.outgoing.passwordType=PasswordDigest #<3>
+*.soap.wss.outgoing.user= #<4>
+*.soap.wss.outgoing.forwardUser=false #<5>
+----
+<1> Enables or disables the feature (e.g.: to disable outgoing WS-Security in development environments without further configuration changes).
+<2> Outgoing WS-Security action parameter (e.g.: `UsernameToken`).
+<3> Outgoing WS-Security password type. One of: `PasswordDigest`, `PasswordText` or `PasswordNone`.
+<4> Outgoing WS-Security user. This value will be overwritten if the `forwardUser` flag is set to `true`.
+<5> Flag to use the name of the current authenticated user in the Spring Security Context as the outgoing WS-Security user.
+
+Please notice that there is no `password` parameter; the password for the user will be retrieved using an instance of a Apache WSS4J `CallbackHandler`.
+If an `UserDetailsService` bean named `outgoingwssUserDetailsService` is found, a `CallbackHandler` that relies on that Spring Security `UserDetailsService` bean will be automatically used.
+
+The default configuration of the security feature of the framework already provides it by aliasing the main `UserDetailsService` of the application:
+
+[source,xml]
+.spring/new-application-security-env.xml
+----
+<alias alias="outgoingwssUserDetailsService" name="appUserDetailsService" />
+----
+
+However, it is possible to declare a separate `UserDetailsService` instance. By example, to provide the password for the outgoing WS-Security user (`soap.wss.outgoing.user` property):
+
+[source,xml]
+.spring/new-application-security-env.xml
+----
+<security:user-service id="outgoingwssUserDetailsService">
+  <security:user name="user" password="password" authorities="NOT_IMPORTANT" />
+</security:user-service>
+----

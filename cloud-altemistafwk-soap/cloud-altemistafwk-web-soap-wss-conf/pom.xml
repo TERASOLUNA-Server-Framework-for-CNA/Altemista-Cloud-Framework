@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.framework</groupId>
+		<artifactId>cloud-altemistafwk-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+	
+	<groupId>cloud.altemista.fwk.soap</groupId>
+	<artifactId>cloud-altemistafwk-web-soap-wss-conf</artifactId>
+	
+	<name>cloud-altemistafwk SOAP server with WS-Security CONF</name>
+	<description>cloud-altemistafwk SOAP server with WS-Security (Apache CXF and Spring Security based) CONF</description>
+
+	<dependencies>
+
+		<!-- == Begin Altemista cloud framework == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.soap</groupId>
+			<artifactId>cloud-altemistafwk-web-soap-wss</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.security</groupId>
+			<artifactId>cloud-altemistafwk-web-security-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.soap</groupId>
+			<artifactId>cloud-altemistafwk-web-soap-conf</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- == End Altemista cloud framework == -->
+		
+		<!-- == Begin Apache CXF == -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-ws-security</artifactId>
+		</dependency>
+		<!-- == End Apache CXF == -->
+
+	</dependencies>
+
+</project>

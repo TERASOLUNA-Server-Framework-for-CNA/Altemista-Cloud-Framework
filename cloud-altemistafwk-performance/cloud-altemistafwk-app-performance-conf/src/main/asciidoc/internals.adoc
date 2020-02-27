@@ -1,0 +1,53 @@
+
+:fragment:
+
+[[cloud-altemistafwk-app-performance-conf-internals-core]]
+== Core performance
+
+The core performance module declares the support beans for the performance feature as follows:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/core/cloud-altemistafwk-core-performance.xml
+----
+include::{basedir}/cloud-altemistafwk-app-performance-conf/src/main/resources/cloud/altemista/fwk/config/core/cloud-altemistafwk-core-performance.xml[tags=internals]
+----
+<1> For the storage policy, a simple implementation that keeps the longest tasks is used. Applications can override this bean to use a different policy or to customize its configuration (e.g.: to use a larger registry).
+<2> The holder class associates the measured task with the current thread, so the measures can be properly nested. Usually, there is no need to override this bean.
+<3> The default configuration of the holder class is to allow eight levels of nesting. The nesting levels are limited to avoid excessive memory consumption, and this default should be enough for most applications.
+<4> The aspect bean is included in the module configuration so there is no need to declare it in the application. However, applications can override it to use a different configuration, such as enabling or disabling the use of reflection to introspect the objects for obtaining their string representations. See the Javadoc of the class for more details about its configuration.
+
+== JDBC performance
+
+The JDBC performance module declares additional support beans for the JDBC part of the performance feature as follows:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/performance/cloud-altemistafwk-performance-jdbc.xml
+----
+include::{basedir}/cloud-altemistafwk-app-performance-jdbc-conf/src/main/resources/cloud/altemista/fwk/config/performance/cloud-altemistafwk-performance-jdbc.xml[tags=internals]
+----
+<1> The JDBC performance feature declares its own, separate, storage policy and holder class.
+<2> The default configuration of the JDBC holder class actually disallows nesting (because it is not necessary at all).
+
+[[cloud-altemistafwk-app-performance-conf-internals-web]]
+== Web performance
+
+For the servlet part, the _web fragment_ of the {framework} web performance module sets up a filter that gathers performance information about request executions as follows:
+
+[source,xml,options="nowrap"]
+.cloud-altemistafwk-app-performance-web-conf/src/main/resources/META-INF/web-fragment.xml
+----
+include::{basedir}/cloud-altemistafwk-app-performance-web-conf/src/main/resources/META-INF/web-fragment.xml[tags=internals]
+----
+
+This configuration effectively relies on Spring beans:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/web/cloud-altemistafwk-web-performance.xml
+----
+include::{basedir}/cloud-altemistafwk-app-performance-web-conf/src/main/resources/cloud/altemista/fwk/config/web/cloud-altemistafwk-web-performance.xml[tags=internals]
+----
+<1> The actual `webPerformanceFilter` bean.
+<2> The JDBC performance feature declares its own, separate, storage policy and holder class.
+<3> The default configuration of the web holder class actually disallows nesting, as HTTP requests are not nested.
+<4> It is possible (and most of the times, desirable) to override the `webPerformanceFilter` bean to reuse the core peformance holder (`methodExecutionMeasuredTaskHolder`) to combine the method execution information and the web request.
+<5> It is possible (but quite unlikely) to combine the stored values reusing the `methodExecutionMeasuresStorage` bean.

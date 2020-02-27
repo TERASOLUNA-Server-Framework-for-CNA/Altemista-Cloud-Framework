@@ -1,0 +1,60 @@
+
+:fragment:
+
+===== Recommendation Entity
+
+[source,java,linenums]
+.Recommendation.java
+----
+package cloud.altemista.fwk.demo.altemistamoviesrecomend.datacore.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
+@Entity
+public class Recommendation {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Long id;
+
+	@NotNull
+	private Long userId;
+
+	@NotNull
+	private Long movieId;
+
+	@NotNull
+	private String comment;
+
+	// <1>
+
+}
+----
+<1> Getters and setters
+
+===== Recommendation Spring Data REST Repository
+
+[source,java,linenums]
+.RecommendationRepository.java
+----
+package cloud.altemista.fwk.demo.altemistamoviesrecomend.datacore.repository;
+
+import java.util.List;
+
+import org.springframework.data.repository.PagingAndSortingRepository;
+import cloud.altemista.fwk.demo.altemistamoviesrecomend.datacore.entity.Recommendation;
+
+public interface RecommendationRepository extends PagingAndSortingRepository<Recommendation, Long> {
+
+	List<Recommendation> findByUserId(Long userId);
+
+	List<Recommendation> findByMovieId(Long movieId);
+
+	List<Recommendation> findByUserIdAndMovieId(Long userId, Long movieId);
+
+}
+----

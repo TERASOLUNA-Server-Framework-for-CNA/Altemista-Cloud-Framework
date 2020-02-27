@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+		
+	<bean id="exampleSecuredClient" class="cloud.altemista.fwk.core.soap.SimpleJaxWsPortProxyFactoryBean">
+		<property name="serviceInterface" value="cloud.altemista.fwk.test.soap.wss.ExampleSecuredService" />
+		<property name="endpointAddress" value="http://localhost/example/soap/ExampleSecured" />
+		<property name="lookupServiceOnStartup" value="false" />
+		
+		<!-- This client uses the default outbound WS-Security feature -->
+		<property name="serviceFeatures" ref="outgoingWssFeature" />
+	</bean>
+
+</beans>

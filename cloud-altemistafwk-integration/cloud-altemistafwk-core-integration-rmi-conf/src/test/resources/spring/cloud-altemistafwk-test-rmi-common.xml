@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:rmi="http://www.springframework.org/schema/integration/rmi"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/rmi
+			http://www.springframework.org/schema/integration/rmi/spring-integration-rmi.xsd">
+	
+	<rmi:inbound-gateway request-channel="requestChannel"/>
+ 
+	<integration:channel id="requestChannel"/>
+	 
+	<bean id="rmiService" class="cloud.altemista.fwk.test.integration.rmi.service.IntegrationRMIServiceActivator"/>
+	
+	<integration:service-activator method="integrationRMIServiceMethod" input-channel="requestChannel" ref="rmiService"/>
+	
+	<bean class="org.springframework.integration.core.MessagingTemplate" />
+
+</beans>

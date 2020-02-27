@@ -1,0 +1,10 @@
+
+:fragment:
+
+== Forwarding credentials
+
+The web part of the security feature includes the possibility of forwarding the Spring Security Credentials to external systems (e.g.: via REST, web services, etc.).
+
+This funcionality is quite limited, but can be useful in development stages to emulate a very simple Single Sign-on.
+
+NOTE: The _forwarding credentials_ feature requires additional configuration, as described in the <<cloud-altemistafwk-web-security-conf-configuration-forwarding,configuration>> section.

@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>cloud.altemista.fwk.it</groupId>
+	<artifactId>cloud-altemistafwk-it-bom</artifactId>
+	<version>3.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>cloud-altemistafwk integration tests: bill of materials</name>
+	<description>Bill of materials of the cloud-altemistafwk integration tests</description>
+	
+	<properties>
+		<!-- == cloud-altemistafwk framework version == -->
+		<cloud-altemistafwk.version>${project.version}</cloud-altemistafwk.version>
+		
+		<!-- == SeleniumHQ version -->
+		<selenium.version>2.53.1</selenium.version>
+	</properties>
+	
+	<dependencyManagement>
+		<dependencies>
+		
+			<!-- == ACF framework: bill of materials == -->
+			<dependency>
+				<groupId>cloud.altemista.fwk.framework</groupId>
+				<artifactId>cloud-altemistafwk-bom</artifactId>
+				<version>${cloud-altemistafwk.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			
+			<!-- == Begin ACF utility classes for integration tests == -->
+			<dependency>
+				<groupId>cloud.altemista.fwk.it</groupId>
+				<artifactId>cloud-altemistafwk-it-common</artifactId>
+				<version>${cloud-altemistafwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>cloud.altemista.fwk.it</groupId>
+				<artifactId>cloud-altemistafwk-it-common</artifactId>
+				<version>${cloud-altemistafwk.version}</version>
+				<type>test-jar</type>
+			</dependency>
+			<dependency>
+				<groupId>cloud.altemista.fwk.it</groupId>
+				<artifactId>cloud-altemistafwk-it-common-boot</artifactId>
+				<version>${cloud-altemistafwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>cloud.altemista.fwk.it</groupId>
+				<artifactId>cloud-altemistafwk-it-common-boot</artifactId>
+				<version>${cloud-altemistafwk.version}</version>
+				<type>test-jar</type>
+			</dependency>
+			<dependency>
+				<groupId>cloud.altemista.fwk.it</groupId>
+				<artifactId>cloud-altemistafwk-it-common-webapp</artifactId>
+				<version>${cloud-altemistafwk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>cloud.altemista.fwk.it</groupId>
+				<artifactId>cloud-altemistafwk-it-common-webapp</artifactId>
+				<version>${cloud-altemistafwk.version}</version>
+				<type>test-jar</type>
+			</dependency>
+			<!-- == End ACF utility classes for integration tests == -->
+
+			<!-- == Begin SeleniumHQ == -->
+			<dependency>
+				<groupId>org.seleniumhq.selenium</groupId>
+				<artifactId>selenium-java</artifactId>
+				<version>${selenium.version}</version>
+			</dependency>
+			<!-- == End SeleniumHQ == -->
+
+		</dependencies>
+	</dependencyManagement>
+
+</project>

@@ -1,0 +1,13 @@
+
+:fragment:
+
+{framework} Altemista feature has to be added in a [application]-boot module in a Spring Boot application nature.
+
+image::cloud-altemistafwk-documentation/altemista/plugin.png[align="center"]
+
+You could type the Image Name, Deployment Name, Service Name, Route Name and Volume name as you can see in the following screenshot:
+
+image::cloud-altemistafwk-documentation/altemista/form.png[align="center"]
+
+
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.build</groupId>
+		<artifactId>cloud-altemistafwk-build</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	
+	<artifactId>cloud-altemistafwk-amazon</artifactId>
+	<packaging>pom</packaging>
+
+	<name>cloud-altemistafwk * Amazon Web Services build script</name>
+	<description>Convenience pom.xml for building the ACF Amazon Web Services modules</description>
+
+	<profiles>
+
+		<!-- == Builds ACF framework == -->
+		<profile>
+			<id>framework</id>
+			<modules>
+				<module>cloud-altemistafwk-core-amazon</module>
+				<module>cloud-altemistafwk-core-amazon-s3</module>
+				<module>cloud-altemistafwk-core-amazon-s3-conf</module>
+				<module>cloud-altemistafwk-core-amazon-s3-archetype</module>
+				<module>cloud-altemistafwk-core-amazon-ses</module>
+				<module>cloud-altemistafwk-core-amazon-ses-conf</module>
+				<module>cloud-altemistafwk-core-amazon-ses-archetype</module>				
+				<module>cloud-altemistafwk-core-amazon-rds</module>
+				<module>cloud-altemistafwk-core-amazon-rds-conf</module>
+				<module>cloud-altemistafwk-core-amazon-rds-archetype</module>				
+				<module>cloud-altemistafwk-core-amazon-sqs</module>
+				<module>cloud-altemistafwk-core-amazon-sqs-conf</module>
+				<module>cloud-altemistafwk-core-amazon-sqs-archetype</module>
+			</modules>
+		</profile>
+		
+	</profiles>
+	
+</project>

@@ -1,0 +1,66 @@
+version: '3.3'
+
+services:
+
+ eureka:
+  build: ./new-application-eureka/new-application-eureka-boot
+  image: eureka
+  ports:
+   - "8761:8761"
+  links: 
+    - config-server:config-server
+  tty:
+    true
+  restart:
+    unless-stopped
+  environment:
+    - CONFIG_HOST=config-server
+
+ config-server:
+  build: ./new-application-config/new-application-config-boot
+  image: config-server
+  ports:
+   - "8888:8888"
+  environment:
+    - REGISTRY_HOST=eureka
+    - CONFIG_HOST=config-server
+  tty:
+    true
+  restart:
+    unless-stopped
+
+ gateway:
+  build: ./new-application-gateway/new-application-gateway-boot
+  image: gateway
+  ports:
+   - "8765:8765"
+  environment:
+    - REGISTRY_HOST=eureka
+    - CONFIG_HOST=config-server
+  tty:
+    true
+  restart:
+    unless-stopped
+  links: 
+    - config-server:config-server
+  depends_on:
+    - config-server
+ micro:
+  build: ./new-application-micro/new-application-micro-boot
+  image: micro
+  ports:
+   - "9001:9001"
+  environment:
+    - REGISTRY_HOST=eureka
+    - CONFIG_HOST=config-server
+  tty:
+    true
+  restart:
+    unless-stopped    
+
+# "Windows Docker native"-specific configuration
+
+networks:
+ default:
+  external:
+   name: "nat"

@@ -1,0 +1,40 @@
+
+:fragment:
+
+To manually install the {framework} Integration AMQP feature, add the following dependencies to the pom.xml file of a core project of your application:
+
+[source,xml,options="nowrap"]
+./my-application-module-core/pom.xml
+----
+<dependency>
+    <groupId>cloud.altemista.fwk.integration</groupId>
+    <artifactId>cloud-altemistafwk-core-integration-amqp-conf</artifactId> <!--1-->
+</dependency>
+----
+<1> {framework} Integration AMQP feature dependencies.
+
+[source,xml,options="nowrap"]
+./my-application-module-core/src/main/resources/spring/my-application-module-core-integration-amqp.xml
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:amqp="http://www.springframework.org/schema/integration/amqp"
+	xmlns:stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+	    http://www.springframework.org/schema/integration/amqp http://www.springframework.org/schema/integration/amqp/spring-integration-amqp.xsd
+		http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan
+		base-package="com.mycompany.application.module.amqp.config" /> <!--1-->
+
+</beans>
+----
+<1> *OPTIONAL*: Component scan configuration classes package if needed.

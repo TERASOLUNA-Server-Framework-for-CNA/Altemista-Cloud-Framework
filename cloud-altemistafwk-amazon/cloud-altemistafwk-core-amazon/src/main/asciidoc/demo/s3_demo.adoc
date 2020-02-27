@@ -1,0 +1,194 @@
+
+:fragment:
+
+For this demo, we will have to configure our S3 Amazon component. You can see documentation in this https://docs.aws.amazon.com/s3/index.html?id=docs_gateway#lang/en_us[link^].
+
+
+=== Configuration
+
+We need to create our bucket in the amazon console. If we go to our AWS console, in our S3 console:
+
+image::cloud-altemistafwk-documentation/amazon/create_bucket.png[align="center"]
+
+Choose *Create bucket*, input information for creating bucket:
+
+image::cloud-altemistafwk-documentation/amazon/name_bucket.png[align="center"]
+
+We need a user to work with S3 ,go to this https://console.aws.amazon.com/iam/[site^]
+
+Got to "IAM" section and in the navigation pane, choose *Users* and then choose *Add user*.
+
+image::cloud-altemistafwk-documentation/amazon/add_user.png[align="center"]
+
+Input User name, choose *Programmatic access* for Access type:
+
+image::cloud-altemistafwk-documentation/amazon/access_user.png[align="center"]
+
+Press *Next: Permissions* button and go to *Set permissions* for your user.
+Now, choose *Attach existing policies* directly and filter policy type s3, then check *AmazonS3FullAccess*:
+
+image::cloud-altemistafwk-documentation/amazon/permissions_user.png[align="center"]
+
+And finally click over *Create User*:
+
+=== S3 Implementation Example
+
+Once you have added the feature in the core module, let´s start to modify our code.
+
+To complete this example add the controller.
+[source,java,options="nowrap"]
+./my-application-s3-boot/src/main/java/.com.mycompany.application.module.controller.HomeController
+----
+package com.mycompany.application.module.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.mycompany.application.module.amazon.SimpleS3Service;
+
+
+@RestController
+public class HomeController {
+	
+	@Autowired
+	SimpleS3Service simpleS3Service;
+
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	public String send(@RequestParam MultipartFile file) {
+		simpleS3Service.uploadFileToS3Bucket(file, true);
+		
+		return "file uploaded !";
+	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String send(@RequestParam String file) {
+		simpleS3Service.deleteFileFromS3Bucket(file);
+		
+		return "file deleted !";
+	}
+}
+----
+
+Now it is time to create our operations to upload and delete a file
+[source,java,options="nowrap"]
+./my-application-s3-module-core/src/main/java/com.mycompany.application.module.amazon.SimpleDatabaseService
+----
+package com.mycompany.application.module.amazon;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URLEncoder;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.regions.Region;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.util.IOUtils;
+
+@Component
+public class SimpleS3Service 
+{
+    private String awsS3AudioBucket;
+    private AmazonS3 amazonS3;
+    private static final Logger logger = LoggerFactory.getLogger(SimpleS3Service.class);
+    
+	@Value("${aws.s3.audio.bucket}")
+	private String bucket;
+
+    @Autowired
+    public SimpleS3Service(Region awsRegion, AWSCredentialsProvider awsCredentialsProvider, String awsS3AudioBucket) 
+    {
+        this.amazonS3 = AmazonS3ClientBuilder.standard()
+                .withCredentials(awsCredentialsProvider)
+                .withRegion(awsRegion.getName()).build();
+        this.awsS3AudioBucket = awsS3AudioBucket;
+    }
+
+    @Async
+    public void uploadFileToS3Bucket(MultipartFile multipartFile, boolean enablePublicReadAccess) 
+    {
+        String fileName = multipartFile.getOriginalFilename();
+
+        try {
+            //creating the file in the server (temporarily)
+            File file = new File(fileName);
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(multipartFile.getBytes());
+            fos.close();
+
+            PutObjectRequest putObjectRequest = new PutObjectRequest(this.awsS3AudioBucket, fileName, file);
+
+            if (enablePublicReadAccess) {
+                putObjectRequest.withCannedAcl(CannedAccessControlList.PublicRead);
+            }
+            this.amazonS3.putObject(putObjectRequest);
+            //removing the file created in the server
+            file.delete();
+        } catch (IOException | AmazonServiceException ex) {
+            logger.error("error [" + ex.getMessage() + "] occurred while uploading [" + fileName + "] ");
+        }
+    }
+
+    @Async
+    public void deleteFileFromS3Bucket(String fileName) 
+    {
+        try {
+            amazonS3.deleteObject(new DeleteObjectRequest(awsS3AudioBucket, fileName));
+        } catch (AmazonServiceException ex) {
+            logger.error("error [" + ex.getMessage() + "] occurred while removing [" + fileName + "] ");
+        }
+    }
+}
+----
+
+And finally, the configuration needed to use AWS
+
+[source,xml,options="nowrap"]
+./my-application-s3-env/src/main/resources/spring/new-application-s3-module-core-amazon-s3.xml
+----
+*.aws.access.key.id=${AWS_ACCESS_KEY_ID}	<!--1-->
+*.aws.access.key.secret=${AWS_SECRET_ACCESS_KEY}	<!--2-->
+*.aws.s3.audio.bucket=bucket-acf	<!--3-->
+*.aws.region=${AWS_DEFAULT_REGION}	<!--4-->
+----
+
+<1> Your AWS key id. This is an environment variable you need to add in your system
+<2> Your AWS rkey secret. This is an environment variable you need to add in your system
+<3> Your AWS bucket.
+<4> Your AWS region. This is an environment variable you need to add in your system
+
+Once the code was added and AWS configured, we started our spring boot application and verified that it works with Postman.
+
+POST --> `http://localhost:8090/upload`
+
+In the body tab, choose *form-data* and select your file as "file" name
+
+Go to your bucket to see your file uploaded.
+
+And finally to delete your file : "http://localhost:8090/delete"
+
+

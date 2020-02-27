@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:cxf="http://cxf.apache.org/core"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
+	
+	<!--tag::internals[]-->
+	<!-- Imports default Apache CXF configuration -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	
+	<!-- Default outbound WS-Security feature (configurable via properties) -->
+	<bean id="outgoingWssFeature"
+			class="cloud.altemista.fwk.core.soap.wss.springsecurity.SpringSecurityAwareWss4jOutInterceptorFeature"
+			lazy-init="true">
+		<property name="enabled"		value="${soap.wss.outgoing.enabled:false}" />
+		<property name="action"			value="${soap.wss.outgoing.action:}" />
+		<property name="passwordType"	value="${soap.wss.outgoing.passwordType:PasswordDigest}" />
+		<property name="user"			value="${soap.wss.outgoing.user:}" />
+		<property name="forwardUser"	value="${soap.wss.outgoing.forwardUser:true}" />
+	</bean>
+	<!--end::internals[]-->
+
+</beans>

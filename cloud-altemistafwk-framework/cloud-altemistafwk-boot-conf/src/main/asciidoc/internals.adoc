@@ -1,0 +1,26 @@
+
+:fragment:
+
+To bootstrap and launch the Spring Boot-based {framework} application, use the class `cloud.altemista.fwk.config.boot.CloudAltemistafwkApplicationBuilder` as follows;
+
+[source]
+.com.mycompany.application.Main.java
+----
+public static void main(String[] args) {
+  new CloudAltemistafwkApplicationBuilder().run(args);
+}
+----
+
+This builder creates and runs a Spring Boot-based {framework} application (`cloud.altemista.fwk.config.boot.CloudAltemistafwkApplication`) using the following configuration:
+
+* Add the {framework} initializers to the application before the {framework} Spring context gets loaded.
+
+* Uses the default Spring Boot configuration wherever possible.
+
+ ** Imports the <<natures-core-internals,_core_ configuration of the framework>> first. All the features that are not dependent on the deployment platform will be loaded at this point.
+
+* If running on an embedded Servlet container, enables scanning for Servlet components.
+
+* Includes all the Spring Boot-based application features found in the classpath, by importing their configuration classes (that will be under the package `cloud.altemista.fwk.config.boot`).
+
+* Imports the application configuration files, located at `spring/*.xml` in the classpath.

@@ -1,0 +1,29 @@
+
+:fragment:
+
+=== SDN
+
+OpenShift and kubernetes are Docker orchestrator. This means that most of the work they do is to "just" manage several Docker daemons installed in different nodes and, more important, provide a mechanism so that the containers in one node can communicate transparently with containers in other nodes.
+
+For this Kubernetes and OpenShift use a Software Defined Network engine which does all "the magic", and can keep network communication between containers transparent for them even as containers can keep moving from one node to another.
+
+=== Deployment Config
+
+Deployment configs are yamls (or json) definitions that contain a list of elements to deploy in OpenShift. From ACF,  we provive a basic yaml file in order to deploy our image in Altemista.
+
+=== Pod 
+
+A pod is the minimum unit upon which OpenShift can work. OpenShift keeps tracks of the number of replicas of a pod and the state of them. If one replica fails, it will automatically recreate a new replica of the pod.
+A pods is technically a collection of 1 or more containers. Putting more than 1 container in one pod should always be avoided unless there is a really good reason for it.
+
+=== Service 
+
+Service component is a groups one or more pods allowing to balance all incoming requests among the pods it groups and also it let us create a hostname entry, so that all the pods in the project can get it's ip just by using the service name.
+
+=== Route 
+
+A route is basically a pair of a FQDN hostname and a hostname. These pairs are managed by an OpenShift module known as the router. The router is in charge of maintaining these routes and forwarding each http/s request to the specified service.
+
+=== Persistence 
+
+OpenShift has the concept of "Persistent Volume" which is a mechanism where you basically define which paths inside a docker container have to be persisted. If the pod dies for whatever reason it will be restarted by OpenShift and when it goes back to life the data will still be there.

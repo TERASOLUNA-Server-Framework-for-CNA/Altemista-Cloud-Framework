@@ -1,0 +1,28 @@
+
+:fragment:
+
+For the servlet part, the _web fragment_ of the {framework} SOAP web service publisher (SOAP server) feature sets up the Apache CXF servlet at `/soap/*` mapping as follows:
+
+[source,xml,options="nowrap"]
+.cloud-altemistafwk-web-soap-conf/src/main/resources/META-INF/web-fragment.xml
+----
+include::{basedir}/cloud-altemistafwk-web-soap-conf/src/main/resources/META-INF/web-fragment.xml[tags=internals]
+----
+
+For reference (and ordering purposes if required), this web fragment is named `cloudAltemistaWebSoap` and is loaded after `cloudAltemistaWeb`:
+
+[source,xml,options="nowrap"]
+.cloud-altemistafwk-web-soap-conf/src/main/resources/META-INF/web-fragment.xml
+----
+include::{basedir}/cloud-altemistafwk-web-soap-conf/src/main/resources/META-INF/web-fragment.xml[tags=name]
+----
+
+NOTE: This configuration is mirrored in `cloud.altemista.fwk.config.boot.WebSoapConfig` for Spring Boot-based applications.
+
+The Apache CXF bus is imported and configured as follows:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/web/cloud-altemistafwk-web-soap.xml
+----
+include::{basedir}/cloud-altemistafwk-web-soap-conf/src/main/resources/cloud/altemista/fwk/config/web/cloud-altemistafwk-web-soap.xml[tags=internals]
+----

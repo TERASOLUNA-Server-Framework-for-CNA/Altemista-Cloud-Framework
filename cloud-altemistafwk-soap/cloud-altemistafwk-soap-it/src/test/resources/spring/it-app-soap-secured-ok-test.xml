@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+		
+	<!--
+		Authenticated client for cloud.altemista.fwk.it.soap.secured.BottomUpSecuredExampleService
+	 -->
+	
+	<bean id="bottomUpSecuredExampleServiceClient" class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean">
+		<property name="serviceInterface" value="cloud.altemista.fwk.it.soap.secured.BottomUpSecuredExampleService" />
+		<property name="serviceName" value="BottomUpSecuredExampleService" />
+		<property name="endpointAddress" value="#{systemProperties['integration-test.url']}/soap/BottomUpSecuredExampleService" />
+		
+		<!-- Basic authentication information -->
+		<property name="username" value="user" />
+		<property name="password" value="password" />
+	</bean>
+
+</beans>

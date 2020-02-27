@@ -1,0 +1,6 @@
+
+:fragment:
+
+{framework} Integration Web Sockets Feature provides Channel Adapters for receiving and sending messages over Web Sockets.
+
+{framework} Integration Web Sockets Feature is based on https://docs.spring.io/spring-integration/docs/5.0.0.RELEASE/reference/html/web-sockets.html[Spring Integration WebSockets Support^]

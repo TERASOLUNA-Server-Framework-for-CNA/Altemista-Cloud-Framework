@@ -1,0 +1,73 @@
+package statefulRules.numberGuess;
+
+import cloud.altemista.fwk.test.rules.model.NumberGuessBean;
+import org.apache.commons.lang3.RandomUtils;
+
+global Integer secretNumber;
+global Integer secretNumber1;
+global Integer secretNumber2;
+
+rule "debug intro"
+	when
+		eval( true );
+	then
+		System.out.println("\t[debug intro]");
+end
+
+rule "is correct"
+	when
+		$i : NumberGuessBean ( currentGuess == secretNumber );
+	then
+		System.out.println("\t[is correct]");
+		$i.markAsCorrect();
+end
+
+rule "is too high"
+	when
+		$i : NumberGuessBean ( currentGuess > secretNumber );
+	then
+		System.out.println("\t[is too high]");
+		System.out.println("\t[" + $i.getCurrentGuess() + " " + secretNumber + "]");
+		$i.markAsTooHigh();
+end
+
+rule "is too low"
+	when
+		$i : NumberGuessBean ( currentGuess < secretNumber );
+	then
+		System.out.println("\t[is too low]");
+		System.out.println("\t[" + $i.getCurrentGuess() + " " + secretNumber + "]");
+		$i.markAsTooLow();
+end
+
+rule "consume guess"
+	when
+		$i : NumberGuessBean ( true )
+	then
+		System.out.println("\t[consume guess]");
+		$i.incGuessCount();
+		System.out.println("\t[guess count is now" + $i.getGuessCount() + "]");
+end
+
+rule "has more guesses"
+	when
+		$i : NumberGuessBean ( guessCount <= NumberGuessBean.MAXIMUM_GUESSES )
+	then
+		System.out.println("\t[has more guesses (guessCount==" + $i.getGuessCount() + ")]");
+		$i.setMoreGuesses( true );
+end
+
+rule "no more guesses"
+	when
+		$i : NumberGuessBean ( guessCount > NumberGuessBean.MAXIMUM_GUESSES )
+	then
+		System.out.println("\t[no more guesses]");
+		$i.setMoreGuesses( false );
+end
+
+rule "debug outro"
+	when
+		eval( true );
+	then
+		System.out.println("\t[debug outro]");
+end

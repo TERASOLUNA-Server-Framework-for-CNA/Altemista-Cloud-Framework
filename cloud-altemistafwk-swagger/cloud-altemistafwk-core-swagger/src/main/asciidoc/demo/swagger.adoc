@@ -1,0 +1,16 @@
+
+:fragment:
+
+For Swagger to work on our computer,it is not necessary to install any component.
+
+There are two ways for developing using Swagger:
+
+=== Swagger Top-down approach Example 
+
+
+On the one hand in this https://terasoluna.everis.com/dev/TSFplus%20Reference%20Documentation.html#_top_down_approach[example^] you can see how it can implement a Swagger with Top-down approach.
+
+
+=== Swagger Bottom-up approach Example
+
+On the other hand in this https://terasoluna.everis.com/dev/TSFplus%20Reference%20Documentation.html#_bottom_up_approach[example^] you can see how it can implement a Swagger with Top-down approach.

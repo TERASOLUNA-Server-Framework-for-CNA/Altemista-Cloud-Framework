@@ -1,0 +1,12 @@
+
+:fragment:
+
+The _JWT over OAuth 2.0 Authorization Server_ feature includes the following configuration:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/app/cloud-altemistafwk-app-oauth2-authzsrv.xml
+----
+include::{basedir}/cloud-altemistafwk-app-jwt-authzsrv-conf/src/main/resources/cloud/altemista/fwk/config/app/cloud-altemistafwk-app-jwt-authzsrv.xml[tags=internals]
+----
+
+Those are the beans needed by the jwt configuration, and the bean _oauth2AuthorizationServerTokenServices_ must use those beans.

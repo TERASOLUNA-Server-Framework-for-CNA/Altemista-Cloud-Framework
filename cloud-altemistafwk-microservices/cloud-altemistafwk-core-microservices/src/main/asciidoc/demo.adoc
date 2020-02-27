@@ -1,0 +1,47 @@
+
+:fragment:
+
+*ALTEMISTA Cloud Framework* ({framework}) provides the features to build a microservice application.
+
+On this tutorial we will make a back end for a movie catalog with users recommendations developed with {framework} version from *1.2.0.RELEASE*.
+
+.Demo architecture overview
+image::cloud-altemistafwk-documentation/microservices/demo/overview.png[align="center"]
+
+NOTE: The UI was developed by an external team
+
+The users will make use of the UI which uses the REST api exposed by the services through the gateway. That UI application only need to known the public URL of the Gateway.
+
+Our infrastructure services (in blue on the diagram) are:
+
+.Infrastructure services
+[options="header"]
+|===
+^.^|Server        |Port |URL
+^.^|Gateway       |8765 |http://localhost:8765
+^.^|Config Server |8888 |http://localhost:8888
+^.^|Registry      |8761 |http://localhost:8761
+|===
+
+NOTE: At the end of this document you will be able to download the example code. <<demo-resources>>
+
+== Infrastructure
+
+include::{basedir}/cloud-altemistafwk-core-microservices/demo/infrastructure.adoc[]
+
+== Backend
+
+include::{basedir}/cloud-altemistafwk-core-microservices/demo/backend.adoc[]
+
+== Query Health: Communication between microservices example
+
+include::{basedir}/cloud-altemistafwk-core-microservices/demo/queryhealth.adoc[]
+
+== Frontend: User Interface
+
+include::{basedir}/cloud-altemistafwk-core-microservices/demo/frontend.adoc[]
+
+[[demo-resources]]
+== Demo resources
+
+include::{basedir}/cloud-altemistafwk-core-microservices/demo/resources.adoc[]

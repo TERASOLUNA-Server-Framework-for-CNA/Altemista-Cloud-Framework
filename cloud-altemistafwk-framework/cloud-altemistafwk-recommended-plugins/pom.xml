@@ -1,0 +1,214 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>cloud.altemista.fwk.framework</groupId>
+	<artifactId>cloud-altemistafwk-recommended-plugins</artifactId>
+	<version>3.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>cloud-altemistafwk recommended maven plugin versions</name>
+	<description>Recommended maven plugin versions for building both ACF framework and ACF projects.</description>
+
+	<organization>
+		<name>NTT DATA Corporation</name>
+		<url>http://terasoluna.org</url>
+	</organization>
+	<inceptionYear>2017</inceptionYear>
+
+	<properties>
+		<!-- == Suggested Java source and target versions (overwriteable by applications) == -->
+		<java.source.version>1.7</java.source.version>
+		<java.target.version>1.7</java.target.version>
+		
+		<!-- == Suggedted build and report encodings (overwriteable by applications) == -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		
+		<!-- == Recommended build and reporting plugin versions == -->
+		<!-- Core plugins -->
+		<maven-clean-plugin.version>3.0.0</maven-clean-plugin.version>
+		<maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
+		<maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+		<maven-failsafe-plugin.version>2.20</maven-failsafe-plugin.version>
+		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>
+		<maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
+		<maven-site-plugin.version>3.6</maven-site-plugin.version>
+		<maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
+		<maven-verifier-plugin.version>1.1</maven-verifier-plugin.version>
+		<!-- Packaging types/tools -->
+		<maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
+		<maven-war-plugin.version>3.0.0</maven-war-plugin.version>
+		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+		<!-- Reporting plugins -->
+		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
+		<!-- Tools -->
+		<maven-ant-plugin.version>2.4</maven-ant-plugin.version>
+		<maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
+		<maven-archetype-plugin.version>3.0.1</maven-archetype-plugin.version>
+		<maven-assembly-plugin.version>3.0.0</maven-assembly-plugin.version>
+		<maven-dependency-plugin.version>3.0.0</maven-dependency-plugin.version>
+		<maven-enforcer-plugin.version>1.4.1</maven-enforcer-plugin.version>
+		
+		<!-- == Recommended misc plugin versions == -->
+		<build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
+		
+		<!-- == Recommended build extension versions == -->
+		<archetype-packaging.version>3.0.1</archetype-packaging.version>
+		
+		<!-- == Recommended code generator plugin versions == -->
+		<apt-maven-plugin.version>1.1.3</apt-maven-plugin.version>
+		<mybatis-generator-maven-plugin.version>1.3.5</mybatis-generator-maven-plugin.version>
+		
+		<!-- == Recommended Spring Boot Maven plugin version (matching the Spring Boot dependency version) == -->
+		<spring-boot-maven-plugin.version>1.4.3.RELEASE</spring-boot-maven-plugin.version>
+	</properties>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+			
+				<!-- == Begin build and reporting plugins == -->
+				<!-- Core plugins: -->
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>${maven-clean-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<source>${java.source.version}</source>
+						<target>${java.target.version}</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>${maven-deploy-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>${maven-failsafe-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>${maven-install-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven-resources-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>${maven-site-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-verifier-plugin</artifactId>
+					<version>${maven-verifier-plugin.version}</version>
+				</plugin>
+				<!-- Packaging types/tools: -->
+				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven-jar-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${maven-war-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven-source-plugin.version}</version>
+				</plugin>
+				<!-- Reporting plugins: -->
+				<plugin>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven-javadoc-plugin.version}</version>
+				</plugin>
+				<!-- Tools: -->
+				<plugin>
+					<artifactId>maven-ant-plugin</artifactId>
+					<version>${maven-ant-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>${maven-antrun-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-archetype-plugin</artifactId>
+					<version>${maven-archetype-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>${maven-assembly-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>${maven-dependency-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>${maven-enforcer-plugin.version}</version>
+				</plugin>
+				<!-- == End build and reporting plugins == -->
+				
+				<!-- == Begin misc plugins == -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>${build-helper-maven-plugin.version}</version>
+				</plugin>
+				<!-- == End misc plugins == -->
+				
+				<!-- == Begin code generator plugins == -->
+				<!-- QueryDSL code generation -->
+				<plugin>
+					<groupId>com.mysema.maven</groupId>
+					<artifactId>apt-maven-plugin</artifactId>
+					<version>${apt-maven-plugin.version}</version>
+				</plugin>
+				<!-- Begin MyBatis code generation -->
+				<plugin>
+					<groupId>org.mybatis.generator</groupId>
+					<artifactId>mybatis-generator-maven-plugin</artifactId>
+					<version>${mybatis-generator-maven-plugin.version}</version>
+				</plugin>
+				<!-- == End code generator plugins == -->
+				
+				<!-- == Begin Spring Boot Maven plugin == -->
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${spring-boot-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>boot-repackage</id>
+							<goals>
+								<goal>repackage</goal>
+							</goals>
+							<phase>package</phase>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- == End Spring Boot Maven plugin == -->
+			
+			</plugins>
+		</pluginManagement>
+		
+		<extensions>
+		
+			<!-- == Begin recommended build extensions == -->
+			<extension>
+				<groupId>org.apache.maven.archetype</groupId>
+				<artifactId>archetype-packaging</artifactId>
+				<version>${archetype-packaging.version}</version>
+			</extension>
+			<!-- == End recommended build extensions == -->
+			
+		</extensions>
+	</build>
+	
+</project>

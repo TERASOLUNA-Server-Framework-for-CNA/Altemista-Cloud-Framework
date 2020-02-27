@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>cloud.altemista.fwk.build</groupId>
+		<artifactId>cloud-altemistafwk-build</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	
+	<artifactId>cloud-altemistafwk-jwt</artifactId>
+	<packaging>pom</packaging>
+
+	<name>cloud-altemistafwk * security: JWT over OAuth 2.0 build script</name>
+	<description>Convenience pom.xml for building the ACF security: JWT OAuth 2.0</description>
+	
+	<profiles>
+	
+		<!-- == Builds ACF framework == -->
+		<profile>
+			<id>framework</id>
+			<modules>
+				<module>cloud-altemistafwk-core-jwt-conf</module>
+				<module>cloud-altemistafwk-app-jwt-ressrv-conf</module>
+				<module>cloud-altemistafwk-app-jwt-ressrv-archetype</module>
+				<module>cloud-altemistafwk-app-jwt-authzsrv-conf</module>
+				<module>cloud-altemistafwk-app-jwt-authzsrv-archetype</module>
+			</modules>
+		</profile>
+		
+		<!-- == Builds and run ACF integration tests == -->
+		<profile>
+			<id>run-it</id>
+			<modules>
+ 				<module>cloud-altemistafwk-app-jwt-ressrv-it</module>
+ 				<module>cloud-altemistafwk-app-jwt-authzsrv-it</module>
+			</modules>
+		</profile>
+		
+	</profiles> 
+
+</project>

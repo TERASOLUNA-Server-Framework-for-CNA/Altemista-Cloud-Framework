@@ -1,0 +1,20 @@
+
+:fragment:
+
+To manually install the _SOAP web service publisher (SOAP server)_ feature in a Maven project, add the following dependencies to the `pom.xml` file:
+
+[source,xml]
+.pom.xml
+----
+<dependency>
+  <groupId>cloud.altemista.fwk.soap</groupId>
+  <artifactId>cloud-altemistafwk-web-soap</artifactId> <!--1-->
+</dependency>
+<dependency>
+  <groupId>cloud.altemista.fwk.soap</groupId>
+  <artifactId>cloud-altemistafwk-web-soap-conf</artifactId> <!--2-->
+  <scope>runtime</scope>
+</dependency>
+----
+<1> Feature classes.
+<2> SOAP web service publisher (SOAP server) feature auto-discoverable configuration.

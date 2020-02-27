@@ -1,0 +1,6 @@
+
+:fragment:
+
+{framework} provides `cloud.altemista.fwk.config.boot.CloudAltemistafwkApplicationBuilder` as a convenient way to bootstrap and launch a Spring Boot-based {framework} application.
+
+In addition to the usual packages scanned by the framework, a Spring Boot-based {framework} application will scan the `boot` subpackage of the application base package for `@Configuration` annotated classes. Place your configuration classes in that package.

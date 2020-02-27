@@ -1,0 +1,112 @@
+
+:fragment:
+
+Feign is a declarative web service client. It makes writing web service clients easier. 
+
+To use Feign create a _{framework} Microservice client interface business module_ interface and annotate it. It has pluggable annotation support including Feign annotations and JAX-RS annotations. Feign also supports pluggable encoders and decoders. Spring Cloud adds support for Spring MVC annotations and for using the same HttpMessageConverters used by default in Spring Web. Spring Cloud integrates Ribbon and Eureka to provide a load balanced http client when using Feign.
+
+*Client interface*
+
+[[microservice-example-interface]]
+[source,java]
+.com/mycompany/microserviceone/microservice/service/MicroserviceExample.java
+----
+package com.mycompany.microserviceone.microservice.service;
+
+import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.mycompany.microserviceone.microservice.request.MicroserviceExampleRequest;
+import com.mycompany.microserviceone.microservice.response.MicroserviceExampleResponse;
+
+@FeignClient("microserviceone") // <1>
+public interface MicroserviceExample {
+
+	@RequestMapping(value = "/exampleMethod", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	public MicroserviceExampleResponse exampleMethod(@RequestBody MicroserviceExampleRequest request);
+
+}
+----
+<1> The @FeignClient annotation to enable the interface like a web service client.
+
+*Request*
+
+[source,java]
+.com/mycompany/microserviceone/microservice/request/MicroserviceExampleRequest.java
+----
+package com.mycompany.microserviceone.microservice.request;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class MicroserviceExampleRequest {
+
+	private String param;
+	
+	public MicroserviceExampleRequest() {
+		
+	}
+	
+	@JsonCreator
+	public MicroserviceExampleRequest(
+			@JsonProperty("param") String param) {
+		this.param = param;
+	}
+	
+	public String getParam() {
+		return param;
+	}
+	
+	public void setParam(String param) {
+		this.param = param;
+	}
+	
+	@Override
+	public String toString() {
+		return "ExampleProviderRequest [param=" + param + "]";
+	}
+	
+}
+----
+
+*Response*
+
+[source,java]
+.com/mycompany/microserviceone/microservice/response/MicroserviceExampleResponse.java
+----
+package com.mycompany.microserviceone.microservice.response;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class MicroserviceExampleResponse {
+
+	private String result;
+	
+	public MicroserviceExampleResponse() {
+		
+	}
+
+	@JsonCreator
+	public MicroserviceExampleResponse(
+			@JsonProperty("result") String result) {
+		this.result = result;
+	}
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
+	
+	@Override
+	public String toString() {
+		return "ExampleProviderResponse [result=" + result + "]";
+	}
+	
+}
+----

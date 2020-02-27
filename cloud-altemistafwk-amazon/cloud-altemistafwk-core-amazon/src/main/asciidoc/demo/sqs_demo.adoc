@@ -1,0 +1,156 @@
+
+:fragment:
+
+For this demo, we will have to configure our SQS Amazon component. You can see documentation in this https://docs.aws.amazon.com/sqs/index.html?id=docs_gateway#lang/en_us[link^].
+
+
+=== Configuration
+
+We need to create our queue in the amazon console. If we go to our AWS console, in our SQS console:
+
+image::cloud-altemistafwk-documentation/amazon/create_queue.png[align="center"]
+
+Now we can use it in our application.
+
+Finally, if you want to retrieve your aws credentials, please go to this https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_passwords_admin-change-user.html[site^]
+
+=== SQS Implementation Example
+
+Once you have added the feature in the core module, let´s start to modify our code.
+
+To complete this example add the controller.
+[source,java,options="nowrap"]
+./my-application-sqs-boot/src/main/java/.com.mycompany.application.module.controller.HomeController
+----
+package com.mycompany.application.module.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.mycompany.application.module.amazon.SqsQueueReciever;
+import com.mycompany.application.module.amazon.SqsQueueSender;
+
+
+@RestController
+public class HomeController {
+	
+	@Autowired
+	SqsQueueSender mailSender;
+	
+	@Autowired
+	SqsQueueReciever mailReciever;
+
+	@RequestMapping(value = "/send", method = RequestMethod.GET)
+	public String send(@RequestParam String message) {
+		mailSender.send(message);
+		
+		return "message sent !";
+	}
+	@RequestMapping(value = "/recieve", method = RequestMethod.GET)
+	public String recieve() {
+		String message = mailReciever.recieve();
+		
+		return "message recieve : " + message;
+	}
+}
+----
+
+Now it is time to create the reader and the reciever
+[source,java,options="nowrap"]
+./my-application-sqs-module-core/src/main/java/com.mycompany.application.module.amazon.SqsQueueSender
+----
+package com.mycompany.application.module.amazon;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
+import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.stereotype.Service;
+
+import com.amazonaws.services.sqs.AmazonSQSAsync;
+
+@Service
+public class SqsQueueSender {
+
+	private final QueueMessagingTemplate queueMessagingTemplate;
+
+	@Autowired
+	public SqsQueueSender(AmazonSQSAsync amazonSqs) {
+		this.queueMessagingTemplate = new QueueMessagingTemplate(amazonSqs);
+	}
+
+	public void send(String message) {
+		this.queueMessagingTemplate.send("queue-test", MessageBuilder.withPayload(message).build());
+	}
+}
+----
+
+[source,java,options="nowrap"]
+./my-application-sqs-module-core/src/main/java/com.mycompany.application.module.amazon.SqsQueueReciever
+----
+package com.mycompany.application.module.amazon;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
+import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.stereotype.Service;
+
+import com.amazonaws.services.sqs.AmazonSQSAsync;
+
+@Service
+public class SqsQueueReciever {
+
+	private final QueueMessagingTemplate queueMessagingTemplate;
+
+	@Autowired
+	public SqsQueueReciever(AmazonSQSAsync amazonSqs) {
+		this.queueMessagingTemplate = new QueueMessagingTemplate(amazonSqs);
+	}
+
+	public String recieve() {
+		return this.queueMessagingTemplate.receiveAndConvert("queue-test", String.class);
+	}
+}
+----
+
+And finally, the configuration needed to use AWS
+
+[source,xml,options="nowrap"]
+./my-application-sqs-module-core/src/main/resources/spring/new-application-sqs-module-core-amazon-sqs.xml
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aws-context="http://www.springframework.org/schema/cloud/aws/context"
+	xmlns:jdbc="http://www.springframework.org/schema/cloud/aws/jdbc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+				http://www.springframework.org/schema/cloud/aws/context
+		http://www.springframework.org/schema/cloud/aws/context/spring-cloud-aws-context-1.0.xsd
+		http://www.springframework.org/schema/cloud/aws/messaging
+	   	http://www.springframework.org/schema/cloud/aws/messaging/spring-cloud-aws-messaging-1.0.xsd">
+
+		<context:component-scan base-package="com.mycompany.application.module.amazon" />
+	
+		<aws-context:context-credentials>
+		<aws-context:simple-credentials
+			access-key="#{systemEnvironment['AWS_ACCESS_KEY_ID'] }" secret-key="#{systemEnvironment['AWS_SECRET_ACCESS_KEY'] }" />	<!--1-->
+	</aws-context:context-credentials>
+
+	<aws-context:context-region region="#{systemEnvironment['AWS_DEFAULT_REGION'] }" /> 	<!--2-->
+
+	 <aws-messaging:queue-messaging-template
+		id="queue-test" />
+
+</beans>
+----
+
+<1> Your AWS credentials.
+<2> Your AWS region.
+
+
+

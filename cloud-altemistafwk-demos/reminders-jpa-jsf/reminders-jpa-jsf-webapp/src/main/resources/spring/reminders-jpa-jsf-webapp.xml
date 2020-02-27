@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- Scans for application-wide Spring beans declared via annotations, such as application-wide @Controllers -->
+	<context:component-scan base-package="cloud.altemista.fwk.remindersjsf.webapp" />
+	
+	<!-- Maps the root path of the DispatcherServlet (/) to the welcome page of the web application -->
+	<mvc:redirect-view-controller path="/" redirect-url="/reminders/index.jsf" />
+	
+</beans>

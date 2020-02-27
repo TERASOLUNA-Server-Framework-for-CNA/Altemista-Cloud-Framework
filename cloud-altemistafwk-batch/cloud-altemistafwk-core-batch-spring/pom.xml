@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.framework</groupId>
+		<artifactId>cloud-altemistafwk-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	<groupId>cloud.altemista.fwk.batch</groupId>
+	<artifactId>cloud-altemistafwk-core-batch-spring</artifactId>
+	<name>cloud-altemistafwk batch: Spring Batch implementation</name>
+
+	<dependencies>
+
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.batch</groupId>
+			<artifactId>cloud-altemistafwk-core-batch</artifactId>
+		</dependency>
+		<!-- == End ACF framework == -->
+
+		<!-- == Begin Spring Framework == -->
+		<dependency>
+			<groupId>org.springframework.batch</groupId>
+			<artifactId>spring-batch-core</artifactId>
+		</dependency>
+		<!-- == End Spring Framework == -->
+		
+	</dependencies>
+
+</project>

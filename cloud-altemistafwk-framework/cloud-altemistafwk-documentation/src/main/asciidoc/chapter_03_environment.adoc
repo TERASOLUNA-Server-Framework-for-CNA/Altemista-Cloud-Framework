@@ -1,0 +1,457 @@
+
+:fragment:
+
+////
+	Note: this fragment uses the _ifndef_ conditional preprocessor directive
+	to exclude advanced topics if _getting-started_ is defined
+////
+
+{framework} provides its own Integrated Development Environment (IDE) based on https://spring.io/tools[Spring Tool Suite].
+
+.{framework} IDE screenshot
+image::cloud-altemistafwk-documentation/introduction/environment.png[align="center"]
+
+== {framework} IDE installer
+
+{framework} also provides an IDE installer with a coherent, tested, and preconfigured out-of-the-box set of tools. The application development team can focus on the application from the day one, without further set up, by using this installer.
+
+IMPORTANT: The Java SE Development Kit (JDK) is not included in the installer. An existing installation of JDK 7 or newer is required.
+During the IDE installation process if JDK is not detected, please check *http://nsis.sourceforge.net/Simple_installer_with_JRE_check[Simple installer with JRE check]* and *http://nsis.sourceforge.net/Detecting_the_JDK_version[Detecting the JDK version]* .
+
+Namely, the tools included in the installer are:
+
+* *https://spring.io/tools[Spring Tool Suite]* (STS) version 3.8.x.RELEASE based on Eclipse 4.6.x (Eclipse Neon), with:
+
+** *{framework} plug-in* version {project-version}.
+
+** Embedded Apache Maven preconfigured.
+
+** Empty preconfigured workspace (and back-up).
+
+* Off-line *{framework} documentation*.
+
+* *https://maven.apache.org/[Apache Maven]* version 3.3.x.
+
+* *http://tomcat.apache.org/[Apache Tomcat]* version 8.0.x.
+
+////
+* *Java SE Development Kit* (JDK), version 7 and 8, with:
+** Java Cryptography Extension (JCE) Unlimited Strength.
+////
+
+.{framework} IDE installer screenshot
+image::cloud-altemistafwk-documentation/environment/installer.png[align="center"]
+
+
+ifndef::getting-started[]
+== Stand-alone {framework} plug-in installation
+
+The {framework} plug-in can also be manually installed in an existing Spring Tool Suite (3.8.x) or Eclipse Neon (4.6.x) installation: go to menu:Window[Preferences > Install/Update > Available Software Sites] and verify "{framework} plug-in update site" appears in the list.
+
+If it doesn't, add a new site:
+
+* _Name_: `{framework} plug-in update site`
+
+* _Location_: `{updatesite}`
+
+Once the update site is available, go to menu:Help[Install New Software...] and select the "{framework} plug-in update site". Check "ACF plug-in" and proceed with the installation.
+
+.{framework} plug-in installation process screenshot
+image::cloud-altemistafwk-documentation/environment/standalone-plugin.png[align="center"]
+
+Once the installation is completed, the {framework} plug-in will be available in you STS / Eclipse installation.
+endif::getting-started[]
+
+== {framework} plug-in usage
+
+The {framework} plug-in is a productivity tool that can be used to create, evolve and maintain {framework} applications with little effort, guiding the developer and enforcing recommended practices.
+
+[[environment-plugin-newapplication]]
+=== _New {framework} application_ wizard
+
+The _New {framework} application_ wizard is available at the menu:File[New > Other...] menu or with the keyboard shorcut kbd:[Ctrl+N].
+
+In the _New_ dialog, look for the _New {framework} application_ under the _{framework}_ section:
+
+._New {framework} application_ wizard
+image::cloud-altemistafwk-documentation/environment/plugin_1_new_application_0.png[align="center"]
+
+In the first page of the _New {framework} application_ wizard, type the name of the application, choose the {framework} version, type a short ID, the location of the new project and the Maven attributes for the <<applications-toplevel,top-level project>>.
+
+The _groupId_ and the short ID will be used as the base package of the application and the application name will be used as the _artifactId_ for the top-level POM.
+
+._New {framework} application_ wizard: main attributes
+image::cloud-altemistafwk-documentation/environment/plugin_1_new_application_1.png[align="center"]
+
+In the second page of the wizard, choose the <<applications-application-types,aggregator project type>>. The rest of the page is read-only, and reflects the Maven attributes and the base package of the aggregator project of the new application.
+
+._New {framework} application_ wizard: aggregator project type
+image::cloud-altemistafwk-documentation/environment/plugin_1_new_application_2.png[align="center"]
+
+NOTE: The available aggregator project types will depend on the {framework} version choosen in the previous page.
+
+The third (and last) page of the wizard allows the creation of an initial business module directly. Leave this unchecked to skip this step, or read the <<environment-plugin-newbusinessmodule>> section for further information.
+
+._New {framework} application_ wizard: initial business module
+image::cloud-altemistafwk-documentation/environment/plugin_1_new_application_3.png[align="center"]
+
+After the wizard has finished, the recently created application will appear in the workspace. This application is already deployable; simply right click on the web application module and go to menu:Run As[Run on Server]:
+
+.New {framework} application deployed in Apache Tomcat 8.0
+image::cloud-altemistafwk-documentation/environment/plugin_1_new_application_ok.png[align="center"]
+
+[[environment-plugin-newbusinessmodule]]
+=== _New business module_ wizard
+
+To create a new business module, right click on the application project (the top-level project) and go to menu:{framework}[New business module...].
+
+Type the business module name and choose the <<applications-business-module-types,business module type>>. The rest of the page is read-only, and reflects the Maven attributes and the base package of the module projects that will compose the new business module.
+
+._New business module_ wizard
+image::cloud-altemistafwk-documentation/environment/plugin_2_new_business_module.png[align="center"]
+
+NOTE: The available business module types will depend on the {framework} version of the application.
+
+The module projects will be automatically added as modules in the top-level POM. The dependencies within the business module projects will also be generated by the plug-in (these dependencies are defined by the business module type). Dependencies to other business modules must be included manually.
+
+NOTE: If you checked the _initial business module_ checkbox in the <<environment-plugin-newapplication>>, the values are the same as in this wizard.
+
+[[environment-plugin-addfeature]]
+=== _Add feature_ wizard
+
+To install <<applications-features,{framework} features>> to module projects, right click on the module project and go to menu:{framework}[Add feature...].
+
+The first page of this wizard contains a read-only section with the name of the business module, the detected nature of the module project and the {framework} version of the application.
+
+The set of available features will depend on the last two values (nature and version) and the features already installed in the module.
+
+._Add feature_ wizard: features to add
+image::cloud-altemistafwk-documentation/environment/plugin_3_add_feature_1.png[align="center"]
+
+The already installed features will be listed checked and disabled (e.g.: in the figure, cache). The features that are not compatible with some of the already installed features will be listed unchecked and disabled (e.g.: in the figure, MongoDB).
+
+Choose the features to add and click _Next_. There will be one page for each checked features to choose the provider for the feature implementation. Depending on the specific feature, this page can have one of the following formats:
+
+Self-implemented feature::
+
+If the feature is self-implemented, the provider page is read-only.
+
+._Add feature_ wizard: self-implemented feature
+image::cloud-altemistafwk-documentation/environment/plugin_3_add_feature_2_selfImplemented.png[align="center"]
+
+Feature with providers::
+
+If the feature has an interface/implementation structure, you will be prompted to choose the provider for the feature implementation (this page will be shown even if there is only one provider available).
+
+._Add feature_ wizard: choose the provider for the feature implementation
+image::cloud-altemistafwk-documentation/environment/plugin_3_add_feature_2_chooseProvider.png[align="center"]
+
+When another business module already has the same feature, all the business modules share the same implementation provider and configuration. This provider and configuration will be defined in the shared environment project. The plug-in will inform of this situation and show the current provider in a read-only manner.
+
+._Add feature_ wizard: provider already choosen
+image::cloud-altemistafwk-documentation/environment/plugin_3_add_feature_2_alreadyProvided.png[align="center"]
+
+Feature with providers and configuration::
+
+If the feature requires additional configuration to be installed, the plug-in will prompt for the required values:
+
+._Add feature_ wizard: configuration for the feature implementation
+image::cloud-altemistafwk-documentation/environment/plugin_3_add_feature_2_withProperties.png[align="center"]
+
+
+[[environment-plugin-cli]]
+== ACF CLI
+
+Since 2.0.0.RELEASE, we have developped a CLI where we have implemented the same funcionaly we provided by the plugin but in command line.
+You will need to have install :
+
+* https://www.npmjs.com/get-npm[NPM] 
+* https://www.java.com/en/download/java-install[Java]
+
+=== Usage CLI: Installation
+Using npm
+```shell
+$ npm i -g adf-cli
+```
+
+===  Usage CLI: Quick Start
+
+You can easily start to use ADF CLI by typing something like this:
+
+[source,sh,subs="verbatim,attributes"]
+----
+$ adf
+----
+
+It will appear a menu with some actions in order to start to scaffold your project. If you keep reading you will learn about the different choices.
+
+
+=== Usage CLI: New Project
+
+From ADF CLI we let you create the followings type of projects:
+
+* **Spring Boot**
+* **Web Application**
+* **Microservice infrastructure**
+* **Microservice application**
+
+Run the following command for creating a spring boot project:
+[source,sh,subs="verbatim,attributes"]
+----
+$ adf boot
+----
+
+Run the following command for creating a web application project:
+[source,sh,subs="verbatim,attributes"]
+----
+$ adf web
+----
+
+Run the following command for creating a microservice infrastructure project:
+[source,sh,subs="verbatim,attributes"]
+----
+$ adf micros-infrastructure
+----
+
+Run the following command for creating a microservice application project:
+[source,sh,subs="verbatim,attributes"]
+----
+$ adf micros-application
+----
+
+The CLI application will ask the following questions:
+
+* **Project Name**( by default : new-application) - The name of the application.
+* **Group Id**( by default : com.mycompany) - This will be used as the base package of the application.
+* **Terasoluna Version** - The version of ACF you want to use.
+* **Version** ( by default : 1.0.0-SNAPSHOT) - Version of your project.
+* **App. shorth ID**( by default : application) - The application name will be used as the artifactId for the top-level POM.
+
+=== Usage CLI: New Module
+
+From ADF CLI we let you create the followings type of modules:
+
+* ** Web nature**: The web nature denotes a web boundary defined as MVC controllers, REST API, web services, etc
+* **Common nature**: The common nature serves for the purpose of creating lightweight business module interfaces. This interfaces can be shared between business modules, projects or even to 3rd parties. This nature can also be used to create utility projects.
+* **Core nature**:  A core project will have, out-of-the-box, an already set up extensible Spring context over the principle of convention over configuration. A core project can start using some usual features, such as logging or environment-aware property management, out-of-the-box. In essence, a core project only has to care about adding its own beans.
+
+Run the following command for creating a new module:
+[source,sh,subs="verbatim,attributes"]
+----
+$ adf module
+----
+
+Run the following command for creating a web module:
+[source,sh,subs="verbatim,attributes"]
+----
+$ adf web-module
+----
+
+Run the following command for creating a common module:
+[source,sh,subs="verbatim,attributes"]
+----
+$ adf common-module
+----
+
+Run the following command for creating a core module:
+[source,sh,subs="verbatim,attributes"]
+----
+$ adf core-module
+----
+
+Run the following command for creating a microservice application project:
+[source,sh,subs="verbatim,attributes"]
+----
+$ adf micros-application
+----
+
+At the end in each command ,the CLI application will ask you the name of the module.
+
+=== Usage CLI: Add Feature
+
+if you want to check the features included in each versions you can go:
+
+* https://terasoluna.everis.com/dev/TSFplus%20Reference%20Documentation.html#_3rd_party_frameworks_and_libraries[2.0.0.RELEASE]
+* https://terasoluna.everis.com/docs/1.5.0.RELEASE/TSFplus%20Reference%20Documentation.html#_3rd_party_frameworks_and_libraries[1.5.0.RELEASE]
+* https://terasoluna.everis.com/docs/1.4.0.RELEASE/TSFplus%20Reference%20Documentation.html#_3rd_party_frameworks_and_libraries[1.4.0.RELEASE]
+* https://terasoluna.everis.com/docs/1.3.0.RELEASE/TSFplus%20Reference%20Documentation.html#_3rd_party_frameworks_and_libraries[1.3.0.RELEASE]
+* https://terasoluna.everis.com/docs/1.2.0.RELEASE/TSFplus%20Reference%20Documentation.html#_3rd_party_frameworks_and_libraries[1.2.0.RELEASE]
+* https://terasoluna.everis.com/docs/1.1.0.RELEASE/TSFplus%20Reference%20Documentation.html#_3rd_party_frameworks_and_libraries[1.1.0.RELEASE]
+* https://terasoluna.everis.com/docs/1.0.0.RELEASE/TSFplus%20Reference%20Documentation.html#_3rd_party_frameworks_and_libraries[1.0.0.RELEASE]
+
+
+ifndef::getting-started[]
+== Maven usage
+
+The plug-in relies mainly on Maven archetypes to create {framework} applications, modules and features, but also performs additional validations and modifications that are outside the scope of Maven archetypes (e.g.: dependencies between business module projects).
+
+If using the plug-in is not an option (because it is not available or any other reason), the Maven archetypes can be manually used.
+
+[[environment-maven-toplevel]]
+=== Top-level POM
+
+This section describes the Maven-related details of the top-level POM introduced in the <<applications-toplevel,top-level project>> section.
+
+The top-level POM of a proper {framework} application must declare the _appShortId_ property and have a managed dependency to the {framework} BOM. Additionally, it is recommended to inherit from `cloud.altemista.fwk.framework:cloud-altemistafwk-recommended-plugins:{project-version}`.
+
+[source,xml,subs="verbatim,attributes"]
+./pom.xml
+----
+<parent>
+  <groupId>cloud.altemista.fwk.framework</groupId>
+  <artifactId>cloud-altemistafwk-recommended-plugins</artifactId>
+  <version>{project-version}</version>
+  <relativePath />
+</parent>
+
+<properties>
+  <appShortId>application</appShortId>
+</properties>
+
+<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>cloud.altemista.fwk.framework</groupId>
+      <artifactId>cloud-altemistafwk-bom</artifactId>
+      <version>{project-version}</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+----
+
+The {framework} version of the application is determined by this {framework} bill of materials dependency.
+
+Both the _appShortId_ and the {framework} version are required by the plug-in and internally used. If either is missing, the plug-in will probably fail to recognise the application as a {framework} application.
+
+TIP: Even if your Maven project is not a {framework} application, you can still use {framework} recommended plugins and/or bill of materials to delegate the version management. +
+If no actual {framework} dependencies are going to be used, consider using the third-party bill of materials only: `cloud.altemista.fwk.framework:cloud-altemistafwk-bom-3rdparty:{project-version}`.
+
+=== Archetypes for new applications
+
+The new application archetypes are used to create new applications that follow the <<applications-logical-structure,logical structure>> recommended by {framework}.
+
+Namely, there is one new application archetype for each <<applications-application-types,application type>>. This archetype will create the top-level project, the aggregator project and, optionally, the shared environment project.
+
+Besides the usual archetype properties (groupId, artifactId and version for both the archetype and the project), the new application archetypes of {framework} require some additional properties:
+
+* _terasolunaPlusVersion_: the version of {framework} the new application will use. It is possible for the {framework} version to be greater than the version of the archetype if the framework evolution did not required changes in the archetypes.
+
+* _appShortId_: the short ID of the application, used together with the _groupId_ to create the base package of the entire application.
+
+Example usage:
+[source,sh,subs="verbatim,attributes"]
+----
+mvn archetype:generate
+	-DarchetypeGroupId=cloud.altemista.fwk.archetype
+	-DarchetypeArtifactId=cloud-altemistafwk-webapp-archetype
+	-DarchetypeVersion={project-version}
+	-DterasolunaPlusVersion={project-version}
+	-DgroupId=com.mycompany
+	-DartifactId=new-application
+	-Dversion=1.0.0-SNAPSHOT
+	-DappShortId=application
+----
+
+The Maven coordinates of the available new application archetypes are: 
+
+* Web application: `cloud.altemista.fwk.archetype:cloud-altemistafwk-webapp-archetype:{project-version}`
+
+* Spring Boot application: `cloud.altemista.fwk.archetype:cloud-altemistafwk-boot-archetype:{project-version}`
+
+* Empty application: `cloud.altemista.fwk.archetype:cloud-altemistafwk-empty-archetype:{project-version}`
+
+Please refer to the <<applications-application-types,application types>> section for a brief description of each application type.
+
+=== Archetypes for new module projects
+
+New module projects can be created inside a {framework} application.
+
+The module projects should be created one by one; there are no archetypes for complete business modules. Also, dependencies from and to the new module project (e.g.: in the aggregator project) will not be added automatically.
+
+IMPORTANT: These archetypes should used inside an existing {framework} application.
+
+Besides the usual archetype properties (groupId, artifactId and version for both the archetype and the project), the new module project archetypes of {framework} require some additional properties:
+
+* _terasolunaPlusVersion_: the version of {framework}.
+
+* _applicationName_: the name of the application (i.e.: the artifact ID of the top-level POM).
+
+* _appShortId_: the short ID of the application.
+
+* _businessDhortId_: the short ID of the business module, used together with _groupId_ and _appShortId_ to create the base package of the business module.
+
+Example usage:
+[source,sh,subs="verbatim,attributes"]
+----
+cd new-application
+
+mvn archetype:generate
+	-DarchetypeGroupId=cloud.altemista.fwk.archetype
+	-DarchetypeArtifactId=cloud-altemistafwk-common-archetype
+	-DarchetypeVersion={project-version}
+	-DterasolunaPlusVersion={project-version}
+	-DgroupId=com.mycompany
+	-DartifactId=new-application-module-common
+	-Dversion=1.0.0-SNAPSHOT
+	-DapplicationName=new-application
+	-DappShortId=application
+	-DbusinessShortId=module
+----
+
+The Maven coordinates of the available new module project archetypes are: 
+
+* Web project: `cloud.altemista.fwk.archetype:cloud-altemistafwk-web-archetype:{project-version}`
+
+* Common project: `cloud.altemista.fwk.archetype:cloud-altemistafwk-common-archetype:{project-version}`
+
+* Core project : `cloud.altemista.fwk.archetype:cloud-altemistafwk-core-archetype:{project-version}`
+
+Please refer to the <<applications-natures,module project natures>> section for a brief description of each module project type.
+
+=== Partial archetypes for installing features
+
+While some features only require to add its dependency to the business module projects to be installed, most of them benefit from the partial archetype mechanism to include multiple dependencies, configuration and convenience files, package structures, etc.
+
+IMPORTANT: These archetypes should be used inside an existing business module project or aggregator project.
+
+Be aware that the plug-in restricts which features can be installed depending on the business project nature and previously installed features. Please read carefully the documentation of the specific feature in the <<features,features reference>> chapter of this guide prior to manually install it.
+
+CAUTION: Not all the features are suitable to be installed on any business module project. +
+Those restrictions are performed by the plug-in, so they are not available when the feature is being installed using the archetype. +
+Installing incompatible featuers may result in invalid projects and unexpected behavior.
+
+The plug-in performs additional operations beside applying the archetype: the configuration files suitable to be shared are moved to the shared environment project, as well as the dependency to the feature provider, etc.
+
+CAUTION: This additional operations must be done after the feature is manually installed using the archetype and may require advanced knowledge of {framework} internals.
+
+Besides the usual archetype properties (groupId, artifactId and version for both the archetype and the project), the new module project archetypes of {framework} require some additional properties:
+
+* _terasolunaPlusVersion_: the version of {framework}.
+
+* _applicationName_: the name of the application (i.e.: the artifact ID of the top-level POM).
+
+* _appShortId_: the short ID of the application.
+
+* _businessDhortId_: the short ID of the business module.
+
+Example usage:
+[source,sh,subs="verbatim,attributes"]
+----
+cd new-application/new-application-module-core
+
+mvn archetype:generate
+	-DarchetypeGroupId=cloud.altemista.fwk.archetype
+	-DarchetypeArtifactId=cloud-altemistafwk-core-batch-spring-archetype
+	-DarchetypeVersion={project-version}
+	-DterasolunaPlusVersion={project-version}
+	-DgroupId=com.mycompany
+	-DartifactId=new-application-module-core
+	-Dversion=1.0.0-SNAPSHOT
+	-DapplicationName=new-application
+	-DappShortId=application
+	-DbusinessShortId=module
+----
+
+endif::getting-started[]

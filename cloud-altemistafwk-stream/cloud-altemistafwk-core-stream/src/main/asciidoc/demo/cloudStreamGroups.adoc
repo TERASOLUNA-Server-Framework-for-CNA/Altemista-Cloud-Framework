@@ -1,0 +1,308 @@
+:fragment:
+
+First of all to create a ACF Spring Cloud Stream application you should create a new ACF Spring Boot application nature. You will need to do this process for each component(Producer and Listeners)
+
+We will add initial business module stand-alone-implementation.
+
+Over the Boot project add a new "ALTEMISTA Cloud Framework (ACF) Feature" and choose the "Spring Cloud Stream".
+
+image::cloud-altemistafwk-documentation/stream/feature_CloudStream.jpg[align="center"]
+
+Choose the "RabbitMQ implementation".
+
+image::cloud-altemistafwk-documentation/stream/feature_options_Cloud_stream.jpg[align="center"]
+
+==== Producer
+
+Let´s start with the producer.
+
+Firstly is to create a simple class with below code that will represent the message object we read from and write to the greetings RabbitMQ topic:
+
+[source,java,options="nowrap"]
+./.com.mycompany.application.module.model.Greetings
+----
+package com.mycompany.application.module.model;
+
+public class Greetings {
+	private long timestamp;
+    private String message;
+    private String day;
+    private String broker;
+    
+    public Greetings(long timestamp,String message, String day, String broker) {
+		this.timestamp = timestamp;
+		this.message = message;
+		this.day = day;
+		this.broker = broker;
+	} 
+ 
+    public Greetings() {
+    }
+    
+	public long getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day = day;
+	}
+
+	public String getBroker() {
+		return broker;
+	}
+
+	public void setBroker(String broker) {
+		this.broker = broker;
+	}
+
+	@Override
+	public String toString() {
+		return "Greetings [timestamp=" + timestamp + ", message=" + message + 
+				", day=" + day + ", broker=" + broker + "]";
+	}
+
+}
+----
+Let's create a Service Layer to Write to Rabbit:
+
+[source,java,options="nowrap"]
+./.com.mycompany.application.module.stream.GreetingsService
+----
+package com.mycompany.application.module.stream;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.stereotype.Service;
+import org.springframework.util.MimeTypeUtils;
+
+import com.mycompany.application.module.model.Greetings;
+ 
+@Service	#<1>
+@EnableBinding(Source.class)	
+public class GreetingsService {
+	@Autowired	#<2>
+    Source  greetingsStreams;
+ 
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+    
+    public void sendGreeting(final Greetings greetings) {
+        logger.info("send-------------{}", greetings);
+        
+        greetingsStreams.output().send(MessageBuilder.withPayload(greetings).setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+                .build());	#<3>
+    }
+}
+----
+
+<1> The @Service annotation will configure this class as a Spring Bean and inject the GreetingsService dependency via the constructor.
+<2> Add an @Autowired variable that references the bean that Spring Cloud Stream adds for the Source interface.
+<2> In the sendGreeting() method we use  to send a message represented by the Greetings Object.
+
+It`s important so that the Spring Cloud Stream annotations to work, you have to add in the spring configuration .xml the package path where the class use this annotations
+
+//
+[source,xml,linenums]
+./demo-cloud-stream-groups-boot/src/main/resources/Spring/demo-cloud-stream-groups-boot.xml
+----
+<context:component-scan base-package="com.mycompany.application.module.stream" />
+<context:component-scan base-package="com.mycompany.application.controller" />
+----
+
+And finally the following properties: 
+//
+[source,properties]
+./demo-cloud-stream-groups-boot/src/main/resources/application.properties
+----
+# PRODUCER
+spring.cloud.stream.bindings.output.destination=greetings
+spring.cloud.stream.bindings.output.contentType= application/json
+----
+
+*Controller*
+//
+[source,java,linenums]
+./demo-cloud-stream-groups-boot/src/main/java/.../controller/GreetingsController.class
+----
+package com.mycompany.application.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import com.mycompany.application.module.model.Greetings;
+import com.mycompany.application.module.stream.GreetingsService;
+
+@RestController
+public class GreetingsController {
+    private final GreetingsService greetingsService;
+
+    public GreetingsController(GreetingsService greetingsService) {
+        this.greetingsService = greetingsService;
+    }
+
+    @GetMapping("/greetings")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+	 public void greetings(@RequestParam("message") String message, @RequestParam("day") String day) {
+        Greetings greetings = new Greetings(System.currentTimeMillis(),message, day, "RABBITMQ");
+        greetingsService.sendGreeting(greetings);
+    }
+}
+----
+
+==== Listeners
+
+Now, it is time to create listener components:
+
+
+First step is to create a simple class with below code that will represent the message object we read from and write to the greetings RabbitMQ topic:
+
+[source,java,options="nowrap"]
+./.com.mycompany.application.module.model.Greetings
+----
+package com.mycompany.application.module.model;
+
+public class Greetings {
+	private long timestamp;
+    private String message;
+    private String day;
+    private String broker;
+    
+    public Greetings(long timestamp,String message, String day, String broker) {
+		this.timestamp = timestamp;
+		this.message = message;
+		this.day = day;
+		this.broker = broker;
+	} 
+ 
+    public Greetings() {
+    }
+    
+	public long getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day = day;
+	}
+
+	public String getBroker() {
+		return broker;
+	}
+
+	public void setBroker(String broker) {
+		this.broker = broker;
+	}
+
+	@Override
+	public String toString() {
+		return "Greetings [timestamp=" + timestamp + ", message=" + message + 
+				", day=" + day + ", broker=" + broker + "]";
+	}
+}
+----
+
+Let's create a class that will listen to messages on the greetings RabbitMQ topic and log them on the console:
+
+[source,java,options="nowrap"]
+./com.mycompany.application.module.stream.GreetingsListener
+----
+package com.mycompany.application.module.stream;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.stereotype.Component;
+
+import com.mycompany.application.module.model.Greetings;
+
+@Component	#<1>
+@EnableBinding(Sink.class)
+public class GreetingsListener {
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@StreamListener(value=Sink.INPUT)
+	public void handleGreetings(@Payload Greetings greetings) {	#<2>
+        logger.info("receive------------------------{}", greetings);
+   }
+
+
+}
+----
+<1> The @Component annotation, similarly to @Service and @RestController, defines a Spring Bean.
+<2> GreetingsListener has a single method, handleGreetings() that will be invoked by Spring Cloud Stream with every new Greetings message on the greetings RabbitMQ topic. This is thanks to the @StreamListener annotation configured for the handleGreetings() method.
+
+It`s important so that the Spring Cloud Stream annotations to work, you have to add in the spring configuration .xml the package path where the class use this annotations
+
+//
+[source,java,linenums]
+./demo-cloud-stream-groups-boot/src/main/resources/Spring/demo-cloud-stream-groups-boot.xml
+----
+<context:component-scan base-package="com.mycompany.application.module.stream" />
+----
+
+Now, it is time for the properties, which is the key of this demo.
+
+//
+[source,properties]
+./demo-cloud-stream-groups-boot/src/main/resources/application.properties
+----
+# LISTENER
+server.port=0
+spring.cloud.stream.bindings.input.destination=greetings
+spring.cloud.stream.bindings.input.contentType= application/json
+
+spring.cloud.stream.bindings.input.group=briefProcessingGroup
+----
+
+
+After finishing this listener, we will create another listener with the same code and configuration.
+
+==== Test our application
+
+To start RabbitMQ https://www.rabbitmq.com/download.html[click in this link^].
+
+The result should look something like this:
+
+image::cloud-altemistafwk-documentation/stream/groups.png[align="center"]
+
+And we can publish a message for example user data in a JSON `{"message":"example", "day" : "Monday"}`. 
+Then, in the first listener console, you should see: `( receive------------------------{}: Greetings [timestamp=12324231, message=example, day=Monday, broker=RabbitMQ ] )`.
+
+And finally, if we publish a second message we will see in the second listener console the message we sent.

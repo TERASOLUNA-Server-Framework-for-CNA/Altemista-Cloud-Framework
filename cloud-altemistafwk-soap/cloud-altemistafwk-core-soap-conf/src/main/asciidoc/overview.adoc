@@ -1,0 +1,55 @@
+
+:fragment:
+
+The _SOAP web service consumer (SOAP client)_ provides the ability of consuming a SOAP-based web service using Spring Remoting.
+
+This module is compatible with JAX-WS 2.1 and 2.2 and supports basic authentication only.
+
+== Accessing SOAP web services on the client
+
+The usage of the _SOAP web service consumer (SOAP client)_ feature consist in simply declaring the web service clients as Spring beans.
+
+This is typically done using Spring remoting factory beans such as `JaxWsPortProxyFactoryBean`. However, this module includes a custom factory bean, `SimpleJaxWsPortProxyFactoryBean`, that inspects the `@WebService` annotation of the web service interface to provide sensitive default values so the web service client definition is simpler and more concise.
+
+As an example, and given the following web service interface:
+
+[source,java]
+.cloud/altemista/fwk/test/soap/ExampleService.java
+----
+package cloud.altemista.fwk.test.soap;
+
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+
+@WebService
+public interface ExampleService {
+
+  @WebMethod
+  void exampleMethod();
+}
+----
+
+It is possible to declare a web service client using that web service definition as follows:
+
+[source,xml]
+.spring/soap-client.xml
+----
+<bean class="cloud.altemista.fwk.core.soap.SimpleJaxWsPortProxyFactoryBean">
+  <property name="serviceInterface" value="cloud.altemista.fwk.test.soap.ExampleService" /> <!--1-->
+  <property name="endpointAddress" value="http://localhost/example/soap/Example" /> <!--2-->
+</bean>
+----
+<1> The `@WebService` annotated interface
+<2> The actual endpoint address of the service
+
+Use the web service client by simply injecting it:
+
+[source,java]
+----
+@Autowired
+private ExampleService example;
+
+// (...)
+
+this.example.exampleMethod();
+----

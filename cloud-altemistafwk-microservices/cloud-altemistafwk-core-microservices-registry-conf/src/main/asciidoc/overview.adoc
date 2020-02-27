@@ -1,0 +1,8 @@
+
+:fragment:
+
+The {framework} Registry Server feature is based on the Eureka Server implementation.  
+
+Eureka is a REST based service that is used for locating services for the purpose of load balancing and failover of middle-tier servers.
+
+Eureka also comes with a Java-based client component, the Eureka Client, which makes interactions with the service much easier.

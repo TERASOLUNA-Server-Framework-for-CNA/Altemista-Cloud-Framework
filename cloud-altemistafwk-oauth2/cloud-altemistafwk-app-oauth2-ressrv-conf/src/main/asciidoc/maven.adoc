@@ -1,0 +1,14 @@
+
+:fragment:
+
+To manually install the _OAuth 2.0 resource server_ feature, add the following dependencies to the `pom.xml` file of the aggregator project (either webapp or boot) of your application:
+
+[source,xml]
+.new-application-webapp/pom.xml
+----
+<dependency>
+    <groupId>cloud.altemista.fwk.security</groupId>
+    <artifactId>cloud-altemistafwk-app-oauth2-ressrv-conf</artifactId> <!--1-->
+</dependency>
+----
+<1> OAuth 2.0 resource server feature dependencies and auto-discoverable configuration.

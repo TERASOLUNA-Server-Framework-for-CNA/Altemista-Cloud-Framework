@@ -1,0 +1,7 @@
+
+:fragment:
+
+{framework} Message Broker Features lets your project incorporate http://activemq.apache.org[ActiveMQ^] easily.  Apache ActiveMQ is an open source message broker written in Java together with a full Java Message Service (JMS) client. It needs to be highly available and dynamically scalable to facilitate communication between dynamic heterogeneous distributed applications which have varying capacity needs. 
+
+Scaling enterprise applications on commodity hardware is a rage nowadays. ActiveMQ caters to that very well by being able to create a network of brokers to share the load.
+From {framework} give some basic configurations in order to start using quickly.

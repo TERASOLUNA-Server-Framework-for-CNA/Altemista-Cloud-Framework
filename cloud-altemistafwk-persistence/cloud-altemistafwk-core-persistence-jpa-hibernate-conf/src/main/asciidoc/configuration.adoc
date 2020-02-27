@@ -1,0 +1,274 @@
+
+:fragment:
+
+////
+	Note: this fragment uses the _ifndef_ conditional preprocessor directive
+	to exclude advanced topics if _getting-started_ is defined
+////
+
+The Hibernate ORM-based implementation of the persistence feature sets up most of the necessary infrastructure to support Spring Data JPA, except for the JDBC data source and the repository scanner.
+
+The <<cloud-altemistafwk-core-persistence-jpa-hibernate-conf-internals,infrastructure defined by the framework>> reads some convenient values from the configuration of the application:
+
+[source,properties]
+.config/properties/my-application-persistence-jpa-env.properties
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-jpa-hibernate-conf/src/test/resources/config/properties/cloud-altemistafwk-test-persistence-jpa-env.example[]
+----
+
+The JDBC data source, named `jpaDataSource`, must be provided by the application. Either by declaring a separate data source or aliasing an existing one:
+
+[source,xml]
+.spring/my-application-persistence-jpa-env.xml
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-jpa-hibernate-conf/src/test/resources/spring/cloud-altemistafwk-example-jpa.xml[tags=datasource]
+----
+
+It is also reponsability of the {framework} applications to create instances for the repository interfaces defined:
+
+[source,xml]
+.spring/my-application-module-persistence-jpa.xml
+----
+include::{basedir}/cloud-altemistafwk-core-persistence-jpa-hibernate-conf/src/test/resources/spring/cloud-altemistafwk-example-jpa.xml[tags=repositories]
+----
+<1> The transaction manager bean is provided by the {framework}.
+<2> The transactional behavior based on annotations can be configured to also use this transaction manager.
+
+ifndef::getting-started[]
+== Multiple databases
+
+The <<cloud-altemistafwk-core-persistence-jpa-hibernate-conf-internals,Spring Data JPA infrastructure provided by the {framework}>> does only support one single database (i.e.: one single _datasource_). However, it is possible to use multiple databases in {framework} applications by declaring an alternative infrastructure. Namely:
+
+* A secondary JDBC `DataSource`.
+* A new JPA `EntityManagerFactory` that uses the new data source and a different set of packages to scan. The JPA vendor adaprter of the framework (`jpaVendorAdaptor`) will probably can be reused.
+* A new `TransactionManager` that uses the new `EntityManagerFactory`.
+* A new `<jpa:repositories .../>` tag with a different package and the new transaction manager.
+
+The services using the secondary data source must specify the new transaction manager:
+
+[source]
+----
+@Transactional("altTransactionManager")
+----
+
+== Using Container Datasources
+When deploying a webapp is recommended to use Container DataSources and reference the container pool by JNDI. Those containers are, normally, configured in a GUI console of the container where the JDBC Url, driver, password and configuration properties are managed by an administrator, then the application locates and get a Database Connection without access to its configuration, moreover container uses a pool of connections so the applications that may use the resource don't need to control the numbers of connections.
+
+[source,xml]
+.spring/my-application-module-persistence-ds.xml
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xmlns:jee="http://www.springframework.org/schema/jee"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
+<jee:jndi-lookup id="jpatestDataSource" jndi-name="jdbc/acfds"/><!--1-->
+<!-- Enable the configuration of transactional behavior based on annotations -->
+<tx:annotation-driven transaction-manager="jpatestTransactionManager" />
+
+</beans>
+----
+<1> change the jndi-name as defined on the container
+
+=== Defining datasources on tomcat
+
+Tomcat don't have a GUI console to configure Datasources as other containers have, so the datasource must be configured as Resource in the context.xml configuration. It can be configured System Wide or application resource.
+
+* [server-conf]/context.xml for System Wide
+* [webapp-root]/META-INF/context.xml for Application resource
+
+In both cases is necessary to add a new resource  
+
+[source,xml]
+.my-application-webapp/src/main/webapp/META-INF/context.xml
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+
+<Resource name="jdbc/acfds" auth="Container" type="javax.sql.DataSource"
+maxActive="100" maxIdle="30" maxWait="10000"
+username="tutorialuser" password="tutorialmy5ql" driverClassName="com.mysql.jdbc.Driver"
+url="jdbc:mysql://localhost:3306/spring_jpa"/><!--1-->
+
+</Context>
+----
+<1> Resource to add, adjust user, password and driver.
+
+Also don't forget to add the driver library on the pom.xml of the webapp application (mysql on the example)
+
+[source,xml]
+./pom.xml
+----
+<dependency>
+	<groupId>mysql</groupId>
+	<artifactId>mysql-connector-java</artifactId>
+	<scope>runtime</scope>
+</dependency>
+----
+
+== Spring boot DataSources
+
+In order to use a custom datasource on spring boot is necesary to update the Datasoruce definition on the spring configuration to use the correct configuration.
+[source,xml]
+.spring/my-application-module-persistence-ds.xml
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> <!--1-->
+<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+<property name="url" value="jdbc:mysql://localhost:3306/spring_jpa" />
+<property name="username" value="tutorialuser" />
+<property name="password" value="tutorialmy5ql" /> 
+</bean>
+<!-- Enable the configuration of transactional behavior based on annotations -->
+<tx:annotation-driven transaction-manager="jpatestTransactionManager" />
+
+</beans>
+----
+<1> Adjust the JDBC configuration for your database
+
+Like on web apps don't forget to add the driver library on the pom.xml of the webapp application (mysql on the example)
+
+[source,xml]
+./pom.xml
+----
+<dependency>
+	<groupId>mysql</groupId>
+	<artifactId>mysql-connector-java</artifactId>
+	<scope>runtime</scope>
+</dependency>
+----
+
+== Database Connection Pool on Spring Boot
+
+For creating pools on Spring Boot applications you should use HirakiCP as Spring recommends https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-sql.html#boot-features-connect-to-production-database
+
+[source,xml]
+.spring/my-application-module-persistence-ds.xml
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+    <property name="poolName" value="springHikariCP" />
+    <property name="connectionTestQuery" value="SELECT 1" />
+    <property name="dataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" /> <!--1-->
+    <property name="maximumPoolSize" value="10" /> <!--2-->
+    <property name="idleTimeout" value="6000000" /><!--2-->
+
+    <property name="dataSourceProperties"> <!--3-->
+        <props>
+            <prop key="url">jdbc:mysql://localhost:3306/spring_jpa</prop>
+            <prop key="user">tutorialuser</prop>
+            <prop key="password">tutorialmy5ql</prop>
+        </props>
+    </property>
+</bean>
+
+<!-- HikariCP configuration -->
+<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+    <constructor-arg ref="hikariConfig" />
+</bean>
+<!-- Enable the configuration of transactional behavior based on annotations -->
+<tx:annotation-driven transaction-manager="jpatestTransactionManager" />
+
+</beans>
+----
+<1> Use a DataSource Driver
+<2> Adjust the Hiraki Pool Properties
+<3> JDBC Driver properties
+
+And finnally add the dependencies
+[source,xml]
+./pom.xml
+----
+<dependency>
+	<groupId>mysql</groupId>
+	<artifactId>mysql-connector-java</artifactId>
+	<scope>runtime</scope>
+</dependency>
+<dependency>
+	<groupId>com.zaxxer</groupId>
+	<artifactId>HikariCP</artifactId>
+	<version>3.1.0</version>
+</dependency>
+----
+endif::getting-started[]
+
+== H2 database 
+
+You need very little configuration to connect Spring Boot application with H2.
+
+[source,xml]
+./pom.xml
+----
+<dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <scope>runtime</scope>
+</dependency>
+----
+
+H2 provides a web interface called H2 Console to see the data. Let is enable h2 console in the application.properties.
+The configuration of the database can be in memory or in a persistent file.
+
+
+config/properties/my-application-persistence-jpa-env.properties
+----
+# Database configuration
+*.database.url=jdbc:h2:file:~/database/testdb  <!--1-->
+#*.database.url=jdbc:h2:mem:testdb  <!--2-->
+*.database.username=sa
+*.database.password=
+
+# Enabling H2 Console
+spring.h2.console.enabled=true <!--3-->
+----
+<1> The database in a persistent file,it will be created in this route: `C:\Users\YourUser\database\testbd.mv.db`.
+<2> Database in memory.
+<3> Enable h2 console
+
+It is necessary to change the datasource of the application on the spring configuration to use the correct configuration.
+
+
+.spring/my-application-module-persistence-ds.xml
+----
+
+	....
+	
+	<bean id="applicationDataSource"
+	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.h2.Driver" /> <!--1-->
+		<property name="url" value="${database.url}" />
+		<property name="username" value="${database.username}" />
+		<property name="password" value="${database.password}" />
+	</bean>
+	
+	....
+	
+----
+<1> H2 Driver
+
+Once we have our application started with the property `spring.h2.console.enabled = true` we can access http://localhost:8080/h2-console[^] .
+

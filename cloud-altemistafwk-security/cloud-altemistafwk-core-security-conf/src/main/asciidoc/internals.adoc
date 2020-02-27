@@ -1,0 +1,10 @@
+
+:fragment:
+
+The _Annotation driven authorization_ feature includes the following configuration:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/core/cloud-altemistafwk-core-security.xml
+----
+include::{basedir}/cloud-altemistafwk-core-security-conf/src/main/resources/cloud/altemista/fwk/config/core/cloud-altemistafwk-core-security.xml[tags=internals]
+----

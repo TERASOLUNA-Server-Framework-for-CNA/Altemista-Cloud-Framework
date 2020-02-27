@@ -1,0 +1,113 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.framework</groupId>
+		<artifactId>cloud-altemistafwk-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	
+	<artifactId>cloud-altemistafwk-common</artifactId>
+	<name>cloud-altemistafwk common</name>
+	<description>
+		Common base included in the ACF framework.
+		This module defines lightweight functionality (e.g.: interfaces, exceptions, utilities)
+		that does not need the Spring configuration of the real core module,
+		allowing the creation of projects that can be shared as dependencies of other executable projects.
+	</description>
+	
+	<dependencies>
+		
+		<!-- == Begin Terasoluna Server Framework for Java == -->
+		<dependency>
+			<groupId>org.terasoluna.gfw</groupId>
+			<artifactId>terasoluna-gfw-common</artifactId>
+			<!-- Exclusions to minimize dependencies in lightweight projects -->
+			<exclusions>
+			
+				<!-- AspectJ -->
+				<exclusion>
+					<groupId>org.aspectj</groupId>
+					<artifactId>aspectjrt</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.aspectj</groupId>
+					<artifactId>aspectjweaver</artifactId>
+				</exclusion>
+				
+				<!-- Logging -->
+				<exclusion>
+					<groupId>ch.qos.logback</groupId>
+					<artifactId>logback-classic</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.lazyluke</groupId>
+					<artifactId>log4jdbc-remix</artifactId>
+				</exclusion>
+				
+				<!-- Spring Framework -->
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-orm</artifactId>
+				</exclusion>
+				
+				<!-- Spring Data -->
+				<exclusion>
+					<groupId>org.springframework.data</groupId>
+					<artifactId>spring-data-commons</artifactId>
+				</exclusion>
+				
+				<!-- BeanValidation -->
+				<exclusion>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-validator</artifactId>
+				</exclusion>
+				
+				<!-- Other JavaEE/SE APIs -->
+				<exclusion>
+					<groupId>javax.inject</groupId>
+					<artifactId>javax.inject</artifactId>
+				</exclusion>
+				
+			</exclusions>
+		</dependency>
+		<!-- == End Terasoluna Server Framework for Java == -->
+
+		<!-- == Begin Spring Framwork and Apache Commons (for utility classes) == -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+		</dependency>		
+		<dependency>
+			<!-- Fixes some dependencies of Spring Framework to Apache Commons Logging -->
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+		</dependency>
+		<!-- == End Apache Commons == -->
+
+		<!-- == Begin test dependencies == -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- == End test dependencies == -->
+		
+	</dependencies>
+		
+</project>

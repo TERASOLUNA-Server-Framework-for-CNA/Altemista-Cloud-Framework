@@ -1,0 +1,31 @@
+
+:fragment:
+
+The _OAuth 2.0 Authorization Server_ feature includes the following configuration:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/app/cloud-altemistafwk-app-oauth2-authzsrv.xml
+----
+include::{basedir}/cloud-altemistafwk-app-oauth2-authzsrv-conf/src/main/resources/cloud/altemista/fwk/config/app/cloud-altemistafwk-oauth2-authzsrv.xml[tags=internals]
+----
+
+More graphically, this diagram shows the beans, security configurations and endpoints of the _OAuth 2.0 Authorization Server_ feature:
+
+.OAuth 2.0 Authorization Server feature internals
+image:cloud-altemistafwk-app-oauth2-authzsrv-conf/oauth2srv-internals.png[align="center"]
+
+There are some points to note from this diagram:
+
+* The client details service, provided by the application, is actually used twice:
+
+** By the `authorization-server` itself, through the `client-details-service-ref`.
+
+** Adapted as a `UserDetailsService` to build the `authentication-manager` the framework uses to secure the token endpoints to be accessible to clients only.
+
+* The `oauth2UsersAuthenticationManager` is directly used as the internal authentication manager that holds the end-users of the resource owner password credentials grant.
+
+* The HTTP security element that secures the token endpoints does not support login, as this endpoint is to be accessed by clients programatically.
+
+* A separate HTTP security element, provided by the application, will publish the `/login` endpoint. The authorzation endpoint (`/oauth/authorize`) is covered but not secured by this element. Therefore, this endpoint will be reached but will raise a `InsufficientAuthenticationException` (and, hence, an _401 Unauthorized_ response) if necessary. That will trigger Spring Security to redirect to the log-in page and request end-user credentials. The `appAuthenticationManager` will have the end-users for the authorization code grant and the implicit grant; usually, both `appAuthenticationManager` and `oauth2UsersAuthenticationManager` will be the same authentication manager.
+
+TIP: Please refer to the http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/Security/OAuth.html#authorization-server[authorization server] section of the http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/Security/OAuth.html#architecture-of-spring-security-oauth[Architecture of Spring Security OAuth] chapter the http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/[TERASOLUNA Server Framework for Java (5.x) Development Guideline] for a deeper detailed explanation of Spring Security OAuth.

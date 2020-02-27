@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.framework</groupId>
+		<artifactId>cloud-altemistafwk-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+	
+	<groupId>cloud.altemista.fwk.soap</groupId>
+	<artifactId>cloud-altemistafwk-web-soap-conf</artifactId>
+	
+	<name>cloud-altemistafwk SOAP server CONF</name>
+	<description>cloud-altemistafwk SOAP server (Apache CXF based) CONF</description>
+
+	<dependencies>
+
+		<!-- == Begin Altemista cloud framework == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.soap</groupId>
+			<artifactId>cloud-altemistafwk-web-soap</artifactId>
+		</dependency>
+		<!-- == End Altemista cloud framework == -->
+		
+		<!-- == Begin Spring Boot support == -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- == End Spring Boot support == -->
+		
+		<!-- == Begin Java standard extensions (required here because of the Spring Boot support) == -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- == End Java standard extensions == -->
+		
+	</dependencies>
+
+</project>

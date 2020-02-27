@@ -1,0 +1,12 @@
+
+:fragment:
+
+To verify that our custom controllers are documented, We will run our "Main" java class as Spring Boot application you can visit the following URL in your browser:
+
+http://localhost:8080/api/v2/api-docs
+
+The result is a JSON response with a large number of key-value pairs, which is not very human-readable. Fortunately, Swagger provides Swagger UI for this purpose.Swagger UI is a built-in solution which makes user interaction with the Swagger-generated API documentation much easier. Now you can test it in your browser by visiting http://localhost:8080/swagger-ui.html
+
+The result should look something like this:
+
+image::cloud-altemistafwk-documentation/swagger/swagger_ui_bottom.png[align="center"]

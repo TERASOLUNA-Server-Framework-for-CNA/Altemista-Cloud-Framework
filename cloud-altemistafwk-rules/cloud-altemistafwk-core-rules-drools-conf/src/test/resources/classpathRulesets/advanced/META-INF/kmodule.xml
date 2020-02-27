@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.drools.org/xsd/kmodule">
+
+	<!-- Advanced configuration example -->
+
+	<kbase name="ruleset_1" default="true" packages="rules1">
+		<ksession name="ruleset_1_stateless" type="stateless" />
+		<ksession name="ruleset_1_stateful" type="stateful" />
+	</kbase>
+
+	<kbase name="ruleset_2" packages="rules2">
+		<ksession name="ruleset_2_stateless" type="stateless" />
+	</kbase>
+
+	<kbase name="ruleset_3" packages="rules3">
+		<ksession name="ruleset_3_stateless" type="stateless" />
+	</kbase>
+
+</kmodule>

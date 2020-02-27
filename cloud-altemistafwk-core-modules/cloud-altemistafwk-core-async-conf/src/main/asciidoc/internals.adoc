@@ -1,0 +1,35 @@
+
+:fragment:
+
+This module enables support for `@Async` and `@Scheduled` annotations through an executor bean and a scheduler bean:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/core/cloud-altemistafwk-core-async.xml
+----
+include::{basedir}/cloud-altemistafwk-core-async-conf/src/main/resources/cloud/altemista/fwk/config/core/cloud-altemistafwk-core-async.xml[tags=internals]
+----
+
+An application can manually override these beans to use a different configuration if the properties are not enough.
+
+By example:
+
+[source,xml,options="nowrap"]
+.spring/my-application-async-env.xml
+----
+<bean id="asyncThreadPool"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor"> <!--1-->
+	<property name="corePoolSize" value="3" />
+	<property name="maximumPoolSize" value="9" />
+	<property name="queueCapacity" value="50" />
+	<property name="threadNamePrefix" value="async-" /> <!--3-->
+</bean>
+
+<bean id="schedulerThreadPool"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler"> <!--2-->
+	<property name="poolSize" value="3" />
+	<property name="threadNamePrefix" value="sched-" /> <!--3-->
+</bean>
+----
+<1> The default `task:executor` declaration is equivalent to a `ThreadPoolTaskExecutor` bean.
+<2> The default `task:scheduler` declaration is equivalent to a `ThreadPoolTaskScheduler` bean.
+<3> A common reason to override the configuration is set the name prefixes for the threads started by asynchronous and scheduled executions.

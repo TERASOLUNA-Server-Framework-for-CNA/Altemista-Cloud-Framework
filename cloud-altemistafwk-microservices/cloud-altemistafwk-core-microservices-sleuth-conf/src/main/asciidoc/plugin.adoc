@@ -1,0 +1,4 @@
+
+:fragment:
+
+{framework} Sleuth feature only can be added in a [application]-boot module in a <<microservice-application-nature,Microservice Application Nature project>>.

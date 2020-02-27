@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<context:component-scan base-package="cloud.altemista.fwk.it.persistence" />
+
+	
+	<!-- In-memory example database -->
+	<jdbc:embedded-database id="dataSourceTest">
+		<jdbc:script location="classpath:scripts/schema.sql" />
+		<jdbc:script location="classpath:scripts/data.sql" />
+	</jdbc:embedded-database>
+	
+	<!-- Enable the configuration of transactional behavior based on annotations -->
+	<tx:annotation-driven transaction-manager="testTransactionManager" />
+
+	
+	<!-- Provides the "myBatisDataSource" bean required in cloud-altemistafwk-persistence-mybatis-config -->
+	<alias name="dataSourceTest" alias="myBatisDataSource" />
+	
+	<!-- Uses "myBatisTransactionManager" as the main annotation-driven trasaction manager -->
+	<alias name="myBatisTransactionManager" alias="testTransactionManager" />
+
+
+	<!-- Looks up MyBatis mappers inside the package specified by the application -->
+	<mybatis:scan base-package="com.mycompany.application.module.repository" />
+	
+</beans>

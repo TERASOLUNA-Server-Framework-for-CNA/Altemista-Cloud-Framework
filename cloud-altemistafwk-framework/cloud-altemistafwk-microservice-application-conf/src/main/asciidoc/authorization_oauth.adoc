@@ -1,0 +1,21 @@
+
+:fragment:
+
+You can get the Authorization Header in a service implementation adding this as a method parameter in a `RequestMapping` method, for example:
+
+[source,java]
+./com/mycompany/microserviceone/microservice/service/MicroserviceOneExample.java
+----
+@RequestMapping(
+	value = "/exampleMethod", 
+	method = RequestMethod.POST, 
+	produces = MediaType.APPLICATION_JSON_VALUE, 
+	consumes = MediaType.APPLICATION_JSON_VALUE)
+public MicroserviceOneExampleResponse exampleMethod(
+	@RequestBody MicroserviceOneExampleRequest request, 
+	@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken // <1>
+); 
+----
+<1> The `Authorization` RequestHeader token.
+
+IMPORTANT: If the service has the <<oauth2,Security: Oauth 2.0 Resource Server>> feature active, this header is mandatory for the Authorization validation.

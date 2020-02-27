@@ -1,0 +1,87 @@
+
+:fragment:
+
+Amazon SQS is a hosted messaging service on the Amazon Web Service platform that provides point-to-point communication with queues. Compared to JMS or other message services Amazon SQS has several features and limitations that should be taken into consideration.
+
+- Amazon SQS allows only String payloads, so any Object must be transformed into a String representation. Spring Cloud AWS has dedicated support to transfer Java objects with Amazon SQS messages by converting them to JSON.
+- Amazon SQS has no transaction support, so messages might therefore be retrieved twice. Application have to be written in an idempotent way so that they can receive a message twice.
+- Amazon SQS has a maximum message size of 256kb per message, so bigger messages will fail to be sent.
+
+From {framework} give some basic configurations in order to start using quickly.
+
+= Amazon console
+
+We need to create our queue in the amazon console. If we go to our AWS console, in our SQS console:
+
+image::cloud-altemistafwk-documentation/amazon/create_queue.png[align="center"]
+
+Now we can use it in our application.
+
+Finally, if you want to retrieve your aws credentials, please go to this https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_passwords_admin-change-user.html[site^]
+
+
+
+= Configuration
+
+In the following paragraphs you can see the configuration we provide from {framework} in order to set up a infrastructure configuration. You can change it if you need it.
+[source,xml,options="nowrap"]
+./my-application-module-core/src/main/resources/spring/my-application-module-core-amazon-sqs.xml
+----
+
+
+	<aws-context:context-credentials>
+		<aws-context:simple-credentials
+			access-key="#{systemEnvironment['AWS_ACCESS_KEY_ID'] }" secret-key="#{systemEnvironment['AWS_SECRET_ACCESS_KEY'] }" />	<!--1-->
+	</aws-context:context-credentials>
+
+	<aws-context:context-region region="#{systemEnvironment['AWS_DEFAULT_REGION'] }" />	<!--2-->
+
+	 <aws-messaging:queue-messaging-template
+		id="queue-test" />	<!--3-->
+	
+----
+<1> *SDK credentials configuration*: allow to assign a profile that is authorized by a role while starting an EC2 instance .
+
+<2> *Region configuration*: usually our region should be "eu-west-1".
+
+<3> *SQS Configuration*: configuration needed to connect to our queue.
+
+And finally, we provide two classes where you need to edit to send or receive messages. It could be like this:
+
+[source,java,options="nowrap"]
+./amazon/SqsQueueSender.java
+----
+@Service
+public class SqsQueueSender {
+
+	private final QueueMessagingTemplate queueMessagingTemplate;
+
+	@Autowired
+	public SimpleQueueService(AmazonSQSAsync amazonSqs) {
+		this.queueMessagingTemplate = new QueueMessagingTemplate(amazonSqs);
+	}
+
+	public void send(String message) {
+		this.queueMessagingTemplate.send("queue-test", MessageBuilder.withPayload(message).build());
+	}
+}
+----
+
+[source,java,options="nowrap"]
+./amazon/SqsQueueReciever.java
+----
+@Service
+public class SqsQueueReciever {
+
+	private final QueueMessagingTemplate queueMessagingTemplate;
+
+	@Autowired
+	public SimpleQueueService(AmazonSQSAsync amazonSqs) {
+		this.queueMessagingTemplate = new QueueMessagingTemplate(amazonSqs);
+	}
+
+	public String recieve() {
+		return this.queueMessagingTemplate.receiveAndConvert("queue-test", String.class);
+	}
+}
+----

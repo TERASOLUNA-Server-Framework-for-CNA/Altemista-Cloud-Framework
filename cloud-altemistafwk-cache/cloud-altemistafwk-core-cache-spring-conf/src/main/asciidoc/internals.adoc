@@ -1,0 +1,12 @@
+
+:fragment:
+
+This module enables support for annotation driven cache using Spring cache as follows:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/core/cloud-altemistafwk-core-cache.xml
+----
+include::{basedir}/cloud-altemistafwk-core-cache-spring-conf/src/main/resources/cloud/altemista/fwk/config/core/cloud-altemistafwk-core-cache.xml[tags=internals]
+----
+
+An application can manually declare a different `cacheManager` to use a different cache manager.

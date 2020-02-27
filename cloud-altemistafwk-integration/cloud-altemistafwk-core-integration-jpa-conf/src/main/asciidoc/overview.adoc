@@ -1,0 +1,6 @@
+
+:fragment:
+
+{framework} Integration JPA Feature provides support for retrieving and persisting JPA entity objects.
+
+{framework} Integration JPA Feature is based on https://docs.spring.io/spring-integration/reference/html/jpa.html[Spring Integration JPA Support^] where you have everything explained and also it includes some examples to apply on {framework}

@@ -1,0 +1,4 @@
+
+:fragment:
+
+The _OAuth 2.0 Java Client_ feature can only be installed in module projects with the _core_ nature.

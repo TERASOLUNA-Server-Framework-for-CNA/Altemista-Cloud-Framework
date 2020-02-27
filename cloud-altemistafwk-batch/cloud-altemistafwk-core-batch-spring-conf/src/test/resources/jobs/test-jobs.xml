@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+		
+	<!--tag::simple[]-->
+	<!-- Sample Job definition -->
+	<job id="sampleJob" xmlns="http://www.springframework.org/schema/batch"><!--1-->
+	
+		<step id="sampleStep1"><!--2-->
+			<tasklet transaction-manager="batchTransactionManager"><!--3-->
+				<chunk
+					reader="exampleReader"
+					processor="exampleProcessor"
+					writer="exampleWriter" commit-interval="10"
+				/>
+			</tasklet>
+		</step>
+		
+	</job>
+	<!--end::simple[]-->
+	
+	<!-- Sample Job definition -->
+	<job id="sampleInfiniteJob" xmlns="http://www.springframework.org/schema/batch">
+	
+		<step id="sampleInfiniteStep1">
+			<tasklet transaction-manager="batchTransactionManager">
+				<chunk
+					reader="exampleInfiniteReader"
+					processor="exampleProcessor"
+					writer="exampleWriter"
+					commit-interval="10" />
+			</tasklet>
+		</step>
+		
+	</job>
+	
+	<!-- Sample Job definition with a tasklet -->
+	<job id="sampleTaskletJob" xmlns="http://www.springframework.org/schema/batch">
+	
+		<step id="sampleTaskletStep1">
+			<tasklet ref="exampleTasklet" transaction-manager="batchTransactionManager" />
+		</step>
+		
+	</job>
+	
+	<!-- Sample Job definition with a incrementer -->
+	<job id="sampleIncrementableJob" incrementer="sampleIncrementer" xmlns="http://www.springframework.org/schema/batch">
+	
+		<step id="sampleIncrementableStep1">
+			<tasklet transaction-manager="batchTransactionManager">
+				<chunk reader="exampleReader" processor="exampleProcessor" writer="exampleWriter" commit-interval="10" />
+			</tasklet>
+		</step>
+		
+	</job>
+	<bean id="sampleIncrementer" class="org.springframework.batch.core.launch.support.RunIdIncrementer" />
+	
+</beans>

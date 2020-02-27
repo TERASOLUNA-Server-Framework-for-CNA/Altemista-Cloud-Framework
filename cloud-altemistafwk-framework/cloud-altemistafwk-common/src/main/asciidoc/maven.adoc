@@ -1,0 +1,15 @@
+
+:fragment:
+
+The maven dependency of the _common_ nature is:
+
+[source,xml]
+----
+<dependency>
+  <groupId>cloud.altemista.fwk.framework</groupId>
+  <artifactId>cloud-altemistafwk-common</artifactId>
+  <scope>provided</scope>
+</dependency>
+----
+
+As the purpose of the _common_ nature is to create lightweight projects that can be shared, even with third parties, the scope of the dependency is _provided_ to avoid tight coupling with a strict {framework} version. This favours the usage of the project in any other {framework} application disregarding the version.

@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.framework</groupId>
+		<artifactId>cloud-altemistafwk-recommended-plugins</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+	
+	<groupId>cloud.altemista.fwk.plugin</groupId>
+	<artifactId>cloud-altemistafwk-plugin-core</artifactId>
+	
+	<properties>
+		<!-- == ACF version == -->
+		<cloud-altemistafwk.version>${project.version}</cloud-altemistafwk.version>
+		
+		<!--
+			The plug-in configuration version is tentative;
+			this allows reusing this artifact with no changes with any (compatible) version of the configuration
+		-->
+		<cloud-altemistafwk-plugin-config.version>${project.version}</cloud-altemistafwk-plugin-config.version>
+		
+		<!-- == Maven version ==
+			The Maven version here is tentative; the actual version should be provided by the plug-in implementation
+			(e.g.: provided by the Eclipse Maven plug-in, etc.).
+		-->
+		<maven.version>3.3.9</maven.version>
+	</properties>
+	
+	<dependencyManagement>
+		<dependencies>
+			
+			<!-- == ACF framework: bill of materials == -->
+			<dependency>
+				<groupId>cloud.altemista.fwk.framework</groupId>
+				<artifactId>cloud-altemistafwk-bom</artifactId>
+				<version>${cloud-altemistafwk.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			
+		</dependencies>
+	</dependencyManagement>
+	
+	<dependencies>
+	
+		<!-- == Begin Altemista cloud plug-in configuration == -->
+		<dependency>
+			<groupId>cloud.altemista.fwk.plugin</groupId>
+			<artifactId>cloud-altemistafwk-plugin-config</artifactId>
+			<version>${cloud-altemistafwk-plugin-config.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- == End Altemista cloud plug-in configuration == -->
+		
+		<!-- == Begin Apache Maven == -->
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-embedder</artifactId>
+			<version>${maven.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- == End Apache Maven == -->
+				
+	</dependencies>
+
+</project>

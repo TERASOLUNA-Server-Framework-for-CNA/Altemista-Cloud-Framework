@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+		
+	<!-- Sets the policy to retrieve the RulesetContainer from specific locations on the classpath -->
+	<!-- tag::default[] -->
+	<bean id="rulesetContainerResolver" class="cloud.altemista.fwk.core.rules.ruleset.impl.SimpleRulesetContainerResolverImpl">
+		<constructor-arg>
+			<bean class="cloud.altemista.fwk.rules.drools.resolver.impl.DroolsRepositoryRulesetContainerImpl">
+				<property name="groupId" value="cloud.altemista.fwk.example" /><!--1-->
+				<property name="artifactId" value="drools-ruleset-example" /><!--1-->
+				<property name="version" value="1.0.0-SNAPSHOT" /><!--1-->
+				<property name="enableScanner" value="true" /><!--2-->
+				<property name="scannerInterval" value="5000" /><!--3-->
+			</bean>
+		</constructor-arg>
+	</bean>
+	<!-- end::default[] -->
+	
+</beans>

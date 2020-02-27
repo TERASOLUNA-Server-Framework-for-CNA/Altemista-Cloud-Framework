@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>cloud.altemista.fwk.build</groupId>
+		<artifactId>cloud-altemistafwk-build</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	
+	<artifactId>cloud-altemistafwk-framework</artifactId>
+	<packaging>pom</packaging>
+
+	<name>cloud-altemistafwk * framework build script</name>
+	<description>Convenience pom.xml for building the main artifacts of the ACF framework</description>
+		
+	<profiles>
+	
+		<!-- == Builds ACF parent artifacts == -->
+		<profile>
+			<id>parents</id>
+			<modules>
+				<module>cloud-altemistafwk-recommended-plugins</module>
+				<module>cloud-altemistafwk-parent</module>
+				<module>cloud-altemistafwk-bom</module>
+				<module>cloud-altemistafwk-bom-3rdparty</module>
+			</modules>
+		</profile>
+	
+		<!-- == Builds ACF framework == -->
+		<profile>
+			<id>framework</id>
+			<modules>
+				<!-- shared artifacts -->
+				<module>cloud-altemistafwk-documentation-fragment</module>
+				<module>cloud-altemistafwk-license</module>
+
+				<!-- framework, archetypes and documentation -->
+ 				<module>cloud-altemistafwk-common</module>
+				<module>cloud-altemistafwk-common-archetype</module>
+				<module>cloud-altemistafwk-core</module>
+				<module>cloud-altemistafwk-core-archetype</module>
+				<module>cloud-altemistafwk-web</module>
+				<module>cloud-altemistafwk-web-conf</module>
+				<module>cloud-altemistafwk-web-archetype</module>
+				<module>cloud-altemistafwk-webapp-conf</module>
+				<module>cloud-altemistafwk-webapp-archetype</module>
+				<module>cloud-altemistafwk-boot-conf</module>
+				<module>cloud-altemistafwk-boot-archetype</module>
+				<module>cloud-altemistafwk-microservice-conf</module>
+				<module>cloud-altemistafwk-microservice-infrastructure-archetype</module>
+				<module>cloud-altemistafwk-microservice-infrastructure-conf</module>
+				<module>cloud-altemistafwk-microservice-application-archetype</module>
+				<module>cloud-altemistafwk-microservice-application-conf</module>
+				<module>cloud-altemistafwk-microservice-client-archetype</module>
+				<module>cloud-altemistafwk-empty-archetype</module>
+				<module>cloud-altemistafwk-documentation</module>
+				<module>cloud-altemistafwk-test</module>
+			</modules>
+		</profile>
+		
+		<!-- == Builds and run ACF integration tests == -->
+		<profile>
+			<id>run-it</id>
+			<modules>
+  				<module>cloud-altemistafwk-core-it</module>
+				<module>cloud-altemistafwk-web-it</module>
+  				<module>cloud-altemistafwk-webapp-it</module>
+  				<module>cloud-altemistafwk-boot-it</module>
+  				<module>cloud-altemistafwk-microservice-infrastructure-it</module>
+  				<module>cloud-altemistafwk-microservice-application-it</module>
+			</modules>
+		</profile>
+		
+	</profiles> 
+</project>

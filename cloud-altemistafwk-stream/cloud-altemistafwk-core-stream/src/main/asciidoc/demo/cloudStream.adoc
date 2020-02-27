@@ -1,0 +1,26 @@
+:fragment:
+
+For Spring Cloud Stream  to work on our computer, it is necessary have a binders.
+
+Currently Spring Cloud Stream supports RabbitMQ and Apache Kafka binders with more binder implementations in the pipeline (such as: Google PubSub and AWS Kinesis).
+
+
+=== Spring Cloud Stream demo with Apache Kafka
+
+
+include::{basedir}/cloud-altemistafwk-core-stream/demo/cloudStreamKafka.adoc[]
+
+
+=== Spring Cloud Stream demo with RabbitMQ
+
+include::{basedir}/cloud-altemistafwk-core-stream/demo/cloudStreamRabbitMQ.adoc[]
+
+
+=== Spring Cloud Stream Consumer Groups demo
+
+include::{basedir}/cloud-altemistafwk-core-stream/demo/cloudStreamGroups.adoc[]
+
+
+=== Spring Cloud Stream DLQ demo
+
+include::{basedir}/cloud-altemistafwk-core-stream/demo/cloudStreamHandling.adoc[]

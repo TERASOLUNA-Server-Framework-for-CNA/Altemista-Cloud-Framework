@@ -1,0 +1,4 @@
+
+:fragment:
+
+The <<cloud-altemistafwk-web-monitoring-overview,exposing indicator statuses through a REST API>> capability of the monitoring feature can be installed in module projects with the _web_ nature.

@@ -1,0 +1,23 @@
+
+:fragment:
+
+*ALTEMISTA Cloud Framework* ({framework}) provides the  Spring cloud bus features.
+
+On this tutorial we will make a simple application with Spring cloud bus developed with {framework} version from *{project-version}*.
+
+Spring Cloud Bus links the nodes of a distributed system with a lightweight message broke
+
+For more information click in this https://cloud.spring.io/spring-cloud-bus/single/spring-cloud-bus.html[link^]
+
+NOTE: At the end of this document you will be able to link the example code. <<demo-resources>>
+
+
+== Spring Cloud Bus
+
+include::{basedir}/cloud-altemistafwk-core-microservices-bus-conf/demo/bus.adoc[]
+
+
+[[demo-resources]]
+== Demos resources
+
+include::{basedir}/cloud-altemistafwk-core-microservices-bus-conf/demo/resources.adoc[]

@@ -1,0 +1,168 @@
+
+:fragment:
+
+////
+//	Common nature
+////
+
+== {framework} _common_ nature
+include::{basedir}/cloud-altemistafwk-common/overview.adoc[leveloffset=+1]
+
+[[natures-common-exceptions]]
+=== Exception hierarchy
+include::{basedir}/cloud-altemistafwk-common/exceptions.adoc[leveloffset=+2]
+
+[[natures-common-utilities]]
+=== Utility classes
+include::{basedir}/cloud-altemistafwk-common/utilities.adoc[leveloffset=+2]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-common/maven.adoc[leveloffset=+2]
+
+////
+//	Core nature
+////
+
+== {framework} _core_ nature
+include::{basedir}/cloud-altemistafwk-core/overview.adoc[leveloffset=+1]
+
+=== Exception handling
+include::{basedir}/cloud-altemistafwk-core/exceptions.adoc[leveloffset=+2]
+
+=== Logging
+include::{basedir}/cloud-altemistafwk-core/logging_overview.adoc[leveloffset=+2]
+
+==== Configuration
+include::{basedir}/cloud-altemistafwk-core/logging_configuration.adoc[leveloffset=+3]
+
+=== Utility classes
+include::{basedir}/cloud-altemistafwk-core/utilities.adoc[leveloffset=+2]
+
+=== Configuration management
+include::{basedir}/cloud-altemistafwk-core/properties_overview.adoc[leveloffset=+2]
+
+=== Internationalization (I18n)
+include::{basedir}/cloud-altemistafwk-core/i18n_overview.adoc[leveloffset=+2]
+
+[[cloud-altemistafwk-core-i18n-configuration]]
+==== Configuration
+include::{basedir}/cloud-altemistafwk-core/i18n_configuration.adoc[leveloffset=+3]
+
+==== Advanced configuration
+include::{basedir}/cloud-altemistafwk-core/i18n_advanced_configuration.adoc[leveloffset=+3]
+
+=== Java Management Extensions (JMX)
+include::{basedir}/cloud-altemistafwk-core/jmx_overview.adoc[leveloffset=+2]
+
+==== Configuration
+include::{basedir}/cloud-altemistafwk-core/jmx_configuration.adoc[leveloffset=+3]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-core/maven.adoc[leveloffset=+2]
+
+[[natures-core-internals]]
+=== {framework} _core_ internals
+include::{basedir}/cloud-altemistafwk-core/internals.adoc[leveloffset=+2]
+
+////
+//  Web nature
+////
+
+== {framework} _web_ nature
+include::{basedir}/cloud-altemistafwk-web-conf/overview.adoc[leveloffset=+1]
+
+=== Utility classes
+include::{basedir}/cloud-altemistafwk-web-conf/utilities.adoc[leveloffset=+2]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-web-conf/maven.adoc[leveloffset=+2]
+
+=== {framework} _web_ internals
+include::{basedir}/cloud-altemistafwk-web-conf/internals.adoc[leveloffset=+2]
+
+////
+//  Web application nature
+////
+
+== {framework} _web application_ nature
+include::{basedir}/cloud-altemistafwk-webapp-conf/overview.adoc[leveloffset=+1]
+
+=== Configuration
+include::{basedir}/cloud-altemistafwk-webapp-conf/configuration.adoc[leveloffset=+2]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-webapp-conf/maven.adoc[leveloffset=+2]
+
+=== {framework} _web application_ internals
+include::{basedir}/cloud-altemistafwk-webapp-conf/internals.adoc[leveloffset=+2]
+
+////
+// Spring boot nature
+////
+
+== {framework} _Spring Boot application_ nature
+include::{basedir}/cloud-altemistafwk-boot-conf/overview.adoc[leveloffset=+1]
+
+=== Configuration
+include::{basedir}/cloud-altemistafwk-boot-conf/configuration.adoc[leveloffset=+1]
+
+=== Filters and interceptors
+include::{basedir}/cloud-altemistafwk-boot-conf/filters.adoc[leveloffset=+2]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-boot-conf/maven.adoc[leveloffset=+2]
+
+=== {framework} _Spring Boot application_ internals
+include::{basedir}/cloud-altemistafwk-boot-conf/internals.adoc[leveloffset=+2]
+
+=== {framework} Spring Boot Deploy WAR file to Tomcat
+include::{basedir}/cloud-altemistafwk-boot-conf/tomcatconf.adoc[leveloffset=+2]
+
+////
+// Microservice nature
+////
+
+[[microservice-nature]]
+== {framework} _Microservice infrastructure_ nature
+include::{basedir}/cloud-altemistafwk-microservice-infrastructure-conf/overview.adoc[leveloffset=+1]
+
+=== Configuration
+include::{basedir}/cloud-altemistafwk-microservice-conf/configuration.adoc[leveloffset=+2]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-microservice-infrastructure-conf/maven.adoc[leveloffset=+2]
+
+=== {framework} _Microservice infrastructure_ internals
+include::{basedir}/cloud-altemistafwk-microservice-conf/internals.adoc[leveloffset=+1]
+include::{basedir}/cloud-altemistafwk-microservice-infrastructure-conf/internals.adoc[leveloffset=+1]
+
+////
+// Microservice Application nature
+////
+
+[[microservice-application-nature]]
+== {framework} _Microservice application_ nature
+include::{basedir}/cloud-altemistafwk-microservice-application-conf/overview.adoc[leveloffset=+1]
+
+=== Configuration
+include::{basedir}/cloud-altemistafwk-microservice-conf/configuration.adoc[leveloffset=+2]
+
+=== Maven considerations
+include::{basedir}/cloud-altemistafwk-microservice-application-conf/maven.adoc[leveloffset=+2]
+
+[[microservice-feign]]
+=== Declarative REST Client: Feign
+include::{basedir}/cloud-altemistafwk-microservice-application-conf/client.adoc[leveloffset=+2]
+
+==== Feign clients dependencies between microservices
+include::{basedir}/cloud-altemistafwk-microservice-application-conf/feign_dependencies.adoc[leveloffset=+3]
+
+[[microservice-service-implementation]]
+=== Service implementation
+include::{basedir}/cloud-altemistafwk-microservice-application-conf/server.adoc[leveloffset=+2]
+
+=== {framework} _Microservice application_ internals
+include::{basedir}/cloud-altemistafwk-microservice-conf/internals.adoc[leveloffset=+1]
+
+=== Security: Oauth 2.0: Authorization Header
+include::{basedir}/cloud-altemistafwk-microservice-application-conf/authorization_oauth.adoc[leveloffset=+2]

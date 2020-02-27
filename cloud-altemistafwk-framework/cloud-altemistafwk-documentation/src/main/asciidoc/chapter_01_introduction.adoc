@@ -1,0 +1,39 @@
+
+:fragment:
+
+*ALTEMISTA Cloud Framework* ({framework}) is an enterprise Java framework, managed and maintained by {author}, covering the design, implementation, testing and maintenance of Java EE applications.
+
+{framework} actually is composed by several separate pieces: a runtime architecture, and a set of design principles and considerations on how an Java application should be built, and a development environment.
+
+The {framework} runtime architecture is built around logic components with separate responsabilities. This components are Maven-based and use a combination of various open source technologies around https://spring.io/[Spring Framework] and http://terasolunaorg.github.io/index_en.html[TERASOLUNA Server Framework for Java].
+
+One of the strengths of using {framework} is the capability of adding _features_ to applications and projects with little or no configuration. The the {framework} development environment provides the easier way to install those features into {framework} applications.
+
+.{framework} architecture overview
+image::cloud-altemistafwk-documentation/introduction/overview.png[align="center"]
+
+TIP: See the {framework} <<natures,natures>> and <<features,features>> reference chapters of this document for a complete list of available features and full description and usage guidelines.
+
+////
+Alternatively, features can be manually installed applying Maven partial archetypes or including the proper Maven dependencies.
+////
+
+== Prerequisites
+
+{framework} is targeted for Java architects and programmers.
+
+To proceed with this documentation, and therefore to be able to use {framework} with proficiency, please verify you meet the following requirements:
+
+* *Java* and *Java EE*: development experience is strongly advised.
+
+* *Spring Framework*: basic knowledge is required, and development experience is advised.
++
+Intermediate knowledge and development experience may be required for custom configuration of features.
+
+* *Spring Web MVC framework*: basic knowledge is required, and development experience is advised.
+
+* *Maven*: basic knowledge is required.
++
+To use Maven directly (i.e.: without using the {framework} IDE or plug-in), advanced knowledge may be required 
+
+IMPORTANT: While some features, such as performance, does not require additional knowledge, others features require specific knowledge about the underlying technology. E.g.: while the application developer can install the workflow or reporting module, designing the actual workflows and reports requires knowledge about Activiti/BPMN and Jasper Reports/iReport.

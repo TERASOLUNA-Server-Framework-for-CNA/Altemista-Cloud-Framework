@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.framework</groupId>
+		<artifactId>cloud-altemistafwk-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+
+	<groupId>cloud.altemista.fwk.it</groupId>
+	<artifactId>cloud-altemistafwk-it-common-webapp</artifactId>
+	<name>Integration tests utilities for web applications (.war)</name>
+	<description>Altemista cloud framework base classes and utilities for define and execute integration tests of web applications (.war)</description>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- == Altemista cloud framework integration tests: bill of materials == -->
+			<dependency>
+				<groupId>cloud.altemista.fwk.it</groupId>
+				<artifactId>cloud-altemistafwk-it-bom</artifactId>
+				<version>${cloud-altemistafwk.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+	
+		<!-- == Begin ACF framework == -->
+		<dependency>
+			<!-- Depends on cloud-altemistafwk-webapp-conf to initialize the Spring Context -->
+			<groupId>cloud.altemista.fwk.framework</groupId>
+			<artifactId>cloud-altemistafwk-webapp-conf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.it</groupId>
+			<artifactId>cloud-altemistafwk-it-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cloud.altemista.fwk.it</groupId>
+			<artifactId>cloud-altemistafwk-it-common</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<!-- == End ACF framework == -->
+		
+		<!-- == Begin test dependencies == -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- == End test dependencies == -->
+		
+	</dependencies>
+	
+	<build>
+		<plugins>
+		
+			<!-- This module also builds a test-jar -->
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+		</plugins>
+	</build>
+
+</project>

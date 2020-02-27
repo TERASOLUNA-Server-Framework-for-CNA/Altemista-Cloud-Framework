@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Default implementation of the monitoring service -->
+	<bean id="moduleMonitoringService"
+			class="cloud.altemista.fwk.core.monitoring.impl.MonitoringServiceImpl">
+		
+		<property name="storage">
+		    <!-- Use of LogMeasuresStorageWrapperImpl that wraps the default one and
+		        adds logging functionality -->
+		    <bean id="wrapperStorage" class="cloud.altemista.fwk.core.monitoring.impl.storage.wrapper.LoggerMonitoringStorageWrapperImpl">
+			    <property name="target">
+			    
+					<!-- Default in-memory storage that keeps the last execution of each indicator -->
+					<bean id="moduleStorage"
+							class="cloud.altemista.fwk.core.monitoring.impl.storage.MonitoringStorageImpl"
+						/>
+					
+			    </property>
+			</bean>
+		</property>
+		
+		<property name="indicators">
+			<array>
+			
+				<!-- Indicator that always returns the status OK -->
+				<bean id="moduleAliveIndicator"
+						class="cloud.altemista.fwk.core.monitoring.impl.indicator.AliveIndicator">
+					<property name="id" value="moduleAlive" />
+				</bean>
+				
+				<ref bean="databaseIndicator" />
+				
+			</array>
+		</property>
+	</bean>
+
+	<!-- Database indicator -->
+	<bean id="databaseIndicator"
+		class="cloud.altemista.fwk.core.monitoring.impl.indicator.DatabaseIndicator">
+		<property name="id" value="database" />
+		<property name="dataSource" ref="myBatisDataSource" />
+		<property name="checkQuery"
+			value="SELECT USERNAME FROM RMNDRS_USERS" />
+	</bean>
+
+</beans>

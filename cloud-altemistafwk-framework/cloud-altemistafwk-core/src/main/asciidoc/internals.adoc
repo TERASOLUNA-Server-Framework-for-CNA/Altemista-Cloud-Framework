@@ -1,0 +1,28 @@
+
+:fragment:
+
+From the technical point of view, the actual _core_ of the extensible Spring context {framework} provides is defined in the main configuration file: `cloud/altemista/fwk/config/core/cloud-altemistafwk-core.xml`.
+
+CAUTION: The actual boostrap of the Spring context is done at the aggregator project as its own nature requires (e.g.: a web application and a Spring Boot-based application bootstraps the Spring context differently). Without an aggregator project, the main configuration file of {framework} is not loaded.
+
+This configuration file runs a component scan for annotated beans under the package `cloud.altemista.fwk.core`.
+
+It also automatically imports the configuration of any {framework} core module present in the classpath, including self. The hierarchical structure of configuration is as follows in the next example (packages removed for clarity):
+
+* `cloud-altemistafwk-core.xml` imports `cloud-altemistafwk-core-*.xml`
+** `cloud-altemistafwk-core-<feature>.xml` import `cloud-altemistafwk-<feature>-<implementation>.xml`
+** `cloud-altemistafwk-core-web.xml` import `cloud-altemistafwk-web-*.xml`
+*** `cloud-altemistafwk-web-<web-feature>.xml` import `cloud-altemistafwk-web-<web-feature>-<implementation>.xml`
+** etcetera
+
+Another notable configuration file is `cloud/altemista/fwk/config/core/cloud-altemistafwk-init.xml`, which ends up being the first configuration file to be processed. This file contains the configuration that must be included before any other {framework} or application configuration file.
+
+Namely, this file contains configuration for the environment dependent Logback configurator:
+
+[source,xml,options="nowrap"]
+.cloud/altemista/fwk/config/core/cloud-altemistafwk-init.xml
+----
+include::{basedir}/cloud-altemistafwk-core/src/main/resources/cloud/altemista/fwk/config/core/cloud-altemistafwk-init.xml[tags=internalsLogback]
+----
+
+The configuration for the other features of the core nature are loaded normally, as if they were stand-alone features: internationalization (i18n), logging (such as the exception logger aspect) and Java Management Extensions (JMX).

@@ -1,0 +1,6 @@
+
+:fragment:
+
+RabbitMQ is a message broker that implements Advanced Message Queuing Protocol (AMQP). RabbitMQ runs on many operating systems and cloud environments, and provides a wide range of developer tools for most popular languages.
+
+RabbitMQ is well known and popular message broker and it has many powerful features. The documentation on the https://www.rabbitmq.com[RabbitMQ^] web site is excellent and there are many books available. RabbitMQ is written in Erlang, not a widely used programming language but well adapted to such tasks. The company Pivotal develops and maintains RabbitMQ.

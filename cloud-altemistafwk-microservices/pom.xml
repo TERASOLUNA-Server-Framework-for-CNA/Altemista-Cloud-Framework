@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cloud.altemista.fwk.build</groupId>
+		<artifactId>cloud-altemistafwk-build</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	
+	<artifactId>cloud-altemistafwk-microservices</artifactId>
+	<packaging>pom</packaging>
+
+	<name>cloud-altemistafwk * Microservices build script</name>
+	<description>Convenience pom.xml for building the ACF Microservices modules</description>
+
+	<profiles>
+
+		<!-- == Builds ACF framework == -->
+		<profile>
+			<id>framework</id>
+			<modules>
+				<module>cloud-altemistafwk-core-microservices</module>
+				<module>cloud-altemistafwk-core-microservices-bus-archetype</module>
+				<module>cloud-altemistafwk-core-microservices-bus-conf</module>
+				<module>cloud-altemistafwk-core-microservices-config-conf</module>
+				<module>cloud-altemistafwk-core-microservices-config-archetype</module>
+				<module>cloud-altemistafwk-core-microservices-gateway-conf</module>
+				<module>cloud-altemistafwk-core-microservices-gateway-archetype</module>
+				<module>cloud-altemistafwk-core-microservices-monitoring-conf</module>
+				<module>cloud-altemistafwk-core-microservices-monitoring-archetype</module>
+				<module>cloud-altemistafwk-core-microservices-registry-conf</module>
+				<module>cloud-altemistafwk-core-microservices-registry-archetype</module>
+				<module>cloud-altemistafwk-core-microservices-zipkin-conf</module>
+				<module>cloud-altemistafwk-core-microservices-zipkin-archetype</module>
+				<module>cloud-altemistafwk-core-microservices-service-conf</module>
+				<module>cloud-altemistafwk-core-microservices-service-archetype</module>
+				<module>cloud-altemistafwk-core-microservices-hystrix-conf</module>
+				<module>cloud-altemistafwk-core-microservices-hystrix-archetype</module>
+				<module>cloud-altemistafwk-core-microservices-sleuth-conf</module>
+				<module>cloud-altemistafwk-core-microservices-sleuth-archetype</module>
+			</modules>
+		</profile>
+
+		<!-- == Builds and run ACF integration tests == -->
+		<profile>
+			<id>run-it</id>
+			<modules>
+			
+			</modules>
+		</profile>
+
+	</profiles>
+	
+</project>

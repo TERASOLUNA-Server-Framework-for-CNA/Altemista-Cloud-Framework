@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    stream:
+      kafka:
+      bindings:
+        greetings-out:
+          destination: greetings
+          contentType: application/json
+

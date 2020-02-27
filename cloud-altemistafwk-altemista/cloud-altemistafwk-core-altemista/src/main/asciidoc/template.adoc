@@ -1,0 +1,45 @@
+
+:fragment:
+
+If you are admin user in Altemista, you can create ACF project from management-infra template which let us to create the following components:
+
+	* Development server
+	* Stage server
+	* Production server
+	* CI/CD tools: GOS,Jenkins,Nexus,Sonar
+	* Basic app created in GOGS repository,based on ACF archertype
+	* Pipelines to deploy the app dev-stage-prod
+
+image::cloud-altemistafwk-documentation/altemista/template.png[align="center"]
+
+After creating the template, you will be able to see this:
+
+image::cloud-altemistafwk-documentation/altemista/templates_created.png[align="center"]
+
+
+=== GOGS
+
+Gogs is a painless self-hosted Git service where our code will be located. If you want to know more about it, please go to this https://gogs.io/docs[website^]
+
+image::cloud-altemistafwk-documentation/altemista/gogs.png[align="center"]
+
+As soon as the user push the code in the repository, it will start to build the modification in Altemista
+
+image::cloud-altemistafwk-documentation/altemista/build.png[align="center"]
+
+=== Sonar
+
+SonarQube (formerly Sonar) is an open-source platform developed by SonarSource for continuous inspection of code quality to perform automatic reviews with static analysis of code to detect bugs, code smells, and security vulnerabilities on 20+ programming languages. SonarQube offers reports on duplicated code, coding standards, unit tests, code coverage, code complexity, comments, bugs, and security vulnerabilities.
+
+By default, there are some rules already created, we do not recommend to change them but if you want it, please follow the https://docs.sonarqube.org/7.4/user-guide/rules/[link^]
+
+
+=== Jenkins
+
+Jenkins is an open source automation server written in Java. Jenkins helps to automate the non-human part of the software development process, with continuous integration and facilitating technical aspects of continuous delivery. It is a server-based system that runs in servlet containers such as Apache Tomcat. It supports version control tools, including AccuRev, CVS, Subversion, Git, Mercurial, Perforce, TD/OMS, ClearCase and RTC, and can execute Apache Ant, Apache Maven and sbt based projects as well as arbitrary shell scripts and Windows batch commands. The creator of Jenkins is Kohsuke Kawaguchi.[3] Released under the MIT License, Jenkins is free software.[4]
+
+By default there are some pipelines created, we do not recommend to change them but if you want it, please follow the https://jenkins.io/doc/book/pipeline/[link^]
+
+image::cloud-altemistafwk-documentation/altemista/pipelines.png[align="center"]
+
+
