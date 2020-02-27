@@ -1,4 +1,0 @@
-
-:fragment:
-
-{framework} Integration MQTT feature only can be added in a core module.

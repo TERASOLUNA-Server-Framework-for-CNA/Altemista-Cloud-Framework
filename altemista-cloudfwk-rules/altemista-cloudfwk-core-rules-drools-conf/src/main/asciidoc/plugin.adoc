@@ -1,6 +1,0 @@
-
-:fragment:
-
-The _business rule management (BRM)_ feature can only be installed in module projects with the _core_ nature.
-
-Currently, there is only one implementation available, based on Drools.

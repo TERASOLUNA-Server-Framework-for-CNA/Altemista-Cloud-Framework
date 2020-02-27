@@ -1,8 +1,0 @@
-
-:fragment:
-
-The _SOAP web service interface_ feature can be installed to either _common_, _core_ or _web_ nature projects dependening on your needs.
-
-For the SOAP clients, although it is recommended to use a separate _common_ project as the web service interfaces project, this feature can be included in the same SOAP client _core_ project.
-
-For the SOAP servers, it is recommended to use a separate _common_ project as the web service interfaces project so it can be easily shared with the clients. However, it is also possible to include this feature in the same SOAP server _web_ project.

@@ -1,8 +1,0 @@
-
-:fragment:
-
-In a microservice architecture it is common to have multiple layers of service calls. 
-
-A service failure in the lower level of services can cause cascading failure all the way up to the user. When calls to a particular service reach a certain threshold (20 failures in 5 seconds is the default in Hystrix), the circuit opens and the call is not made. In cases of error and an open circuit a fallback can be provided by the developer.
-
-With {framework} Circuit Breaker feature (Hystrix and Turbine) enabled can have an open circuit stops cascading failures and allows overwhelmed or failing services time to heal. The fallback can be another Hystrix protected call, static data or a sane empty value. Fallbacks may be chained so the first fallback makes some other business call which in turn falls back to static data.

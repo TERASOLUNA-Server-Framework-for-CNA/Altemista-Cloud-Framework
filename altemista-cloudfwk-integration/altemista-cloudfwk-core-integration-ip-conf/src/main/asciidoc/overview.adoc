@@ -1,6 +1,0 @@
-
-:fragment:
-
-{framework} Integration TCP and UDP Feature provides Channel Adapters for receiving and sending messages over internet protocols.
-
-{framework} Integration TCP and UDP Feature is based on https://docs.spring.io/spring-integration/docs/5.0.0.RELEASE/reference/html/ip.html[Spring Integration TCP and UDP Support^]

@@ -1,6 +1,0 @@
-
-:fragment:
-
-{framework} Integration MQTT Feature provides inbound and outbound channel adapters supporting the MQ Telemetry Transport (MQTT) protocol.
-
-{framework} Integration MQTT Feature is based on https://docs.spring.io/spring-integration/docs/5.0.0.RELEASE/reference/html/mqtt.html[Spring Integration MQTT Support^]

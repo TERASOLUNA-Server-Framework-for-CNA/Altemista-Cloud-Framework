@@ -1,6 +1,0 @@
-
-:fragment:
-
-The _connectivity utilities_ feature can be installed in module projects with either _common_ or _core_ natures.
-
-Despite this feature uses the _cryptography utilities_ feature, it does not require it to be previously installed.

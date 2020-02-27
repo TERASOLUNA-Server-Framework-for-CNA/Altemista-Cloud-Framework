@@ -1,4 +1,0 @@
-
-:fragment:
-
-You can download the demonstration code here: link:resources/altemista-cloudfwk-documentation/acf-movies-demo.zip[AltemistaMoviesApp]

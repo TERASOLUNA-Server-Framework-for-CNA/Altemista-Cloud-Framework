@@ -1,4 +1,0 @@
-
-:fragment:
-
-The _Presentation layer: Spring Web Flow (SWF)_ feature can only be installed in module projects with the _webapp_ nature.

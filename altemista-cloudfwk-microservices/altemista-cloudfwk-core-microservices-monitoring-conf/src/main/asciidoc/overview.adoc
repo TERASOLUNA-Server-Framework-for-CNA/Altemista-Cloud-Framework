@@ -1,4 +1,0 @@
-
-:fragment:
-
-The {framework} Monitoring Server feature is based to enable the Hystrix and Turbine Dashboard to monitor key metrics for Hystrix

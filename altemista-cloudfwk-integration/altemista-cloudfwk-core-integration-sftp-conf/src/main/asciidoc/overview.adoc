@@ -1,6 +1,0 @@
-
-:fragment:
-
-{framework} Integration SFTP Feature provides support for file transfer operations via SFTP.
-
-{framework} Integration SFTP Feature is based on https://docs.spring.io/spring-integration/docs/5.0.0.RELEASE/reference/html/sftp.html[Spring Integration SFTP Support^]

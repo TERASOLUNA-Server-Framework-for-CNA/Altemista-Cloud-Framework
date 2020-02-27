@@ -1,6 +1,0 @@
-
-:fragment:
-
-Due the version upgrade of ALTEMISTA Cloud Framework for Java (5.x) (and, therefore, the version upgrade of Spring IO Platform), the dependencies with the _groupId_ `com.mysema.querydsl` have been deprecated in favour of `com.querydsl`.
-
-Consequently, {framework} applications using the <<altemista-cloudfwk-core-persistence-mongodb-conf-dynamic-quering,Querydsl-based dynamic querying>> mechanism of <<altemista-cloudfwk-core-persistence-mongodb-conf-overview,Spring Data MongoDB-based persistence>> feature must update their imports from the packages starting with `com.mysema.query.types.{asterisk}` to the packages `com.querydsl.core.types.{asterisk}` (e.g.: `com.querydsl.core.types.Predicate`).

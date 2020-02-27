@@ -1,9 +1,0 @@
-
-# The database's host address
-*.persistence.mongo.host=localhost
-
-# The port on which the database is running
-*.persistence.mongo.port=27017
-
-# MongoDB database name
-*.persistence.mongo.database=example

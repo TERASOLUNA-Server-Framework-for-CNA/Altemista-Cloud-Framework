@@ -1,6 +1,0 @@
-
-:fragment:
-
-The *OAuth 2.0 Resource Server* feature augments an existing {framework} web application or Spring Boot-based {framework} application to integrate an OAuth 2.0 resource server. I.e. the application can secure certain endpoints (resources) using an OAuth 2.0 Authorization Server for authentication.
-
-This feature uses https://projects.spring.io/spring-security-oauth/[Spring Security OAuth] and supports OAuth 2.0 resource server capabilities by providing all the required infrastructure. This infrastructure has sensible defaults to automaticaly bind with an existing Oauth 2.0 Authorization Server, but can be overriden by the application if required.

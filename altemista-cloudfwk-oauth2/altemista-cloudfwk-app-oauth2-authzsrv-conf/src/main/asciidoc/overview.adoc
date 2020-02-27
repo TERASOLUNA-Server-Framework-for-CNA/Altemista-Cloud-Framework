@@ -1,8 +1,0 @@
-
-:fragment:
-
-The *OAuth 2.0 Authorization Server* feature augments an existing {framework} web application or Spring Boot-based {framework} application to be an OAuth 2.0 authorization server. I.e. the application will publish endpoints for authorization and token requests.
-
-This feature uses https://projects.spring.io/spring-security-oauth/[Spring Security OAuth] and provides an out-of-the-box configuration that supports all the authorization types and automatically secures the endpoint for token requests.
-
-IMPORTANT: Plain HTTP is fine for testing but an OAuth 2.0 Authorization Server should only be used over SSL in production (e.g. run the OAuth 2.0 Authorization Server in a secure container).

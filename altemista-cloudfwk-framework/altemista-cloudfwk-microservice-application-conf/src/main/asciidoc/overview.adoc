@@ -1,4 +1,0 @@
-
-:fragment:
-
-The {framework} Microservice nature is an application nature that allows the creation of standalone Spring Boot-based applications for a microservice application implementation.

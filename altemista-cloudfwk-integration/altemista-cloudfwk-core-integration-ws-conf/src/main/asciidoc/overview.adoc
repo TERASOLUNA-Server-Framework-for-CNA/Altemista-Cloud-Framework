@@ -1,6 +1,0 @@
-
-:fragment:
-
-{framework} Integration Web Service Feature provides channel adapters for receiving and sending messages over Web Services.
-
-{framework} Integration Web Service Feature is based on https://docs.spring.io/spring-integration/docs/5.0.0.RELEASE/reference/html/ws.html[Spring Integration Web Service Support^]

@@ -1,8 +1,0 @@
-
-:fragment:
-
-{framework} Message Broker feature enables the capacity of exchange messages between different systems. Message broker is an intermediary program that translates a system's language from one internationally suitable language to another via a telecommunication medium.
-
-In telecommunication networks, programs interact by exchanging messages that are formally defined, i.e., by means of the act of messaging. In these networks, a message broker serves as an intermediary program, which translates a message from the sender's formal messaging protocol to the receiver’s formal messaging protocol. A message broker is also known as an integration broker or middleware.
-
-From {framework} provided two message broker software: ActiveMQ and RabbitMQ. Both are easy to understand and to get information in order to integrate in your projects. As you will see, there are two main approaches to send messages, see below the following details.

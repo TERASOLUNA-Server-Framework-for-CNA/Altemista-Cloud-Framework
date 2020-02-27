@@ -1,1 +1,0 @@
-run http://localhost:8080/exampleACFi18n-webapp/locale?lang=pt to change the language

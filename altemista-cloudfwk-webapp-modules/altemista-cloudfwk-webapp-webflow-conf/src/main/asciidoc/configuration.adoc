@@ -1,4 +1,0 @@
-
-:fragment:
-
-The implementation of the Spring Web Flow (SWF) feature is configured out-of-the-box. An application using this feature is only required to properly declare the flow definitions.

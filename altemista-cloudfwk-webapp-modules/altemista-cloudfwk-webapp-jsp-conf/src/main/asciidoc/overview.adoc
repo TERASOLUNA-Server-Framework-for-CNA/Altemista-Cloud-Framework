@@ -1,4 +1,0 @@
-
-:fragment:
-
-The JavaServer Pages (JSP) feature sets up the view resolver to resolve view names to JavaServer Pages (JSP) from the folder `/WEB-INF/jsp`. I.e.: a view named `example` will be rendered using `/WEB-INF/jsp/example.jsp` file.

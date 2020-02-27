@@ -1,4 +1,0 @@
-
-:fragment:
-
-{framework} Integration Web Services feature only can be added in a core module.

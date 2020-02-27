@@ -1,9 +1,0 @@
-
-:fragment:
-
-You can see the demonstration code here: 
-
-link:resources/altemista-cloudfwk-documentation/acf-azure-demo.zip[AzureExample].
-
-
-

@@ -1,4 +1,0 @@
-
-:fragment:
-
-{framework} Integration JPA feature only can be added in a core module.

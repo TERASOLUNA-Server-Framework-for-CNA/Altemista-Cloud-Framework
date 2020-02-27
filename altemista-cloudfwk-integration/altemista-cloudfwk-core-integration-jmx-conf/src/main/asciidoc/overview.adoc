@@ -1,6 +1,0 @@
-
-:fragment:
-
-{framework} Integration JMX Feature provides channel adapters for receiving and publishing JMX Notifications.
-
-{framework} Integration JMX Feature is based on https://docs.spring.io/spring-integration/docs/5.0.0.RELEASE/reference/html/system-management-chapter.html#jmx[Spring Integration JMX Support^]

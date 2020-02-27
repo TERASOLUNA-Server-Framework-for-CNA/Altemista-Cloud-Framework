@@ -1,6 +1,0 @@
-
-:fragment:
-
-The _mail server_ feature can only be installed in module projects with the _core_ nature.
-
-Currently, there is only one implementation available, based on JavaMail API and the Spring Framework e-mail library.

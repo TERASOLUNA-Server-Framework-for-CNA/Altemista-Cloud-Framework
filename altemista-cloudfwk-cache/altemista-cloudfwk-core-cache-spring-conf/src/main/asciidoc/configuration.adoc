@@ -1,4 +1,0 @@
-
-:fragment:
-
-The Spring-based implementation of the cache module is completely configured out-of-the-box.

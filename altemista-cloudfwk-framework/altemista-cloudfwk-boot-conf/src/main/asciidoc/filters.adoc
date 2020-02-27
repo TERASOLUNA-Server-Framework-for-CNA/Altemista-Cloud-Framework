@@ -1,8 +1,0 @@
-
-:fragment:
-
-For Spring Boot-based applications, {framework} sets up several Servlet filters and Spring interceptors around web requests.
-
-Here is a non-comprehensive list:
-
-* `ExceptionLoggingFilter` to log exceptions that are out of the boundaries of Spring MVC.

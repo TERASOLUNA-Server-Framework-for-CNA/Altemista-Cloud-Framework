@@ -1,6 +1,0 @@
-
-:fragment:
-
-The _Business Process Management (BPM)_ feature can only be installed in module projects with the core nature.
-
-Currently, there is only one implementation available, based on Activiti BPM Platform.

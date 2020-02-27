@@ -1,6 +1,0 @@
-
-:fragment:
-
-The Spring cloud bus feature can only be installed in module projects with the _common_ nature with microservice appplication projects.
-
-image::altemista-cloudfwk-documentation/bus/plugin.png[align="center"]

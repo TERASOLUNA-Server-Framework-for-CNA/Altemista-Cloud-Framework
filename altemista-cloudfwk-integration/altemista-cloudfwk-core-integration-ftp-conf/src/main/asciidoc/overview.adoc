@@ -1,6 +1,0 @@
-
-:fragment:
-
-{framework} Integration FTP Feature support for file transfer operations via FTP and FTPS.
-
-{framework} Integration FTP Feature is based on https://docs.spring.io/spring-integration/docs/5.0.0.RELEASE/reference/html/ftp.html[Spring Integration FTP Support^]

@@ -1,8 +1,0 @@
-
-:fragment:
-
-{framework} Amazon S3 implementation only can be added in a core module. In _boot_ nature is supported.
-
-image::altemista-cloudfwk-documentation/amazon/plugin_s3.png[align="center"]
-
-IMPORTANT: To use Amazon S3 implementation, You need to have an amazon account.

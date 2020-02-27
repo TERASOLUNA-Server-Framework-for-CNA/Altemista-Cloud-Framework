@@ -1,4 +1,0 @@
-
-:fragment:
-
-The _crypography utilities_ feature can be installed in module projects with either _common_ or _core_ natures.

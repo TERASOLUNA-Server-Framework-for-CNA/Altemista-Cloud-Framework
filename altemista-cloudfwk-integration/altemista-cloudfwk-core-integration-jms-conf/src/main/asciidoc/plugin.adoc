@@ -1,4 +1,0 @@
-
-:fragment:
-
-{framework} Integration JMS feature only can be added in a core module.

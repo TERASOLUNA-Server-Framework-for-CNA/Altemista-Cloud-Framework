@@ -1,4 +1,0 @@
-
-:fragment:
-
-This means you've already written the code for your API, and you'll be using Swagger to document your API. 

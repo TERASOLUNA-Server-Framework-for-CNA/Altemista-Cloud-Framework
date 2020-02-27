@@ -1,4 +1,0 @@
-
-:fragment:
-
-The Spring-based implementation of the cache module sets up a simple cache manager that can be useful in development stages or for simple projects.

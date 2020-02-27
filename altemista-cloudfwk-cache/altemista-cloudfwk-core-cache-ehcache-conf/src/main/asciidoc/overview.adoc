@@ -1,4 +1,0 @@
-
-:fragment:
-
-The Ehcache-based implementation of the cache module still relies uses http://www.ehcache.org/[Ehcache] as the cache manager. Ehcache is a widely used open source distributed cache for general purpose caching. Ehcache scales from in-process caching, all the way to mixed in-process/out-of-process deployments with terabyte-sized caches.

@@ -1,6 +1,0 @@
-
-:fragment:
-
-The _MongoDB persistence_ feature can only be installed in module projects with the _core_ nature.
-
-NOTE: This feature is not compatible with neither the _JDCB/SQL persistence_ nor the _O/RM persistence_ features.

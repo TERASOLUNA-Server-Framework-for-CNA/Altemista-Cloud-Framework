@@ -1,9 +1,0 @@
-
-:fragment:
-
-You can see the demonstration code here: 
-
-https://steps.everis.com/svn/ARCHEVERIS/altemista-cloudfwk/trunk/altemista-cloudfwk-demos/message_broker_demo[MessageBrokerExample^].
-
-Or you can download the demonstration code here: link:resources/altemista-cloudfwk-documentation/acf-message-broker-demo.zip[AltemistaMessageBrokerApp].
-

@@ -1,4 +1,0 @@
-
-:fragment:
-
-IMPORTANT: To show what features can be added in a microservices infrastructure application you can go to <<microservices-infrastructure-feature,19.1. Microservices Infrastructure>>

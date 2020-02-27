@@ -1,6 +1,0 @@
-
-:fragment:
-
-This guide was just a starting point. There are more features and posibilities in {framework}!
-
-To know all the capabilities of {framework}, please refer to the _{framework} Reference Documentation_.

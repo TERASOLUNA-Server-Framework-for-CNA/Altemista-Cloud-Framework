@@ -1,6 +1,0 @@
-
-:fragment:
-
-The _OAuth 2.0 authorization server_ feature is enabled application-wide, so it can only be installed in aggregator projects. Both _webapp_ and _boot_ natures are supported.
-
-IMPORTANT: If this feature is installed together with the _Security: authentication_ feature, please review the configuration of the <<altemista-cloudfwk-app-oauth2-authzsrv-conf-configuration-login,HTTP security>>.

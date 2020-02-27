@@ -1,6 +1,0 @@
-
-:fragment:
-
-{framework} Integration HTTP Feature allows for the execution of HTTP requests and the processing of inbound HTTP requests.
-
-{framework} Integration HTTP Feature is based on https://docs.spring.io/spring-integration/docs/5.0.0.RELEASE/reference/html/http.html[Spring Integration HTTP Support^]

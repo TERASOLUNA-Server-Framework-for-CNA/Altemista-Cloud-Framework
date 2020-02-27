@@ -1,8 +1,0 @@
-
-:fragment:
-
-{framework} Amazon SQS implementation only can be added in a core module. In _boot_ nature is supported.
-
-image::altemista-cloudfwk-documentation/amazon/plugin_sqs.png[align="center"]
-
-IMPORTANT: To use Amazon SQS implementation, You need to have an amazon account.

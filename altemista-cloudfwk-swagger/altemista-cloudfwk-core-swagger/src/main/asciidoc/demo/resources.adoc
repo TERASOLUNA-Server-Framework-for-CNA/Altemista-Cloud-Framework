@@ -1,6 +1,0 @@
-
-:fragment:
-
-You can see the demonstration code here: https://steps.everis.com/svn/ARCHEVERIS/altemista-cloudfwk/trunk/altemista-cloudfwk-demos/swagger-demo[SwaggerExample^].
-
-Or you can download the demonstration code here: link:resources/altemista-cloudfwk-documentation/acf-swagger-demo.zip[AltemistaSwaggerApp].

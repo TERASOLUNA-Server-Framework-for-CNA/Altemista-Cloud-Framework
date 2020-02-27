@@ -1,4 +1,0 @@
-
-:fragment:
-
-The _Presentation layer: JavaServer Pages (JSP)_ feature is completely configured out-of-the-box.

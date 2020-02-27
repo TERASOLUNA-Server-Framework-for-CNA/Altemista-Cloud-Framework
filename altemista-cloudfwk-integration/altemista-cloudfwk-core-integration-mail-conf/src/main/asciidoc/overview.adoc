@@ -1,6 +1,0 @@
-
-:fragment:
-
-{framework} Integration Mail Feature provides support for outbound email with the MailSendingMessageHandler. It delegates to a configured instance of Spring’s JavaMailSender.
-
-{framework} Integration Mail Feature is based on https://docs.spring.io/spring-integration/docs/5.0.0.RELEASE/reference/html/mail.html[Spring Integration Mail Support^]

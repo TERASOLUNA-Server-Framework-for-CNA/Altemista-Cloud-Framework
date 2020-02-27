@@ -1,6 +1,0 @@
-
-:fragment:
-
-In the business tier, {framework} sets up an https://en.wikipedia.org/wiki/Aspect-oriented_programming[aspect] to log uncaught exceptions produced at the business services layer (i.e.: the `@Service` annotated beans).
-
-For further information, read the http://terasolunaorg.github.io/guideline/5.2.0.RELEASE/en/ArchitectureInDetail/WebApplicationDetail/ExceptionHandling.html[exception handling] chapter of the http://terasolunaorg.github.io/guideline/5.2.0.RELEASE/en/index.html[TERASOLUNA Server Framework Development Guideline].
