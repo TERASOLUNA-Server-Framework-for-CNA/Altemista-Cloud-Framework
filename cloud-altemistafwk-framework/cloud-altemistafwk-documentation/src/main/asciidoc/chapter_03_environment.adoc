@@ -171,16 +171,16 @@ You will need to have install :
 === Usage CLI: Installation
 Using npm
 ```shell
-$ npm i -g adf-cli
+$ npm i -g acf-cli
 ```
 
 ===  Usage CLI: Quick Start
 
-You can easily start to use ADF CLI by typing something like this:
+You can easily start to use ACF CLI by typing something like this:
 
 [source,sh,subs="verbatim,attributes"]
 ----
-$ adf
+$ acf
 ----
 
 It will appear a menu with some actions in order to start to scaffold your project. If you keep reading you will learn about the different choices.
@@ -188,7 +188,7 @@ It will appear a menu with some actions in order to start to scaffold your proje
 
 === Usage CLI: New Project
 
-From ADF CLI we let you create the followings type of projects:
+From ACF CLI we let you create the followings type of projects:
 
 * **Spring Boot**
 * **Web Application**
@@ -198,25 +198,25 @@ From ADF CLI we let you create the followings type of projects:
 Run the following command for creating a spring boot project:
 [source,sh,subs="verbatim,attributes"]
 ----
-$ adf boot
+$ acf boot
 ----
 
 Run the following command for creating a web application project:
 [source,sh,subs="verbatim,attributes"]
 ----
-$ adf web
+$ acf web
 ----
 
 Run the following command for creating a microservice infrastructure project:
 [source,sh,subs="verbatim,attributes"]
 ----
-$ adf micros-infrastructure
+$ acf micros-infrastructure
 ----
 
 Run the following command for creating a microservice application project:
 [source,sh,subs="verbatim,attributes"]
 ----
-$ adf micros-application
+$ acf micros-application
 ----
 
 The CLI application will ask the following questions:
@@ -229,7 +229,7 @@ The CLI application will ask the following questions:
 
 === Usage CLI: New Module
 
-From ADF CLI we let you create the followings type of modules:
+From ACF CLI we let you create the followings type of modules:
 
 * ** Web nature**: The web nature denotes a web boundary defined as MVC controllers, REST API, web services, etc
 * **Common nature**: The common nature serves for the purpose of creating lightweight business module interfaces. This interfaces can be shared between business modules, projects or even to 3rd parties. This nature can also be used to create utility projects.
@@ -238,31 +238,31 @@ From ADF CLI we let you create the followings type of modules:
 Run the following command for creating a new module:
 [source,sh,subs="verbatim,attributes"]
 ----
-$ adf module
+$ acf module
 ----
 
 Run the following command for creating a web module:
 [source,sh,subs="verbatim,attributes"]
 ----
-$ adf web-module
+$ acf web-module
 ----
 
 Run the following command for creating a common module:
 [source,sh,subs="verbatim,attributes"]
 ----
-$ adf common-module
+$ acf common-module
 ----
 
 Run the following command for creating a core module:
 [source,sh,subs="verbatim,attributes"]
 ----
-$ adf core-module
+$ acf core-module
 ----
 
 Run the following command for creating a microservice application project:
 [source,sh,subs="verbatim,attributes"]
 ----
-$ adf micros-application
+$ acf micros-application
 ----
 
 At the end in each command ,the CLI application will ask you the name of the module.
