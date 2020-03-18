@@ -59,7 +59,6 @@
 		<maven-site-plugin.version>3.6</maven-site-plugin.version>
 		<maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
 		<maven-verifier-plugin.version>1.1</maven-verifier-plugin.version>
-		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 		<!-- Packaging types/tools -->
 		<maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
 		<maven-war-plugin.version>3.0.0</maven-war-plugin.version>
@@ -122,23 +121,6 @@
 					</configuration>
 				</plugin>
 				
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.6</version>
-							<executions>
-						      <execution>
-						          	<id>sign-artifacts</id>
-						          	<phase>verify</phase>
-						          	<goals>
-						            	<goal>sign</goal>
-						          	</goals>
-						        </execution>
-							</executions>
-					</plugin>
-				
-			
-				<!-- == Begin build and reporting plugins == -->
 				<!-- Core plugins: -->
 				<plugin>
 					<artifactId>maven-clean-plugin</artifactId>
@@ -179,10 +161,6 @@
 				<plugin>
 					<artifactId>maven-verifier-plugin</artifactId>
 					<version>${maven-verifier-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-gpg-plugin</artifactId>
-					<version>${maven-gpg-plugin.version}</version>
 				</plugin>
 				<!-- Packaging types/tools: -->
 				<plugin>
@@ -291,7 +269,7 @@
 			<id>with-sign</id>
 			<activation>
 				<!-- Disabled by default: should be triggered manually -->
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<build>
 				<plugins>
