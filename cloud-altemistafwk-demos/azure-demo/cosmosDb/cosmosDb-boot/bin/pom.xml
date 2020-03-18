@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.mycompany</groupId>
     <artifactId>cosmosDb</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0.RELEASE</version>
   </parent>
   <artifactId>cosmosDb-boot</artifactId>
   <name>cosmosDb Spring Boot aggregator project</name>

@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.mycompany</groupId>
 		<artifactId>new-application-listener</artifactId>
-		<version>3.0.0-SNAPSHOT</version>
+		<version>3.0.0.RELEASE</version>
 	</parent>
 	<artifactId>new-application-listener-boot</artifactId>
 	<name>new-application-listener Spring Boot aggregator project</name>

@@ -5,7 +5,7 @@
   <parent>
     <groupId>cloud.altemista.fwk.demo</groupId>
     <artifactId>AltemistaMoviesMovies</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0.RELEASE</version>
   </parent>
   <artifactId>AltemistaMoviesMovies-env</artifactId>
   <name>AltemistaMoviesMovies shared environment project</name>

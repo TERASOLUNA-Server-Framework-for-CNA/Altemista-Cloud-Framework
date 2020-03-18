@@ -4,11 +4,34 @@
 
 	<groupId>cloud.altemista.fwk.framework</groupId>
 	<artifactId>cloud-altemistafwk-documentation-fragment</artifactId>
-	<version>3.0.0-SNAPSHOT</version>
+	<version>3.0.0.RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>cloud-altemistafwk documentation: assembly descriptor for fragments</name>
 	<description>Assembly descriptor for ACF framework projects that include fragment(s) of the documentation</description>
+	<url>https://terasoluna.everis.com/</url>
+	
+	<developers>
+    	<developer>
+      		<name>Altemista Cloud Framework</name>
+      		<email>tsfplus@everis.com</email>
+      		<organization>NTT DATA Corporation</organization>
+      		<organizationUrl>https://terasoluna.everis.com/</organizationUrl>
+    	</developer>
+  	</developers>
+  	
+  	<scm>
+  		<connection>scm:git:git://github.com/TERASOLUNA-Server-Framework-for-CNA/Altemista-Cloud-Framework.git</connection>
+  		<developerConnection>scm:git:ssh://github.com:TERASOLUNA-Server-Framework-for-CNA/Altemista-Cloud-Framework.git</developerConnection>
+  		<url>http://github.com/TERASOLUNA-Server-Framework-for-CNA/Altemista-Cloud-Framework/tree/master</url>
+  	</scm>
+  	
+  	<licenses>
+  		<license>
+    		<name>The Apache License, Version 2.0</name>
+    		<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+  		</license>
+	</licenses>  		
 
 	<properties>
 		<!-- == Begin org.apache.maven plugins versions == -->
@@ -51,5 +74,32 @@
 			
 		</plugins>
 	</build>
+	
+	<profiles>
+		<!-- Enable sign filest -->
+		<profile>
+			<id>with-sign</id>
+			<activation>
+				<!-- Disabled by default: should be triggered manually -->
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-gpg-plugin</artifactId>
+							<executions>
+						      <execution>
+						          	<id>sign-artifacts</id>
+						          	<phase>verify</phase>
+						          	<goals>
+						            	<goal>sign</goal>
+						          	</goals>
+						        </execution>
+							</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>		
 	
 </project>

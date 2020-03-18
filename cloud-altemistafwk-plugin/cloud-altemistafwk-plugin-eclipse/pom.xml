@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>cloud.altemista.fwk.framework</groupId>
 		<artifactId>cloud-altemistafwk-recommended-plugins</artifactId>
-		<version>3.0.0-SNAPSHOT</version>
+		<version>3.0.0.RELEASE</version>
 		<relativePath />
 	</parent>
 
@@ -31,8 +31,8 @@
 		<java.source.version>1.7</java.source.version>
 		<java.target.version>1.7</java.target.version>
 		
-		<cloud-altemistafwk-plugin-config.version>3.0.0-SNAPSHOT</cloud-altemistafwk-plugin-config.version>
-		<cloud-altemistafwk-plugin-core.version>3.0.0-SNAPSHOT</cloud-altemistafwk-plugin-core.version>
+		<cloud-altemistafwk-plugin-config.version>3.0.0.RELEASE</cloud-altemistafwk-plugin-config.version>
+		<cloud-altemistafwk-plugin-core.version>3.0.0.RELEASE</cloud-altemistafwk-plugin-core.version>
 	</properties>
 	
 	<dependencies>

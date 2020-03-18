@@ -5,12 +5,12 @@
   <parent>
     <groupId>cloud.altemista.fwk.framework</groupId>
     <artifactId>cloud-altemistafwk-recommended-plugins</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0.RELEASE</version>
     <relativePath></relativePath>
   </parent>
   <groupId>com.mycompany</groupId>
   <artifactId>new-application-rds</artifactId>
-  <version>3.0.0-SNAPSHOT</version>
+  <version>3.0.0.RELEASE</version>
   <packaging>pom</packaging>
   <name>Application new-application-rds</name>
   <modules>
@@ -30,24 +30,24 @@
       <dependency>
         <groupId>cloud.altemista.fwk.framework</groupId>
         <artifactId>cloud-altemistafwk-bom</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.0.0.RELEASE</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.mycompany</groupId>
         <artifactId>new-application-rds-env</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.0.0.RELEASE</version>
       </dependency>
       <dependency>
         <groupId>com.mycompany</groupId>
         <artifactId>new-application-rds-boot</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.0.0.RELEASE</version>
       </dependency>
       <dependency>
         <groupId>com.mycompany</groupId>
         <artifactId>new-application-rds-module-core</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.0.0.RELEASE</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

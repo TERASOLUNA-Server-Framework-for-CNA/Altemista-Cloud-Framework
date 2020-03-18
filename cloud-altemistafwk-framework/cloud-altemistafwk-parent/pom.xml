@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>cloud.altemista.fwk.framework</groupId>
 		<artifactId>cloud-altemistafwk-recommended-plugins</artifactId>
-		<version>3.0.0-SNAPSHOT</version>
+		<version>3.0.0.RELEASE</version>
 		<relativePath>../cloud-altemistafwk-recommended-plugins</relativePath>
 	</parent>
 
@@ -121,7 +121,6 @@
 					</dependencies>
 				</plugin>
 				<!-- == End Asciidoctor == -->
-				
 			</plugins>
 		</pluginManagement>
 
@@ -263,7 +262,7 @@
 			<id>with-sources</id>
 			<activation>
 				<!-- Disabled by default: should be triggered manually -->
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<build>
 				<plugins>
@@ -277,6 +276,31 @@
 								</goals>
 							</execution>
 						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+		<!-- Enable sign filest -->
+		<profile>
+			<id>with-sign</id>
+			<activation>
+				<!-- Disabled by default: should be triggered manually -->
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-gpg-plugin</artifactId>
+							<executions>
+						      <execution>
+						          	<id>sign-artifacts</id>
+						          	<phase>verify</phase>
+						          	<goals>
+						            	<goal>sign</goal>
+						          	</goals>
+						        </execution>
+							</executions>
 					</plugin>
 				</plugins>
 			</build>

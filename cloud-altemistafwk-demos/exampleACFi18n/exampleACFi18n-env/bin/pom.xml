@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.mycompany</groupId>
 		<artifactId>exampleACFi18n</artifactId>
-		<version>3.0.0-SNAPSHOT</version>
+		<version>3.0.0.RELEASE</version>
 	</parent>
 	
 	<artifactId>exampleACFi18n-env</artifactId>

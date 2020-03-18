@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>cloud.altemista.fwk.framework</groupId>
 		<artifactId>cloud-altemistafwk-parent</artifactId>
-		<version>3.0.0-SNAPSHOT</version>
+		<version>3.0.0.RELEASE</version>
 		<relativePath/>
 	</parent>
 	<groupId>cloud.altemista.fwk.mail</groupId>

@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>cloud.altemista.fwk.framework</groupId>
 		<artifactId>cloud-altemistafwk-recommended-plugins</artifactId>
-		<version>3.0.0-SNAPSHOT</version>
+		<version>3.0.0.RELEASE</version>
 		<relativePath></relativePath>
 	</parent>
 	<groupId>cloud.altemista.fwk.demo</groupId>
 	<artifactId>AltemistaMoviesRecommendations</artifactId>
-	<version>3.0.0-SNAPSHOT</version>
+	<version>3.0.0.RELEASE</version>
 	<packaging>pom</packaging>
 	<name>Application AltemistaMoviesRecommendations</name>
 	<modules>
@@ -32,39 +32,39 @@
 			<dependency>
 				<groupId>cloud.altemista.fwk.framework</groupId>
 				<artifactId>cloud-altemistafwk-bom</artifactId>
-				<version>3.0.0-SNAPSHOT</version>
+				<version>3.0.0.RELEASE</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>cloud.altemista.fwk.demo</groupId>
 				<artifactId>AltemistaMoviesRecommendations-env</artifactId>
-				<version>3.0.0-SNAPSHOT</version>
+				<version>3.0.0.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>cloud.altemista.fwk.demo</groupId>
 				<artifactId>AltemistaMoviesRecommendations-boot</artifactId>
-				<version>3.0.0-SNAPSHOT</version>
+				<version>3.0.0.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>cloud.altemista.fwk.demo</groupId>
 				<artifactId>AltemistaMoviesRecommendations-client</artifactId>
-				<version>3.0.0-SNAPSHOT</version>
+				<version>3.0.0.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>cloud.altemista.fwk.demo</groupId>
 				<artifactId>AltemistaMoviesRecommendations-data-core</artifactId>
-				<version>3.0.0-SNAPSHOT</version>
+				<version>3.0.0.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>cloud.altemista.fwk.demo</groupId>
 				<artifactId>AltemistaMoviesUsers-client</artifactId>
-				<version>3.0.0-SNAPSHOT</version>
+				<version>3.0.0.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>cloud.altemista.fwk.demo</groupId>
 				<artifactId>AltemistaMoviesMovies-client</artifactId>
-				<version>3.0.0-SNAPSHOT</version>
+				<version>3.0.0.RELEASE</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

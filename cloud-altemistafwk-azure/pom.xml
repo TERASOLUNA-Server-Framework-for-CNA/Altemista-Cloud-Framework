@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>cloud.altemista.fwk.build</groupId>
 		<artifactId>cloud-altemistafwk-build</artifactId>
-		<version>3.0.0-SNAPSHOT</version>
+		<version>3.0.0.RELEASE</version>
 		<relativePath>..</relativePath>
 	</parent>
 	

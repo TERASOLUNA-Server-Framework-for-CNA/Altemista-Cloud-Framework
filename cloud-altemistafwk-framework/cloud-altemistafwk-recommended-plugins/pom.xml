@@ -4,17 +4,40 @@
 	
 	<groupId>cloud.altemista.fwk.framework</groupId>
 	<artifactId>cloud-altemistafwk-recommended-plugins</artifactId>
-	<version>3.0.0-SNAPSHOT</version>
+	<version>3.0.0.RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>cloud-altemistafwk recommended maven plugin versions</name>
 	<description>Recommended maven plugin versions for building both ACF framework and ACF projects.</description>
+	<url>https://terasoluna.everis.com/</url>
 
 	<organization>
 		<name>NTT DATA Corporation</name>
 		<url>http://terasoluna.org</url>
 	</organization>
 	<inceptionYear>2017</inceptionYear>
+	
+	<developers>
+    	<developer>
+      		<name>Altemista Cloud Framework</name>
+      		<email>tsfplus@everis.com</email>
+      		<organization>NTT DATA Corporation</organization>
+      		<organizationUrl>https://terasoluna.everis.com/</organizationUrl>
+    	</developer>
+  	</developers>
+  	
+  	<scm>
+  		<connection>scm:git:git://github.com/TERASOLUNA-Server-Framework-for-CNA/Altemista-Cloud-Framework.git</connection>
+  		<developerConnection>scm:git:ssh://github.com:TERASOLUNA-Server-Framework-for-CNA/Altemista-Cloud-Framework.git</developerConnection>
+  		<url>http://github.com/TERASOLUNA-Server-Framework-for-CNA/Altemista-Cloud-Framework/tree/master</url>
+  	</scm>
+  	
+  	<licenses>
+  		<license>
+    		<name>The Apache License, Version 2.0</name>
+    		<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+  		</license>
+	</licenses>  		
 
 	<properties>
 		<!-- == Suggested Java source and target versions (overwriteable by applications) == -->
@@ -36,6 +59,7 @@
 		<maven-site-plugin.version>3.6</maven-site-plugin.version>
 		<maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
 		<maven-verifier-plugin.version>1.1</maven-verifier-plugin.version>
+		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 		<!-- Packaging types/tools -->
 		<maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
 		<maven-war-plugin.version>3.0.0</maven-war-plugin.version>
@@ -67,6 +91,52 @@
 	<build>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.5.3</version>
+					<configuration>
+						<localCheckout>true</localCheckout>
+						<pushChanges>false</pushChanges>
+						<mavenExecutorId>forked-path</mavenExecutorId>
+						<arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.apache.maven.scm</groupId>
+							<artifactId>maven-scm-provider-gitexe</artifactId>
+							<version>1.9.5</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.sonatype.plugins</groupId>
+					<artifactId>nexus-staging-maven-plugin</artifactId>
+					<version>1.6.7</version>
+					<extensions>true</extensions>
+					<configuration>
+						<serverId>ossrh</serverId>
+						<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+						<autoReleaseAfterClose>true</autoReleaseAfterClose>
+					</configuration>
+				</plugin>
+				
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+							<executions>
+						      <execution>
+						          	<id>sign-artifacts</id>
+						          	<phase>verify</phase>
+						          	<goals>
+						            	<goal>sign</goal>
+						          	</goals>
+						        </execution>
+							</executions>
+					</plugin>
+				
 			
 				<!-- == Begin build and reporting plugins == -->
 				<!-- Core plugins: -->
@@ -109,6 +179,10 @@
 				<plugin>
 					<artifactId>maven-verifier-plugin</artifactId>
 					<version>${maven-verifier-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>${maven-gpg-plugin.version}</version>
 				</plugin>
 				<!-- Packaging types/tools: -->
 				<plugin>
@@ -210,5 +284,32 @@
 			
 		</extensions>
 	</build>
+	
+	<profiles>
+		<!-- Enable sign filest -->
+		<profile>
+			<id>with-sign</id>
+			<activation>
+				<!-- Disabled by default: should be triggered manually -->
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-gpg-plugin</artifactId>
+							<executions>
+						      <execution>
+						          	<id>sign-artifacts</id>
+						          	<phase>verify</phase>
+						          	<goals>
+						            	<goal>sign</goal>
+						          	</goals>
+						        </execution>
+							</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>	
 	
 </project>

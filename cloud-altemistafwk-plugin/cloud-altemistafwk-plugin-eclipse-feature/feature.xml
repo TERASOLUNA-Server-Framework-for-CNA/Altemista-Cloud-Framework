@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="terasolunaPlusPlugin"
+      id="cloudAltesmitafwkPlugin"
       label="ALTEMISTA Cloud Framework (ACF) plug-in"
       version="3.0.0.RELEASE"
       provider-name="NTT DATA Corporation">

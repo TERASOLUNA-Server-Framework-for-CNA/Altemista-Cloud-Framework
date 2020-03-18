@@ -4,7 +4,7 @@
 	
 	<groupId>cloud.altemista.fwk.build</groupId>
 	<artifactId>cloud-altemistafwk-build</artifactId>
-	<version>3.0.0-SNAPSHOT</version>
+	<version>3.0.0.RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>cloud-altemistafwk * build script</name>
@@ -68,6 +68,7 @@
 		<!-- == Plugins versions == -->
 		<maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
 		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
+		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 		<!-- <maven-site-plugin.version>3.6</maven-site-plugin.version> -->
 		<jacoco-maven-plugin.version>0.7.7.201606060606</jacoco-maven-plugin.version>
 		<sonar-maven-plugin.version>2.6</sonar-maven-plugin.version>
@@ -112,6 +113,11 @@
 					<artifactId>sonar-maven-plugin</artifactId>
 					<version>${sonar-maven-plugin.version}</version>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>${maven-gpg-plugin.version}</version>
+				</plugin>				
 			</plugins>
 		</pluginManagement>
 		
@@ -124,6 +130,8 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
+			
+			
 			
 			<!-- == Javadoc == -->
 			<!-- <plugin> -->
@@ -162,6 +170,32 @@
 	
 	<profiles>
 	
+			<profile>
+			<!-- mvn -Pcoverage -N -->
+			<id>with-sign</id>
+				<build>
+					<plugins>
+						<plugin>
+					        <groupId>org.apache.maven.plugins</groupId>
+					        <artifactId>maven-gpg-plugin</artifactId>
+					        <version>1.6</version>
+					        <executions>
+					          <execution>
+					            <id>sign-artifacts</id>
+					            <phase>verify</phase>
+					            <goals>
+					              <goal>sign</goal>
+					            </goals>
+					            <configuration>
+					              <keyname>${gpg.keyname}</keyname>
+					              <passphraseServerId>${gpg.keyname}</passphraseServerId>
+					            </configuration>
+					          </execution>
+					        </executions>
+	      				</plugin>
+	      			</plugins>
+	      		</build>
+			</profile>
 		<!-- == Builds and run ACF integration tests == -->
 		<profile>
 			<!-- mvn -Pframework,xxx-environment (e.g.: tomcat-environment) -->

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <description name="TERASOLUNA Server Framework Plus (TSF+) plug-in update-site" url="http://tsfplus.its.everis.com/update-site/">
-      Update site for the TERASOLUNA Server Framework Plus (TSF+) plug-in
+   <description name="ALTEMISTA Cloud Framework (ACF) plug-in update-site" url="http://tsfplus.its.everis.com/update-site/">
+      Update site for the ALTEMISTA Cloud Framework (ACF) plug-in
    </description>
    <feature url="features/terasolunaPlusPlugin_1.0.0.RELEASE.jar" id="terasolunaPlusPlugin" version="1.0.0.RELEASE">
       <category name="terasoluna.plus"/>
@@ -24,8 +24,9 @@
    <feature url="features/terasolunaPlusPlugin_2.0.0.RELEASE.jar" id="terasolunaPlusPlugin" version="2.0.0.RELEASE">
       <category name="terasoluna.plus"/>
    </feature>
-   <feature url="features/terasolunaPlusPlugin_3.0.0.RELEASE.jar" id="terasolunaPlusPlugin" version="3.0.0.RELEASE">
-      <category name="terasoluna.plus"/>
+   <feature url="features/cloudAltemistafwk_3.0.0.RELEASE.jar" id="cloudAltesmitafwkPlugin" version="3.0.0.RELEASE">
+      <category name="cloud.altemistafwk"/>
    </feature>   
    <category-def name="terasoluna.plus" label="TERASOLUNA Server Framework Plus (TSF+)"/>
+   <category-def name="cloud.altemistafwk" label="ALTEMISTA Cloud Framework (ACF)"/>
 </site>
