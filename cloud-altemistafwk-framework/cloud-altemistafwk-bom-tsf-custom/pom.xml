@@ -8,6 +8,7 @@
 	<packaging>pom</packaging>
 	<name>Parent Custom</name>
 	<description>Parent Custom</description>
+	<url>https://terasoluna.everis.com/</url>
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
@@ -1219,4 +1220,31 @@
 		<xws-security.version>3.0</xws-security.version>
 		
 	</properties>
+	
+	<profiles>
+		<!-- Enable sign filest -->
+		<profile>
+			<id>with-sign</id>
+			<activation>
+				<!-- Disabled by default: should be triggered manually -->
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-gpg-plugin</artifactId>
+							<executions>
+						      <execution>
+						          	<id>sign-artifacts</id>
+						          	<phase>verify</phase>
+						          	<goals>
+						            	<goal>sign</goal>
+						          	</goals>
+						        </execution>
+							</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>			
 </project>
