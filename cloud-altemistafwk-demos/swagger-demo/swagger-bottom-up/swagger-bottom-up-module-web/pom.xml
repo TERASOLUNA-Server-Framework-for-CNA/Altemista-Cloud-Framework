@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.mycompany</groupId>
     <artifactId>swagger-bottom-up</artifactId>
-    <version>3.0.1.RELEASE</version>
+    <version>3.1.0.RELEASE</version>
   </parent>
   <artifactId>swagger-bottom-up-module-web</artifactId>
   <name>swagger-bottom-up module web project</name>

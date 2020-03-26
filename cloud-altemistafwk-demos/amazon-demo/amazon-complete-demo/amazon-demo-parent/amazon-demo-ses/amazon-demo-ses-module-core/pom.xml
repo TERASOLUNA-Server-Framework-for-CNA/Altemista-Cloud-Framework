@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.mycompany</groupId>
 		<artifactId>amazon-demo-ses</artifactId>
-		<version>3.0.1.RELEASE</version>
+		<version>3.1.0.RELEASE</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<artifactId>amazon-demo-ses-module-core</artifactId>
@@ -24,7 +24,7 @@
 		<dependency>
 			<groupId>com.mycompany</groupId>
 			<artifactId>amazon-demo-ses-module-common</artifactId>
-			<version>3.0.1.RELEASE</version>
+			<version>3.1.0.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>cloud.altemista.fwk.amazon</groupId>

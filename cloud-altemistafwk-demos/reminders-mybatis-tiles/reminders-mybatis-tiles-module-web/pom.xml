@@ -4,7 +4,7 @@
   <parent>
     <groupId>cloud.altemista.fwk</groupId>
     <artifactId>reminders-mybatis-tiles</artifactId>
-    <version>3.0.1.RELEASE</version>
+    <version>3.1.0.RELEASE</version>
   </parent>
   <artifactId>reminders-mybatis-tiles-module-web</artifactId>
   <name>reminders-mybatis-tiles module web project</name>

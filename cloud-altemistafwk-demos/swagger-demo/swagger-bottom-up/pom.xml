@@ -5,12 +5,12 @@
   <parent>
     <groupId>cloud.altemista.fwk.framework</groupId>
     <artifactId>cloud-altemistafwk-recommended-plugins</artifactId>
-    <version>3.0.1.RELEASE</version>
+    <version>3.1.0.RELEASE</version>
     <relativePath></relativePath>
   </parent>
   <groupId>com.mycompany</groupId>
   <artifactId>swagger-bottom-up</artifactId>
-  <version>3.0.1.RELEASE</version>
+  <version>3.1.0.RELEASE</version>
   <packaging>pom</packaging>
   <name>Application swagger-bottom-up</name>
   <modules>
@@ -31,29 +31,29 @@
       <dependency>
         <groupId>cloud.altemista.fwk.framework</groupId>
         <artifactId>cloud-altemistafwk-bom</artifactId>
-        <version>3.0.1.RELEASE</version>
+        <version>3.1.0.RELEASE</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.mycompany</groupId>
         <artifactId>swagger-bottom-up-env</artifactId>
-        <version>3.0.1.RELEASE</version>
+        <version>3.1.0.RELEASE</version>
       </dependency>
       <dependency>
         <groupId>com.mycompany</groupId>
         <artifactId>swagger-bottom-up-boot</artifactId>
-        <version>3.0.1.RELEASE</version>
+        <version>3.1.0.RELEASE</version>
       </dependency>
       <dependency>
         <groupId>com.mycompany</groupId>
         <artifactId>swagger-bottom-up-module-common</artifactId>
-        <version>3.0.1.RELEASE</version>
+        <version>3.1.0.RELEASE</version>
       </dependency>
       <dependency>
         <groupId>com.mycompany</groupId>
         <artifactId>swagger-bottom-up-module-web</artifactId>
-        <version>3.0.1.RELEASE</version>
+        <version>3.1.0.RELEASE</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
