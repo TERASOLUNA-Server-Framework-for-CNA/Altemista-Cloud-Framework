@@ -4,7 +4,7 @@
 
 	<groupId>cloud.altemista.fwk.framework</groupId>
 	<artifactId>cloud-altemistafwk-documentation-fragment</artifactId>
-	<version>3.0.0.RELEASE</version>
+	<version>3.0.1.RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>cloud-altemistafwk documentation: assembly descriptor for fragments</name>
@@ -81,7 +81,7 @@
 			<id>with-sign</id>
 			<activation>
 				<!-- Disabled by default: should be triggered manually -->
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<build>
 				<plugins>

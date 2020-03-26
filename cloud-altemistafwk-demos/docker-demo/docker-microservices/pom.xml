@@ -5,7 +5,7 @@
 	
 	<groupId>com.mycompany</groupId>
 	<artifactId>new-application-aggrator-ms</artifactId>
-	<version>3.0.0.RELEASE</version>
+	<version>3.0.1.RELEASE</version>
 	<name>Application new-application Microservices Aggregator</name>
 	<packaging>pom</packaging>
   

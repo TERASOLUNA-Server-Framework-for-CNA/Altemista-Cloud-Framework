@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>cloud.altemista.fwk.framework</groupId>
 		<artifactId>cloud-altemistafwk-recommended-plugins</artifactId>
-		<version>3.0.0.RELEASE</version>
+		<version>3.0.1.RELEASE</version>
 		<relativePath></relativePath>
 	</parent>
 	<groupId>cloud.altemista.fwk</groupId>
 	<artifactId>reminders-jpa-jsf</artifactId>
-	<version>3.0.0.RELEASE</version>
+	<version>3.0.1.RELEASE</version>
 	<packaging>pom</packaging>
 	<name>Application reminders-jpa-jsf</name>
 	<modules>
@@ -33,7 +33,7 @@
 			<dependency>
 				<groupId>cloud.altemista.fwk.framework</groupId>
 				<artifactId>cloud-altemistafwk-bom</artifactId>
-				<version>3.0.0.RELEASE</version>
+				<version>3.0.1.RELEASE</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -45,27 +45,27 @@
 			<dependency>
 				<groupId>cloud.altemista.fwk</groupId>
 				<artifactId>reminders-jpa-jsf-env</artifactId>
-				<version>3.0.0.RELEASE</version>
+				<version>3.0.1.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>cloud.altemista.fwk</groupId>
 				<artifactId>reminders-jpa-jsf-webapp</artifactId>
-				<version>3.0.0.RELEASE</version>
+				<version>3.0.1.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>cloud.altemista.fwk</groupId>
 				<artifactId>reminders-jpa-jsf-module-common</artifactId>
-				<version>3.0.0.RELEASE</version>
+				<version>3.0.1.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>cloud.altemista.fwk</groupId>
 				<artifactId>reminders-jpa-jsf-module-core</artifactId>
-				<version>3.0.0.RELEASE</version>
+				<version>3.0.1.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>cloud.altemista.fwk</groupId>
 				<artifactId>reminders-jpa-jsf-module-web</artifactId>
-				<version>3.0.0.RELEASE</version>
+				<version>3.0.1.RELEASE</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

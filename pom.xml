@@ -4,7 +4,7 @@
 	
 	<groupId>cloud.altemista.fwk.build</groupId>
 	<artifactId>cloud-altemistafwk-build</artifactId>
-	<version>3.0.0.RELEASE</version>
+	<version>3.0.1.RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>cloud-altemistafwk * build script</name>
@@ -68,7 +68,6 @@
 		<!-- == Plugins versions == -->
 		<maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
 		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
-		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 		<!-- <maven-site-plugin.version>3.6</maven-site-plugin.version> -->
 		<jacoco-maven-plugin.version>0.7.7.201606060606</jacoco-maven-plugin.version>
 		<sonar-maven-plugin.version>2.6</sonar-maven-plugin.version>
@@ -113,11 +112,6 @@
 					<artifactId>sonar-maven-plugin</artifactId>
 					<version>${sonar-maven-plugin.version}</version>
 				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-gpg-plugin</artifactId>
-					<version>${maven-gpg-plugin.version}</version>
-				</plugin>				
 			</plugins>
 		</pluginManagement>
 		

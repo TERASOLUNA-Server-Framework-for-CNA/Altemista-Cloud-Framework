@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>cloud.altemista.fwk.framework</groupId>
 		<artifactId>cloud-altemistafwk-recommended-plugins</artifactId>
-		<version>3.0.0.RELEASE</version>
+		<version>3.0.1.RELEASE</version>
 		<relativePath>../cloud-altemistafwk-recommended-plugins</relativePath>
 	</parent>
 
@@ -286,7 +286,7 @@
 			<id>with-sign</id>
 			<activation>
 				<!-- Disabled by default: should be triggered manually -->
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<build>
 				<plugins>

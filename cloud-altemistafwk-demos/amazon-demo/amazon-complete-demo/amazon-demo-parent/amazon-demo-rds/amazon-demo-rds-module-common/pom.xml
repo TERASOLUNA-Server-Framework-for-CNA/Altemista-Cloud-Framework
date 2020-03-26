@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.mycompany</groupId>
 		<artifactId>amazon-demo-rds</artifactId>
-		<version>3.0.0.RELEASE</version>
+		<version>3.0.1.RELEASE</version>
 		<relativePath>..</relativePath>
 	</parent>
 

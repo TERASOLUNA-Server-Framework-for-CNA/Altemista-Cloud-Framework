@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>cloud.altemista.fwk.demo</groupId>
 		<artifactId>AltemistaMoviesGateway</artifactId>
-		<version>3.0.0.RELEASE</version>
+		<version>3.0.1.RELEASE</version>
 	</parent>
 	
 	<artifactId>AltemistaMoviesGateway-boot</artifactId>

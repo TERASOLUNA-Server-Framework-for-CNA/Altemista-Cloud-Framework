@@ -12,7 +12,7 @@
 	
 	<groupId>com.mycompany</groupId>
 	<artifactId>new-application-tomcat-test</artifactId>
-	<version>3.0.0.RELEASE</version>
+	<version>3.0.1.RELEASE</version>
 	<name>Application new-application-tomcat-test</name>
 	<packaging>pom</packaging>
   
@@ -43,12 +43,12 @@
 			<dependency>
 				<groupId>com.mycompany</groupId>
 				<artifactId>new-application-tomcat-test-env</artifactId>
-				<version>3.0.0.RELEASE</version>
+				<version>3.0.1.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>com.mycompany</groupId>
 				<artifactId>new-application-tomcat-test-boot</artifactId>
-				<version>3.0.0.RELEASE</version>
+				<version>3.0.1.RELEASE</version>
 			</dependency>
 			<!-- == End new-application-tomcat-test application == -->
 			
