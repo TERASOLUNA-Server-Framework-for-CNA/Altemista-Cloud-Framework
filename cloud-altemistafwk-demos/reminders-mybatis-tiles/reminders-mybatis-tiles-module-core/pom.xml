@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>cloud.altemista.fwk</groupId>
 		<artifactId>reminders-mybatis-tiles</artifactId>
-		<version>3.0.1.RELEASE</version>
+		<version>3.1.0.RELEASE</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<artifactId>reminders-mybatis-tiles-module-core</artifactId>
@@ -55,6 +55,10 @@
 			<groupId>cloud.altemista.fwk.async</groupId>
 			<artifactId>cloud-altemistafwk-core-async</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+      		<artifactId>spring-security-core</artifactId>
+     	</dependency>   		
 	</dependencies>
 	<build />
 	<profiles>

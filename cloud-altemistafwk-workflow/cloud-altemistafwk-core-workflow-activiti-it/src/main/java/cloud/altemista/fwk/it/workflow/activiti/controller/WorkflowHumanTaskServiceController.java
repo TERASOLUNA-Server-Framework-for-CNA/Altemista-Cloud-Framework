@@ -39,7 +39,7 @@ public class WorkflowHumanTaskServiceController {
 	public static final String MAPPING = "/workflowHumanTaskService";
 	
 	/** No pagination */
-	private static final Pageable NO_PAGINATION = new PageRequest(0, Integer.MAX_VALUE);
+	private static final Pageable NO_PAGINATION = new PageRequest.of(0, Integer.MAX_VALUE);
 	
 	/** The human task service */
 	@Autowired

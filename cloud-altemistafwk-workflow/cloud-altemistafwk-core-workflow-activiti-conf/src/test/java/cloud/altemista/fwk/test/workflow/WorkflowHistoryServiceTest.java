@@ -52,7 +52,7 @@ public class WorkflowHistoryServiceTest extends AbstractSpringContextTest {
 	private static final String DEFINITION_ID = "oneTaskProcess";
 	
 	/** No pagination */
-	private static final Pageable NO_PAGINATION = new PageRequest(0, Integer.MAX_VALUE);
+	private static final Pageable NO_PAGINATION = PageRequest.of(0, Integer.MAX_VALUE);
 	
 	/** Allows sharing the process instance ID between @Before, @Test and @After methods */
 	private final ThreadLocal<String> tlProcessInstanceId = new ThreadLocal<String>();
@@ -141,7 +141,7 @@ public class WorkflowHistoryServiceTest extends AbstractSpringContextTest {
 				WorkflowHistoryService.DURATION_DESC }) {
 			
 			// First page
-			Pageable pageable = new PageRequest(0, 5, new Sort(order));
+			Pageable pageable = PageRequest.of(0, 5, Sort.by(order));
 			Page<WorkflowHistoricProcessInstance> page = this.historyService.findAllProcessInstances(pageable);
 			Assert.assertNotNull(page);
 		}

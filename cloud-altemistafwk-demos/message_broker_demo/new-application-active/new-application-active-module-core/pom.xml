@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.mycompany</groupId>
     <artifactId>new-application-active</artifactId>
-    <version>3.0.1.RELEASE</version>
+    <version>3.1.0.RELEASE</version>
     <relativePath>..</relativePath>
   </parent>
   <artifactId>new-application-active-module-core</artifactId>

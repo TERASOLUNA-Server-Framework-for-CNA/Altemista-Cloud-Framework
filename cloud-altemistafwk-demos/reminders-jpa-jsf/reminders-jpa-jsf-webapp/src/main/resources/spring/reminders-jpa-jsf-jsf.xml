@@ -9,7 +9,7 @@
  	<bean name="webCodeList" id="CL_I18N_PRICE" class="cloud.altemista.fwk.core.i18n.PropertiesI18nCodeList">
 		<property name="basenames">
 			<list>
-				<value>config.i18n.codelist.price.</value>
+				<value>config.i18n.</value>
 			</list>
 		</property>
 		<property name="defaultLocale" value="${application.defaultLocale:en}"/>

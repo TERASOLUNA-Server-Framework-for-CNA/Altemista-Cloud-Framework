@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.mycompany</groupId>
     <artifactId>new-application-database</artifactId>
-    <version>3.0.1.RELEASE</version>
+    <version>3.1.0.RELEASE</version>
   </parent>
   <artifactId>new-application-database-boot</artifactId>
   <name>new-application-database Spring Boot aggregator project</name>

@@ -15,10 +15,11 @@ package cloud.altemista.fwk.config.boot;
  */
 
 
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+//import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.*;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
@@ -41,7 +42,8 @@ import org.terasoluna.gfw.web.exception.ExceptionLoggingFilter;
  * @author NTT DATA
  * @see CloudAltemistafwkApplicationBuilder
  */
-@SpringBootApplication(exclude = {
+@SpringBootApplication
+@EnableAutoConfiguration(exclude = {
 		DataSourceAutoConfiguration.class,
 		DataSourceTransactionManagerAutoConfiguration.class,
 		OAuth2ClientAutoConfiguration.class

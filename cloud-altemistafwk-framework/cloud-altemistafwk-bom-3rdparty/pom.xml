@@ -4,7 +4,7 @@
 
 	<groupId>cloud.altemista.fwk.framework</groupId>
 	<artifactId>cloud-altemistafwk-bom-3rdparty</artifactId>
-	<version>3.0.1.RELEASE</version>
+	<version>3.1.0.RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>cloud-altemistafwk framework: 3rd parties bill of materials</name>
@@ -51,8 +51,8 @@
 		<drools.version>6.5.0.Final</drools.version>
 		<hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version>
 		<itextpdf.version>5.5.9</itextpdf.version><!-- TBD: investigate iText 7.0.2 -->
-		<jasperreports-fonts.version>6.0.0</jasperreports-fonts.version>
-		<jasperreports.version>6.5.1</jasperreports.version>
+		<jasperreports-fonts.version>6.12.0</jasperreports-fonts.version>
+		<jasperreports.version>6.12.0</jasperreports.version>
 		<itext.version>4.2.1</itext.version>
 		<javax-annotation.version>1.2</javax-annotation.version>
 		<javax-jms.version>2.0.1</javax-jms.version>
@@ -68,16 +68,16 @@
 			in jasperreports -->
 		<primefaces.version>6.0</primefaces.version>
 		<primefaces-themes-bootstrap.version>1.0.10</primefaces-themes-bootstrap.version>
-		<spring.cloud.version>Finchley.SR1</spring.cloud.version>
+		<spring.cloud.version>Hoxton.SR1</spring.cloud.version>
 		<spring.cloud.dashboard.version>1.1.0.RELEASE</spring.cloud.dashboard.version>
 		<spring.integration.version>4.3.17.RELEASE</spring.integration.version>
 		<spring-security-rsa.version>1.0.3.RELEASE</spring-security-rsa.version>
 		<zipkin.server.version>2.11.7</zipkin.server.version>
 		<zipkin.autoconfigure.ui.version>2.11.7</zipkin.autoconfigure.ui.version>
 
-		<spring.swagger.version>2.8.0</spring.swagger.version>
+		<spring.swagger.version>2.9.2</spring.swagger.version>
 		<activeMQ.version>5.5.1</activeMQ.version>
-		<commons.codec.version>1.11</commons.codec.version>
+		<commons.codec.version>1.13</commons.codec.version>
 		
 		<spring.azure.starter.storage.version>1.0.0.M2</spring.azure.starter.storage.version>
 		<azure.key.vault.spring.boot.version>2.1.6</azure.key.vault.spring.boot.version>
@@ -89,19 +89,29 @@
 		<thymeleaf.spring5.version>3.0.11.RELEASE</thymeleaf.spring5.version>
 		<!-- == Other libraries versions (test) == -->
 		<dumbster.version>1.9.0.2</dumbster.version>
+		<sun-mail.version>1.6.1</sun-mail.version>
+		
+		<boom-tsf.version>3.1.0.RELEASE</boom-tsf.version>
+		<stream-binder.version>2.0.1.RELEASE</stream-binder.version>
+		<kafka-clients.version>1.1.1</kafka-clients.version>
+		<spring-integration-kafka.version>3.0.0.RELEASE</spring-integration-kafka.version>
+		
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
-
-			<!-- == Begin Terasoluna Server Framework for Java == -->
 			<dependency>
-				<groupId>org.terasoluna.gfw</groupId>
-				<artifactId>terasoluna-gfw-parent</artifactId>
+				<groupId>cloud.altemista.fwk.framework</groupId>
+				<artifactId>cloud-altemistafwk-bom-tsf-custom</artifactId>
 				<type>pom</type>
-				<version>${terasoluna.version}</version>
 				<scope>import</scope>
+				<version>${boom-tsf.version}</version>
 			</dependency>
+			<dependency>
+                <groupId>com.sun.mail</groupId>
+                <artifactId>javax.mail</artifactId>
+                <version>${sun-mail.version}</version>
+            </dependency>
 			<!-- == End Terasoluna Server Framework for Java == -->
 
 			<!-- == Begin Java standard extensions == -->
@@ -392,22 +402,22 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
-				<version>2.0.1.RELEASE</version>
+				<version>${stream-binder.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-stream-binder-kafka</artifactId>
-				<version>2.0.1.RELEASE</version>
+				<version>${stream-binder.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.kafka</groupId>
 				<artifactId>kafka-clients</artifactId>
-				<version>1.1.1</version>
+				<version>${kafka-clients.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.integration</groupId>
 				<artifactId>spring-integration-kafka</artifactId>
-				<version>3.0.0.RELEASE</version>
+				<version>${spring-integration-kafka.version}</version>
 			</dependency>
 			<!-- End Spring Cloud Stream libraries -->
 			<!-- Begin Azure libraries -->

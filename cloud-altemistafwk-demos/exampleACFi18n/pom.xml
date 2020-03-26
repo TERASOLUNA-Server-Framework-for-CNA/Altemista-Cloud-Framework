@@ -6,13 +6,13 @@
 	<parent>
 		<groupId>cloud.altemista.fwk.framework</groupId>
 		<artifactId>cloud-altemistafwk-recommended-plugins</artifactId>
-		<version>3.0.1.RELEASE</version>
+		<version>3.1.0.RELEASE</version>
 		<relativePath/>
 	</parent>
 	
 	<groupId>com.mycompany</groupId>
 	<artifactId>exampleACFi18n</artifactId>
-	<version>3.0.1.RELEASE</version>
+	<version>3.1.0.RELEASE</version>
 	<name>Application exampleACFi18n</name>
 	<packaging>pom</packaging>
   
@@ -33,7 +33,7 @@
 			<dependency>
 				<groupId>cloud.altemista.fwk.framework</groupId>
 				<artifactId>cloud-altemistafwk-bom</artifactId>
-				<version>3.0.1.RELEASE</version>
+				<version>3.1.0.RELEASE</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -43,12 +43,12 @@
 			<dependency>
 				<groupId>com.mycompany</groupId>
 				<artifactId>exampleACFi18n-env</artifactId>
-				<version>3.0.1.RELEASE</version>
+				<version>3.1.0.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>com.mycompany</groupId>
 				<artifactId>exampleACFi18n-webapp</artifactId>
-				<version>3.0.1.RELEASE</version>
+				<version>3.1.0.RELEASE</version>
 			</dependency>
 			<!-- == End exampleACFi18n application == -->
 			

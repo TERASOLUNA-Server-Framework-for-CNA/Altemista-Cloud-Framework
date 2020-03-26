@@ -5,12 +5,12 @@
   <parent>
     <groupId>cloud.altemista.fwk.framework</groupId>
     <artifactId>cloud-altemistafwk-recommended-plugins</artifactId>
-    <version>3.0.1.RELEASE</version>
+    <version>3.1.0.RELEASE</version>
     <relativePath></relativePath>
   </parent>
   <groupId>com.mycompany</groupId>
   <artifactId>amazon-demo-rds</artifactId>
-  <version>3.0.1.RELEASE</version>
+  <version>3.1.0.RELEASE</version>
   <packaging>pom</packaging>
   <name>Application amazon-demo-rds</name>
   <modules>
@@ -29,19 +29,19 @@
       <dependency>
         <groupId>cloud.altemista.fwk.framework</groupId>
         <artifactId>cloud-altemistafwk-bom</artifactId>
-        <version>3.0.1.RELEASE</version>
+        <version>3.1.0.RELEASE</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.mycompany</groupId>
         <artifactId>amazon-demo-rds-module-common</artifactId>
-        <version>3.0.1.RELEASE</version>
+        <version>3.1.0.RELEASE</version>
       </dependency>
       <dependency>
         <groupId>com.mycompany</groupId>
         <artifactId>amazon-demo-rds-module-core</artifactId>
-        <version>3.0.1.RELEASE</version>
+        <version>3.1.0.RELEASE</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
