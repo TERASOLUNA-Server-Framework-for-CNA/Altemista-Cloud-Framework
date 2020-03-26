@@ -4,7 +4,7 @@
 
 	<groupId>cloud.altemista.fwk.framework</groupId>
 	<artifactId>cloud-altemistafwk-bom-3rdparty</artifactId>
-	<version>3.0.0.RELEASE</version>
+	<version>3.0.1.RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>cloud-altemistafwk framework: 3rd parties bill of materials</name>

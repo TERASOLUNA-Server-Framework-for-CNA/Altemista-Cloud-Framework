@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.mycompany</groupId>
 		<artifactId>amazon-demo</artifactId>
-		<version>3.0.0.RELEASE</version>
+		<version>3.0.1.RELEASE</version>
 	</parent>
 
 	<artifactId>amazon-demo-boot</artifactId>
@@ -24,29 +24,29 @@
 		<dependency>
 			<groupId>com.mycompany</groupId>
 			<artifactId>amazon-demo-env</artifactId>
-			<version>3.0.0.RELEASE</version>
+			<version>3.0.1.RELEASE</version>
 		</dependency>
 		<!-- == End amazon-demo application == -->
 
 		<dependency>
 			<groupId>com.mycompany</groupId>
 			<artifactId>amazon-demo-s3-module-core</artifactId>
-			<version>3.0.0.RELEASE</version>
+			<version>3.0.1.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>com.mycompany</groupId>
 			<artifactId>amazon-demo-ses-module-core</artifactId>
-			<version>3.0.0.RELEASE</version>
+			<version>3.0.1.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>com.mycompany</groupId>
 			<artifactId>amazon-demo-rds-module-core</artifactId>
-			<version>3.0.0.RELEASE</version>
+			<version>3.0.1.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>com.mycompany</groupId>
 			<artifactId>amazon-demo-sqs-module-core</artifactId>
-			<version>3.0.0.RELEASE</version>
+			<version>3.0.1.RELEASE</version>
 		</dependency>
 
 	</dependencies>

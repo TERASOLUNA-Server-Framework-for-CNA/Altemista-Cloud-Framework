@@ -7,13 +7,13 @@
 	<parent>
 		<groupId>cloud.altemista.fwk.framework</groupId>
 		<artifactId>cloud-altemistafwk-recommended-plugins</artifactId>
-		<version>3.0.0.RELEASE</version>
+		<version>3.0.1.RELEASE</version>
 		<relativePath />
 	</parent>
 
 	<groupId>com.mycompany</groupId>
 	<artifactId>amazon-demo-parent</artifactId>
-	<version>3.0.0.RELEASE</version>
+	<version>3.0.1.RELEASE</version>
 	<name>Application amazon-demo-parent</name>
 	<packaging>pom</packaging>
 
@@ -34,7 +34,7 @@
 			<dependency>
 				<groupId>cloud.altemista.fwk.framework</groupId>
 				<artifactId>cloud-altemistafwk-bom</artifactId>
-				<version>3.0.0.RELEASE</version>
+				<version>3.0.1.RELEASE</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -42,27 +42,27 @@
 			<dependency>
 				<groupId>com.mycompany</groupId>
 				<artifactId>amazon-demo</artifactId>
-				<version>3.0.0.RELEASE</version>
+				<version>3.0.1.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>com.mycompany</groupId>
 				<artifactId>amazon-demo-s3</artifactId>
-				<version>3.0.0.RELEASE</version>
+				<version>3.0.1.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>com.mycompany</groupId>
 				<artifactId>amazon-demo-ses</artifactId>
-				<version>3.0.0.RELEASE</version>
+				<version>3.0.1.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>com.mycompany</groupId>
 				<artifactId>amazon-demo-sqs</artifactId>
-				<version>3.0.0.RELEASE</version>
+				<version>3.0.1.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>com.mycompany</groupId>
 				<artifactId>amazon-demo-rds</artifactId>
-				<version>3.0.0.RELEASE</version>
+				<version>3.0.1.RELEASE</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

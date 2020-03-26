@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.mycompany</groupId>
     <artifactId>new-application-sqs</artifactId>
-    <version>3.0.0.RELEASE</version>
+    <version>3.0.1.RELEASE</version>
   </parent>
   <artifactId>new-application-sqs-env</artifactId>
   <name>new-application-sqs shared environment project</name>

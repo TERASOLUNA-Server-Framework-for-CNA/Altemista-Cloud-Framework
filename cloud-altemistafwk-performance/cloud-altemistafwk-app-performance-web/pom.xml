@@ -5,7 +5,7 @@
 	<parent>
 		<artifactId>cloud-altemistafwk-parent</artifactId>
 		<groupId>cloud.altemista.fwk.framework</groupId>
-		<version>3.0.0.RELEASE</version>
+		<version>3.0.1.RELEASE</version>
 		<relativePath/>
 	</parent>
 	<groupId>cloud.altemista.fwk.performance</groupId>

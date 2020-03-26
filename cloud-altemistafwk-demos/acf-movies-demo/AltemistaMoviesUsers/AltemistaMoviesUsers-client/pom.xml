@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>cloud.altemista.fwk.demo</groupId>
 		<artifactId>AltemistaMoviesUsers</artifactId>
-		<version>3.0.0.RELEASE</version>
+		<version>3.0.1.RELEASE</version>
 		<relativePath>..</relativePath>
 	</parent>
 
