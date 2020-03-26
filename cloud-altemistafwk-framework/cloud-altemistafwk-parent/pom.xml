@@ -286,7 +286,7 @@
 			<id>with-sign</id>
 			<activation>
 				<!-- Disabled by default: should be triggered manually -->
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<build>
 				<plugins>
