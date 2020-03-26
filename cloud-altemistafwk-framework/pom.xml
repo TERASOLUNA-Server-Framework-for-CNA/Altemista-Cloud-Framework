@@ -25,6 +25,7 @@
 				<module>cloud-altemistafwk-parent</module>
 				<module>cloud-altemistafwk-bom</module>
 				<module>cloud-altemistafwk-bom-3rdparty</module>
+				<module>cloud-altemistafwk-bom-tsf-custom</module>
 			</modules>
 		</profile>
 	

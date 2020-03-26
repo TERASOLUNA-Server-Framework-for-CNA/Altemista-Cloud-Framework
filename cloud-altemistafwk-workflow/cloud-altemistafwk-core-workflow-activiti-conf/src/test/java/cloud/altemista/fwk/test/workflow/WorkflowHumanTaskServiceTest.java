@@ -69,7 +69,7 @@ public class WorkflowHumanTaskServiceTest extends AbstractSpringContextTest {
 	private static final String USER_ID = "john_doe";
 	
 	/** No pagination */
-	private static final Pageable NO_PAGINATION = new PageRequest(0, Integer.MAX_VALUE);
+	private static final Pageable NO_PAGINATION = PageRequest.of(0, Integer.MAX_VALUE);
 	
 	/** Allows sharing the process instance ID between @Before, @Test and @After methods */
 	private final ThreadLocal<String> tlProcessInstanceId = new ThreadLocal<String>();
@@ -117,7 +117,7 @@ public class WorkflowHumanTaskServiceTest extends AbstractSpringContextTest {
 	public void testfindTasks() {
 		
 		// First page
-		Pageable pageable = new PageRequest(0, 3);
+		Pageable pageable = PageRequest.of(0, 3);
 		Page<WorkflowTask> page = this.taskService.findTasks(pageable);
 		Assert.assertNotNull(page);
 		Assert.assertFalse(page.getContent().isEmpty());
@@ -163,7 +163,7 @@ public class WorkflowHumanTaskServiceTest extends AbstractSpringContextTest {
 				WorkflowHumanTaskService.CREATION_DATE_DESC }) {
 			
 			// First page
-			Pageable pageable = new PageRequest(0, 5, new Sort(order));
+			Pageable pageable = PageRequest.of(0, 5, Sort.by(order));
 			Page<WorkflowTask> page = this.taskService.findCandidateTasks(pageable);
 			Assert.assertNotNull(page);
 		}

@@ -69,7 +69,7 @@ public class RecipeRepositoryTest extends AbstractPersistenceTest {
 		long count = (int) (this.repository.count());
 		Assume.assumeTrue(count != 0L);
 		
-		Page<Recipe> page = this.repository.findAll(new PageRequest(1, 1));
+		Page<Recipe> page = this.repository.findAll(PageRequest.of(1, 1));
 		Assert.assertNotNull(page);
 		Assert.assertEquals(1, page.getSize());
 		Assert.assertEquals(1, page.getNumberOfElements());

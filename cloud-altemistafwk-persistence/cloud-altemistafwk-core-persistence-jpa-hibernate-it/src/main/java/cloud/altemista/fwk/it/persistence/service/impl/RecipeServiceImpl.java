@@ -66,7 +66,7 @@ public class RecipeServiceImpl implements RecipeService {
 			return;
 		}
 		
-		Page<Recipe> page = this.repository.findAll(new PageRequest(1, 1));
+		Page<Recipe> page = this.repository.findAll(PageRequest.of(1, 1));
 		ITControllerUtil.assertNotNull(page);
 		ITControllerUtil.assertEquals(1, page.getSize());
 		ITControllerUtil.assertEquals(1, page.getNumberOfElements());

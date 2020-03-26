@@ -115,6 +115,6 @@ public class ExampleController {
 	@ResponseBody
 	public Page<DemoTable> methodWithDatabaseSelectPageable() {
 		
-		return this.service.methodWithDatabaseSelect(new PageRequest(0, 10));
+		return this.service.methodWithDatabaseSelect(PageRequest.of(0, 10));
 	}
 }
