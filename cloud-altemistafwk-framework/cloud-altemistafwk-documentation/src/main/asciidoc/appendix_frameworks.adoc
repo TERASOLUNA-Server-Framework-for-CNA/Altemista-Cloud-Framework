@@ -6,24 +6,23 @@
 |===
 ^.^|Feature 2+^|Framework or library |Version
 
-.10+^.^|{framework} core
+.9+^.^|{framework} core
 ^.^|image:cloud-altemistafwk-documentation/frameworks/terasoluna.png[align="center"] |TERASOLUNA Server Framework for Java |5.5.0.RELEASE
-^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring IO Platform    |Cairo-SR3
-^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring Framework    |5.0.8.RELEASE
-^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring Boot    |2.0.4.RELEASE
+^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring Framework    |5.2.3.RELEASE
+^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring Boot    |2.2.4.RELEASE
 ^.^|image:cloud-altemistafwk-documentation/frameworks/apache-commons.jpg[align="center"] |Apache Commons Collections |4.1
-^.^|image:cloud-altemistafwk-documentation/frameworks/apache-commons.jpg[align="center"] |Apache Commons FileUpload |1.3.2
-^.^|image:cloud-altemistafwk-documentation/frameworks/apache-commons.jpg[align="center"] |Apache Commons IO |2.5
-^.^|image:cloud-altemistafwk-documentation/frameworks/apache-commons.jpg[align="center"] |Apache Commons Lang |3.4
+^.^|image:cloud-altemistafwk-documentation/frameworks/apache-commons.jpg[align="center"] |Apache Commons FileUpload |1.3.3
+^.^|image:cloud-altemistafwk-documentation/frameworks/apache-commons.jpg[align="center"] |Apache Commons IO |2.6
+^.^|image:cloud-altemistafwk-documentation/frameworks/apache-commons.jpg[align="center"] |Apache Commons Lang |3.9
 ^.^|image:cloud-altemistafwk-documentation/frameworks/aspectj.jpg[align="center"] |AspectJ |1.8.13
-^.^|image:cloud-altemistafwk-documentation/frameworks/json.png[align="center"] |Jackson JSON processor |2.8.5
+^.^|image:cloud-altemistafwk-documentation/frameworks/json.png[align="center"] |Jackson JSON processor |2.10.1
 
 .2+^.^|Logging
-^.^|image:cloud-altemistafwk-documentation/frameworks/slf4j.jpg[align="center"] |Simple Logging Facade for Java (SLF4J) |1.7.22
+^.^|image:cloud-altemistafwk-documentation/frameworks/slf4j.jpg[align="center"] |Simple Logging Facade for Java (SLF4J) |1.7.29
 ^.^|image:cloud-altemistafwk-documentation/frameworks/logback.png[align="center"] |Logback |1.2.3
 
 ^.^|Batch processing
-^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring Batch |4.0.1.RELEASE
+^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring Batch |4.2.1.RELEASE
 
 ^.^|Business process management (BPM)
 ^.^|image:cloud-altemistafwk-documentation/frameworks/activiti.png[align="center"] |Activiti BPM Platform |5.22.0
@@ -42,53 +41,53 @@
 ^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring Security RSA |1.0.3.RELEASE
 
 ^.^|Integration
-^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring Integration |5.0.7.RELEASE
+^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring Integration |5.2.3.RELEASE
 
 ^.^|Mail server
 ^.^|image:cloud-altemistafwk-documentation/frameworks/javamail.png[align="center"] |JavaMail API |1.6.1
 
 .2+^.^|Message broker
 ^.^|image:cloud-altemistafwk-documentation/frameworks/rabbit.png[align="center"] |RabbitMQ |3.6.6
-^.^|image:cloud-altemistafwk-documentation/frameworks/activeMQ.png[align="center"] |ActiveMQ |5.5.1
+^.^|image:cloud-altemistafwk-documentation/frameworks/activeMQ.png[align="center"] |ActiveMQ |5.15.11
 
 ^.^|Microservices Cloud
-^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring Cloud |Finchley.SR1
+^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring Cloud |Hoxton.SR1
 
 .8+^.^|Persistence
 ^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring Data |Hopper-SR6
 ^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring Data REST |Hopper-SR6
-^.^|image:cloud-altemistafwk-documentation/frameworks/hibernate.png[align="center"] |Hibernate ORM |5.0.11.Final
+^.^|image:cloud-altemistafwk-documentation/frameworks/hibernate.png[align="center"] |Hibernate ORM |5.4.10.Final
 ^.^|image:cloud-altemistafwk-documentation/frameworks/mybatis.png[align="center"] |MyBatis |3.4.2
 ^.^|image:cloud-altemistafwk-documentation/frameworks/mybatis.png[align="center"] |MyBatis Spring |1.3.1
 ^.^|image:cloud-altemistafwk-documentation/frameworks/mybatis.png[align="center"] |MyBatis Generator |1.3.2
-^.^|image:cloud-altemistafwk-documentation/frameworks/mongodb.png[align="center"] |MongoDB |3.2.2
+^.^|image:cloud-altemistafwk-documentation/frameworks/mongodb.png[align="center"] |MongoDB |3.11.2
 ^.^|image:cloud-altemistafwk-documentation/frameworks/querydsl.png[align="center"] |QueryDSL |4.1.4
 
 .4+^.^|Presentation Layer
 ^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring Web Flow |2.5.0.RELEASE
 ^.^|image:cloud-altemistafwk-documentation/frameworks/tiles.png[align="center"] |Apache Tiles |3.0.7
 ^.^|image:cloud-altemistafwk-documentation/frameworks/primefaces.png[align="center"] |PrimeFaces |6.0
-^.^|image:cloud-altemistafwk-documentation/frameworks/thymleaf.png[align="center"] |Thymleaf |3.0.9.RELEASE
+^.^|image:cloud-altemistafwk-documentation/frameworks/thymleaf.png[align="center"] |Thymleaf |3.10.11.RELEASE
 
 .3+^.^|Reporting
-^.^|image:cloud-altemistafwk-documentation/frameworks/jasperreports.png[align="center"] |JasperReports |6.3.1
+^.^|image:cloud-altemistafwk-documentation/frameworks/jasperreports.png[align="center"] |JasperReports |6.12.0
 ^.^|image:cloud-altemistafwk-documentation/frameworks/apache-poi.png[align="center"] |Apache POI |3.14
 ^.^|image:cloud-altemistafwk-documentation/frameworks/itext.png[align="center"] |iText PDF |5.5.9
 
 ^.^|Security
-^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring Security |4.1.4.RELEASE
+^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring Security |5.2.1.RELEASE
 
 .3+^.^|Spring cloud stream
-^.^|image:cloud-altemistafwk-documentation/frameworks/kafka.png[align="center"] |Kafka |2.1.18.RELEASE
+^.^|image:cloud-altemistafwk-documentation/frameworks/kafka.png[align="center"] |Kafka |3.0.0.RELEASE
 ^.^|image:cloud-altemistafwk-documentation/frameworks/rabbit.png[align="center"] |RabbitMQ |2.0.5.RELEASE
 ^.^|image:cloud-altemistafwk-documentation/frameworks/spring.png[align="center"] |Spring Cloud Bus |Finchley.SR1
 
 .2+^.^|SOAP web service
 ^.^|image:cloud-altemistafwk-documentation/frameworks/cxf.png[align="center"] |Apache CXF |3.1.11
-^.^|image:cloud-altemistafwk-documentation/frameworks/apache-commons.jpg[align="center"] |Apache WSS4J |2.1.8
+^.^|image:cloud-altemistafwk-documentation/frameworks/apache-commons.jpg[align="center"] |Apache WSS4J |2.2.2
 
 ^.^|Swagger
-^.^|image:cloud-altemistafwk-documentation/frameworks/swagger.png[align="center"] |Swagger |2.8.0
+^.^|image:cloud-altemistafwk-documentation/frameworks/swagger.png[align="center"] |Swagger |2.9.2
 
 .4+^.^|Amazon
 ^.^|image:cloud-altemistafwk-documentation/frameworks/amazon.png[align="center"] |S3 |2.0.0.RELEASE
